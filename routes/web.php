@@ -58,6 +58,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::put('/anggota/{id}', [MemberController::class, 'update'])->name('members.update');
     Route::delete('/anggota/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
     Route::post('/anggota/{id}/toggle-status', [MemberController::class, 'toggleStatus'])->name('members.toggle');
+    Route::post('/anggota/toggle-publik', [MemberController::class, 'togglePublicDirectory'])->name('members.toggle-public');
 
     // Modul Media
     Route::get('/media', [MediaController::class, 'index'])->name('media.index');

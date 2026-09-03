@@ -81,7 +81,20 @@ class DashboardController extends Controller
             $title = 'REKAPITULASI SELURUH DATA ANGGOTA PWI KABUPATEN BANYUASIN';
         }
 
-        $members = $query->orderBy('nama', 'asc')->get();
+        $orderSql = "CASE 
+            WHEN UPPER(TRIM(jabatan)) = 'KETUA' THEN 1
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL KETUA%' THEN 2
+            WHEN UPPER(TRIM(jabatan)) = 'SEKRETARIS' THEN 3
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL SEKRETARIS%' THEN 4
+            WHEN UPPER(TRIM(jabatan)) = 'BENDAHARA' THEN 5
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL BENDAHARA%' THEN 6
+            WHEN UPPER(TRIM(jabatan)) LIKE 'KABID%' THEN 7
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKABID%' THEN 8
+            WHEN UPPER(TRIM(jabatan)) LIKE 'ANGGOTA BID%' THEN 9
+            WHEN UPPER(TRIM(jabatan)) != 'ANGGOTA' THEN 10
+            ELSE 20 END";
+
+        $members = $query->orderByRaw($orderSql)->orderBy('nama', 'asc')->get();
         $settings = Setting::pluck('value', 'key')->toArray();
 
         return view('admin.members.print-report', compact('members', 'title', 'settings', 'tingkat'));

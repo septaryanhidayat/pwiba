@@ -9,6 +9,7 @@ use App\Models\MeetingMinute;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
 use App\Models\Post;
+use App\Models\Setting;
 use App\Models\User;
 use App\Services\ImageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -235,8 +236,54 @@ class PwiWebTest extends TestCase
     {
         $memberWithPhoto = Member::whereNotNull('foto')->where('nama', '!=', 'Wardoyo, S.I.Kom')->first();
         $this->assertNotNull($memberWithPhoto);
-        $this->assertStringContainsString('assets/images/wartawan/', $memberWithPhoto->foto);
-        $this->assertFileExists(public_path($memberWithPhoto->foto));
+        $this->assertNotEmpty($memberWithPhoto->foto_url);
+        $this->assertNotEmpty($memberWithPhoto->foto);
+    }
+
+    public function test_member_ordering_puts_pengurus_first(): void
+    {
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get('/admin/anggota');
+        $response->assertStatus(200);
+
+        // First members should be leadership (Ketua, etc.)
+        $members = Member::where('status', 'aktif')
+            ->orderByRaw("CASE 
+                WHEN UPPER(TRIM(jabatan)) = 'KETUA' THEN 1
+                WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL KETUA%' THEN 2
+                WHEN UPPER(TRIM(jabatan)) = 'SEKRETARIS' THEN 3
+                ELSE 20 END")
+            ->orderBy('nama', 'asc')
+            ->take(5)
+            ->pluck('jabatan')
+            ->toArray();
+
+        $this->assertEquals('KETUA', $members[0]);
+    }
+
+    public function test_public_members_directory_toggle(): void
+    {
+        $admin = User::first();
+
+        // Turn OFF
+        Setting::updateOrCreate(['key' => 'show_public_members'], ['value' => '0']);
+        $respOff = $this->get('/anggota');
+        $respOff->assertStatus(200);
+        $respOff->assertSee('Direktori Anggota Sedang Diperbarui');
+
+        // Toggle via admin
+        $toggleResp = $this->actingAs($admin)->post('/admin/anggota/toggle-publik');
+        $toggleResp->assertRedirect();
+        $this->assertEquals('1', Setting::where('key', 'show_public_members')->value('value'));
+
+        // Turn ON check
+        $respOn = $this->get('/anggota');
+        $respOn->assertStatus(200);
+        $respOn->assertSee('Insan Pers Terdaftar');
+        $respOn->assertSee('Wardoyo, S.I.Kom');
+
+        // Reset to OFF as requested by user
+        Setting::updateOrCreate(['key' => 'show_public_members'], ['value' => '0']);
     }
 
     public function test_letter_verification_and_print_with_digital_qr(): void

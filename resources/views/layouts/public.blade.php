@@ -267,9 +267,11 @@
                     <a href="{{ route('gallery.public') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Galeri
                     </a>
+                    @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
                     <a href="{{ route('members.public') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Anggota
                     </a>
+                    @endif
                     <a href="{{ route('home') }}#bukutamu" class="px-3 py-2 text-sm font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-colors">
                         Buku Tamu
                     </a>
@@ -325,7 +327,9 @@
             <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah</a>
             <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
             <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
+            @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
             <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Direktori Anggota</a>
+            @endif
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#bukutamu" class="block px-3 py-2 rounded-lg text-base font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10">Buku Tamu Publik</a>
             
             <div class="pt-4 border-t border-slate-200 dark:border-white/10 space-y-2">
@@ -391,7 +395,9 @@
                         <li><a href="{{ route('home') }}#profil" class="hover:text-amber-400 transition-colors">Visi & Misi</a></li>
                         <li><a href="{{ route('organization.public') }}" class="hover:text-amber-400 transition-colors">Susunan Pengurus</a></li>
                         <li><a href="{{ route('leaders.public') }}" class="hover:text-amber-400 transition-colors">Sejarah PWI (Ketua)</a></li>
+                        @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
                         <li><a href="{{ route('members.public') }}" class="hover:text-amber-400 transition-colors">Direktori Wartawan</a></li>
+                        @endif
                         <li><a href="{{ route('gallery.public') }}" class="hover:text-amber-400 transition-colors">Galeri Dokumentasi</a></li>
                     </ul>
                 </div>

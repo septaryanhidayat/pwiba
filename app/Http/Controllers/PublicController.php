@@ -148,6 +148,21 @@ class PublicController extends Controller
 
     public function members(Request $request)
     {
+        $showPublicMembers = (Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1';
+
+        $orderSql = "CASE 
+            WHEN UPPER(TRIM(jabatan)) = 'KETUA' THEN 1
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL KETUA%' THEN 2
+            WHEN UPPER(TRIM(jabatan)) = 'SEKRETARIS' THEN 3
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL SEKRETARIS%' THEN 4
+            WHEN UPPER(TRIM(jabatan)) = 'BENDAHARA' THEN 5
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKIL BENDAHARA%' THEN 6
+            WHEN UPPER(TRIM(jabatan)) LIKE 'KABID%' THEN 7
+            WHEN UPPER(TRIM(jabatan)) LIKE 'WAKABID%' THEN 8
+            WHEN UPPER(TRIM(jabatan)) LIKE 'ANGGOTA BID%' THEN 9
+            WHEN UPPER(TRIM(jabatan)) != 'ANGGOTA' THEN 10
+            ELSE 20 END";
+
         $query = Member::with('media')->where('status', 'aktif');
 
         if ($request->filled('ukw')) {
@@ -159,11 +174,16 @@ class PublicController extends Controller
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
                     ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                    ->orWhere('jabatan', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu_ukw', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%")
+                    ->orWhere('nama_media_custom', 'like', "%{$s}%")
+                    ->orWhereHas('media', function ($mq) use ($s) {
+                        $mq->where('nama_media', 'like', "%{$s}%");
+                    });
             });
         }
 
-        $members = $query->orderBy('nama')->paginate(12);
+        $members = $query->orderByRaw($orderSql)->orderBy('nama', 'asc')->paginate(12);
 
         $ukwStats = [
             'belum_ukw' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Belum UKW')->count(),
@@ -172,7 +192,7 @@ class PublicController extends Controller
             'utama' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Utama')->count(),
         ];
 
-        return view('public.members', compact('members', 'ukwStats'));
+        return view('public.members', compact('members', 'ukwStats', 'showPublicMembers'));
     }
 
     public function gallery()

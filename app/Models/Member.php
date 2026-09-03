@@ -16,6 +16,7 @@ class Member extends Model
         'nama',
         'nomor_kartu',
         'tingkat_ukw',
+        'nomor_kartu_ukw',
         'masa_berlaku',
         'jabatan',
         'media_id',
