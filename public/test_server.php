@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=utf-8');
 
 $rootPath = dirname(__DIR__);
-$storagePath = $rootPath . '/storage';
-$cachePath = $rootPath . '/bootstrap/cache';
-$envFile = $rootPath . '/.env';
+$storagePath = $rootPath.'/storage';
+$cachePath = $rootPath.'/bootstrap/cache';
+$envFile = $rootPath.'/.env';
 
 $phpVersion = phpversion();
 $isStorageWritable = is_writable($storagePath);
@@ -31,18 +31,18 @@ if ($isEnvExists) {
     try {
         $pdo = new PDO("mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4", $dbUser, $dbPass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_TIMEOUT => 5
+            PDO::ATTR_TIMEOUT => 5,
         ]);
-        $dbStatus = '<span style="color: green; font-weight: bold;">Terhubung Berhasil ke MySQL (' . htmlspecialchars($dbName) . ')</span>';
+        $dbStatus = '<span style="color: green; font-weight: bold;">Terhubung Berhasil ke MySQL ('.htmlspecialchars($dbName).')</span>';
     } catch (Exception $e) {
-        $dbStatus = '<span style="color: red; font-weight: bold;">Gagal Konek MySQL: ' . htmlspecialchars($e->getMessage()) . '</span>';
+        $dbStatus = '<span style="color: red; font-weight: bold;">Gagal Konek MySQL: '.htmlspecialchars($e->getMessage()).'</span>';
     }
 } else {
-    $dbStatus = '<span style="color: red;">Berkas .env tidak ditemukan di ' . htmlspecialchars($rootPath) . '</span>';
+    $dbStatus = '<span style="color: red;">Berkas .env tidak ditemukan di '.htmlspecialchars($rootPath).'</span>';
 }
 
 // Cek Laravel Log Error Terakhir
-$logFile = $storagePath . '/logs/laravel.log';
+$logFile = $storagePath.'/logs/laravel.log';
 $lastLog = 'Tidak ada catatan log';
 if (file_exists($logFile)) {
     $lines = file($logFile);

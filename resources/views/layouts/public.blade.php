@@ -172,7 +172,7 @@
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
-                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                        <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
@@ -277,27 +277,27 @@
         @yield('content')
     </main>
 
-    <!-- Ultra-Modern Dark Footer -->
+    <!-- Ultra-Modern Dark Footer (Mobile-Centered & Desktop-Aligned) -->
     <footer class="bg-[#0B132B] text-slate-300 border-t border-slate-800 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/10 via-transparent to-amber-900/10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
                 
                 <!-- Col 1: Identity & Description (2 cols) -->
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center">
-                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                <div class="lg:col-span-2 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="flex flex-col sm:flex-row items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center shadow-md">
+                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                         </div>
-                        <div>
+                        <div class="text-center sm:text-left">
                             <h4 class="text-lg font-bold text-white leading-tight">PWI Kabupaten Banyuasin</h4>
                             <p class="text-xs text-amber-400 font-medium">Persatuan Wartawan Indonesia</p>
                         </div>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed pr-4">
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-md md:max-w-none pr-0 md:pr-4">
                         Wadah organisasi profesi jurnalis resmi dan terverifikasi di Kabupaten Banyuasin, Sumatera Selatan. Menjunjung tinggi kemerdekaan pers, integritas Kode Etik Jurnalistik, dan kemitraan strategis pembangunan daerah.
                     </p>
-                    <div class="flex items-center gap-3 pt-2">
+                    <div class="flex items-center justify-center md:justify-start gap-3 pt-2">
                         <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="Facebook">
                             <i class="fa-brands fa-facebook-f text-sm"></i>
                         </a>
@@ -314,9 +314,9 @@
                 </div>
 
                 <!-- Col 2: Quick Links -->
-                <div class="space-y-3">
+                <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Navigasi Cepat</h5>
-                    <ul class="space-y-2 text-sm text-slate-400">
+                    <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
                         <li><a href="{{ route('home') }}#beranda" class="hover:text-amber-400 transition-colors">Beranda Utama</a></li>
                         <li><a href="{{ route('home') }}#profil" class="hover:text-amber-400 transition-colors">Visi & Misi</a></li>
                         <li><a href="{{ route('organization.public') }}" class="hover:text-amber-400 transition-colors">Susunan Pengurus</a></li>
@@ -326,9 +326,9 @@
                 </div>
 
                 <!-- Col 3: News & Category -->
-                <div class="space-y-3">
+                <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Kanal Publikasi</h5>
-                    <ul class="space-y-2 text-sm text-slate-400">
+                    <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
                         <li><a href="{{ route('news.index') }}?kategori=Kegiatan" class="hover:text-amber-400 transition-colors">Kegiatan Jurnalistik</a></li>
                         <li><a href="{{ route('news.index') }}?kategori=Kemitraan" class="hover:text-amber-400 transition-colors">Kemitraan & Forkopimda</a></li>
                         <li><a href="{{ route('news.index') }}?kategori=Organisasi" class="hover:text-amber-400 transition-colors">Internal Organisasi</a></li>
@@ -338,18 +338,18 @@
                 </div>
 
                 <!-- Col 4: Contact & Office Info -->
-                <div class="space-y-3">
+                <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Sekretariat PWI</h5>
-                    <div class="space-y-2.5 text-xs text-slate-400">
-                        <div class="flex items-start gap-2.5">
+                    <div class="space-y-3 text-xs text-slate-400 flex flex-col items-center md:items-start">
+                        <div class="flex flex-col sm:flex-row items-center md:items-start gap-2 text-center md:text-left">
                             <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
-                            <span>Jl. Merdeka No. 3 RT 02 RW 02 Kel. Mulya Agung, Kec. Banyuasin III, Kab. Banyuasin - Sumsel (30914)</span>
+                            <span class="max-w-xs md:max-w-none">Jl. Merdeka No. 3 RT 02 RW 02 Kel. Mulya Agung, Kec. Banyuasin III, Kab. Banyuasin - Sumsel (30914)</span>
                         </div>
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex items-center gap-2">
                             <i class="fa-solid fa-phone text-amber-400"></i>
                             <span>0853-7799-1976</span>
                         </div>
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex items-center gap-2">
                             <i class="fa-solid fa-envelope text-amber-400"></i>
                             <span>sekretariat@pwibanyuasin.or.id</span>
                         </div>
@@ -359,7 +359,7 @@
             </div>
 
             <!-- Bottom Bar -->
-            <div class="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <div class="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
                 <p>&copy; {{ date('Y') }} <strong>Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin</strong>. All rights reserved.</p>
                 <p class="text-slate-500">Sistem Informasi Manajemen & Portal Jurnalistik v2.0</p>
             </div>

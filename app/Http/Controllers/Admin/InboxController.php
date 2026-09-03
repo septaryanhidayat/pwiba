@@ -16,9 +16,9 @@ class InboxController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('tujuan', 'like', "%{$s}%")
-                  ->orWhere('keperluan', 'like', "%{$s}%")
-                  ->orWhere('email', 'like', "%{$s}%");
+                    ->orWhere('tujuan', 'like', "%{$s}%")
+                    ->orWhere('keperluan', 'like', "%{$s}%")
+                    ->orWhere('email', 'like', "%{$s}%");
             });
         }
 

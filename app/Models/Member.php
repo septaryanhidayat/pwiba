@@ -57,18 +57,31 @@ class Member extends Model
         if ($this->media) {
             return $this->media->nama_media;
         }
+
         return $this->nama_media_custom ?? '-';
     }
 
     public function getFotoUrlAttribute(): string
     {
         if ($this->foto) {
+            $webp = preg_replace('/\.(jpe?g|png)$/i', '.webp', $this->foto);
+            if ($webp !== $this->foto && (file_exists(public_path('storage/'.$webp)) || file_exists(public_path($webp)))) {
+                return file_exists(public_path('storage/'.$webp)) ? asset('storage/'.$webp) : asset($webp);
+            }
             if (str_starts_with($this->foto, 'http://') || str_starts_with($this->foto, 'https://') || str_starts_with($this->foto, 'assets/')) {
                 return str_starts_with($this->foto, 'assets/') ? asset($this->foto) : $this->foto;
             }
-            return asset('storage/' . $this->foto);
+            if (file_exists(public_path('storage/'.$this->foto))) {
+                return asset('storage/'.$this->foto);
+            }
+            if (file_exists(public_path($this->foto))) {
+                return asset($this->foto);
+            }
+
+            return asset('storage/'.$this->foto);
         }
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama) . '&background=e2e8f0&color=334155&size=256&bold=true';
+
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->nama).'&background=e2e8f0&color=334155&size=256&bold=true';
     }
 
     public function getUkwColorBadgeAttribute(): string
@@ -76,8 +89,8 @@ class Member extends Model
         return match ($this->tingkat_ukw) {
             'Wartawan Utama' => 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/50 dark:text-rose-400 dark:border-rose-800',
             'Wartawan Madya' => 'bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/50 dark:text-sky-400 dark:border-sky-800',
-            'Wartawan Muda'  => 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800',
-            default          => 'bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700',
+            'Wartawan Muda' => 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800',
+            default => 'bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700',
         };
     }
 }

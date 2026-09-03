@@ -16,8 +16,8 @@ class IncomingLetterController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nomor_surat', 'like', "%{$s}%")
-                  ->orWhere('pengirim', 'like', "%{$s}%")
-                  ->orWhere('perihal', 'like', "%{$s}%");
+                    ->orWhere('pengirim', 'like', "%{$s}%")
+                    ->orWhere('perihal', 'like', "%{$s}%");
             });
         }
 
@@ -42,7 +42,7 @@ class IncomingLetterController extends Controller
 
         $data = $request->only([
             'nomor_surat', 'tanggal_surat', 'tanggal_diterima',
-            'pengirim', 'perihal', 'isi_ringkas', 'status_disposisi'
+            'pengirim', 'perihal', 'isi_ringkas', 'status_disposisi',
         ]);
 
         if ($request->hasFile('file_lampiran')) {
@@ -71,7 +71,7 @@ class IncomingLetterController extends Controller
 
         $data = $request->only([
             'nomor_surat', 'tanggal_surat', 'tanggal_diterima',
-            'pengirim', 'perihal', 'isi_ringkas', 'status_disposisi'
+            'pengirim', 'perihal', 'isi_ringkas', 'status_disposisi',
         ]);
 
         if ($request->hasFile('file_lampiran')) {

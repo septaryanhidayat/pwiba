@@ -4,9 +4,9 @@
 
 @section('content')
 <!-- Header Banner -->
-<div class="gradient-mesh text-white py-16 relative overflow-hidden">
+<div class="gradient-mesh text-white py-16 relative overflow-hidden text-center sm:text-left">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-3xl">
+        <div class="max-w-3xl mx-auto sm:mx-0 flex flex-col items-center sm:items-start">
             <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/15">
                 Kanal Berita & Rilis Pers
             </span>
@@ -27,7 +27,7 @@
         <!-- Filters & Search Bar -->
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
             <!-- Category Pills -->
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
                 <a href="{{ route('news.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold transition-all {{ !request('kategori') ? 'bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800' }}">
                     Semua Kategori
                 </a>

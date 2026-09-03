@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,7 @@ class GalleryController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('judul', 'like', "%{$s}%")
-                  ->orWhere('deskripsi', 'like', "%{$s}%");
+                    ->orWhere('deskripsi', 'like', "%{$s}%");
             });
         }
 
@@ -37,7 +38,7 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('galleries', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'galleries');
             $validated['foto'] = $path;
         }
 
@@ -61,7 +62,7 @@ class GalleryController extends Controller
             if ($gallery->foto && Storage::disk('public')->exists($gallery->foto)) {
                 Storage::disk('public')->delete($gallery->foto);
             }
-            $path = $request->file('foto')->store('galleries', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'galleries');
             $validated['foto'] = $path;
         }
 

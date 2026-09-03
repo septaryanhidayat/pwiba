@@ -16,8 +16,8 @@ class MediaController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama_media', 'like', "%{$s}%")
-                  ->orWhere('website', 'like', "%{$s}%")
-                  ->orWhere('alamat', 'like', "%{$s}%");
+                    ->orWhere('website', 'like', "%{$s}%")
+                    ->orWhere('alamat', 'like', "%{$s}%");
             });
         }
 

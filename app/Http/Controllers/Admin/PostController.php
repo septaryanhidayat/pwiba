@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -18,8 +19,8 @@ class PostController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('judul', 'like', "%{$s}%")
-                  ->orWhere('penulis', 'like', "%{$s}%")
-                  ->orWhere('kategori', 'like', "%{$s}%");
+                    ->orWhere('penulis', 'like', "%{$s}%")
+                    ->orWhere('kategori', 'like', "%{$s}%");
             });
         }
 
@@ -37,8 +38,8 @@ class PostController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('judul', 'like', "%{$s}%")
-                  ->orWhere('penulis', 'like', "%{$s}%")
-                  ->orWhere('kategori', 'like', "%{$s}%");
+                    ->orWhere('penulis', 'like', "%{$s}%")
+                    ->orWhere('kategori', 'like', "%{$s}%");
             });
         }
 
@@ -65,26 +66,28 @@ class PostController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
-        $validated['slug'] = Str::slug($validated['judul']) . '-' . Str::random(5);
+        $validated['slug'] = Str::slug($validated['judul']).'-'.Str::random(5);
 
         if ($validated['status'] === 'published') {
             $validated['published_at'] = now();
         }
 
         if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('posts', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('gambar'), 'posts');
             $validated['gambar'] = $path;
         }
 
         Post::create($validated);
 
         $route = $validated['status'] === 'published' ? 'admin.posts.publish' : 'admin.posts.draft';
+
         return redirect()->route($route)->with('success', 'Berita berhasil disimpan.');
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+
         return view('admin.posts.edit', compact('post'));
     }
 
@@ -110,13 +113,14 @@ class PostController extends Controller
             if ($post->gambar && Storage::disk('public')->exists($post->gambar)) {
                 Storage::disk('public')->delete($post->gambar);
             }
-            $path = $request->file('gambar')->store('posts', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('gambar'), 'posts');
             $validated['gambar'] = $path;
         }
 
         $post->update($validated);
 
         $route = $post->status === 'published' ? 'admin.posts.publish' : 'admin.posts.draft';
+
         return redirect()->route($route)->with('success', 'Berita berhasil diperbarui.');
     }
 
@@ -130,6 +134,7 @@ class PostController extends Controller
         $post->delete();
 
         $route = $status === 'published' ? 'admin.posts.publish' : 'admin.posts.draft';
+
         return redirect()->route($route)->with('success', 'Berita berhasil dihapus.');
     }
 
@@ -138,7 +143,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if ($post->status === 'draft') {
             $post->status = 'published';
-            if (!$post->published_at) {
+            if (! $post->published_at) {
                 $post->published_at = now();
             }
             $msg = 'Berita berhasil dipublikasikan.';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\Member;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,9 +19,9 @@ class MemberController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                  ->orWhere('jabatan', 'like', "%{$s}%")
-                  ->orWhere('tingkat_ukw', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%")
+                    ->orWhere('tingkat_ukw', 'like', "%{$s}%");
             });
         }
 
@@ -39,9 +40,9 @@ class MemberController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                  ->orWhere('jabatan', 'like', "%{$s}%")
-                  ->orWhere('tingkat_ukw', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%")
+                    ->orWhere('tingkat_ukw', 'like', "%{$s}%");
             });
         }
 
@@ -70,7 +71,7 @@ class MemberController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('members', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'members');
             $validated['foto'] = $path;
         }
 
@@ -102,7 +103,7 @@ class MemberController extends Controller
             if ($member->foto && Storage::disk('public')->exists($member->foto)) {
                 Storage::disk('public')->delete($member->foto);
             }
-            $path = $request->file('foto')->store('members', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'members');
             $validated['foto'] = $path;
         }
 
@@ -129,6 +130,7 @@ class MemberController extends Controller
         $member->save();
 
         $msg = $member->status === 'aktif' ? 'Wartawan berhasil diaktifkan kembali.' : 'Wartawan berhasil dipindahkan ke daftar tidak aktif.';
+
         return redirect()->back()->with('success', $msg);
     }
 }

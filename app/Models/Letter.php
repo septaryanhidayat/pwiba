@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Letter extends Model
 {
@@ -40,10 +41,10 @@ class Letter extends Model
         parent::boot();
         static::creating(function ($letter) {
             if (empty($letter->uuid)) {
-                $letter->uuid = (string) \Illuminate\Support\Str::uuid();
+                $letter->uuid = (string) Str::uuid();
             }
             if (empty($letter->hash_keabsahan)) {
-                $letter->hash_keabsahan = hash('sha256', ($letter->nomor_surat ?? '') . '|' . ($letter->tanggal ?? '') . '|' . ($letter->tujuan ?? '') . '|PWI-BANYUASIN-OFFICIAL');
+                $letter->hash_keabsahan = hash('sha256', ($letter->nomor_surat ?? '').'|'.($letter->tanggal ?? '').'|'.($letter->tujuan ?? '').'|PWI-BANYUASIN-OFFICIAL');
             }
         });
     }
@@ -70,7 +71,7 @@ class Letter extends Model
         $padded = str_pad($count, 3, '0', STR_PAD_LEFT);
         $romanMonths = [
             1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
-            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII',
         ];
         $month = $romanMonths[date('n')];
         $year = date('Y');
@@ -88,8 +89,9 @@ class Letter extends Model
     public function getFileUrlAttribute(): ?string
     {
         if ($this->file_dokumen) {
-            return asset('storage/' . $this->file_dokumen);
+            return asset('storage/'.$this->file_dokumen);
         }
+
         return null;
     }
 }

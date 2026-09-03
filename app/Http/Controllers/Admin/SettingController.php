@@ -13,6 +13,7 @@ class SettingController extends Controller
     public function office()
     {
         $settings = Setting::pluck('value', 'key')->toArray();
+
         return view('admin.settings.office', compact('settings'));
     }
 

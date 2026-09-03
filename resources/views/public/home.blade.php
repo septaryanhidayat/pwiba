@@ -74,7 +74,7 @@
                     <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
                         <!-- Top Official Tag -->
                         <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
-                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" class="w-4 h-4 object-contain">
+                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="PWI Logo" class="w-4 h-4 object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                             <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
@@ -86,8 +86,9 @@
 
                         <!-- Photo Portrait -->
                         <div class="relative pt-6 px-4 flex justify-center">
-                            <img src="{{ asset('assets/images/wardoyo-ketua.png') }}" 
+                            <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
+                                 onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
                                  class="w-full max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
                         </div>
 
@@ -158,10 +159,10 @@
                     <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div>
-                        <div class="flex items-center gap-4 mb-6">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 mb-6 text-center sm:text-left">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden">
-                                    <img src="{{ asset('assets/images/wardoyo-ketua.png') }}" alt="Ketua PWI Banyuasin" class="w-full h-full object-cover rounded-xl">
+                                    <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" alt="Ketua PWI Banyuasin" onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'" class="w-full h-full object-cover rounded-xl">
                                 </div>
                                 <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px]">
                                     <i class="fa-solid fa-check text-white"></i>
@@ -174,14 +175,14 @@
                             </div>
                         </div>
 
-                        <div class="relative">
-                            <i class="fa-solid fa-quote-left text-amber-400/20 text-4xl absolute -top-3 -left-2"></i>
-                            <p class="text-sm text-slate-300 italic leading-relaxed relative z-10 pl-6">
+                        <div class="relative text-center sm:text-left">
+                            <i class="fa-solid fa-quote-left text-amber-400/20 text-4xl absolute -top-3 -left-2 hidden sm:block"></i>
+                            <p class="text-sm text-slate-300 italic leading-relaxed relative z-10 pl-0 sm:pl-6">
                                 "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi, memperkuat peran pers yang independen dan terus berkontribusi dalam pembangunan daerah. Bersama pengurus PWI kami berkomitmen organisasi ini berjalan sesuai dengan fungsi dan perannya sebagai pilar keempat demokrasi, serta menjadi mitra strategis bagi seluruh elemen masyarakat."
                             </p>
                         </div>
 
-                        <div class="mt-6 flex flex-wrap items-center gap-3">
+                        <div class="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-3">
                             <button @click="modalSambutan = true" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md cursor-pointer">
                                 <i class="fa-solid fa-book-open"></i>
                                 <span>Baca Sambutan Lengkap</span>
@@ -193,7 +194,7 @@
                         </div>
                     </div>
 
-                    <div class="pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                    <div class="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2 text-center sm:text-left">
                         <span>Pangkalan Balai, Banyuasin</span>
                         <span class="text-amber-400 font-semibold">Pers Tetap Bermartabat</span>
                     </div>
@@ -204,12 +205,12 @@
             <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                 
                 <!-- Visi Card -->
-                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all text-center sm:text-left">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 mb-2">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base flex-shrink-0">
                             <i class="fa-solid fa-eye"></i>
                         </div>
-                        <h4 class="text-base font-bold text-slate-900 dark:text-white">Visi Organisasi</h4>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white mt-1 sm:mt-0">Visi Organisasi</h4>
                     </div>
                     <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                         {{ $settings['visi'] ?? 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.' }}
@@ -219,7 +220,7 @@
                 <!-- 4 Misi Grid Cards (Asli pwiba.or.id) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
                         <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
@@ -229,7 +230,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
                         <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-newspaper"></i>
                         </div>
@@ -239,7 +240,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
                         <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-users"></i>
                         </div>
@@ -249,7 +250,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
                         <div class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
@@ -365,7 +366,7 @@
 <section id="berita" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 px-3.5 py-1 rounded-full border border-amber-200 dark:border-amber-400/30">
                     Publikasi & Rilis Pers
@@ -442,7 +443,7 @@
 <section id="galeri" class="py-20 bg-slate-900 text-white relative overflow-hidden" x-data="{ selectedPhoto: null, selectedTitle: '', selectedDate: '', selectedDesc: '' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/15">
                     Dokumentasi Visual
@@ -514,7 +515,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 
                 <!-- Left Sidebar: Contact Info -->
-                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between">
+                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between text-center lg:text-left items-center lg:items-start">
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Buku Tamu & Kemitraan</span>
                         <h3 class="text-2xl font-extrabold text-white mt-2 leading-tight">
@@ -524,12 +525,12 @@
                             Bagi instansi pemerintah, swasta, akademisi, maupun masyarakat yang ingin menjalin audiensi, silaturahmi, atau menyampaikan informasi publik.
                         </p>
 
-                        <div class="space-y-4 mt-8 text-xs text-slate-300">
-                            <div class="flex items-start gap-3">
+                        <div class="space-y-4 mt-8 text-xs text-slate-300 flex flex-col items-center lg:items-start">
+                            <div class="flex flex-col sm:flex-row items-center lg:items-start gap-3 text-center sm:text-left">
                                 <div class="w-7 h-7 rounded-lg bg-white/10 text-amber-400 flex items-center justify-center flex-shrink-0">
                                     <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                                <span>Jl. Merdeka No. 3 RT 02 RW 02, Kel. Mulya Agung, Kec. Banyuasin III</span>
+                                <span class="max-w-xs lg:max-w-none">Jl. Merdeka No. 3 RT 02 RW 02, Kel. Mulya Agung, Kec. Banyuasin III</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-7 h-7 rounded-lg bg-white/10 text-amber-400 flex items-center justify-center flex-shrink-0">
@@ -546,7 +547,7 @@
                         </div>
                     </div>
 
-                    <div class="pt-6 mt-6 border-t border-white/10 text-[11px] text-slate-400">
+                    <div class="pt-6 mt-6 border-t border-white/10 text-[11px] text-slate-400 text-center lg:text-left">
                         Pesan Anda akan otomatis terarsip dalam Sistem Informasi Manajemen Administrasi PWI.
                     </div>
                 </div>

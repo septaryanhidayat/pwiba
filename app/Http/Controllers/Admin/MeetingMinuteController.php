@@ -19,9 +19,9 @@ class MeetingMinuteController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('judul_rapat', 'like', "%{$s}%")
-                  ->orWhere('tempat', 'like', "%{$s}%")
-                  ->orWhere('pemimpin_rapat', 'like', "%{$s}%")
-                  ->orWhere('agenda', 'like', "%{$s}%");
+                    ->orWhere('tempat', 'like', "%{$s}%")
+                    ->orWhere('pemimpin_rapat', 'like', "%{$s}%")
+                    ->orWhere('agenda', 'like', "%{$s}%");
             });
         }
 
@@ -34,6 +34,7 @@ class MeetingMinuteController extends Controller
     public function create()
     {
         $members = Member::where('status', 'aktif')->orderBy('nama')->get();
+
         return view('admin.meetings.create', compact('members'));
     }
 
@@ -54,7 +55,7 @@ class MeetingMinuteController extends Controller
         $data = $request->only([
             'judul_rapat', 'tanggal', 'waktu_mulai', 'waktu_selesai',
             'tempat', 'pemimpin_rapat', 'notulis', 'agenda',
-            'pembahasan', 'kesimpulan'
+            'pembahasan', 'kesimpulan',
         ]);
 
         if ($request->hasFile('file_lampiran')) {
@@ -81,6 +82,7 @@ class MeetingMinuteController extends Controller
     public function show($id)
     {
         $meeting = MeetingMinute::with(['attendances.member'])->findOrFail($id);
+
         return view('admin.meetings.show', compact('meeting'));
     }
 
@@ -88,7 +90,7 @@ class MeetingMinuteController extends Controller
     {
         $meeting = MeetingMinute::with(['attendances'])->findOrFail($id);
         $members = Member::where('status', 'aktif')->orderBy('nama')->get();
-        
+
         $attendancesMap = $meeting->attendances->keyBy('member_id');
 
         return view('admin.meetings.edit', compact('meeting', 'members', 'attendancesMap'));
@@ -113,7 +115,7 @@ class MeetingMinuteController extends Controller
         $data = $request->only([
             'judul_rapat', 'tanggal', 'waktu_mulai', 'waktu_selesai',
             'tempat', 'pemimpin_rapat', 'notulis', 'agenda',
-            'pembahasan', 'kesimpulan'
+            'pembahasan', 'kesimpulan',
         ]);
 
         if ($request->hasFile('file_lampiran')) {

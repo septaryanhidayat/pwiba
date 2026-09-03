@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,9 +19,9 @@ class OrganizationController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                  ->orWhere('jabatan', 'like', "%{$s}%")
-                  ->orWhere('tingkat_ukw', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%")
+                    ->orWhere('tingkat_ukw', 'like', "%{$s}%");
             });
         }
 
@@ -55,7 +56,7 @@ class OrganizationController extends Controller
             $validated['status'] = 'aktif';
         }
 
-        if (!empty($validated['member_id'])) {
+        if (! empty($validated['member_id'])) {
             $member = Member::find($validated['member_id']);
             if ($member) {
                 $validated['nama'] = $member->nama;
@@ -69,7 +70,7 @@ class OrganizationController extends Controller
         }
 
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('organization', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'organization');
             $validated['foto'] = $path;
         }
 
@@ -107,7 +108,7 @@ class OrganizationController extends Controller
             if ($official->foto && Storage::disk('public')->exists($official->foto)) {
                 Storage::disk('public')->delete($official->foto);
             }
-            $path = $request->file('foto')->store('organization', 'public');
+            $path = ImageService::uploadAndConvertToWebp($request->file('foto'), 'organization');
             $validated['foto'] = $path;
         }
 

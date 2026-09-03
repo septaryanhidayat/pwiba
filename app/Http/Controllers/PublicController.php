@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use App\Models\Inbox;
+use App\Models\Letter;
 use App\Models\Media;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
 use App\Models\Post;
-use App\Models\Letter;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -55,8 +55,8 @@ class PublicController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('judul', 'like', "%{$s}%")
-                  ->orWhere('konten', 'like', "%{$s}%")
-                  ->orWhere('penulis', 'like', "%{$s}%");
+                    ->orWhere('konten', 'like', "%{$s}%")
+                    ->orWhere('penulis', 'like', "%{$s}%");
             });
         }
 
@@ -111,8 +111,8 @@ class PublicController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                  ->orWhere('jabatan', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%");
             });
         }
 
@@ -131,6 +131,7 @@ class PublicController extends Controller
     public function gallery()
     {
         $galleries = Gallery::latest('tanggal_kegiatan')->paginate(12);
+
         return view('public.gallery', compact('galleries'));
     }
 

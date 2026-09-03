@@ -1,2 +1,10 @@
 *
 !.gitignore
+!galleries/
+!galleries/**
+!posts/
+!posts/**
+!members/
+!members/**
+!organization/
+!organization/**

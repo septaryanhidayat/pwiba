@@ -30,9 +30,9 @@ class DashboardController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nama', 'like', "%{$s}%")
-                  ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                  ->orWhere('jabatan', 'like', "%{$s}%")
-                  ->orWhere('tingkat_ukw', 'like', "%{$s}%");
+                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
+                    ->orWhere('jabatan', 'like', "%{$s}%")
+                    ->orWhere('tingkat_ukw', 'like', "%{$s}%");
             });
         }
 
@@ -56,9 +56,9 @@ class DashboardController extends Controller
 
         if ($tingkat && in_array($tingkat, ['Belum UKW', 'Wartawan Muda', 'Wartawan Madya', 'Wartawan Utama'])) {
             $query->where('tingkat_ukw', $tingkat);
-            $title = "REKAPITULASI DATA ANGGOTA PWI BANYUASIN - " . strtoupper($tingkat);
+            $title = 'REKAPITULASI DATA ANGGOTA PWI BANYUASIN - '.strtoupper($tingkat);
         } else {
-            $title = "REKAPITULASI SELURUH DATA ANGGOTA PWI KABUPATEN BANYUASIN";
+            $title = 'REKAPITULASI SELURUH DATA ANGGOTA PWI KABUPATEN BANYUASIN';
         }
 
         $members = $query->orderBy('nama', 'asc')->get();

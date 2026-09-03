@@ -18,10 +18,10 @@ class LetterController extends Controller
             $s = $request->search;
             $query->where(function ($q) use ($s) {
                 $q->where('nomor_surat', 'like', "%{$s}%")
-                  ->orWhere('tujuan', 'like', "%{$s}%")
-                  ->orWhere('keperluan', 'like', "%{$s}%")
-                  ->orWhere('jenis_surat', 'like', "%{$s}%")
-                  ->orWhere('nama_pejabat', 'like', "%{$s}%");
+                    ->orWhere('tujuan', 'like', "%{$s}%")
+                    ->orWhere('keperluan', 'like', "%{$s}%")
+                    ->orWhere('jenis_surat', 'like', "%{$s}%")
+                    ->orWhere('nama_pejabat', 'like', "%{$s}%");
             });
         }
 
@@ -75,7 +75,7 @@ class LetterController extends Controller
             $data['tujuan'] = $request->tujuan ?? ($request->lokasi ?? 'Lokasi Tugas');
         } elseif (in_array($request->jenis_surat, ['SURAT AUDENSI', 'PROPOSAL', 'SURAT BIASA'])) {
             $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? $request->jenis_surat);
-            $data['tujuan'] = $request->nama_pejabat ? ($request->nama_pejabat . ($request->jabatan_pejabat ? ' (' . $request->jabatan_pejabat . ')' : '')) : ($request->tujuan ?? 'Penerima');
+            $data['tujuan'] = $request->nama_pejabat ? ($request->nama_pejabat.($request->jabatan_pejabat ? ' ('.$request->jabatan_pejabat.')' : '')) : ($request->tujuan ?? 'Penerima');
         }
 
         if ($request->hasFile('file_dokumen')) {
@@ -100,7 +100,7 @@ class LetterController extends Controller
         $letter = Letter::findOrFail($id);
 
         $request->validate([
-            'nomor_surat' => 'required|string|unique:letters,nomor_surat,' . $id,
+            'nomor_surat' => 'required|string|unique:letters,nomor_surat,'.$id,
             'tanggal' => 'required|date',
             'jenis_surat' => 'required|string',
             'tujuan' => 'nullable|string|max:255',

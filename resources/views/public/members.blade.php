@@ -4,9 +4,9 @@
 
 @section('content')
 <!-- Header Banner -->
-<div class="gradient-mesh text-white py-16 relative overflow-hidden">
+<div class="gradient-mesh text-white py-16 relative overflow-hidden text-center sm:text-left">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-3xl">
+        <div class="max-w-3xl mx-auto sm:mx-0 flex flex-col items-center sm:items-start">
             <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/15">
                 Direktori Resmi
             </span>
@@ -24,7 +24,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Filter and Search -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 text-center sm:text-left">
             <div>
                 <h3 class="text-base font-extrabold text-slate-900 dark:text-white">
                     Insan Pers Terdaftar ({{ $members->total() }} Wartawan)

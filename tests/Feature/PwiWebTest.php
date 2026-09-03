@@ -2,13 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Models\IncomingLetter;
 use App\Models\Letter;
 use App\Models\MeetingMinute;
 use App\Models\Member;
 use App\Models\Post;
 use App\Models\User;
+use App\Services\ImageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PwiWebTest extends TestCase
@@ -38,7 +40,7 @@ class PwiWebTest extends TestCase
         $post = Post::where('status', 'published')->first();
         $this->assertNotNull($post);
 
-        $detailResponse = $this->get('/berita/' . $post->slug);
+        $detailResponse = $this->get('/berita/'.$post->slug);
         $detailResponse->assertStatus(200);
         $detailResponse->assertSee($post->judul, false);
     }
@@ -240,7 +242,7 @@ class PwiWebTest extends TestCase
         $this->assertNotNull($letter);
 
         // Verification route
-        $verifyResponse = $this->get('/verifikasi-surat/' . $letter->uuid);
+        $verifyResponse = $this->get('/verifikasi-surat/'.$letter->uuid);
         $verifyResponse->assertStatus(200);
         $verifyResponse->assertSee('TERVERIFIKASI');
         $verifyResponse->assertSee($letter->nomor_surat);
@@ -253,5 +255,25 @@ class PwiWebTest extends TestCase
         $printResponse->assertSee('PENGURUS KABUPATEN BANYUASIN');
         $printResponse->assertSee('QR Code Verifikasi');
     }
-}
 
+    public function test_image_service_converts_upload_to_webp(): void
+    {
+        Storage::fake('public');
+
+        // Create dummy PNG image
+        $file = UploadedFile::fake()->image('test_avatar.png', 200, 200);
+        $path = ImageService::uploadAndConvertToWebp($file, 'test_dir');
+
+        $this->assertStringEndsWith('.webp', $path);
+        Storage::disk('public')->assertExists($path);
+    }
+
+    public function test_footer_renders_mobile_centered_classes_and_webp_logo(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('pwi-logo.webp');
+        $response->assertSee('text-center md:text-left');
+        $response->assertSee('items-center md:items-start');
+    }
+}

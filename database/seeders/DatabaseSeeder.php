@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Gallery;
-use App\Models\IncomingLetter;
 use App\Models\Inbox;
+use App\Models\IncomingLetter;
 use App\Models\Letter;
 use App\Models\Media;
 use App\Models\MeetingAttendance;
@@ -159,7 +159,7 @@ class DatabaseSeeder extends Seeder
             $rowNum = $index + 1;
             $foto = null;
             if ($rowNum === 1) {
-                $foto = 'assets/images/wardoyo-ketua.png';
+                $foto = 'assets/images/wardoyo-ketua.webp';
             } elseif (file_exists(public_path("assets/images/wartawan/wartawan_{$rowNum}.png"))) {
                 $foto = "assets/images/wartawan/wartawan_{$rowNum}.png";
             }
@@ -173,46 +173,46 @@ class DatabaseSeeder extends Seeder
                 'media_id' => ($index % count($mediaList)) + 1,
                 'foto' => $foto,
                 'status' => $rm['status'],
-                'no_hp' => '08' . rand(1111111111, 9999999999),
-                'email' => Str::slug($rm['nama']) . '@pwibanyuasin.or.id',
+                'no_hp' => '08'.rand(1111111111, 9999999999),
+                'email' => Str::slug($rm['nama']).'@pwibanyuasin.or.id',
             ]);
             $allMembers[] = $mRecord;
         }
 
         // 5. Organization Structure (32 Pengurus Lengkap dengan Foto Asli dari ref/new/nama wartawan.png)
         $structures = [
-            ['nama' => 'Wardoyo, S.I.Kom', 'nomor_kartu' => '06.00.17208.14B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'KETUA', 'urutan' => 1, 'foto' => 'assets/images/pengurus/pengurus_inti_1_wardoyo.jpg', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
-            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA', 'urutan' => 2, 'foto' => 'assets/images/pengurus/pengurus_inti_2_gusra.jpg', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
-            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 3, 'foto' => 'assets/images/pengurus/pengurus_inti_3_deni.jpg', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
-            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 4, 'foto' => 'assets/images/pengurus/pengurus_inti_4_ridho.jpg', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
-            ['nama' => 'Kurnia Efrida Yanti', 'nomor_kartu' => '06.00.17680.15B', 'tingkat_ukw' => 'Wartawan Madya', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'WAKABID PEMBELAAN WARTAWAN', 'urutan' => 5, 'foto' => 'assets/images/wartawan/wartawan_5.png'],
-            ['nama' => 'Hardaya', 'nomor_kartu' => '06.00.237.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID PEMBELAAN WARTAWAN', 'urutan' => 6, 'foto' => 'assets/images/wartawan/wartawan_6.png'],
-            ['nama' => 'Nachung Tahjudin', 'nomor_kartu' => '06.00.18140.17.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2026-12-22', 'jabatan' => 'KABID KESEJAHTERAAN', 'urutan' => 7, 'foto' => 'assets/images/wartawan/wartawan_7.png'],
-            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.23442.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'WAKABID KESEJAHTERAAN', 'urutan' => 8, 'foto' => 'assets/images/wartawan/wartawan_8.png'],
-            ['nama' => 'Evi Farlina', 'nomor_kartu' => '06.00.20621.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'ANGGOTA BID KESEJAHTERAAN', 'urutan' => 9, 'foto' => 'assets/images/wartawan/wartawan_9.png'],
-            ['nama' => 'Soni Harsono, S.I.Kom', 'nomor_kartu' => '06.00.23533.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'KABID PUBLIKASI DAN INFORMASI', 'urutan' => 10, 'foto' => 'assets/images/wartawan/wartawan_10.png'],
-            ['nama' => 'Herwanto', 'nomor_kartu' => '06.00.71.19.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-11-05', 'jabatan' => 'WAKABID PUBLIKASI DAN INFORMASI', 'urutan' => 11, 'foto' => 'assets/images/wartawan/wartawan_11.png'],
-            ['nama' => 'Frans Iskandar', 'nomor_kartu' => '06.00.76.13.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-10-13', 'jabatan' => 'ANGGOTA BID PUBLIKASI DAN INFORMASI', 'urutan' => 12, 'foto' => 'assets/images/wartawan/wartawan_12.png'],
-            ['nama' => 'M. Riza Vahlevi', 'nomor_kartu' => '06.00.17785.15B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-06-27', 'jabatan' => 'KABID PENDIDIKAN', 'urutan' => 13, 'foto' => 'assets/images/wartawan/wartawan_13.png'],
-            ['nama' => 'Maulana', 'nomor_kartu' => '06.00.109.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-12-05', 'jabatan' => 'WAKABID PENDIDIKAN', 'urutan' => 14, 'foto' => 'assets/images/wartawan/wartawan_14.png'],
-            ['nama' => 'Dodi', 'nomor_kartu' => '06.00.31.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA BID PENDIDIKAN', 'urutan' => 15, 'foto' => 'assets/images/wartawan/wartawan_15.png'],
-            ['nama' => 'Indra Utama', 'nomor_kartu' => '06001380709.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'KABID SIWO', 'urutan' => 16, 'foto' => 'assets/images/wartawan/wartawan_16.png'],
-            ['nama' => 'Quata Akda', 'nomor_kartu' => '06.00.17783.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-22', 'jabatan' => 'WAKABID SIWO', 'urutan' => 17, 'foto' => 'assets/images/wartawan/wartawan_17.png'],
-            ['nama' => 'Topik Istora', 'nomor_kartu' => '06.00.283.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-14', 'jabatan' => 'ANGGOTA BID SIWO', 'urutan' => 18, 'foto' => 'assets/images/wartawan/wartawan_18.png'],
-            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.21030.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-07', 'jabatan' => 'KABID ORGANISASI', 'urutan' => 19, 'foto' => 'assets/images/wartawan/wartawan_19.png'],
-            ['nama' => 'Vilkadi', 'nomor_kartu' => '06.00.20970.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID ORGANISASI', 'urutan' => 20, 'foto' => 'assets/images/wartawan/wartawan_20.png'],
-            ['nama' => 'Denni Dwi Saputra', 'nomor_kartu' => '06.00.28.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'ANGGOTA BID ORGANISASI', 'urutan' => 21, 'foto' => 'assets/images/wartawan/wartawan_21.png'],
-            ['nama' => 'Ahmad Hermanto', 'nomor_kartu' => '06.00.269.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'KABID SOSIAL KEMASYARAKATAN', 'urutan' => 22, 'foto' => 'assets/images/wartawan/wartawan_22.png'],
-            ['nama' => 'Amin Mukri', 'nomor_kartu' => '06.00.17780.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID KEMASYARAKATAN', 'urutan' => 23, 'foto' => 'assets/images/wartawan/wartawan_23.png'],
-            ['nama' => 'Sudirman', 'nomor_kartu' => '06.00.40,22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID KEMASYARAKATAN', 'urutan' => 24, 'foto' => 'assets/images/wartawan/wartawan_24.png'],
-            ['nama' => 'Noverta Salyadi', 'nomor_kartu' => '06.00.14043.09B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKIL KETUA II', 'urutan' => 25, 'foto' => 'assets/images/wartawan/wartawan_25.png'],
-            ['nama' => 'Drs. Lubis Rahman', 'nomor_kartu' => '06.00.200.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-09-10', 'jabatan' => 'WAKIL KETUA III', 'urutan' => 26, 'foto' => 'assets/images/wartawan/wartawan_26.png'],
-            ['nama' => 'Irwan September', 'nomor_kartu' => '06.00.27.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-08-01', 'jabatan' => 'WAKIL SEKRETARIS', 'urutan' => 27, 'foto' => 'assets/images/wartawan/wartawan_27.png'],
-            ['nama' => 'Drs. H. Ujang Idrus', 'nomor_kartu' => '06.00.5293.95B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2037-11-28', 'jabatan' => 'WAKIL BENDAHARA', 'urutan' => 28, 'foto' => 'assets/images/wartawan/wartawan_28.png'],
-            ['nama' => 'Sunardi, SH', 'nomor_kartu' => '06.00.29.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-08-21', 'jabatan' => 'KABID PEMBELAAN WARTAWAN', 'urutan' => 29, 'foto' => 'assets/images/wartawan/wartawan_29.png'],
-            ['nama' => 'Yokin Darma Pratama', 'nomor_kartu' => '06.00.238.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA', 'urutan' => 30, 'foto' => 'assets/images/wartawan/wartawan_31.png'],
-            ['nama' => 'Supriyanto', 'nomor_kartu' => '06.00.20.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2025-10-01', 'jabatan' => 'ANGGOTA', 'urutan' => 31, 'foto' => 'assets/images/wartawan/wartawan_32.png'],
-            ['nama' => 'Afri Yanto', 'nomor_kartu' => '010101', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-03-19', 'jabatan' => 'ANGGOTA', 'urutan' => 32, 'foto' => 'assets/images/wartawan/wartawan_30.png'],
+            ['nama' => 'Wardoyo, S.I.Kom', 'nomor_kartu' => '06.00.17208.14B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'KETUA', 'urutan' => 1, 'foto' => 'assets/images/pengurus/pengurus_inti_1_wardoyo.webp', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
+            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA', 'urutan' => 2, 'foto' => 'assets/images/pengurus/pengurus_inti_2_gusra.webp', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
+            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 3, 'foto' => 'assets/images/pengurus/pengurus_inti_3_deni.webp', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
+            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 4, 'foto' => 'assets/images/pengurus/pengurus_inti_4_ridho.webp', 'x_twitter' => 'https://x.com/pwibanyuasin', 'facebook' => 'https://facebook.com/pwibanyuasin', 'instagram' => 'https://instagram.com/pwibanyuasin', 'youtube' => 'https://youtube.com/@pwibanyuasin'],
+            ['nama' => 'Kurnia Efrida Yanti', 'nomor_kartu' => '06.00.17680.15B', 'tingkat_ukw' => 'Wartawan Madya', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'WAKABID PEMBELAAN WARTAWAN', 'urutan' => 5, 'foto' => 'assets/images/wartawan/wartawan_5.webp'],
+            ['nama' => 'Hardaya', 'nomor_kartu' => '06.00.237.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID PEMBELAAN WARTAWAN', 'urutan' => 6, 'foto' => 'assets/images/wartawan/wartawan_6.webp'],
+            ['nama' => 'Nachung Tahjudin', 'nomor_kartu' => '06.00.18140.17.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2026-12-22', 'jabatan' => 'KABID KESEJAHTERAAN', 'urutan' => 7, 'foto' => 'assets/images/wartawan/wartawan_7.webp'],
+            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.23442.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'WAKABID KESEJAHTERAAN', 'urutan' => 8, 'foto' => 'assets/images/wartawan/wartawan_8.webp'],
+            ['nama' => 'Evi Farlina', 'nomor_kartu' => '06.00.20621.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'ANGGOTA BID KESEJAHTERAAN', 'urutan' => 9, 'foto' => 'assets/images/wartawan/wartawan_9.webp'],
+            ['nama' => 'Soni Harsono, S.I.Kom', 'nomor_kartu' => '06.00.23533.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'KABID PUBLIKASI DAN INFORMASI', 'urutan' => 10, 'foto' => 'assets/images/wartawan/wartawan_10.webp'],
+            ['nama' => 'Herwanto', 'nomor_kartu' => '06.00.71.19.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-11-05', 'jabatan' => 'WAKABID PUBLIKASI DAN INFORMASI', 'urutan' => 11, 'foto' => 'assets/images/wartawan/wartawan_11.webp'],
+            ['nama' => 'Frans Iskandar', 'nomor_kartu' => '06.00.76.13.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-10-13', 'jabatan' => 'ANGGOTA BID PUBLIKASI DAN INFORMASI', 'urutan' => 12, 'foto' => 'assets/images/wartawan/wartawan_12.webp'],
+            ['nama' => 'M. Riza Vahlevi', 'nomor_kartu' => '06.00.17785.15B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-06-27', 'jabatan' => 'KABID PENDIDIKAN', 'urutan' => 13, 'foto' => 'assets/images/wartawan/wartawan_13.webp'],
+            ['nama' => 'Maulana', 'nomor_kartu' => '06.00.109.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-12-05', 'jabatan' => 'WAKABID PENDIDIKAN', 'urutan' => 14, 'foto' => 'assets/images/wartawan/wartawan_14.webp'],
+            ['nama' => 'Dodi', 'nomor_kartu' => '06.00.31.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA BID PENDIDIKAN', 'urutan' => 15, 'foto' => 'assets/images/wartawan/wartawan_15.webp'],
+            ['nama' => 'Indra Utama', 'nomor_kartu' => '06001380709.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'KABID SIWO', 'urutan' => 16, 'foto' => 'assets/images/wartawan/wartawan_16.webp'],
+            ['nama' => 'Quata Akda', 'nomor_kartu' => '06.00.17783.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-22', 'jabatan' => 'WAKABID SIWO', 'urutan' => 17, 'foto' => 'assets/images/wartawan/wartawan_17.webp'],
+            ['nama' => 'Topik Istora', 'nomor_kartu' => '06.00.283.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-14', 'jabatan' => 'ANGGOTA BID SIWO', 'urutan' => 18, 'foto' => 'assets/images/wartawan/wartawan_18.webp'],
+            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.21030.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-07', 'jabatan' => 'KABID ORGANISASI', 'urutan' => 19, 'foto' => 'assets/images/wartawan/wartawan_19.webp'],
+            ['nama' => 'Vilkadi', 'nomor_kartu' => '06.00.20970.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID ORGANISASI', 'urutan' => 20, 'foto' => 'assets/images/wartawan/wartawan_20.webp'],
+            ['nama' => 'Denni Dwi Saputra', 'nomor_kartu' => '06.00.28.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'ANGGOTA BID ORGANISASI', 'urutan' => 21, 'foto' => 'assets/images/wartawan/wartawan_21.webp'],
+            ['nama' => 'Ahmad Hermanto', 'nomor_kartu' => '06.00.269.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'KABID SOSIAL KEMASYARAKATAN', 'urutan' => 22, 'foto' => 'assets/images/wartawan/wartawan_22.webp'],
+            ['nama' => 'Amin Mukri', 'nomor_kartu' => '06.00.17780.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID KEMASYARAKATAN', 'urutan' => 23, 'foto' => 'assets/images/wartawan/wartawan_23.webp'],
+            ['nama' => 'Sudirman', 'nomor_kartu' => '06.00.40,22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID KEMASYARAKATAN', 'urutan' => 24, 'foto' => 'assets/images/wartawan/wartawan_24.webp'],
+            ['nama' => 'Noverta Salyadi', 'nomor_kartu' => '06.00.14043.09B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKIL KETUA II', 'urutan' => 25, 'foto' => 'assets/images/wartawan/wartawan_25.webp'],
+            ['nama' => 'Drs. Lubis Rahman', 'nomor_kartu' => '06.00.200.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-09-10', 'jabatan' => 'WAKIL KETUA III', 'urutan' => 26, 'foto' => 'assets/images/wartawan/wartawan_26.webp'],
+            ['nama' => 'Irwan September', 'nomor_kartu' => '06.00.27.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-08-01', 'jabatan' => 'WAKIL SEKRETARIS', 'urutan' => 27, 'foto' => 'assets/images/wartawan/wartawan_27.webp'],
+            ['nama' => 'Drs. H. Ujang Idrus', 'nomor_kartu' => '06.00.5293.95B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2037-11-28', 'jabatan' => 'WAKIL BENDAHARA', 'urutan' => 28, 'foto' => 'assets/images/wartawan/wartawan_28.webp'],
+            ['nama' => 'Sunardi, SH', 'nomor_kartu' => '06.00.29.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-08-21', 'jabatan' => 'KABID PEMBELAAN WARTAWAN', 'urutan' => 29, 'foto' => 'assets/images/wartawan/wartawan_29.webp'],
+            ['nama' => 'Yokin Darma Pratama', 'nomor_kartu' => '06.00.238.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA', 'urutan' => 30, 'foto' => 'assets/images/wartawan/wartawan_31.webp'],
+            ['nama' => 'Supriyanto', 'nomor_kartu' => '06.00.20.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2025-10-01', 'jabatan' => 'ANGGOTA', 'urutan' => 31, 'foto' => 'assets/images/wartawan/wartawan_32.webp'],
+            ['nama' => 'Afri Yanto', 'nomor_kartu' => '010101', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-03-19', 'jabatan' => 'ANGGOTA', 'urutan' => 32, 'foto' => 'assets/images/wartawan/wartawan_30.webp'],
         ];
 
         foreach ($structures as $st) {
@@ -223,32 +223,32 @@ class DatabaseSeeder extends Seeder
         $newsItems = [
             [
                 'judul' => 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
-                'gambar' => 'https://pwiba.or.id/uploads/berita/ab51e7a5fbaa85fe67af6143c08707e5.png',
+                'gambar' => 'posts/ab51e7a5fbaa85fe67af6143c08707e5.webp',
                 'kategori' => 'Organisasi',
             ],
             [
                 'judul' => 'Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin',
-                'gambar' => 'https://pwiba.or.id/uploads/berita/102a94b84592bf379cc27a97dd9dff2b.jpg',
+                'gambar' => 'posts/102a94b84592bf379cc27a97dd9dff2b.webp',
                 'kategori' => 'Kemitraan',
             ],
             [
                 'judul' => 'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
-                'gambar' => 'https://pwiba.or.id/uploads/berita/04f62b08dac5547b16130d2544057152.jpg',
+                'gambar' => 'posts/04f62b08dac5547b16130d2544057152.webp',
                 'kategori' => 'Olahraga',
             ],
             [
                 'judul' => 'Gelar Turnamen Futsal, Kapolres Harapkan Pererat Silaturahmi Antara Polres dan PWI Banyuasin',
-                'gambar' => 'https://pwiba.or.id/uploads/berita/f2b9f8cb00117d4bdafba3e50f1b6eac.jpg',
+                'gambar' => 'posts/f2b9f8cb00117d4bdafba3e50f1b6eac.webp',
                 'kategori' => 'Kemitraan',
             ],
             [
                 'judul' => 'Audensi : PWI Banyuasin dan Lapas Bangun Sinergi di Bidang Publikasi',
-                'gambar' => 'https://pwiba.or.id/assets/img/galeri/12ee2975e657e43e83ac7b7c4bcb0eb4.jpg',
+                'gambar' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp',
                 'kategori' => 'Hukum & Pers',
             ],
             [
                 'judul' => 'TNI, Pers, dan Mahasiswa Bersatu dalam "Bola Gembira", Perkuat Sinergi untuk Banyuasin',
-                'gambar' => 'https://pwiba.or.id/assets/img/galeri/1cfefb92f8afafe981cea6adf5f5acd4.jpg',
+                'gambar' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
                 'kategori' => 'Kegiatan',
             ],
         ];
@@ -256,7 +256,7 @@ class DatabaseSeeder extends Seeder
         foreach ($newsItems as $idx => $item) {
             Post::create([
                 'judul' => $item['judul'],
-                'slug' => Str::slug($item['judul']) . '-' . ($idx + 1),
+                'slug' => Str::slug($item['judul']).'-'.($idx + 1),
                 'kategori' => $item['kategori'],
                 'penulis' => 'Wardoyo, S.I.Kom',
                 'ringkasan' => "Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai {$item['judul']}. Mendorong peningkatan profesionalisme dan sinergi pers.",
@@ -270,14 +270,14 @@ class DatabaseSeeder extends Seeder
 
         // 7. Galleries (Foto Dokumentasi Asli pwiba.or.id)
         $galleries = [
-            ['judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'deskripsi' => 'Bupati Banyuasin, Dr. H. Askolani, SH, MH memberikan Piala juara I Mini Soccer PWI Banyuasin 2026 di Stadion Mini Gading Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'https://pwiba.or.id/assets/img/galeri/f8ec3d4a1ef4abe74b332e46d395f141.jpg'],
-            ['judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'https://pwiba.or.id/assets/img/galeri/ccb967e2dcc8c71737fc08f05d9333e9.jpg'],
-            ['judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.', 'tanggal_kegiatan' => '2026-06-25', 'foto' => 'https://pwiba.or.id/assets/img/galeri/1cfefb92f8afafe981cea6adf5f5acd4.jpg'],
-            ['judul' => 'PWI - Tim Sespim Lemdiklat Polri', 'deskripsi' => 'Giat silaturahmi PWI Banyuasin di Polres Banyuasin bersama Tim Sespim Lemdiklat Polri (Brigjen Pol Defrian Dominando & Kombes Pol Joni Iskandar).', 'tanggal_kegiatan' => '2026-04-29', 'foto' => 'https://pwiba.or.id/assets/img/galeri/d2b050819fd26b2bdca26c97598991e1.jpg'],
-            ['judul' => 'Rangkaian Giat HPN di Banten', 'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.', 'tanggal_kegiatan' => '2026-02-07', 'foto' => 'https://pwiba.or.id/assets/img/galeri/9685b7220dbf97f4cb0b9ada41a776e6.jpg'],
-            ['judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026', 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'https://pwiba.or.id/assets/img/galeri/ba23abe354a929947e4db89c17bda404.jpg'],
-            ['judul' => 'Rapat Persiapan ke Banten - HPN 2026', 'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.', 'tanggal_kegiatan' => '2026-02-03', 'foto' => 'https://pwiba.or.id/assets/img/galeri/146a259265d7af805eac32f39ec3c89c.jpg'],
-            ['judul' => 'Audiensi di Lapas Kelas IIA Banyuasin', 'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.', 'tanggal_kegiatan' => '2026-01-27', 'foto' => 'https://pwiba.or.id/assets/img/galeri/12ee2975e657e43e83ac7b7c4bcb0eb4.jpg'],
+            ['judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'deskripsi' => 'Bupati Banyuasin, Dr. H. Askolani, SH, MH memberikan Piala juara I Mini Soccer PWI Banyuasin 2026 di Stadion Mini Gading Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'galleries/f8ec3d4a1ef4abe74b332e46d395f141.webp'],
+            ['judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'galleries/ccb967e2dcc8c71737fc08f05d9333e9.webp'],
+            ['judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.', 'tanggal_kegiatan' => '2026-06-25', 'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp'],
+            ['judul' => 'PWI - Tim Sespim Lemdiklat Polri', 'deskripsi' => 'Giat silaturahmi PWI Banyuasin di Polres Banyuasin bersama Tim Sespim Lemdiklat Polri (Brigjen Pol Defrian Dominando & Kombes Pol Joni Iskandar).', 'tanggal_kegiatan' => '2026-04-29', 'foto' => 'galleries/d2b050819fd26b2bdca26c97598991e1.webp'],
+            ['judul' => 'Rangkaian Giat HPN di Banten', 'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.', 'tanggal_kegiatan' => '2026-02-07', 'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp'],
+            ['judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026', 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp'],
+            ['judul' => 'Rapat Persiapan ke Banten - HPN 2026', 'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.', 'tanggal_kegiatan' => '2026-02-03', 'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp'],
+            ['judul' => 'Audiensi di Lapas Kelas IIA Banyuasin', 'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.', 'tanggal_kegiatan' => '2026-01-27', 'foto' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp'],
         ];
 
         foreach ($galleries as $g) {
@@ -349,7 +349,7 @@ class DatabaseSeeder extends Seeder
             'pemimpin_rapat' => 'Wardoyo, S.I.Kom (Ketua PWI)',
             'notulis' => 'Deni Arianto (Sekretaris PWI)',
             'agenda' => "1. Pembentukan Panitia Pelaksana Turnamen Mini Soccer 2026\n2. Sosialisasi Program Uji Kompetensi Wartawan (UKW) Angkatan VII\n3. Penertiban Administrasi KTA dan Iuran Anggota",
-            'pembahasan' => "Rapat dibuka pukul 09.00 WIB oleh Ketua PWI Banyuasin. Dilanjutkan pemaparan ketua SIWO mengenai kesiapan lapangan Sedulang Setudung dan koordinasi izin keramaian ke Polres Banyuasin. Bendahara memaparkan estimasi anggaran dan penggalangan sponsor. Dilanjutkan pembahasan pendaftaran peserta UKW bagi 16 wartawan yang belum memiliki sertifikat UKW.",
+            'pembahasan' => 'Rapat dibuka pukul 09.00 WIB oleh Ketua PWI Banyuasin. Dilanjutkan pemaparan ketua SIWO mengenai kesiapan lapangan Sedulang Setudung dan koordinasi izin keramaian ke Polres Banyuasin. Bendahara memaparkan estimasi anggaran dan penggalangan sponsor. Dilanjutkan pembahasan pendaftaran peserta UKW bagi 16 wartawan yang belum memiliki sertifikat UKW.',
             'kesimpulan' => "1. Turnamen Mini Soccer dijadwalkan tanggal 19-31 Agustus 2026 dengan 16 tim peserta mitra instansi.\n2. Mengirimkan surat pemberitahuan UKW ke PWI Sumsel.\n3. Seluruh anggota PWI Banyuasin wajib berpartisipasi aktif dalam kepanitiaan.",
         ]);
 
@@ -373,7 +373,7 @@ class DatabaseSeeder extends Seeder
             'pemimpin_rapat' => 'Wardoyo, S.I.Kom',
             'notulis' => 'Deni Arianto',
             'agenda' => "1. Evaluasi Liputan Berita dan Website Resmi PWI\n2. Verifikasi Data Wartawan Aktif dan Non-Aktif\n3. Rencana Bantuan Hukum & Pembelaan Wartawan",
-            'pembahasan' => "Pembahasan mengenai pentingnya pembaruan website profil dan sistem informasi keanggotaan PWI Banyuasin agar mudah diakses publik dan dinas. Bidang Pembelaan Wartawan melaporkan situasi kondusif di lapangan.",
+            'pembahasan' => 'Pembahasan mengenai pentingnya pembaruan website profil dan sistem informasi keanggotaan PWI Banyuasin agar mudah diakses publik dan dinas. Bidang Pembelaan Wartawan melaporkan situasi kondusif di lapangan.',
             'kesimpulan' => "1. Merilis portal digital baru terintegrasi.\n2. Mewajibkan seluruh anggota memperbarui masa berlaku KTA PWI.\n3. Menjadwalkan safari jurnalistik ke instansi Forkopimda.",
         ]);
 

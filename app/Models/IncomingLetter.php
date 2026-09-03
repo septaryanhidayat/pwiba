@@ -28,8 +28,9 @@ class IncomingLetter extends Model
     public function getFileUrlAttribute(): ?string
     {
         if ($this->file_lampiran) {
-            return asset('storage/' . $this->file_lampiran);
+            return asset('storage/'.$this->file_lampiran);
         }
+
         return null;
     }
 }
