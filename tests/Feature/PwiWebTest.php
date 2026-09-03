@@ -545,11 +545,12 @@ class PwiWebTest extends TestCase
         $response = $this->get('/struktur-organisasi');
         $response->assertStatus(200);
         $response->assertSee('Bagan Alur & Hirarki Kepengurusan', false);
-        $response->assertSee('JAJARAN BIDANG KERJA OPERASIONAL', false);
+        $response->assertSee('Format Landscape', false);
         $response->assertSee('Wardoyo, S.I.Kom', false);
         $response->assertSee('WAKIL KETUA 1', false);
         $response->assertSee('WAKIL KETUA 2', false);
         $response->assertSee('WAKIL KETUA 3', false);
+        $response->assertSee('BIDANG A', false);
         $response->assertSee('Unduh PNG', false);
     }
 
