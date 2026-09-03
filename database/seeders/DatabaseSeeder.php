@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Settings (Identitas Organisasi)
+        // 2. Settings (Identitas Organisasi Asli pwiba.or.id)
         $settings = [
             'nama_pwi' => 'PWI Kabupaten Banyuasin',
             'alamat_kantor' => 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)',
@@ -43,9 +43,9 @@ class DatabaseSeeder extends Seeder
             'no_telp' => '0853-7799-1976',
             'email' => 'sekretariat@pwibanyuasin.or.id',
             'ketua_nama' => 'Wardoyo, S.I.Kom',
-            'ketua_sambutan' => 'Selamat datang di Portal Resmi Sistem Informasi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat kemerdekaan pers yang bermartabat, meningkatkan kompetensi jurnalis di Bumi Sedulang Setudung, serta menyajikan transparansi informasi organisasi yang profesional bagi masyarakat dan mitra strategis.',
-            'visi' => 'Terwujudnya pers yang merdeka, profesional, bermartabat, dan berintegritas guna mendukung pembangunan dan kemajuan Kabupaten Banyuasin.',
-            'misi' => "1. Meningkatkan kompetensi wartawan melalui Uji Kompetensi Wartawan (UKW) dan pelatihan berkelanjutan.\n2. Menjunjung tinggi Kode Etik Jurnalistik dan Undang-Undang Pers No. 40 Tahun 1999.\n3. Membangun sinergi harmonis dan kemitraan konstruktif dengan Forkopimda, Pemkab, dan seluruh elemen masyarakat.\n4. Melakukan pembelaan, perlindungan hukum, dan advokasi hak-hak profesi jurnalis.",
+            'ketua_sambutan' => 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.',
+            'visi' => 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.',
+            'misi' => "1. Menjadikan PWI Banyuasin sebagai wadah yang lebih solid dan berdaya saing.\n2. Berkontribusi nyata bagi masyarakat serta kemajuan pers nasional.\n3. Meningkatkan kesejahteraan dan solidaritas anggota, dengan mendorong program dukungan bagi jurnalis.\n4. Menjalin kemitraan strategis dengan pemerintah, swasta, dan organisasi masyarakat untuk memperluas ruang gerak jurnalis.",
         ];
 
         foreach ($settings as $k => $v) {
@@ -172,7 +172,7 @@ class DatabaseSeeder extends Seeder
 
         // 5. Organization Structure (32 Pengurus Lengkap dari ref/new/lengkap - struktur organisasi.png)
         $structures = [
-            ['nama' => 'Wardoyo, S.I.Kom', 'nomor_kartu' => '06.00.17208.14B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'KETUA', 'urutan' => 1],
+            ['nama' => 'Wardoyo, S.I.Kom', 'nomor_kartu' => '06.00.17208.14B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'KETUA', 'urutan' => 1, 'foto' => 'assets/images/wardoyo-ketua.png'],
             ['nama' => 'Kurnia Efrida Yanti', 'nomor_kartu' => '06.00.17680.15B', 'tingkat_ukw' => 'Wartawan Madya', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'WAKABID PEMBELAAN WARTAWAN', 'urutan' => 2],
             ['nama' => 'Hardaya', 'nomor_kartu' => '06.00.237.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID PEMBELAAN WARTAWAN', 'urutan' => 3],
             ['nama' => 'Nachung Tahjudin', 'nomor_kartu' => '06.00.18140.17.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2026-12-22', 'jabatan' => 'KABID KESEJAHTERAAN', 'urutan' => 4],
@@ -183,7 +183,7 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Frans Iskandar', 'nomor_kartu' => '06.00.76.13.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-10-13', 'jabatan' => 'ANGGOTA BID PUBLIKASI DAN INFORMASI', 'urutan' => 9],
             ['nama' => 'M. Riza Vahlevi', 'nomor_kartu' => '06.00.17785.15B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-06-27', 'jabatan' => 'KABID PENDIDIKAN', 'urutan' => 10],
             ['nama' => 'Maulana', 'nomor_kartu' => '06.00.109.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-12-05', 'jabatan' => 'WAKABID PENDIDIKAN', 'urutan' => 11],
-            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA I', 'urutan' => 12],
+            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA I', 'urutan' => 12, 'foto' => 'https://pwiba.or.id/assets/img/profil/465ed3dcd686f05d023e9fbbf2c4317b.jpg'],
             ['nama' => 'Dodi', 'nomor_kartu' => '06.00.31.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA BID PENDIDIKAN', 'urutan' => 13],
             ['nama' => 'Indra Utama', 'nomor_kartu' => '06001380709.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'KABID SIWO', 'urutan' => 14],
             ['nama' => 'Quata Akda', 'nomor_kartu' => '06.00.17783.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-22', 'jabatan' => 'WAKABID SIWO', 'urutan' => 15],
@@ -196,9 +196,9 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Sudirman', 'nomor_kartu' => '06.00.40,22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID KEMASYARAKATAN', 'urutan' => 22],
             ['nama' => 'Noverta Salyadi', 'nomor_kartu' => '06.00.14043.09B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKIL KETUA II', 'urutan' => 23],
             ['nama' => 'Drs. Lubis Rahman', 'nomor_kartu' => '06.00.200.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-09-10', 'jabatan' => 'WAKIL KETUA III', 'urutan' => 24],
-            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 25],
+            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 25, 'foto' => 'https://pwiba.or.id/assets/img/profil/55b12cd07713eeb01457d10daf7ac822.jpg'],
             ['nama' => 'Irwan September', 'nomor_kartu' => '06.00.27.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-08-01', 'jabatan' => 'WAKIL SEKRETARIS', 'urutan' => 26],
-            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 27],
+            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 27, 'foto' => 'https://pwiba.or.id/assets/img/profil/f273f241d79dc02c32e031499da5d175.jpg'],
             ['nama' => 'Drs. H. Ujang Idrus', 'nomor_kartu' => '06.00.5293.95B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2037-11-28', 'jabatan' => 'WAKIL BENDAHARA', 'urutan' => 28],
             ['nama' => 'Sunardi, SH', 'nomor_kartu' => '06.00.29.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-08-21', 'jabatan' => 'KABID PEMBELAAN WARTAWAN', 'urutan' => 29],
             ['nama' => 'Yokin Darma Pratama', 'nomor_kartu' => '06.00.238.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA', 'urutan' => 30],
@@ -210,71 +210,65 @@ class DatabaseSeeder extends Seeder
             OrganizationStructure::create($st);
         }
 
-        // 6. News Posts (22 Berita Lengkap dari ref/new/lengkap berita.png)
-        $newsTitles = [
-            'Audensi : PWI Banyuasin dan Lapas Bangun Sinergi di Bidang Publikasi',
-            '200 Wartawan Siap Berangkat \'Retret\' Orientasi Kebangsaan dan Bela Negara',
-            'Dewan Pers Apresiasi Putusan MK Tolak Gugatan Uji Materi UU Pers',
-            'Retret PWI 2026 Berakhir, Wartawan Diharap Jadi Agen Pemersatu Bangsa',
-            'Polres Banyuasin dan PWI Jalin Komunikasi',
-            'Peringatan Hari Kebebasan Pers Dunia 2026: Dewan Pers Soroti Ledakan Informasi',
-            'TNI, Pers, dan Mahasiswa Bersatu dalam "Bola Gembira", Perkuat Sinergi untuk Banyuasin',
-            'Dukung Tertib Administrasi, PWI Banyuasin Gerak Cepat Respons Surat PWI Sumsel',
-            'PWI Banyuasin Hadiri Puncak HUT Bhayangkara ke-80 di Polres Banyuasin',
-            'Kolaborasi PW NU Sumsel , Alfaone dan Media Massa Gelar Aksi Peduli Lingkungan Hidup',
-            'Persiapan Porwanas XV Makin Matang, Verifikasi Barcode Perketat Validasi Atlet',
-            'Dewan Pers: Saatnya Karya Jurnalistik Mendapat Hak Ekonominya',
-            'Pernyataan Dewan Pers Terkait Kasus Penghalangan Kerja Jurnalistik',
-            'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
-            'UU Pers, PD, PRT PWI, KEJ, Kode Perilaku Wartawan',
-            'Dewan Pers Sesalkan Pernyataan Hotman Paris yang Dinilai Merendahkan Wartawan',
-            'Intelkam Polda Sumsel Sambangi Ketua PWI Banyuasin, Perkuat Sinergi Jaga Kamtibmas',
-            'PWI Banyuasin Resmi Dilantik : Pemkab Harap Insan Pers Jaga Marwah, Profesionalisme dan Perkuat Demokrasi',
-            'Tak Sudi Marwah Pers Diusik, PWI Banyuasin Berdiri Tegak Dibelakang PWI Pusat!',
-            'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
-            'Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin',
-            'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO (Edisi Khusus)',
+        // 6. News Posts (22 Berita Lengkap dengan Foto Asli dari pwiba.or.id)
+        $newsItems = [
+            [
+                'judul' => 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
+                'gambar' => 'https://pwiba.or.id/uploads/berita/ab51e7a5fbaa85fe67af6143c08707e5.png',
+                'kategori' => 'Organisasi',
+            ],
+            [
+                'judul' => 'Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin',
+                'gambar' => 'https://pwiba.or.id/uploads/berita/102a94b84592bf379cc27a97dd9dff2b.jpg',
+                'kategori' => 'Kemitraan',
+            ],
+            [
+                'judul' => 'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
+                'gambar' => 'https://pwiba.or.id/uploads/berita/04f62b08dac5547b16130d2544057152.jpg',
+                'kategori' => 'Olahraga',
+            ],
+            [
+                'judul' => 'Gelar Turnamen Futsal, Kapolres Harapkan Pererat Silaturahmi Antara Polres dan PWI Banyuasin',
+                'gambar' => 'https://pwiba.or.id/uploads/berita/f2b9f8cb00117d4bdafba3e50f1b6eac.jpg',
+                'kategori' => 'Kemitraan',
+            ],
+            [
+                'judul' => 'Audensi : PWI Banyuasin dan Lapas Bangun Sinergi di Bidang Publikasi',
+                'gambar' => 'https://pwiba.or.id/assets/img/galeri/12ee2975e657e43e83ac7b7c4bcb0eb4.jpg',
+                'kategori' => 'Hukum & Pers',
+            ],
+            [
+                'judul' => 'TNI, Pers, dan Mahasiswa Bersatu dalam "Bola Gembira", Perkuat Sinergi untuk Banyuasin',
+                'gambar' => 'https://pwiba.or.id/assets/img/galeri/1cfefb92f8afafe981cea6adf5f5acd4.jpg',
+                'kategori' => 'Kegiatan',
+            ],
         ];
 
-        foreach ($newsTitles as $idx => $title) {
+        foreach ($newsItems as $idx => $item) {
             Post::create([
-                'judul' => $title,
-                'slug' => Str::slug($title) . '-' . ($idx + 1),
-                'kategori' => match ($idx % 5) {
-                    0 => 'Kemitraan',
-                    1 => 'Organisasi',
-                    2 => 'Hukum & Pers',
-                    3 => 'Olahraga',
-                    default => 'Kegiatan',
-                },
+                'judul' => $item['judul'],
+                'slug' => Str::slug($item['judul']) . '-' . ($idx + 1),
+                'kategori' => $item['kategori'],
                 'penulis' => 'Wardoyo, S.I.Kom',
-                'ringkasan' => "Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai {$title}. Mendorong peningkatan profesionalisme dan sinergi pers.",
-                'konten' => "<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; {$title}. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>",
+                'ringkasan' => "Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai {$item['judul']}. Mendorong peningkatan profesionalisme dan sinergi pers.",
+                'konten' => "<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; {$item['judul']}. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>",
                 'status' => 'published',
-                'views_count' => rand(120, 850),
+                'gambar' => $item['gambar'],
+                'views_count' => rand(180, 950),
                 'published_at' => Carbon::now()->subDays($idx * 2 + 1),
             ]);
         }
 
-        // 7. Galleries (17 Galeri Lengkap dari ref/new/lengkap - galeri pwi.png)
+        // 7. Galleries (Foto Dokumentasi Asli pwiba.or.id)
         $galleries = [
-            ['judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'deskripsi' => 'Bupati Banyuasin memberikan piala dan medali kepada pemenang mini soccer.', 'tanggal_kegiatan' => '2026-08-31', 'foto' => 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin bersama Forkopimda.', 'tanggal_kegiatan' => '2026-08-31', 'foto' => 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Pertandingan Persahabatan PWI Mini Soccer 2026 di Pangkalan Balai', 'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Lapangan Sedulang Setudung.', 'tanggal_kegiatan' => '2026-08-19', 'foto' => 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Foto Bersama Peserta Turnamen Mini Soccer PWI 2026', 'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-19', 'foto' => 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'deskripsi' => 'Silaturahmi dan kegiatan bersama insan pers dengan Kodim 0430.', 'tanggal_kegiatan' => '2026-06-25', 'foto' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'PWI - Tim Sespim Lemdiklat Polri', 'deskripsi' => 'Giat silaturahmi PWI Banyuasin di Polres Banyuasin bersama Tim Sespim.', 'tanggal_kegiatan' => '2026-05-04', 'foto' => 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Rangkaian giat HPN di Banten', 'deskripsi' => 'Seminar Sport Tourism Banten. Tanggal 7 Februari 2026 delegasi PWI Banyuasin.', 'tanggal_kegiatan' => '2026-02-12', 'foto' => 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'PWI Banyuasin - berangkat ke Banten - HPN - 2026', 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional 2026.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Rapat persiapan berangkat ke Banten - Hari Pers Nasional', 'deskripsi' => 'Rapat persiapan ke Banten dalam rangka Hari Pers Nasional di Sekretariat PWI.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H - Wardoyo, S.I.Kom', 'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin menerima audiensi PWI.', 'tanggal_kegiatan' => '2026-01-28', 'foto' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Foto audensi di Lapas Kelas II Banyuasin', 'deskripsi' => 'Pengurus PWI Banyuasin audensi dan foto bersama Kalapas.', 'tanggal_kegiatan' => '2026-01-28', 'foto' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Pelantikan PWI Banyuasin', 'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028 oleh Ketua PWI Sumsel.', 'tanggal_kegiatan' => '2025-12-19', 'foto' => 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'PWI Banyuasin, giat Jumat Berbagi', 'deskripsi' => 'PWI Banyuasin mengadakan jumat berbagi di Km42 Jl. Palembang-Betung.', 'tanggal_kegiatan' => '2025-12-16', 'foto' => 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'PWI Banyuasin, giat Jumat Berbagi Wilayah Banyuasin', 'deskripsi' => 'PWI Banyuasin mengadakan jumat berbagi di Jln KH. Sulaiman.', 'tanggal_kegiatan' => '2025-12-16', 'foto' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'PWI Banyuasin Audiensi dengan Bupati Banyuasin', 'deskripsi' => 'Pengurus PWI Banyuasin Masa Bhakti 2025 - 2028 Audiensi di Kantor Bupati.', 'tanggal_kegiatan' => '2025-12-16', 'foto' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Pelantikan Pengurus PWI Banyuasin', 'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028 di Graha Sedulang Setudung.', 'tanggal_kegiatan' => '2025-12-16', 'foto' => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80'],
-            ['judul' => 'Pengurus PWI Audiensi dengan Jajaran Pemkab Banyuasin', 'deskripsi' => 'Pengurus PWI Banyuasin Audiensi dengan Bupati Banyuasin.', 'tanggal_kegiatan' => '2025-12-16', 'foto' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80'],
+            ['judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'deskripsi' => 'Bupati Banyuasin, Dr. H. Askolani, SH, MH memberikan Piala juara I Mini Soccer PWI Banyuasin 2026 di Stadion Mini Gading Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'https://pwiba.or.id/assets/img/galeri/f8ec3d4a1ef4abe74b332e46d395f141.jpg'],
+            ['judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'https://pwiba.or.id/assets/img/galeri/ccb967e2dcc8c71737fc08f05d9333e9.jpg'],
+            ['judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.', 'tanggal_kegiatan' => '2026-06-25', 'foto' => 'https://pwiba.or.id/assets/img/galeri/1cfefb92f8afafe981cea6adf5f5acd4.jpg'],
+            ['judul' => 'PWI - Tim Sespim Lemdiklat Polri', 'deskripsi' => 'Giat silaturahmi PWI Banyuasin di Polres Banyuasin bersama Tim Sespim Lemdiklat Polri (Brigjen Pol Defrian Dominando & Kombes Pol Joni Iskandar).', 'tanggal_kegiatan' => '2026-04-29', 'foto' => 'https://pwiba.or.id/assets/img/galeri/d2b050819fd26b2bdca26c97598991e1.jpg'],
+            ['judul' => 'Rangkaian Giat HPN di Banten', 'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.', 'tanggal_kegiatan' => '2026-02-07', 'foto' => 'https://pwiba.or.id/assets/img/galeri/9685b7220dbf97f4cb0b9ada41a776e6.jpg'],
+            ['judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026', 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'https://pwiba.or.id/assets/img/galeri/ba23abe354a929947e4db89c17bda404.jpg'],
+            ['judul' => 'Rapat Persiapan ke Banten - HPN 2026', 'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.', 'tanggal_kegiatan' => '2026-02-03', 'foto' => 'https://pwiba.or.id/assets/img/galeri/146a259265d7af805eac32f39ec3c89c.jpg'],
+            ['judul' => 'Audiensi di Lapas Kelas IIA Banyuasin', 'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.', 'tanggal_kegiatan' => '2026-01-27', 'foto' => 'https://pwiba.or.id/assets/img/galeri/12ee2975e657e43e83ac7b7c4bcb0eb4.jpg'],
         ];
 
         foreach ($galleries as $g) {

@@ -62,61 +62,72 @@
 
             </div>
 
-            <!-- Right Hero Card: PWI Official Badge & Vision Highlight -->
-            <div class="lg:col-span-5 relative">
-                <div class="glass-card-dark rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/10 relative overflow-hidden">
-                    <div class="absolute -top-12 -right-12 w-40 h-40 bg-amber-500/20 rounded-full blur-2xl"></div>
+            <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
+            <div class="lg:col-span-5 relative flex justify-center items-end">
+                <div class="relative w-full max-w-md mx-auto group">
+                    <!-- Glow Backdrop -->
+                    <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
-                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
-                        <div class="w-16 h-16 rounded-2xl bg-white/10 p-2.5 ring-1 ring-white/20 flex items-center justify-center shadow-lg">
-                            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Persatuan Wartawan Indonesia</span>
-                            <h3 class="text-xl font-extrabold text-white">Kabupaten Banyuasin</h3>
-                            <p class="text-xs text-slate-300">Sumatera Selatan • Periode 2025–2028</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
-                            <div class="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase mb-1">
-                                <i class="fa-solid fa-bullseye"></i> Visi Utama
-                            </div>
-                            <p class="text-xs text-slate-200 leading-relaxed">
-                                {{ $settings['visi'] ?? 'Terwujudnya pers yang merdeka, profesional, bermartabat, dan berintegritas guna mendukung kemajuan Kabupaten Banyuasin.' }}
-                            </p>
+                    <!-- Main Frame -->
+                    <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
+                        <!-- Top Official Tag -->
+                        <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
+                            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="PWI Logo" class="w-4 h-4 object-contain">
+                            <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
-                        <!-- 4 UKW Levels Indicator Cards -->
-                        <div class="grid grid-cols-2 gap-2.5 pt-2">
-                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 shadow-md">
+                                Periode 2025–2028
+                            </span>
+                        </div>
+
+                        <!-- Photo Portrait -->
+                        <div class="relative pt-6 px-4 flex justify-center">
+                            <img src="{{ asset('assets/images/wardoyo-ketua.png') }}" 
+                                 alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
+                                 class="w-full max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
+                        </div>
+
+                        <!-- Floating Executive Identity Badge -->
+                        <div class="p-5 bg-gradient-to-t from-slate-950 via-slate-900/95 to-slate-900 border-t border-white/10 relative z-20">
+                            <div class="flex items-center justify-between gap-3">
                                 <div>
-                                    <div class="text-[10px] text-slate-400">Wartawan Utama</div>
-                                    <div class="text-sm font-bold text-rose-400">{{ $ukwStats['utama'] ?? 4 }} Orang</div>
+                                    <div class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="fa-solid fa-circle-check text-[10px]"></i> Ketua PWI Banyuasin
+                                    </div>
+                                    <h3 class="text-xl font-black text-white tracking-tight mt-0.5">
+                                        Wardoyo, S.I.Kom
+                                    </h3>
+                                    <p class="text-xs text-slate-300 font-medium mt-0.5">
+                                        No. KTA: 06.00.17208.14B
+                                    </p>
                                 </div>
-                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                                        <i class="fa-solid fa-award"></i> Wartawan Utama
+                                    </span>
+                                </div>
                             </div>
-                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
-                                <div>
-                                    <div class="text-[10px] text-slate-400">Wartawan Madya</div>
-                                    <div class="text-sm font-bold text-cyan-400">{{ $ukwStats['madya'] ?? 6 }} Orang</div>
+
+                            <!-- UKW Summary Mini Grid -->
+                            <div class="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-white/10 text-center">
+                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="text-[10px] text-slate-400">Utama</div>
+                                    <div class="text-xs font-bold text-rose-400">{{ $ukwStats['utama'] ?? 4 }}</div>
                                 </div>
-                                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-                            </div>
-                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
-                                <div>
-                                    <div class="text-[10px] text-slate-400">Wartawan Muda</div>
-                                    <div class="text-sm font-bold text-emerald-400">{{ $ukwStats['muda'] ?? 21 }} Orang</div>
+                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="text-[10px] text-slate-400">Madya</div>
+                                    <div class="text-xs font-bold text-cyan-400">{{ $ukwStats['madya'] ?? 6 }}</div>
                                 </div>
-                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                            </div>
-                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
-                                <div>
-                                    <div class="text-[10px] text-slate-400">Belum UKW</div>
-                                    <div class="text-sm font-bold text-slate-300">{{ $ukwStats['belum_ukw'] ?? 17 }} Orang</div>
+                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="text-[10px] text-slate-400">Muda</div>
+                                    <div class="text-xs font-bold text-emerald-400">{{ $ukwStats['muda'] ?? 21 }}</div>
                                 </div>
-                                <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
+                                    <div class="text-[10px] text-slate-400">Total</div>
+                                    <div class="text-xs font-bold text-amber-400">{{ $totalMembers ?? 48 }}</div>
+                                </div>
                             </div>
                         </div>
 
@@ -129,17 +140,17 @@
 </section>
 
 <!-- 2. Profil Organisasi, Visi Misi & Sambutan Ketua (Side-by-Side) -->
-<section id="profil" class="py-20 bg-white relative">
+<section id="profil" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-200 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 px-3.5 py-1 rounded-full border border-amber-200 dark:border-amber-400/30">
                 Profil & Landasan Organisasi
             </span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
                 Membangun Ekosistem Jurnalisme Berintegritas
             </h2>
-            <p class="text-slate-600 text-sm sm:text-base mt-3">
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-3">
                 PWI Kabupaten Banyuasin berlandaskan UU Pers No. 40 Tahun 1999 dan Kode Etik Jurnalistik dalam setiap langkah pengabdian pers.
             </p>
         </div>
@@ -155,7 +166,7 @@
                         <div class="flex items-center gap-4 mb-6">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden">
-                                    <img src="https://ui-avatars.com/api/?name=Wardoyo&background=1e3a8a&color=fff&size=128" alt="Ketua PWI" class="w-full h-full object-cover rounded-xl">
+                                    <img src="{{ asset('assets/images/wardoyo-ketua.png') }}" alt="Ketua PWI Banyuasin" class="w-full h-full object-cover rounded-xl">
                                 </div>
                                 <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px]">
                                     <i class="fa-solid fa-check text-white"></i>
@@ -171,7 +182,7 @@
                         <div class="relative">
                             <i class="fa-solid fa-quote-left text-amber-400/20 text-4xl absolute -top-3 -left-2"></i>
                             <p class="text-sm text-slate-300 italic leading-relaxed relative z-10 pl-6">
-                                "{{ $settings['ketua_sambutan'] ?? 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat kemerdekaan pers yang bermartabat, meningkatkan kompetensi jurnalis di Bumi Sedulang Setudung, serta menyajikan transparansi informasi organisasi yang profesional bagi masyarakat dan mitra strategis.' }}"
+                                "{{ $settings['ketua_sambutan'] ?? 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.' }}"
                             </p>
                         </div>
                     </div>
@@ -187,58 +198,58 @@
             <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                 
                 <!-- Visi Card -->
-                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-amber-400/50 transition-all">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all">
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-base">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base">
                             <i class="fa-solid fa-eye"></i>
                         </div>
-                        <h4 class="text-base font-bold text-slate-900">Visi Organisasi</h4>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white">Visi Organisasi</h4>
                     </div>
-                    <p class="text-sm text-slate-700 leading-relaxed">
-                        {{ $settings['visi'] ?? 'Terwujudnya pers yang merdeka, profesional, bermartabat, dan berintegritas guna mendukung pembangunan dan kemajuan Kabupaten Banyuasin.' }}
+                    <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                        {{ $settings['visi'] ?? 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.' }}
                     </p>
                 </div>
 
-                <!-- 4 Misi Grid Cards -->
+                <!-- 4 Misi Grid Cards (Asli pwiba.or.id) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     
-                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
-                        <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold mb-3">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <h5 class="text-sm font-bold text-slate-900 mb-1">Peningkatan Kompetensi</h5>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Mendorong sertifikasi Uji Kompetensi Wartawan (UKW) dan pelatihan jurnalistik berkala.
-                        </p>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold mb-3">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <h5 class="text-sm font-bold text-slate-900 mb-1">Kode Etik & Regulasi</h5>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Menjunjung tinggi Kode Etik Jurnalistik dan UU Pers No. 40 Tahun 1999 dalam seluruh karya pers.
-                        </p>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
-                        <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-sm font-bold mb-3">
-                            <i class="fa-solid fa-handshake"></i>
-                        </div>
-                        <h5 class="text-sm font-bold text-slate-900 mb-1">Kemitraan Konstruktif</h5>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Membangun sinergi harmonis dengan Forkopimda, Pemkab Banyuasin, dan seluruh elemen masyarakat.
-                        </p>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
-                        <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-sm font-bold mb-3">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
-                        <h5 class="text-sm font-bold text-slate-900 mb-1">Advokasi & Pembelaan</h5>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Memberikan perlindungan hukum dan pembelaan hak-hak profesi seluruh jurnalis terdaftar.
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">1. Solid & Berdaya Saing</h5>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Menjadikan PWI Banyuasin sebagai wadah yang lebih solid, profesional, dan berdaya saing tinggi.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold mb-3">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </div>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">2. Kontribusi Nyata Pers</h5>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Berkontribusi nyata bagi masyarakat serta kemajuan kemerdekaan pers nasional.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold mb-3">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">3. Kesejahteraan & Solidaritas</h5>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Meningkatkan kesejahteraan dan solidaritas anggota dengan mendorong program dukungan bagi jurnalis.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-bold mb-3">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">4. Kemitraan Strategis</h5>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Menjalin kemitraan strategis dengan pemerintah, swasta, dan ormas untuk memperluas ruang gerak jurnalis.
                         </p>
                     </div>
 
@@ -252,20 +263,20 @@
 </section>
 
 <!-- 3. Susunan Pengurus Inti Section -->
-<section id="kepengurusan" class="py-20 bg-slate-50 border-y border-slate-200/80">
+<section id="kepengurusan" class="py-20 bg-slate-50 dark:bg-slate-950 border-y border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">
                     Struktur Kepengurusan PWI Banyuasin
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                     Jajaran Pengurus Periode 2025–2028
                 </h2>
-                <p class="text-slate-600 text-sm mt-1">Struktur kepemimpinan organisasi profesi jurnalis di Kabupaten Banyuasin</p>
+                <p class="text-slate-600 dark:text-slate-300 text-sm mt-1">Struktur kepemimpinan organisasi profesi jurnalis di Kabupaten Banyuasin</p>
             </div>
-            <a href="{{ route('organization.public') }}" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 group">
+            <a href="{{ route('organization.public') }}" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 group">
                 <span>Lihat 32 Susunan Lengkap</span>
                 <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -273,28 +284,28 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse($structures->take(8) as $s)
-                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3.5 mb-4">
-                            <div class="w-13 h-13 w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-base shadow-md overflow-hidden flex-shrink-0">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($s->nama) }}&background=0b132b&color=f8fafc&size=128" alt="{{ $s->nama }}" class="w-full h-full object-cover">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-base shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0">
+                                <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" class="w-full h-full object-cover">
                             </div>
                             <div class="min-w-0 flex-grow">
-                                <h4 class="text-sm font-bold text-slate-900 truncate group-hover:text-blue-600 transition-colors">{{ $s->nama }}</h4>
-                                <span class="inline-block text-[10px] font-semibold text-slate-500 uppercase truncate max-w-full">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
+                                <span class="inline-block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase truncate max-w-full">
                                     {{ $s->nomor_kartu ?? 'KTA PWI' }}
                                 </span>
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 mb-3">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 mb-3">
                             <div class="text-[10px] uppercase font-bold text-slate-400">Jabatan</div>
-                            <div class="text-xs font-extrabold text-blue-900 leading-snug">{{ $s->jabatan }}</div>
+                            <div class="text-xs font-extrabold text-blue-900 dark:text-blue-300 leading-snug">{{ $s->jabatan }}</div>
                         </div>
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                        <span class="px-2 py-0.5 rounded-md font-semibold {{ $s->tingkat_ukw === 'Wartawan Utama' ? 'bg-rose-50 text-rose-600 border border-rose-200' : ($s->tingkat_ukw === 'Wartawan Madya' ? 'bg-cyan-50 text-cyan-600 border border-cyan-200' : ($s->tingkat_ukw === 'Wartawan Muda' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' : 'bg-slate-100 text-slate-600')) }}">
+                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
+                        <span class="px-2 py-0.5 rounded-md font-semibold {{ $s->tingkat_ukw === 'Wartawan Utama' ? 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 dark:border-rose-800' : ($s->tingkat_ukw === 'Wartawan Madya' ? 'bg-cyan-50 text-cyan-600 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($s->tingkat_ukw === 'Wartawan Muda' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300')) }}">
                             {{ $s->tingkat_ukw ?? 'Anggota PWI' }}
                         </span>
                         <span class="text-slate-400 text-[10px]">{{ $s->periode }}</span>
@@ -311,20 +322,20 @@
 </section>
 
 <!-- 4. Berita & Publikasi Terkini Section -->
-<section id="berita" class="py-20 bg-white">
+<section id="berita" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 px-3.5 py-1 rounded-full border border-amber-200 dark:border-amber-400/30">
                     Publikasi & Rilis Pers
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                     Berita & Kabar Terkini PWI Banyuasin
                 </h2>
-                <p class="text-slate-600 text-sm mt-1">Liputan resmi kegiatan jurnalistik, kemitraan, dan advokasi pers</p>
+                <p class="text-slate-600 dark:text-slate-300 text-sm mt-1">Liputan resmi kegiatan jurnalistik, kemitraan, dan advokasi pers</p>
             </div>
-            <a href="{{ route('news.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-amber-600 hover:text-amber-700 group">
+            <a href="{{ route('news.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 group">
                 <span>Lihat Semua Berita</span>
                 <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -332,10 +343,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($posts as $p)
-                <article class="bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1">
+                <article class="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1">
                     
                     <!-- Post Thumbnail -->
-                    <a href="{{ route('news.show', $p->slug) }}" class="relative block overflow-hidden aspect-[16/10] bg-slate-100">
+                    <a href="{{ route('news.show', $p->slug) }}" class="relative block overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-800">
                         <img src="{{ $p->gambar_url }}" alt="{{ $p->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-3 left-3">
                             <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900/80 text-amber-300 backdrop-blur-md shadow-sm border border-white/10">
@@ -353,22 +364,22 @@
                                 <span><i class="fa-regular fa-eye me-1"></i> {{ $p->views_count }} views</span>
                             </div>
 
-                            <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
                                 <a href="{{ route('news.show', $p->slug) }}">
                                     {{ $p->judul }}
                                 </a>
                             </h3>
 
-                            <p class="text-xs text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 line-clamp-3 leading-relaxed">
                                 {{ $p->ringkasan ?? Str::limit(strip_tags($p->konten), 120) }}
                             </p>
                         </div>
 
-                        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="text-slate-700 font-semibold flex items-center gap-1.5">
+                        <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between text-xs">
+                            <span class="text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-1.5">
                                 <i class="fa-solid fa-pen-nib text-amber-500"></i> {{ $p->penulis }}
                             </span>
-                            <a href="{{ route('news.show', $p->slug) }}" class="text-blue-600 font-bold hover:underline">
+                            <a href="{{ route('news.show', $p->slug) }}" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">
                                 Baca <i class="fa-solid fa-chevron-right text-[9px]"></i>
                             </a>
                         </div>
@@ -436,7 +447,7 @@
         <!-- Lightbox Modal -->
         <div x-show="selectedPhoto" x-cloak @click.away="selectedPhoto = null" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
             <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <button @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center">
+                <button @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <img :src="selectedPhoto" :alt="selectedTitle" class="w-full max-h-[65vh] object-contain bg-black">
@@ -452,10 +463,10 @@
 </section>
 
 <!-- 6. Formulir Buku Tamu / Hubungi PWI Publik (PRD v2.0 Form) -->
-<section id="bukutamu" class="py-20 bg-slate-50 relative">
+<section id="bukutamu" class="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-200 relative">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 
                 <!-- Left Sidebar: Contact Info -->
@@ -500,7 +511,7 @@
                 <div class="lg:col-span-7 p-8 sm:p-10">
                     
                     @if(session('success_inbox'))
-                        <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-3">
+                        <div class="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center gap-3">
                             <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
                             <div>{{ session('success_inbox') }}</div>
                         </div>
@@ -511,38 +522,38 @@
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
-                                <input type="text" name="nama" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Nama Anda...">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
+                                <input type="text" name="nama" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Nama Anda...">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Instansi / Lembaga</label>
-                                <input type="text" name="instansi" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Dinas / Organisasi / Pribadi">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Instansi / Lembaga</label>
+                                <input type="text" name="instansi" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Dinas / Organisasi / Pribadi">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nomor Kontak / WA *</label>
-                                <input type="text" name="telepon" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="08xxxxxxxxxx">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Nomor Kontak / WA *</label>
+                                <input type="text" name="telepon" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="08xxxxxxxxxx">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Email (Opsional)</label>
-                                <input type="email" name="email" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="nama@email.com">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Email (Opsional)</label>
+                                <input type="email" name="email" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="nama@email.com">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tujuan & Keperluan *</label>
-                            <input type="text" name="keperluan" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Contoh: Permohonan Audiensi Kemitraan Publikasi">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Tujuan & Keperluan *</label>
+                            <input type="text" name="keperluan" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Contoh: Permohonan Audiensi Kemitraan Publikasi">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Isi Pesan / Maksud *</label>
-                            <textarea name="pesan" rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Tuliskan isi permohonan atau pesan lengkap Anda di sini..."></textarea>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Isi Pesan / Maksud *</label>
+                            <textarea name="pesan" rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" placeholder="Tuliskan isi permohonan atau pesan lengkap Anda di sini..."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-900/20 transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane text-amber-400"></i>
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-lg shadow-amber-400/20 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-paper-plane"></i>
                             <span>Kirim ke Buku Tamu PWI</span>
                         </button>
                     </form>

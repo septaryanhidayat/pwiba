@@ -13,10 +13,20 @@
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- Anti-FOUC Theme Initializer (Default: Light Mode) -->
+    <script>
+        if (localStorage.getItem('pwi_theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <!-- Tailwind CSS (Play CDN with custom config) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -42,21 +52,23 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
+        [x-cloak] { display: none !important; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
-            color: #1E293B;
         }
         .glass-nav {
-            background: rgba(11, 19, 43, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .dark .glass-card {
+            background: rgba(28, 37, 65, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-card-dark {
             background: rgba(28, 37, 65, 0.9);
@@ -64,6 +76,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .text-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #334155 50%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .text-gradient {
             background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #F59E0B 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -83,68 +100,100 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-white" x-data="{ mobileMenuOpen: false }">
+<body class="min-h-screen flex flex-col antialiased bg-slate-50 dark:bg-[#0B132B] text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-amber-500 selection:text-white" 
+      x-data="{ 
+          mobileMenuOpen: false, 
+          isDark: document.documentElement.classList.contains('dark'),
+          toggleTheme() {
+              this.isDark = !this.isDark;
+              if (this.isDark) {
+                  document.documentElement.classList.add('dark');
+                  localStorage.setItem('pwi_theme', 'dark');
+              } else {
+                  document.documentElement.classList.remove('dark');
+                  localStorage.setItem('pwi_theme', 'light');
+              }
+          }
+      }">
 
     <!-- Sticky Modern Glassmorphism Navbar -->
-    <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-[#0B132B]/90 glass-nav border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 p-1.5 ring-1 ring-white/20 group-hover:ring-amber-400/50 transition-all duration-300 shadow-lg">
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
                         <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-xs font-semibold tracking-widest text-amber-400 uppercase">Portal Resmi</span>
-                        <span class="text-lg font-extrabold tracking-tight text-white leading-tight">PWI BANYUASIN</span>
-                        <span class="text-[10px] text-slate-400 hidden sm:block">Sumatera Selatan</span>
+                        <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
+                        <span class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">PWI BANYUASIN</span>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">Sumatera Selatan</span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden lg:flex items-center gap-1">
-                    <a href="{{ route('home') }}#beranda" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('home') }}#beranda" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Beranda
                     </a>
-                    <a href="{{ route('home') }}#profil" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('home') }}#profil" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Profil & Visi
                     </a>
-                    <a href="{{ route('home') }}#kepengurusan" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('home') }}#kepengurusan" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Kepengurusan
                     </a>
-                    <a href="{{ route('news.index') }}" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('news.index') }}" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Berita
                     </a>
-                    <a href="{{ route('gallery.public') }}" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('gallery.public') }}" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Galeri
                     </a>
-                    <a href="{{ route('members.public') }}" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <a href="{{ route('members.public') }}" class="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Direktori Anggota
                     </a>
-                    <a href="{{ route('home') }}#bukutamu" class="px-3.5 py-2 text-sm font-medium text-amber-300 hover:text-amber-200 hover:bg-amber-400/10 rounded-lg transition-colors">
+                    <a href="{{ route('home') }}#bukutamu" class="px-3.5 py-2 text-sm font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-colors">
                         Buku Tamu
                     </a>
                 </nav>
 
-                <!-- Action Button & Login -->
-                <div class="hidden md:flex items-center gap-3">
+                <!-- Action Button, Theme Toggle & Login -->
+                <div class="hidden md:flex items-center gap-2.5">
+                    
+                    <!-- Dark / Light Mode Toggle Button -->
+                    <button @click="toggleTheme()" 
+                            type="button" 
+                            class="p-2.5 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-amber-400 transition-all shadow-sm flex items-center justify-center cursor-pointer"
+                            :title="isDark ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'"
+                            aria-label="Toggle Theme">
+                        <i class="fa-solid fa-sun text-base text-amber-400" x-show="isDark" x-cloak></i>
+                        <i class="fa-solid fa-moon text-base text-slate-700" x-show="!isDark"></i>
+                    </button>
+
                     @auth
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition-all duration-200">
+                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200">
                             <i class="fa-solid fa-gauge-high"></i>
                             <span>Dashboard MIS</span>
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all duration-200">
-                            <i class="fa-solid fa-lock text-xs text-amber-400"></i>
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 dark:text-slate-200 dark:hover:text-white dark:bg-white/10 dark:hover:bg-white/15 dark:border-white/20 transition-all duration-200">
+                            <i class="fa-solid fa-lock text-xs text-amber-500 dark:text-amber-400"></i>
                             <span>Login Admin</span>
                         </a>
                     @endauth
                 </div>
 
-                <!-- Mobile menu button -->
-                <div class="flex lg:hidden">
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors" aria-label="Toggle menu">
+                <!-- Mobile menu button & Mobile Theme Toggle -->
+                <div class="flex items-center gap-2 lg:hidden">
+                    <button @click="toggleTheme()" 
+                            type="button" 
+                            class="p-2 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-amber-400 transition-colors"
+                            aria-label="Toggle Theme Mobile">
+                        <i class="fa-solid fa-sun text-sm text-amber-400" x-show="isDark" x-cloak></i>
+                        <i class="fa-solid fa-moon text-sm text-slate-700" x-show="!isDark"></i>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="p-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors" aria-label="Toggle menu">
                         <i class="fa-solid text-xl" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
                     </button>
                 </div>
@@ -152,23 +201,23 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="lg:hidden bg-slate-900/95 border-b border-white/10 px-4 pt-2 pb-6 space-y-2">
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Beranda</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Profil & Visi</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#kepengurusan" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Kepengurusan</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Berita Terkini</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Galeri Kegiatan</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10 hover:text-white">Direktori Anggota</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#bukutamu" class="block px-3 py-2 rounded-lg text-base font-medium text-amber-300 hover:bg-amber-400/10">Buku Tamu Publik</a>
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="lg:hidden bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-white/10 px-4 pt-2 pb-6 space-y-2 shadow-xl">
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Beranda</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Profil & Visi</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#kepengurusan" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Kepengurusan</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Direktori Anggota</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#bukutamu" class="block px-3 py-2 rounded-lg text-base font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10">Buku Tamu Publik</a>
             
-            <div class="pt-4 border-t border-white/10">
+            <div class="pt-4 border-t border-slate-200 dark:border-white/10 space-y-2">
                 @auth
-                    <a href="{{ route('admin.dashboard') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600">
+                    <a href="{{ route('admin.dashboard') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 shadow-md">
                         <i class="fa-solid fa-gauge-high me-1"></i> Dashboard MIS
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-200 bg-white/10 border border-white/20">
-                        <i class="fa-solid fa-lock text-xs text-amber-400 me-1"></i> Login Admin
+                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-white/10 border border-slate-300 dark:border-white/20">
+                        <i class="fa-solid fa-lock text-xs text-amber-500 dark:text-amber-400 me-1"></i> Login Admin
                     </a>
                 @endauth
             </div>

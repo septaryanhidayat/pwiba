@@ -70,7 +70,7 @@
                                 <div class="font-bold text-white">{{ $item->pengirim }}</div>
                             </td>
                             <td class="py-4 px-6">
-                                <div class="font-bold text-amber-400 leading-snug">{{ $item->perihal }}</div>
+                                <div class="font-bold text-slate-900 dark:text-white leading-snug">{{ $item->perihal }}</div>
                                 @if($item->isi_ringkas)
                                     <div class="text-[11px] text-slate-400 mt-1 line-clamp-2">{{ $item->isi_ringkas }}</div>
                                 @endif

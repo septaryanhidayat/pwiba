@@ -70,8 +70,11 @@
                                     {{ $s->tingkat_ukw ?? 'Belum UKW' }}
                                 </span>
                             </td>
-                            <td class="py-3.5 px-6 text-slate-400">{{ $s->masa_berlaku ? $s->masa_berlaku->format('d-m-Y') : '-' }}</td>
-                            <td class="py-3.5 px-6 font-bold text-amber-400">{{ $s->jabatan }}</td>
+                            <td class="py-3.5 px-6">
+                                <span class="inline-block px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-[11px]">
+                                    {{ $s->jabatan }}
+                                </span>
+                            </td>
                             <td class="py-3.5 px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
                                     <button type="button" @click="editData = {{ json_encode($s) }}" class="p-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white border border-blue-500/20 transition-all" title="Edit Pengurus">

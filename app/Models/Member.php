@@ -59,18 +59,21 @@ class Member extends Model
     public function getFotoUrlAttribute(): string
     {
         if ($this->foto) {
+            if (str_starts_with($this->foto, 'http://') || str_starts_with($this->foto, 'https://') || str_starts_with($this->foto, 'assets/')) {
+                return str_starts_with($this->foto, 'assets/') ? asset($this->foto) : $this->foto;
+            }
             return asset('storage/' . $this->foto);
         }
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama) . '&background=0f172a&color=f8fafc&size=256&bold=true';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama) . '&background=e2e8f0&color=334155&size=256&bold=true';
     }
 
     public function getUkwColorBadgeAttribute(): string
     {
         return match ($this->tingkat_ukw) {
-            'Wartawan Utama' => 'bg-rose-500/10 text-rose-500 border border-rose-500/20',
-            'Wartawan Madya' => 'bg-cyan-500/10 text-cyan-500 border border-cyan-500/20',
-            'Wartawan Muda'  => 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20',
-            default          => 'bg-slate-500/10 text-slate-400 border border-slate-500/20',
+            'Wartawan Utama' => 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/50 dark:text-rose-400 dark:border-rose-800',
+            'Wartawan Madya' => 'bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/50 dark:text-sky-400 dark:border-sky-800',
+            'Wartawan Muda'  => 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800',
+            default          => 'bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700',
         };
     }
 }

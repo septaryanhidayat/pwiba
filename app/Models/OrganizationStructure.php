@@ -34,12 +34,17 @@ class OrganizationStructure extends Model
 
     public function getFotoUrlAttribute(): string
     {
-        if ($this->foto && file_exists(public_path('storage/' . $this->foto))) {
-            return asset('storage/' . $this->foto);
+        if ($this->foto) {
+            if (str_starts_with($this->foto, 'http://') || str_starts_with($this->foto, 'https://') || str_starts_with($this->foto, 'assets/')) {
+                return str_starts_with($this->foto, 'assets/') ? asset($this->foto) : $this->foto;
+            }
+            if (file_exists(public_path('storage/' . $this->foto))) {
+                return asset('storage/' . $this->foto);
+            }
+            if (file_exists(public_path($this->foto))) {
+                return asset($this->foto);
+            }
         }
-        if ($this->foto && file_exists(public_path($this->foto))) {
-            return asset($this->foto);
-        }
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama) . '&background=1e293b&color=fff&size=200';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama) . '&background=e2e8f0&color=334155&size=200&bold=true';
     }
 }
