@@ -19,6 +19,10 @@ class OrganizationStructure extends Model
         'jabatan',
         'urutan',
         'foto',
+        'x_twitter',
+        'facebook',
+        'instagram',
+        'youtube',
         'periode',
         'status',
     ];

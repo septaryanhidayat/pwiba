@@ -269,59 +269,91 @@
 </section>
 
 <!-- 3. Susunan Pengurus Inti Section -->
-<section id="kepengurusan" class="py-20 bg-slate-50 dark:bg-slate-950 border-y border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+<section id="kepengurusan" class="py-24 bg-slate-50 dark:bg-slate-950 border-y border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-            <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">
-                    Struktur Kepengurusan PWI Banyuasin
-                </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
-                    Jajaran Pengurus Periode 2025–2028
-                </h2>
-                <p class="text-slate-600 dark:text-slate-300 text-sm mt-1">Struktur kepemimpinan organisasi profesi jurnalis di Kabupaten Banyuasin</p>
-            </div>
-            <a href="{{ route('organization.public') }}" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 group">
-                <span>Lihat 32 Susunan Lengkap</span>
-                <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
-            </a>
+        <!-- Header Section -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800 shadow-sm">
+                <i class="fa-solid fa-users text-[11px]"></i> PENGURUS INTI PWI
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 tracking-tight">
+                Pimpinan Eksekutif <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-300">PWI Banyuasin</span>
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+                Pimpinan eksekutif Persatuan Wartawan Indonesia Kabupaten Banyuasin Periode 2025–2028
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @forelse($structures->take(8) as $s)
-                <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-3.5 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-base shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0">
-                                <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" class="w-full h-full object-cover">
+        <!-- 4 Symmetrical Executive Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            @forelse($structures->take(4) as $s)
+                <div class="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                    
+                    <!-- Symmetrical Photo Frame -->
+                    <div class="relative w-full aspect-[3/4] bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+                        
+                        <!-- Subtle Bottom Gradient -->
+                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+                    </div>
+
+                    <!-- Executive Info & Social Media Links -->
+                    <div class="p-6 text-center flex flex-col justify-between flex-grow">
+                        <div>
+                            <!-- Jabatan Pill -->
+                            <div class="inline-block px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80 mb-2">
+                                {{ $s->jabatan }}
                             </div>
-                            <div class="min-w-0 flex-grow">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
-                                <span class="inline-block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase truncate max-w-full">
-                                    {{ $s->nomor_kartu ?? 'KTA PWI' }}
-                                </span>
+                            
+                            <!-- Nama Lengkap & Gelar -->
+                            <h3 class="text-base font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                                {{ $s->nama }}
+                            </h3>
+                        </div>
+
+                        <!-- Social Media Icon Links (X, FB, IG, YouTube) -->
+                        <div class="pt-5 mt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center justify-center gap-2">
+                                <!-- X / Twitter -->
+                                <a href="{{ $s->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black flex items-center justify-center text-xs transition-all duration-200 shadow-sm hover:scale-110" title="X (Twitter)">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <!-- Facebook -->
+                                <a href="{{ $s->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-[#1877F2] hover:text-white flex items-center justify-center text-xs transition-all duration-200 shadow-sm hover:scale-110" title="Facebook">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="{{ $s->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white flex items-center justify-center text-xs transition-all duration-200 shadow-sm hover:scale-110" title="Instagram">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <!-- YouTube -->
+                                <a href="{{ $s->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-[#FF0000] hover:text-white flex items-center justify-center text-xs transition-all duration-200 shadow-sm hover:scale-110" title="YouTube">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 mb-3">
-                            <div class="text-[10px] uppercase font-bold text-slate-400">Jabatan</div>
-                            <div class="text-xs font-extrabold text-blue-900 dark:text-blue-300 leading-snug">{{ $s->jabatan }}</div>
-                        </div>
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
-                        <span class="px-2 py-0.5 rounded-md font-semibold {{ $s->tingkat_ukw === 'Wartawan Utama' ? 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 dark:border-rose-800' : ($s->tingkat_ukw === 'Wartawan Madya' ? 'bg-cyan-50 text-cyan-600 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($s->tingkat_ukw === 'Wartawan Muda' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300')) }}">
-                            {{ $s->tingkat_ukw ?? 'Anggota PWI' }}
-                        </span>
-                        <span class="text-slate-400 text-[10px]">{{ $s->periode }}</span>
-                    </div>
                 </div>
             @empty
-                <div class="col-span-4 text-center py-10 text-slate-400">
-                    Data struktur pengurus belum diinput.
+                <div class="col-span-4 text-center py-12 text-slate-400 font-medium">
+                    Data pengurus inti belum tersedia.
                 </div>
             @endforelse
+        </div>
+
+        <!-- Tombol Anggota Lengkap -->
+        <div class="mt-14 text-center">
+            <a href="{{ route('organization.public') }}" class="inline-flex items-center gap-3.5 px-8 py-4 rounded-2xl bg-[#0B132B] dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-slate-900/10 dark:shadow-blue-600/20 transition-all duration-300 group hover:-translate-y-0.5">
+                <i class="fa-solid fa-id-card-clip text-blue-400 dark:text-blue-200 group-hover:scale-110 transition-transform"></i>
+                <span>Lihat Seluruh Anggota & Wartawan PWI Banyuasin</span>
+                <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1.5 transition-transform"></i>
+            </a>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 font-medium">
+                Daftar lengkap 32 jajaran pengurus divisi dan 48 wartawan resmi terverifikasi
+            </p>
         </div>
 
     </div>

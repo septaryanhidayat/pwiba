@@ -45,6 +45,10 @@ class OrganizationController extends Controller
             'periode' => 'nullable|string|max:50',
             'status' => 'nullable|in:aktif,nonaktif',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'x_twitter' => 'nullable|string|max:255',
+            'facebook' => 'nullable|string|max:255',
+            'instagram' => 'nullable|string|max:255',
+            'youtube' => 'nullable|string|max:255',
         ]);
 
         if (empty($validated['status'])) {
@@ -93,6 +97,10 @@ class OrganizationController extends Controller
             'periode' => 'nullable|string|max:50',
             'status' => 'nullable|in:aktif,nonaktif',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'x_twitter' => 'nullable|string|max:255',
+            'facebook' => 'nullable|string|max:255',
+            'instagram' => 'nullable|string|max:255',
+            'youtube' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('foto')) {

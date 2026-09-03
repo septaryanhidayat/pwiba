@@ -131,7 +131,7 @@
                 </button>
             </div>
 
-            <form action="{{ route('admin.organization.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.organization.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
 
                 <div>
@@ -166,6 +166,42 @@
                     </div>
                 </div>
 
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Foto Formal (Opsional)</label>
+                    <input type="file" name="foto" accept="image/*" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                </div>
+
+                <!-- Media Sosial Pengurus -->
+                <div class="pt-2 border-t border-slate-200 dark:border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Tautan Media Sosial</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-x-twitter text-slate-800 dark:text-white mr-1"></i> X (Twitter)
+                            </label>
+                            <input type="text" name="x_twitter" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://x.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-facebook-f text-blue-600 mr-1"></i> Facebook
+                            </label>
+                            <input type="text" name="facebook" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://facebook.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-instagram text-rose-500 mr-1"></i> Instagram
+                            </label>
+                            <input type="text" name="instagram" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://instagram.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-youtube text-red-600 mr-1"></i> YouTube
+                            </label>
+                            <input type="text" name="youtube" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://youtube.com/@channel">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <button type="button" @click="modalTambah = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all">Simpan Pengurus</button>
@@ -176,7 +212,7 @@
 
     <!-- Modal Edit Pengurus -->
     <div x-show="editData" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="editData = null">
+        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto" @click.away="editData = null">
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-pen text-blue-600"></i> Edit Pengurus
@@ -186,7 +222,7 @@
                 </button>
             </div>
 
-            <form :action="'{{ url('admin/struktur-organisasi') }}/' + (editData ? editData.id : '')" method="POST" class="space-y-4">
+            <form :action="'{{ url('admin/struktur-organisasi') }}/' + (editData ? editData.id : '')" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -219,6 +255,42 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Urutan Tampil (No)</label>
                         <input type="number" name="urutan" :value="editData ? editData.urutan : 1" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Ganti Foto Formal (Opsional)</label>
+                    <input type="file" name="foto" accept="image/*" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                </div>
+
+                <!-- Media Sosial Pengurus -->
+                <div class="pt-2 border-t border-slate-200 dark:border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Tautan Media Sosial</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-x-twitter text-slate-800 dark:text-white mr-1"></i> X (Twitter)
+                            </label>
+                            <input type="text" name="x_twitter" :value="editData ? editData.x_twitter : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://x.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-facebook-f text-blue-600 mr-1"></i> Facebook
+                            </label>
+                            <input type="text" name="facebook" :value="editData ? editData.facebook : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://facebook.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-instagram text-rose-500 mr-1"></i> Instagram
+                            </label>
+                            <input type="text" name="instagram" :value="editData ? editData.instagram : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://instagram.com/username">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                <i class="fa-brands fa-youtube text-red-600 mr-1"></i> YouTube
+                            </label>
+                            <input type="text" name="youtube" :value="editData ? editData.youtube : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://youtube.com/@channel">
+                        </div>
                     </div>
                 </div>
 
