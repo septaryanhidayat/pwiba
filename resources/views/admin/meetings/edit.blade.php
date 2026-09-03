@@ -69,13 +69,19 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Jalannya Pembahasan Rapat *</label>
-                    <textarea name="pembahasan" rows="6" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('pembahasan', $meeting->pembahasan) }}</textarea>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span>Jalannya Pembahasan Rapat *</span>
+                        <span class="text-[11px] font-normal text-slate-500 lowercase">(dapat diperlebar / ditarik ke bawah jika uraian panjang)</span>
+                    </label>
+                    <textarea name="pembahasan" rows="12" required class="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[240px] resize-y" placeholder="Uraikan secara lengkap dan rinci poin-poin diskusi, pandangan anggota pengurus, pembahasan topik, serta dinamika rapat...">{{ old('pembahasan', $meeting->pembahasan) }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Kesimpulan / Hasil Keputusan Rapat *</label>
-                    <textarea name="kesimpulan" rows="4" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('kesimpulan', $meeting->kesimpulan) }}</textarea>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span>Kesimpulan / Hasil Keputusan Rapat *</span>
+                        <span class="text-[11px] font-normal text-slate-500 lowercase">(dapat diperlebar / ditarik ke bawah)</span>
+                    </label>
+                    <textarea name="kesimpulan" rows="8" required class="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[160px] resize-y" placeholder="Tuliskan butir-butir keputusan bulat rapat, instruksi pimpinan, pembagian tugas, target batas waktu, dan tindak lanjut program...">{{ old('kesimpulan', $meeting->kesimpulan) }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
