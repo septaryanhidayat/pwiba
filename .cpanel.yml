@@ -12,5 +12,6 @@ deployment:
     - /bin/cp -R storage $DEPLOYPATH
     - /bin/cp artisan $DEPLOYPATH
     - /bin/cp composer.json $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
     - /bin/cp .htaccess $DEPLOYPATH
     - /bin/cp .env.example $DEPLOYPATH
