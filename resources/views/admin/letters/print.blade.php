@@ -2,239 +2,342 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Cetak Surat - {{ $letter->nomor_surat }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Resmi - {{ $letter->nomor_surat }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @page {
             size: A4 portrait;
-            margin: 20mm 20mm 20mm 20mm;
+            margin: 15mm 20mm 15mm 20mm;
+        }
+        * {
+            box-sizing: border-box;
         }
         body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: "Times New Roman", Times, serif;
             color: #000;
-            background: #fff;
-            padding: 25px;
-            font-size: 12pt;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 20px 0;
+            font-size: 11pt;
             line-height: 1.5;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
-        .kop-surat {
-            border-bottom: 3px double #000;
-            padding-bottom: 12px;
-            margin-bottom: 25px;
+        .page-sheet {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #fff;
+            padding: 15mm 20mm 20mm 20mm;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
         }
-        .kop-title-main {
+        .kop-box {
+            background-color: #0B2B68 !important;
+            color: #ffffff !important;
+            border-radius: 4px;
+            padding: 10px 15px 8px 15px;
+            position: relative;
+            text-align: center;
+        }
+        .kop-logo {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 72px;
+            height: 72px;
+        }
+        .kop-title-1 {
             font-size: 18pt;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
             margin: 0;
             line-height: 1.1;
+            text-transform: uppercase;
         }
-        .kop-title-sub {
-            font-size: 16pt;
-            font-weight: bold;
-            margin: 0;
-            line-height: 1.2;
+        .kop-title-2 {
+            font-size: 13.5pt;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin: 3px 0 0 0;
+            line-height: 1.15;
+            text-transform: uppercase;
+        }
+        .kop-title-3 {
+            font-size: 9.5pt;
+            font-style: italic;
+            margin: 2px 0 0 0;
+            letter-spacing: 0.5px;
+            opacity: 0.95;
+        }
+        .kop-title-4 {
+            font-size: 9.5pt;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 1px 0 0 0;
+            text-transform: uppercase;
         }
         .kop-address {
-            font-size: 9.5pt;
-            margin: 6px 0 0 0;
-            line-height: 1.3;
+            font-size: 8.5pt;
+            text-align: center;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-top: 5px;
+            color: #000;
+        }
+        .kop-divider {
+            border-top: 2.5px solid #000;
+            border-bottom: 1px solid #000;
+            height: 4px;
+            margin-top: 5px;
+            margin-bottom: 24px;
+        }
+        .letter-table td {
+            padding: 2px 0;
+            vertical-align: top;
+            font-size: 11pt;
         }
         .letter-content {
             text-align: justify;
-            min-height: 320px;
+            text-justify: inter-word;
+            font-size: 11pt;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+        .letter-content p {
+            margin-bottom: 14px;
+            text-indent: 0;
+        }
+        .signature-section {
+            margin-top: 35px;
+            float: right;
+            width: 330px;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        .signature-table {
+            width: 100%;
+            margin-top: 14px;
+        }
+        .signature-table td {
+            text-align: center;
+            vertical-align: top;
+            width: 50%;
+            font-size: 10.5pt;
+        }
+        .official-name {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .official-role {
+            font-size: 10.5pt;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
         }
         @media print {
-            .no-print { display: none !important; }
-            body { padding: 0; }
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .page-sheet {
+                width: 100%;
+                min-height: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="no-print mb-4 d-flex justify-content-between align-items-center bg-light p-3 border rounded">
-    <div>
-        <strong>Format Cetak Resmi:</strong> {{ $letter->nomor_surat }} ({{ $letter->jenis_surat }})
+<!-- Control Bar (Hidden when printed) -->
+<div class="no-print" style="max-width: 210mm; margin: 0 auto 15px auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 12px 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-family: system-ui, -apple-system, sans-serif;">
+    <div style="font-size: 13px; color: #1e293b;">
+        <strong>Dokumen Cetak Resmi:</strong> <span style="color: #2563eb; font-weight: 600;">{{ $letter->nomor_surat }}</span>
     </div>
-    <div class="d-flex gap-2">
-        <button onclick="window.print()" class="btn btn-primary btn-sm">
-            <i class="fa-solid fa-print"></i> Cetak Surat Resmi (PDF/Print)
+    <div style="display: flex; gap: 8px;">
+        <button onclick="window.print()" class="btn btn-primary btn-sm px-3" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
         </button>
-        <button onclick="window.close()" class="btn btn-secondary btn-sm">
+        <button onclick="window.close()" class="btn btn-outline-secondary btn-sm px-3" style="font-size: 12px;">
             Tutup
         </button>
     </div>
 </div>
 
-<div class="container-fluid px-0">
-    <!-- Kop Surat PWI Banyuasin Resmi (Sesuai Format Lampiran PDF Asli) -->
-    <div class="kop-surat">
-        <div style="background: #0B2B68; color: #fff; border-radius: 4px; padding: 12px 15px 10px 15px; position: relative; text-align: center;">
-            <div style="position: absolute; left: 16px; top: 8px;">
-                <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" width="76" height="76" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
-            </div>
-            <div style="margin-left: 70px; margin-right: 20px;">
-                <h1 style="font-size: 19pt; font-weight: 900; letter-spacing: 1px; margin: 0; line-height: 1.1; text-transform: uppercase;">
-                    PERSATUAN WARTAWAN INDONESIA
-                </h1>
-                <h2 style="font-size: 14pt; font-weight: 800; letter-spacing: 0.5px; margin: 2px 0 0 0; line-height: 1.2; text-transform: uppercase;">
-                    PENGURUS KABUPATEN BANYUASIN
-                </h2>
-                <div style="font-size: 10pt; font-weight: 600; font-style: italic; margin-top: 3px; letter-spacing: 0.5px; opacity: 0.95;">
-                    Central Executive Board
-                </div>
-                <div style="font-size: 10pt; font-weight: 800; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase;">
-                    INDONESIAN JOURNALIST'S ASSOCIATION
-                </div>
+<!-- Lembar Kertas A4 Resmi -->
+<div class="page-sheet">
+
+    <!-- Kop Surat Resmi PWI Banyuasin -->
+    <div class="kop-header">
+        <div class="kop-box">
+            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="kop-logo">
+            <div style="margin-left: 65px; margin-right: 15px;">
+                <div class="kop-title-1">PERSATUAN WARTAWAN INDONESIA</div>
+                <div class="kop-title-2">PENGURUS KABUPATEN BANYUASIN</div>
+                <div class="kop-title-3">Central Executive Board</div>
+                <div class="kop-title-4">INDONESIAN JOURNALIST'S ASSOCIATION</div>
             </div>
         </div>
-        <div style="font-size: 8.5pt; text-align: center; font-weight: 600; padding: 5px 0 3px 0; border-bottom: 2.5px solid #000; margin-bottom: 18px; color: #000;">
-            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
+        <div class="kop-address">
+            Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan<br>
+            (30914)
         </div>
+        <div class="kop-divider"></div>
     </div>
 
     @if($letter->jenis_surat === 'SURAT TUGAS')
-        <!-- Specific Surat Tugas Format -->
-        <div class="text-center mb-4">
-            <div class="fw-bold text-decoration-underline" style="font-size: 14pt;">SURAT PERINTAH TUGAS</div>
-            <div class="small">Nomor: {{ $letter->nomor_surat }}</div>
+        <!-- Format Khusus Surat Perintah Tugas -->
+        <div style="text-align: center; margin-bottom: 22px;">
+            <div style="font-size: 14pt; font-weight: bold; text-decoration: underline;">SURAT PERINTAH TUGAS</div>
+            <div style="font-size: 11pt;">Nomor: {{ $letter->nomor_surat }}</div>
         </div>
 
         <div class="letter-content">
             <p>Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin dengan ini memberikan tugas kepada:</p>
             
-            <table class="table table-sm table-borderless ms-4 mb-3" style="width: 90%;">
+            <table style="width: 90%; margin-left: 30px; margin-bottom: 16px;" class="letter-table">
                 <tr>
-                    <td width="150" class="fw-bold">Nama</td>
-                    <td width="15">:</td>
-                    <td class="fw-bold">{{ $letter->member->nama ?? $letter->penandatangan_nama }}</td>
+                    <td style="width: 140px; font-weight: bold;">Nama</td>
+                    <td style="width: 15px;">:</td>
+                    <td style="font-weight: bold;">{{ $letter->member->nama ?? $letter->penandatangan_nama }}</td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">Nomor KTA PWI</td>
+                    <td style="font-weight: bold;">Nomor KTA PWI</td>
                     <td>:</td>
                     <td>{{ $letter->member->nomor_kartu ?? '06.00.17208.14B' }}</td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">Jabatan / Media</td>
+                    <td style="font-weight: bold;">Jabatan / Media</td>
                     <td>:</td>
                     <td>{{ $letter->member->jabatan ?? 'Pengurus' }} / {{ $letter->member->nama_media ?? 'PWI Banyuasin' }}</td>
                 </tr>
             </table>
 
             <p>Untuk melaksanakan tugas dan menghadiri:</p>
-            <table class="table table-sm table-borderless ms-4 mb-3" style="width: 90%;">
+            <table style="width: 90%; margin-left: 30px; margin-bottom: 16px;" class="letter-table">
                 <tr>
-                    <td width="150" class="fw-bold">Keperluan Tugas</td>
-                    <td width="15">:</td>
+                    <td style="width: 140px; font-weight: bold;">Keperluan Tugas</td>
+                    <td style="width: 15px;">:</td>
                     <td>{{ $letter->keperluan }}</td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">Tujuan / Lokasi</td>
+                    <td style="font-weight: bold;">Tujuan / Lokasi</td>
                     <td>:</td>
                     <td>{{ $letter->tujuan }} {{ $letter->lokasi ? '('.$letter->lokasi.')' : '' }}</td>
                 </tr>
                 @if($letter->tanggal_mulai)
                 <tr>
-                    <td class="fw-bold">Waktu Pelaksanaan</td>
+                    <td style="font-weight: bold;">Waktu Pelaksanaan</td>
                     <td>:</td>
                     <td>{{ $letter->tanggal_mulai ? $letter->tanggal_mulai->translatedFormat('d F Y') : '' }} s/d {{ $letter->tanggal_selesai ? $letter->tanggal_selesai->translatedFormat('d F Y') : 'Selesai' }}</td>
                 </tr>
                 @endif
             </table>
 
-            <p class="mt-4">
+            <p>
                 Demikian Surat Tugas ini dibuat dan diberikan untuk dapat dipergunakan sebagaimana mestinya dan dilaksanakan dengan penuh rasa tanggung jawab.
             </p>
         </div>
 
     @else
-        <!-- Format Surat Resmi Sesuai Lampiran PDF -->
-        <div class="row mb-4">
-            <div class="col-7">
-                <table style="width: 100%;">
+        <!-- Struktur Surat Resmi Sesuai Lampiran Asli PDF -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+            
+            <!-- Kolom Kiri: Nomor, Lampiran, Perihal -->
+            <div style="width: 52%;">
+                <table class="letter-table" style="width: 100%;">
                     <tr>
-                        <td width="85" style="vertical-align: top;">Nomor</td>
-                        <td width="15" style="vertical-align: top;">:</td>
-                        <td class="fw-bold" style="vertical-align: top;">{{ $letter->nomor_surat }}</td>
+                        <td style="width: 82px;">Nomor</td>
+                        <td style="width: 15px;">:</td>
+                        <td style="font-weight: bold;">{{ $letter->nomor_surat }}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: top;">Lampiran</td>
-                        <td style="vertical-align: top;">:</td>
-                        <td style="vertical-align: top;">{{ $letter->lampiran ?? '1 (Satu) Berkas' }}</td>
+                        <td>Lampiran</td>
+                        <td>:</td>
+                        <td>{{ $letter->lampiran ?? '1 (Satu) Berkas' }}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: top;">Perihal</td>
-                        <td style="vertical-align: top;">:</td>
-                        <td class="fw-bold" style="vertical-align: top;">{{ $letter->perihal ?? $letter->keperluan }}</td>
+                        <td>Perihal</td>
+                        <td>:</td>
+                        <td style="font-weight: bold;">{{ $letter->perihal ?? $letter->keperluan }}</td>
                     </tr>
                 </table>
             </div>
-            <div class="col-5">
-                <div>Pangkalan Balai, {{ $letter->tanggal ? $letter->tanggal->translatedFormat('d F Y') : now()->translatedFormat('d F Y') }}</div>
-                <div class="mt-2">Kepada Yth.</div>
-                <div class="fw-bold">{{ $letter->jabatan_pejabat ?? ($letter->tujuan ?? 'Ketua PWI Provinsi Sumatera Selatan') }}</div>
+
+            <!-- Kolom Kanan: Tanggal & Penerima (Tepat Sejajar Kolom Kiri Sesuai PDF) -->
+            <div style="width: 45%; padding-left: 10px;">
+                <div style="margin-bottom: 12px;">
+                    Pangkalan Balai, {{ $letter->tanggal ? $letter->tanggal->translatedFormat('d F Y') : now()->translatedFormat('d F Y') }}
+                </div>
+                <div>Kepada Yth.</div>
+                <div style="font-weight: bold;">{{ $letter->tujuan }}</div>
                 @if($letter->nama_pejabat && $letter->nama_pejabat !== $letter->tujuan)
-                    <div class="fw-bold">{{ $letter->nama_pejabat }}</div>
+                    <div style="font-weight: bold;">{{ $letter->nama_pejabat }}</div>
                 @endif
                 <div>di -</div>
-                <div>{{ $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Palembang') }}</div>
+                <div style="margin-left: 20px;">{{ $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Di Tempat') }}</div>
             </div>
+
         </div>
 
-        <div class="letter-content" style="font-size: 11pt; line-height: 1.6;">
-            <p>Dengan hormat,</p>
+        <!-- Isi Surat -->
+        <div class="letter-content">
+            <div style="margin-bottom: 12px;">Dengan hormat,</div>
             
             @if($letter->isi_surat)
                 {!! nl2br(e($letter->isi_surat)) !!}
             @else
                 <p>
-                    Menindaklanjuti upaya penertiban dan penyelamatan aset organisasi, bersama surat ini kami sampaikan dengan hormat permasalahan internal terkait permintaan penyerahan aset PWI Kabupaten Banyuasin pembeliaannya bersumber dari Dana Hibah Tahun 2024. Berdasarkan laporan yang bersangkutan saat konferda, tanggal 20 September 2025, dibeli sebanyak 2 unit Laptop. Namun sampai berakhir masa jabatannya Laptop belum diserahkan ke PWI Banyuasin.
+                    Sehubungan dengan agenda PWI Kabupaten Banyuasin, bersama ini kami sampaikan maksud {{ $letter->keperluan }}. Besar harapan kami terjalin koordinasi dan kerja sama yang baik.
                 </p>
                 <p>
-                    Adapun permohonan penyerahan aset telah kami layangkan secara resmi sebanyak 3 (tiga) kali kepada ASNAINI KHAMSIN, SE, Ketua PWI Kabupaten Banyuasin Periode 2022-2025. Namun tidak diindahkan sama sekali, dengan rincian sebagai berikut:
-                </p>
-                <ol>
-                    <li>Surat Pertama tanggal 14 Januari 2026 dengan Nomor: 013/PWI-BA/I/2026</li>
-                    <li>Surat Kedua tanggal 23 Februari 2026 dengan Nomor: 021/PWI-BA/II/2026 dan</li>
-                    <li>Surat Ketiga tanggal 20 Juli 2026. (Salinan surat-surat terlampir)</li>
-                </ol>
-                <p>
-                    Mengingat tidak adanya tanggapan atau itikad baik dari yang bersangkutan, maka berdasarkan hasil Rapat Pengurus PWI Kabupaten Banyuasin yang dilaksanakan, Senin 24 Agustus 2026, diputuskan untuk melaporkan secara resmi kepada PWI Provinsi Sumatera Selatan untuk meminta arahan, petunjuk, serta kebijakan lebih lanjut dalam mengambil langkah-langkah organisasi maupun hukum selanjutnya.
+                    Demikian surat permohonan ini kami sampaikan. Atas perhatian, petunjuk, dan kebijaksanaan Bapak Ketua PWI Provinsi Sumatera Selatan, kami ucapkan terima kasih.
                 </p>
             @endif
-
-            <p class="mt-4">
-                Demikian surat permohonan ini kami sampaikan. Atas perhatian, petunjuk, dan kebijaksanaan Bapak Ketua PWI Provinsi Sumatera Selatan, kami ucapkan terima kasih.
-            </p>
         </div>
     @endif
 
-    <!-- Tanda Tangan Resmi & QR Code Digital Sesuai Lampiran PDF -->
-    <div class="mt-4" style="page-break-inside: avoid;">
-        <div class="text-center" style="margin-left: auto; width: 420px; text-align: center;">
+    <!-- Blok Tanda Tangan Resmi & QR Code Digital (Rata Kanan Sesuai Lampiran PDF) -->
+    <div class="clearfix">
+        <div class="signature-section">
             <div>Hormat kami,</div>
-            <div class="fw-bold mb-2">Pengurus PWI Banyuasin</div>
-            
+            <div style="font-weight: bold; margin-bottom: 6px;">Pengurus PWI Banyuasin</div>
+
             <!-- QR Code Digital Verification -->
-            <div class="my-2 d-flex flex-column align-items-center justify-center">
-                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 120, 'QR Code Verifikasi Keabsahan Surat') !!}
-                <div style="font-size: 7.5pt; color: #475569; margin-top: 4px; font-style: italic;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 6px 0;">
+                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 108, 'QR Code Verifikasi Keabsahan Surat') !!}
+                <div style="font-size: 7pt; color: #475569; margin-top: 3px; font-style: italic;">
                     Pindai untuk validasi keabsahan dokumen digital
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between px-2 mt-2">
-                <div style="text-align: center; width: 180px;">
-                    <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
-                    <div style="font-size: 10pt;">Ketua</div>
-                </div>
-                <div style="text-align: center; width: 180px;">
-                    <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
-                    <div style="font-size: 10pt;">Sekretaris</div>
-                </div>
-            </div>
+            <!-- Nama & Jabatan Penandatangan -->
+            <table class="signature-table">
+                <tr>
+                    <td>
+                        <div class="official-name">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
+                        <div class="official-role">Ketua</div>
+                    </td>
+                    <td>
+                        <div class="official-name">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
+                        <div class="official-role">Sekretaris</div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
+
 </div>
 
 </body>

@@ -45,11 +45,22 @@
                         </div>
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="px-2.5 py-0.5 rounded-md font-semibold {{ $s->tingkat_ukw === 'Wartawan Utama' ? 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 dark:border-rose-800' : ($s->tingkat_ukw === 'Wartawan Madya' ? 'bg-cyan-50 text-cyan-600 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($s->tingkat_ukw === 'Wartawan Muda' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300')) }}">
-                            {{ $s->tingkat_ukw ?? 'Anggota PWI' }}
-                        </span>
-                        <span class="text-slate-400 text-[10px]">{{ $s->periode }}</span>
+                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                            <a href="{{ $s->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white text-slate-500 dark:text-slate-400 flex items-center justify-center text-[10px] transition-colors" title="X (Twitter)">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <a href="{{ $s->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] transition-colors" title="Facebook">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="{{ $s->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-600 hover:text-white text-rose-500 dark:text-rose-400 flex items-center justify-center text-[10px] transition-colors" title="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="{{ $s->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-red-50 dark:bg-red-950/60 hover:bg-red-600 hover:text-white text-red-600 dark:text-red-400 flex items-center justify-center text-[10px] transition-colors" title="YouTube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        </div>
+                        <span class="text-slate-400 text-[10px] font-bold">{{ $s->periode }}</span>
                     </div>
                 </div>
             @empty
