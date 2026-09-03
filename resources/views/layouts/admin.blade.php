@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard MIS') - PWI Banyuasin</title>
 
+    <!-- Favicon Resmi PWI Banyuasin -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

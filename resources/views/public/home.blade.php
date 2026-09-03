@@ -15,7 +15,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <!-- Left Hero Content -->
-            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-up" data-aos-duration="800">
                 
                 <!-- Badge Indicator -->
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
@@ -36,11 +36,11 @@
 
                 <!-- Dual CTA Buttons -->
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                    <a href="#berita" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all duration-200 transform hover:-translate-y-0.5">
+                    <a href="#berita" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-amber-500/30">
                         <i class="fa-solid fa-newspaper text-sm"></i>
                         <span>Baca Berita Terkini</span>
                     </a>
-                    <a href="#bukutamu" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-200">
+                    <a href="#bukutamu" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 transform hover:-translate-y-0.5">
                         <i class="fa-solid fa-feather-pointed text-amber-400"></i>
                         <span>Isi Buku Tamu</span>
                     </a>
@@ -65,8 +65,8 @@
             </div>
 
             <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
-            <div class="lg:col-span-5 relative flex justify-center items-end">
-                <div class="relative w-full max-w-md mx-auto group">
+            <div class="lg:col-span-5 relative flex justify-center items-end" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+                <div class="relative w-full max-w-md mx-auto group animate-float-slow">
                     <!-- Glow Backdrop -->
                     <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
@@ -273,7 +273,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header Section -->
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
             <span class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800 shadow-sm">
                 <i class="fa-solid fa-users text-[11px]"></i> PENGURUS INTI PWI
             </span>
@@ -288,7 +288,9 @@
         <!-- 4 Symmetrical Executive Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @forelse($structures->take(4) as $s)
-                <div class="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                <div class="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between"
+                     data-aos="fade-up" 
+                     data-aos-delay="{{ $loop->iteration * 120 }}">
                     
                     <!-- Symmetrical Photo Frame -->
                     <div class="relative w-full aspect-[3/4] bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -345,7 +347,7 @@
         </div>
 
         <!-- Tombol Anggota Lengkap -->
-        <div class="mt-14 text-center">
+        <div class="mt-14 text-center" data-aos="fade-up" data-aos-delay="200">
             <a href="{{ route('organization.public') }}" class="inline-flex items-center gap-3.5 px-8 py-4 rounded-2xl bg-[#0B132B] dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-slate-900/10 dark:shadow-blue-600/20 transition-all duration-300 group hover:-translate-y-0.5">
                 <i class="fa-solid fa-id-card-clip text-blue-400 dark:text-blue-200 group-hover:scale-110 transition-transform"></i>
                 <span>Lihat Seluruh Anggota & Wartawan PWI Banyuasin</span>
@@ -381,7 +383,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($posts as $p)
-                <article class="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1">
+                <article class="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1.5"
+                         data-aos="fade-up"
+                         data-aos-delay="{{ $loop->iteration * 80 }}">
                     
                     <!-- Post Thumbnail -->
                     <a href="{{ route('news.show', $p->slug) }}" class="relative block overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-800">
@@ -458,7 +462,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @forelse($galleries->take(6) as $g)
                 <div @click="selectedPhoto = '{{ $g->foto_url }}'; selectedTitle = '{{ addslashes($g->judul) }}'; selectedDate = '{{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d F Y') : '-' }}'; selectedDesc = '{{ addslashes($g->deskripsi) }}'" 
-                     class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg">
+                     class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg hover-lift"
+                     data-aos="fade-up"
+                     data-aos-delay="{{ $loop->iteration * 80 }}">
                     <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     

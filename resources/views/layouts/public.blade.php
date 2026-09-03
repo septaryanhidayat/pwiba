@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia</title>
     
+    <!-- Favicon Resmi PWI Banyuasin -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
+    <meta property="og:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, galeri kegiatan, dan layanan keabsahan surat digital.')">
+    <meta property="og:image" content="{{ asset('assets/images/pwi-logo.png') }}">
+    <meta property="og:image:secure_url" content="{{ asset('assets/images/pwi-logo.png') }}">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="670">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:site_name" content="PWI Banyuasin">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
+    <meta name="twitter:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, dan layanan pers.')">
+    <meta name="twitter:image" content="{{ asset('assets/images/pwi-logo.png') }}">
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +36,9 @@
     
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animation CSS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
     <!-- Anti-FOUC Theme Initializer (Default: Light Mode) -->
     <script>
@@ -95,8 +122,29 @@
             background-image: 
                 radial-gradient(at 0% 0%, hsla(222,47%,11%,1) 0, transparent 50%), 
                 radial-gradient(at 50% 0%, hsla(217,91%,25%,0.5) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(38,92%,50%,0.2) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(38,92%,50%,0.2) 0, transparent 50%), 
                 radial-gradient(at 50% 100%, hsla(222,47%,11%,1) 0, transparent 50%);
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.02); }
+        }
+        .animate-subtle-pulse {
+            animation: subtlePulse 3s ease-in-out infinite;
+        }
+        .hover-lift {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
 </head>
@@ -318,5 +366,21 @@
         </div>
     </footer>
 
+    <!-- AOS JS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 700,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 40,
+                    delay: 50,
+                });
+            }
+        });
+    </script>
 </body>
 </html>
+
