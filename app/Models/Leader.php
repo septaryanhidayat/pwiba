@@ -34,20 +34,39 @@ class Leader extends Model
     public function getFotoUrlAttribute(): string
     {
         if ($this->foto) {
-            $path = $this->foto;
-            $basePath = pathinfo($path, PATHINFO_DIRNAME).'/'.pathinfo($path, PATHINFO_FILENAME);
-            $webpPath = $basePath.'.webp';
+            $path = ltrim($this->foto, '/');
+            $filename = basename($path);
+            $dir = dirname($path);
 
-            if (file_exists(public_path('storage/'.$webpPath))) {
-                return asset('storage/'.$webpPath);
+            $candidates = [
+                'storage/'.$path,
+                'storage/'.$dir.'/'.$filename,
+                $path,
+                'leaders/'.$filename,
+                'assets/images/leaders/'.$filename,
+            ];
+
+            // Add typo resilience: diding vs dinding
+            if (str_contains($filename, 'diding')) {
+                $altFilename = str_replace('diding', 'dinding', $filename);
+                $candidates[] = 'storage/'.$dir.'/'.$altFilename;
+                $candidates[] = 'storage/leaders/'.$altFilename;
+                $candidates[] = 'leaders/'.$altFilename;
+            } elseif (str_contains($filename, 'dinding')) {
+                $altFilename = str_replace('dinding', 'diding', $filename);
+                $candidates[] = 'storage/'.$dir.'/'.$altFilename;
+                $candidates[] = 'storage/leaders/'.$altFilename;
+                $candidates[] = 'leaders/'.$altFilename;
             }
 
-            if (file_exists(public_path('storage/'.$path))) {
+            foreach ($candidates as $candidate) {
+                if (file_exists(public_path($candidate))) {
+                    return asset($candidate);
+                }
+            }
+
+            if (file_exists(storage_path('app/public/'.$path))) {
                 return asset('storage/'.$path);
-            }
-
-            if (file_exists(public_path($path))) {
-                return asset($path);
             }
         }
 
