@@ -9,13 +9,43 @@
             size: A4 portrait;
             margin: 15mm 15mm 15mm 15mm;
         }
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Times New Roman', Times, serif;
             color: #000;
-            background: #fff;
-            padding: 20px;
-            font-size: 11pt;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 20px 0 40px 0;
+            font-size: 10.5pt;
             line-height: 1.4;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .paper-toolbar {
+            max-width: 210mm;
+            margin: 0 auto 16px auto;
+            padding: 12px 18px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .page-sheet {
+            width: 210mm;
+            min-height: 297mm;
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 18mm 20mm 20mm 20mm;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            position: relative;
         }
         .kop-surat {
             border-bottom: 3px double #000;
@@ -59,28 +89,47 @@
             padding: 5px 8px;
         }
         @media print {
-            .no-print { display: none !important; }
-            body { padding: 0; }
+            body {
+                background: #ffffff;
+                padding: 0;
+                margin: 0;
+            }
+            .paper-toolbar {
+                display: none !important;
+            }
+            .page-sheet {
+                width: 100% !important;
+                min-height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="no-print mb-4 d-flex justify-content-between align-items-center bg-light p-3 border rounded">
+<div class="no-print paper-toolbar">
     <div>
-        <strong>Dokumen Notulen Rapat & Daftar Hadir Resmi:</strong> {{ $meeting->judul_rapat }}
+        <strong class="text-dark">Dokumen Notulen & Presensi Resmi:</strong> 
+        <span class="text-secondary small">{{ $meeting->judul_rapat }}</span>
     </div>
     <div class="d-flex gap-2">
-        <button onclick="window.print()" class="btn btn-primary btn-sm">
-            <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+        <button onclick="window.print()" class="btn btn-primary btn-sm px-3 shadow-sm">
+            <i class="fa-solid fa-print me-1"></i> Cetak / Simpan PDF
         </button>
-        <button onclick="window.close()" class="btn btn-secondary btn-sm">
+        <button onclick="window.close()" class="btn btn-outline-secondary btn-sm px-3">
             Tutup
         </button>
     </div>
 </div>
 
-<div class="container-fluid px-0">
+<div class="page-sheet">
     
     <!-- Kop Surat PWI -->
     <div class="kop-surat d-flex align-items-center">

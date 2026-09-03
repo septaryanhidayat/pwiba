@@ -12,6 +12,8 @@ use App\Models\OrganizationStructure;
 use App\Models\Post;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 class PublicController extends Controller
 {
@@ -102,7 +104,15 @@ class PublicController extends Controller
 
     public function leaders()
     {
-        $leaders = Leader::orderBy('urutan', 'asc')->get();
+        if (! Schema::hasTable('leaders')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+            } catch (\Throwable $e) {
+                // Ignore if migration cannot run
+            }
+        }
+
+        $leaders = Schema::hasTable('leaders') ? Leader::orderBy('urutan', 'asc')->get() : collect();
         $settings = Setting::pluck('value', 'key')->all();
 
         return view('public.leaders', compact('leaders', 'settings'));

@@ -109,6 +109,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
 
     // Modul CMS Berita
+    Route::get('/berita', [PostController::class, 'publishIndex'])->name('posts.index');
     Route::get('/berita/publish', [PostController::class, 'publishIndex'])->name('posts.publish');
     Route::get('/berita/draft', [PostController::class, 'draftIndex'])->name('posts.draft');
     Route::get('/berita/tambah', [PostController::class, 'create'])->name('posts.create');

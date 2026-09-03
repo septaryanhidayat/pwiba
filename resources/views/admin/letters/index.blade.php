@@ -74,36 +74,36 @@
             <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
-                        <th class="py-3.5 px-6 text-center w-16 font-bold">NO</th>
-                        <th class="py-3.5 px-6 font-bold">NOMOR SURAT</th>
-                        <th class="py-3.5 px-6 font-bold">TANGGAL</th>
-                        <th class="py-3.5 px-6 font-bold">JENIS SURAT</th>
-                        <th class="py-3.5 px-6 font-bold">TUJUAN / PENERIMA</th>
-                        <th class="py-3.5 px-6 font-bold">KEPERLUAN / PERIHAL</th>
-                        <th class="py-3.5 px-6 text-center w-36 font-bold">AKSI</th>
+                        <th class="py-3.5 px-4 text-center w-12 font-bold whitespace-nowrap">NO</th>
+                        <th class="py-3.5 px-4 font-bold whitespace-nowrap">NOMOR SURAT</th>
+                        <th class="py-3.5 px-4 font-bold whitespace-nowrap">TANGGAL</th>
+                        <th class="py-3.5 px-4 font-bold whitespace-nowrap text-center">JENIS SURAT</th>
+                        <th class="py-3.5 px-4 font-bold min-w-[200px]">TUJUAN / PENERIMA</th>
+                        <th class="py-3.5 px-4 font-bold min-w-[240px]">KEPERLUAN / PERIHAL</th>
+                        <th class="py-3.5 px-4 text-center w-28 font-bold whitespace-nowrap">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($letters as $index => $item)
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
-                            <td class="py-3.5 px-6 text-center font-bold text-slate-500 dark:text-slate-400">{{ $letters->firstItem() + $index }}</td>
-                            <td class="py-3.5 px-6 font-mono font-bold text-slate-900 dark:text-white">{{ $item->nomor_surat }}</td>
-                            <td class="py-3.5 px-6 text-slate-700 dark:text-slate-300 font-semibold">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
-                            <td class="py-3.5 px-6">
-                                <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-slate-100 text-slate-700 border border-slate-300 dark:bg-slate-800 dark:text-slate-300' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800')) }}">
+                            <td class="py-3.5 px-4 text-center font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">{{ $letters->firstItem() + $index }}</td>
+                            <td class="py-3.5 px-4 font-mono font-bold text-slate-900 dark:text-white whitespace-nowrap text-[12px]">{{ $item->nomor_surat }}</td>
+                            <td class="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-semibold whitespace-nowrap">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
+                            <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                                <span class="inline-flex items-center px-3 py-1 rounded-lg text-[11px] font-bold tracking-wide whitespace-nowrap {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-slate-100 text-slate-700 border border-slate-300 dark:bg-slate-800 dark:text-slate-300' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800')) }}">
                                     {{ $item->jenis_surat }}
                                 </span>
                             </td>
-                            <td class="py-3.5 px-6 font-bold text-slate-900 dark:text-white">
-                                {{ $item->tujuan }}
+                            <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white">
+                                <div class="leading-snug">{{ $item->tujuan }}</div>
                                 @if($item->member)
-                                    <span class="block text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">Petugas: {{ $item->member->nama }}</span>
+                                    <span class="block text-[11px] text-cyan-600 dark:text-cyan-400 font-medium mt-0.5">Petugas: {{ $item->member->nama }}</span>
                                 @endif
                             </td>
-                            <td class="py-3.5 px-6 text-slate-700 dark:text-slate-300 font-medium">
-                                {{ Str::limit($item->keperluan ?? $item->perihal, 50) }}
+                            <td class="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-medium">
+                                <div class="leading-relaxed">{{ $item->keperluan ?? $item->perihal }}</div>
                             </td>
-                            <td class="py-3.5 px-6 text-center">
+                            <td class="py-3.5 px-4 text-center whitespace-nowrap">
                                 <div class="flex items-center justify-center gap-1.5">
                                     <a href="{{ route('admin.letters.print', $item->id) }}" target="_blank" class="p-1.5 rounded-lg bg-sky-500 hover:bg-sky-600 text-white shadow-sm transition-all" title="Cetak Surat Resmi">
                                         <i class="fa-solid fa-print text-xs"></i>

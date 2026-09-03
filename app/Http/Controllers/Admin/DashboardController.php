@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
+use App\Models\Inbox;
+use App\Models\IncomingLetter;
+use App\Models\Letter;
+use App\Models\MeetingMinute;
 use App\Models\Member;
+use App\Models\Post;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -24,20 +30,23 @@ class DashboardController extends Controller
             'total_aktif' => $countBelumUkw + $countMuda + $countMadya + $countUtama,
         ];
 
-        $query = Member::where('status', 'aktif')->with('media');
+        // Data Operasional & Ringkasan Eksekutif
+        $totalNews = Post::where('status', 'published')->count();
+        $totalViews = Post::sum('views_count');
+        $latestPosts = Post::latest('published_at')->take(5)->get();
 
-        if ($request->filled('search')) {
-            $s = $request->search;
-            $query->where(function ($q) use ($s) {
-                $q->where('nama', 'like', "%{$s}%")
-                    ->orWhere('nomor_kartu', 'like', "%{$s}%")
-                    ->orWhere('jabatan', 'like', "%{$s}%")
-                    ->orWhere('tingkat_ukw', 'like', "%{$s}%");
-            });
-        }
+        $totalLettersOut = Letter::count();
+        $totalLettersIn = IncomingLetter::count();
+        $latestLetters = Letter::latest('tanggal')->take(5)->get();
 
-        $perPage = $request->get('entries', 10);
-        $members = $query->orderBy('nama', 'asc')->paginate($perPage);
+        $totalMeetings = MeetingMinute::count();
+        $latestMeetings = MeetingMinute::withCount('attendances')->latest('tanggal')->take(4)->get();
+
+        $totalInboxes = Inbox::count();
+        $unreadInboxes = Inbox::where('status', 'belum_dibaca')->count();
+        $latestInboxes = Inbox::latest('tanggal')->take(4)->get();
+
+        $totalGalleries = Gallery::count();
 
         return view('admin.dashboard', compact(
             'countBelumUkw',
@@ -45,7 +54,18 @@ class DashboardController extends Controller
             'countMadya',
             'countUtama',
             'ukwStats',
-            'members'
+            'totalNews',
+            'totalViews',
+            'latestPosts',
+            'totalLettersOut',
+            'totalLettersIn',
+            'latestLetters',
+            'totalMeetings',
+            'latestMeetings',
+            'totalInboxes',
+            'unreadInboxes',
+            'latestInboxes',
+            'totalGalleries'
         ));
     }
 

@@ -96,7 +96,7 @@ class PwiWebTest extends TestCase
         $admin = User::first();
         $dashboardResponse = $this->actingAs($admin)->get('/admin/dashboard');
         $dashboardResponse->assertStatus(200);
-        $dashboardResponse->assertSee('DATA ANGGOTA PWI BANYUASIN');
+        $dashboardResponse->assertSee('Publikasi Berita');
         $dashboardResponse->assertSee('Wartawan Muda');
     }
 
@@ -393,5 +393,25 @@ class PwiWebTest extends TestCase
             $response = $this->actingAs($admin)->get($url);
             $response->assertStatus(200);
         }
+    }
+
+    public function test_new_domain_application_letter_and_notulen_paper_sheet(): void
+    {
+        $admin = User::first();
+        $letter = Letter::where('nomor_surat', '094/PWI-BA/IX/2026')->first();
+        $this->assertNotNull($letter);
+        $this->assertEquals('Pengajuan Nama Domain', $letter->perihal);
+
+        $response = $this->actingAs($admin)->get("/admin/surat-keluar/{$letter->id}/cetak");
+        $response->assertStatus(200);
+        $response->assertSee('094/PWI-BA/IX/2026');
+        $response->assertSee('Pengelola Domain ID Indonesia');
+
+        $meeting = MeetingMinute::first();
+        $this->assertNotNull($meeting);
+        $resMeeting = $this->actingAs($admin)->get("/admin/notulen-rapat/{$meeting->id}/cetak");
+        $resMeeting->assertStatus(200);
+        $resMeeting->assertSee('page-sheet');
+        $resMeeting->assertSee('paper-toolbar');
     }
 }

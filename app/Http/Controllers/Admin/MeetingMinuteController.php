@@ -81,9 +81,7 @@ class MeetingMinuteController extends Controller
 
     public function show($id)
     {
-        $meeting = MeetingMinute::with(['attendances.member'])->findOrFail($id);
-
-        return view('admin.meetings.show', compact('meeting'));
+        return $this->print($id);
     }
 
     public function edit($id)

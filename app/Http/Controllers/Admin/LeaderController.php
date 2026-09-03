@@ -6,12 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Models\Leader;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class LeaderController extends Controller
 {
+    protected function ensureTableExists(): void
+    {
+        if (! Schema::hasTable('leaders')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+            } catch (\Throwable $e) {
+                Schema::create('leaders', function ($table) {
+                    $table->id();
+                    $table->integer('urutan')->default(1);
+                    $table->string('nama');
+                    $table->string('jabatan')->default('Ketua PWI Banyuasin');
+                    $table->string('periode');
+                    $table->integer('tahun_mulai')->nullable();
+                    $table->integer('tahun_selesai')->nullable();
+                    $table->string('foto')->nullable();
+                    $table->text('keterangan')->nullable();
+                    $table->boolean('status_aktif')->default(false);
+                    $table->timestamps();
+                });
+            }
+        }
+    }
+
     public function index(Request $request)
     {
+        $this->ensureTableExists();
+
         $query = Leader::query();
 
         if ($request->filled('search')) {

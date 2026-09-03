@@ -1519,5 +1519,24 @@ bersama jajaran pengurus pusat dan diikuti secara langsung maupun daring oleh ja
         foreach ($leadersData as $ld) {
             Leader::updateOrCreate(['id' => $ld['id']], $ld);
         }
+
+        // 14. Surat Keluar Terakhir (Pengajuan Nama Domain)
+        Letter::updateOrCreate(
+            ['nomor_surat' => '094/PWI-BA/IX/2026'],
+            [
+                'tanggal' => '2026-09-03',
+                'jenis_surat' => 'SURAT BIASA',
+                'tujuan' => 'Pengelola Domain ID Indonesia',
+                'tempat_tujuan' => 'Jakarta',
+                'alamat_tujuan' => 'di - Jakarta',
+                'perihal' => 'Pengajuan Nama Domain',
+                'lampiran' => '1 (Satu) Berkas',
+                'keperluan' => 'Pengajuan penggunaan domain pwiba.or.id untuk digunakan organisasi kami. Hal ini sebagai salah satu upaya kami dalam meningkatkan pelayanan kepada masyarakat atau anggota yang memerlukan informasi tentang PWI Banyuasin.',
+                'isi_surat' => "Dengan hormat,\nYang bertanda tangan dibawah ini :\nNama : Wardoyo, S.I.Kom\nJabatan : Ketua PWI Banyuasin\nAlamat : Jalan Merdeka RT 002 RW 002 Kelurahan Mulia Agung Kecamatan Banyuasin III Kabupaten Banyuasin\n\nDengan ini kami mengajukan penggunaan domain pwiba.or.id untuk digunakan organisasi kami. Hal ini sebagai salah satu upaya kami dalam meningkatkan pelayanan kepada masyarakat atau anggota yang memerlukan informasi tentang PWI Banyuasin.\n\nBersama ini kami lampirkan Surat permohonan pendaftaran nama domainnya, untuk kelengkapan pengajuan penggunaan nama domain.\n\nHormat kami,\nPengurus PWI Banyuasin",
+                'penandatangan_nama' => 'Wardoyo, S.I.Kom',
+                'penandatangan_sekretaris' => 'Deni Arianto',
+                'status_verifikasi' => 'terverifikasi',
+            ]
+        );
     }
 }
