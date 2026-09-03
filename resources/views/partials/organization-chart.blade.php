@@ -1,7 +1,6 @@
-{{-- Component Bagan Struktur Organisasi Visual dengan Garis Instruksi --}}
+{{-- Component Bagan Struktur Organisasi Visual Sesuai Kaidah & Referensi Standar --}}
 <div x-data="{
     zoomLevel: 100,
-    activeTab: 'all',
     isFullscreen: false,
     isExporting: false,
     zoomIn() { if (this.zoomLevel < 150) this.zoomLevel += 10; },
@@ -23,7 +22,6 @@
         const prevTransform = target.style.transform;
         target.style.transform = 'none';
 
-        // Load html2canvas dynamically if not loaded
         const doCapture = () => {
             html2canvas(target, {
                 scale: 2,
@@ -43,7 +41,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Bagan Berhasil Diunduh!',
-                        text: 'File gambar bagan struktur organisasi telah disimpan sebagai format PNG resolusi tinggi.',
+                        text: 'File gambar bagan struktur organisasi telah disimpan dalam format PNG resolusi tinggi.',
                         timer: 3000,
                         showConfirmButton: false,
                     });
@@ -68,430 +66,462 @@
 }" class="space-y-4" id="org-chart-root">
 
     <!-- Top Action Bar & Controls -->
-    <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm print:hidden">
+    <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm print:hidden">
         
         <!-- Legend / Info -->
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg shadow-sm border border-blue-200 dark:border-blue-900/40">
+        <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base sm:text-lg shadow-sm border border-blue-200 dark:border-blue-900/40">
                 <i class="fa-solid fa-sitemap"></i>
             </div>
             <div>
-                <h4 class="text-sm font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
+                <h4 class="text-xs sm:text-sm font-extrabold text-[#0B132B] dark:text-white flex items-center gap-1.5 sm:gap-2">
                     <span>Bagan Alur & Hirarki Kepengurusan</span>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
-                        Masa Bhakti 2025–2028
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                        2025–2028
                     </span>
                 </h4>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400">Garis instruksi/komando pimpinan ke bidang operasional dan anggota</p>
+                <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400">Kaidah resmi: Garis Komando Pimpinan, Staf Harian, dan Bidang Kerja</p>
             </div>
         </div>
 
-        <!-- Interactive Tools (Zoom, Download, Print) -->
-        <div class="flex flex-wrap items-center gap-2">
+        <!-- Interactive Tools (Zoom, Download, Print, Fullscreen) -->
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <!-- Zoom Controls -->
-            <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
-                <button type="button" @click="zoomOut()" aria-label="Perkecil Bagan (-)" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 text-xs font-bold transition-all" title="Perkecil (-)">
+            <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 sm:p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+                <button type="button" @click="zoomOut()" aria-label="Perkecil (-)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 text-xs font-bold transition-all" title="Perkecil (-)">
                     <i class="fa-solid fa-minus"></i>
                 </button>
-                <span class="px-2 text-xs font-bold text-slate-700 dark:text-slate-300 min-w-[3.5rem] text-center" x-text="zoomLevel + '%'">100%</span>
-                <button type="button" @click="zoomIn()" aria-label="Perbesar Bagan (+)" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 text-xs font-bold transition-all" title="Perbesar (+)">
+                <span class="px-1.5 sm:px-2 text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 min-w-[2.8rem] sm:min-w-[3.2rem] text-center" x-text="zoomLevel + '%'">100%</span>
+                <button type="button" @click="zoomIn()" aria-label="Perbesar (+)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 text-xs font-bold transition-all" title="Perbesar (+)">
                     <i class="fa-solid fa-plus"></i>
                 </button>
-                <button type="button" @click="resetZoom()" aria-label="Reset Zoom Bagan" class="px-2 py-1 ml-1 rounded-lg text-[10px] font-bold text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 transition-all" title="Reset Zoom ke 100%">
+                <button type="button" @click="resetZoom()" aria-label="Reset Zoom" class="px-2 py-1 rounded-lg text-[9px] sm:text-[10px] font-bold text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 transition-all" title="Reset Ukuran (Pas di Layar)">
                     Reset
                 </button>
             </div>
 
-            <!-- Fullscreen -->
-            <button type="button" @click="toggleFullscreen()" aria-label="Tampilan Layar Penuh" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all" title="Layar Penuh">
+            <!-- Fullscreen Button -->
+            <button type="button" @click="toggleFullscreen()" aria-label="Layar Penuh" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold flex items-center gap-1.5 transition-all" title="Layar Penuh">
                 <i class="fa-solid fa-expand"></i>
-                <span class="hidden sm:inline">Layar Penuh</span>
+                <span class="hidden md:inline">Layar Penuh</span>
             </button>
 
             <!-- Export Image Button -->
-            <button type="button" @click="exportChartImage()" :disabled="isExporting" aria-label="Unduh bagan organisasi dalam format gambar PNG" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all cursor-pointer disabled:opacity-50" title="Unduh bagan organisasi dalam format gambar PNG resolusi tinggi">
-                <template x-if="!isExporting">
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                </template>
-                <template x-if="isExporting">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                </template>
-                <span x-text="isExporting ? 'Memproses...' : 'Unduh Gambar (PNG)'">Unduh Gambar (PNG)</span>
+            <button type="button" @click="exportChartImage()" :disabled="isExporting" aria-label="Unduh Gambar PNG" class="h-8 sm:h-9 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer disabled:opacity-50">
+                <i class="fa-solid fa-download" :class="isExporting ? 'fa-bounce' : ''"></i>
+                <span x-text="isExporting ? 'Memproses...' : 'Unduh PNG'">Unduh PNG</span>
             </button>
 
             <!-- Print Button -->
-            <button type="button" onclick="window.print()" aria-label="Cetak atau Simpan PDF Bagan" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 shadow-sm transition-all" title="Cetak / Simpan PDF">
+            <button type="button" onclick="window.print()" aria-label="Cetak Bagan" class="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold flex items-center gap-1.5 transition-all">
                 <i class="fa-solid fa-print"></i>
-                <span class="hidden sm:inline">Cetak</span>
+                <span class="hidden md:inline">Cetak</span>
             </button>
         </div>
     </div>
 
-    <!-- Chart Canvas Container (Scrollable with zoom) -->
-    <div id="org-chart-wrapper" class="relative w-full overflow-x-auto overflow-y-hidden rounded-3xl bg-slate-100/70 dark:bg-slate-950/80 border border-slate-300 dark:border-slate-800 shadow-inner p-4 sm:p-8 transition-all">
+    <!-- Chart Canvas Container (Fluid, Auto-Fitting, Responsive) -->
+    <div id="org-chart-wrapper" class="relative w-full overflow-x-auto rounded-3xl bg-slate-100/60 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 shadow-inner p-2 sm:p-5 lg:p-6 transition-all">
         
-        <!-- Hint on mobile -->
-        <div class="sm:hidden text-center text-[11px] text-slate-500 font-semibold mb-3 flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-arrows-left-right text-blue-500 animate-pulse"></i>
-            <span>Geser ke kanan/kiri untuk melihat seluruh bagan</span>
-        </div>
-
-        <!-- The Printable & Exportable Canvas -->
+        <!-- The Printable & Exportable Canvas (Fitted to Screen Width) -->
         <div id="org-chart-canvas" 
              :style="'transform: scale(' + (zoomLevel / 100) + '); transform-origin: top center; transition: transform 0.2s ease-out;'"
-             class="min-w-[1280px] mx-auto p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8"
-             style="background-image: radial-gradient(rgba(100, 116, 139, 0.12) 1.5px, transparent 1.5px); background-size: 28px 28px;">
+             class="w-full max-w-5xl mx-auto p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-6"
+             style="background-image: radial-gradient(rgba(100, 116, 139, 0.12) 1px, transparent 1px); background-size: 20px 20px;">
             
-            <!-- Bagan Header Title (Visible on export / print) -->
+            <!-- Bagan Header Title (Sesuai Format Resmi) -->
             <div class="text-center pb-4 border-b border-slate-200 dark:border-slate-800">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-900/50 mb-2">
-                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                    <span>BAGAN STRUKTUR ORGANISASI RESMI</span>
-                </div>
-                <h2 class="text-2xl font-black text-[#0B132B] dark:text-white uppercase tracking-wide">
-                    Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin
+                <h2 class="text-base sm:text-xl md:text-2xl font-black text-[#0B132B] dark:text-white uppercase tracking-wide leading-tight">
+                    STRUKTUR ORGANISASI PWI KABUPATEN BANYUASIN
                 </h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-semibold">
-                    Masa Bhakti 2025–2028 • SK Penetapan Pengurus Resmi PWI Provinsi Sumatera Selatan
+                <p class="text-xs sm:text-sm font-extrabold text-blue-700 dark:text-blue-400 mt-1">
+                    (PERSATUAN WARTAWAN INDONESIA KABUPATEN BANYUASIN)
+                </p>
+                <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
+                    MASA BHAKTI 2025–2028 • BUMI SEDULANG SETUDUNG
                 </p>
             </div>
 
-            <!-- ========================================== -->
-            <!-- LEVEL 1: KETUA (PIMPINAN PUNCAK)           -->
-            <!-- ========================================== -->
+            <!-- ==================================================== -->
+            <!-- LEVEL 1: KETUA (PIMPINAN PUNCAK)                    -->
+            <!-- ==================================================== -->
             @if($tree['ketua'])
                 <div class="flex flex-col items-center">
-                    <div class="relative group">
-                        <!-- Node Card Ketua -->
-                        <div class="w-80 rounded-2xl bg-gradient-to-b from-amber-50 to-white dark:from-slate-800 dark:to-slate-900 border-2 border-amber-400 dark:border-amber-500 shadow-lg shadow-amber-500/10 p-5 text-center transition-all hover:-translate-y-1 hover:shadow-2xl">
-                            <!-- Role Badge -->
-                            <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black text-amber-900 bg-amber-300 dark:bg-amber-400 dark:text-slate-950 shadow-sm uppercase tracking-wider mb-3">
-                                <i class="fa-solid fa-crown text-[11px]"></i>
-                                <span>{{ $tree['ketua']->jabatan }}</span>
+                    <!-- Ketua Capsule Card (Sesuai Referensi Gambar) -->
+                    <div class="w-64 sm:w-72 rounded-2xl bg-white dark:bg-slate-800 border-2 border-blue-600 dark:border-blue-500 shadow-lg shadow-blue-500/15 overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-xl group">
+                        <!-- Header Capsule -->
+                        <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 text-white px-3 py-1.5 flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-white text-blue-700 shadow-sm flex items-center justify-center font-black text-xs flex-shrink-0 overflow-hidden ring-2 ring-white/50">
+                                @if($tree['ketua']->foto)
+                                    <img src="{{ $tree['ketua']->foto_url }}" alt="{{ $tree['ketua']->nama }}" width="32" height="32" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                @else
+                                    <i class="fa-solid fa-crown text-[11px]"></i>
+                                @endif
                             </div>
-
-                            <!-- Avatar -->
-                            <div class="relative w-20 h-20 rounded-2xl ring-4 ring-amber-400/40 dark:ring-amber-400/30 overflow-hidden mx-auto shadow-md mb-3 bg-slate-100 dark:bg-slate-800">
-                                <img src="{{ $tree['ketua']->foto_url }}" alt="{{ $tree['ketua']->nama }}" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                            <div class="min-w-0 flex-grow">
+                                <span class="block text-[11px] sm:text-xs font-black uppercase tracking-wider leading-none">
+                                    {{ $tree['ketua']->jabatan }}
+                                </span>
                             </div>
-
-                            <!-- Name & KTA -->
-                            <h3 class="text-base font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                        </div>
+                        <!-- Body -->
+                        <div class="px-3 py-2 text-center bg-white dark:bg-slate-800">
+                            <h3 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
                                 {{ $tree['ketua']->nama }}
                             </h3>
-                            <div class="text-[11px] font-mono font-bold text-slate-600 dark:text-slate-300 mt-1">
-                                KTA: {{ $tree['ketua']->nomor_kartu ?? '-' }}
+                            <div class="flex items-center justify-center gap-1.5 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                                <span>KTA: {{ $tree['ketua']->nomor_kartu ?? '-' }}</span>
+                                <span>•</span>
+                                <span class="font-bold text-blue-600 dark:text-blue-400">{{ $tree['ketua']->tingkat_ukw ?? 'Utama' }}</span>
                             </div>
-
-                            <!-- UKW Badge -->
-                            <div class="mt-2.5 pt-2.5 border-t border-amber-200/60 dark:border-slate-700/60 flex items-center justify-center gap-2">
-                                <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold {{ $tree['ketua']->ukw_badge_color }}">
-                                    {{ $tree['ketua']->tingkat_ukw ?? 'Belum UKW' }}
-                                </span>
-                                <span class="text-[10px] text-slate-400 font-semibold">Periode 2025–2028</span>
-                            </div>
-                        </div>
-
-                        <!-- Top-to-Bottom Line connector out of Ketua -->
-                        <div class="w-1 h-10 bg-gradient-to-b from-amber-400 to-blue-600 mx-auto"></div>
-                        <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] mx-auto shadow-sm -mt-2">
-                            <i class="fa-solid fa-arrow-down"></i>
                         </div>
                     </div>
+
+                    <!-- Vertical Line Connector from Ketua down -->
+                    <div class="w-0.5 h-6 bg-blue-600 dark:bg-blue-400"></div>
                 </div>
             @endif
 
-            <!-- Instruction Badge Indicator -->
-            <div class="flex justify-center -my-3">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-blue-700 bg-blue-50 dark:bg-blue-950/80 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-sm uppercase tracking-widest">
-                    <i class="fa-solid fa-code-branch"></i> Garis Koordinasi & Pimpinan Harian
-                </span>
+            <!-- ==================================================== -->
+            <!-- LEVEL 2: WAKIL KETUA (1, 2, 3) - BERJEJER HORIZONTAL  -->
+            <!-- ==================================================== -->
+            <div class="relative flex flex-col items-center">
+                <!-- Horizontal Bus connecting Wakil Ketua 1, 2, 3 -->
+                <div class="w-3/4 max-w-2xl h-0.5 bg-blue-600 dark:bg-blue-400"></div>
+
+                <!-- 3 Columns for Wakil Ketua -->
+                <div class="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-0">
+                    @php
+                        $wkColors = [
+                            0 => ['bg' => 'from-rose-600 to-red-600', 'border' => 'border-rose-500', 'icon' => 'fa-star', 'icon_bg' => 'text-rose-600', 'label' => 'WAKIL KETUA 1'],
+                            1 => ['bg' => 'from-sky-600 to-blue-600', 'border' => 'border-sky-500', 'icon' => 'fa-star', 'icon_bg' => 'text-sky-600', 'label' => 'WAKIL KETUA 2'],
+                            2 => ['bg' => 'from-amber-500 to-amber-600', 'border' => 'border-amber-500', 'icon' => 'fa-star', 'icon_bg' => 'text-amber-600', 'label' => 'WAKIL KETUA 3'],
+                        ];
+                    @endphp
+
+                    @foreach($tree['wakil_ketua'] as $idx => $wk)
+                        @php $cfg = $wkColors[$idx] ?? $wkColors[0]; @endphp
+                        <div class="flex flex-col items-center">
+                            <!-- Drop stem to each Wakil Ketua -->
+                            <div class="w-0.5 h-4 bg-blue-600 dark:bg-blue-400"></div>
+
+                            <!-- Wakil Ketua Capsule Card -->
+                            <div class="w-full max-w-[230px] rounded-xl bg-white dark:bg-slate-800 border {{ $cfg['border'] }} shadow-md overflow-hidden transition-all hover:-translate-y-0.5">
+                                <div class="bg-gradient-to-r {{ $cfg['bg'] }} text-white px-2.5 py-1.5 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-white {{ $cfg['icon_bg'] }} shadow-sm flex items-center justify-center font-bold text-[10px] flex-shrink-0 overflow-hidden">
+                                        @if($wk->foto)
+                                            <img src="{{ $wk->foto_url }}" alt="{{ $wk->nama }}" width="28" height="28" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid {{ $cfg['icon'] }}"></i>
+                                        @endif
+                                    </div>
+                                    <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wide truncate">
+                                        {{ $cfg['label'] }}
+                                    </span>
+                                </div>
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $wk->nama }}">
+                                        {{ $wk->nama }}
+                                    </h4>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                                        {{ $wk->tingkat_ukw ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Central Spine continuing down from Wakil Ketua row -->
+                <div class="w-0.5 h-6 bg-blue-600 dark:bg-blue-400 mt-2"></div>
+                <div class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[8px] -mt-1 shadow-sm">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
             </div>
 
-            <!-- ========================================== -->
-            <!-- LEVEL 2: WAKIL KETUA, SEKRETARIAT, BENDAHARA-->
-            <!-- ========================================== -->
-            <div class="relative">
-                <!-- Main Horizontal Branch Connector for Executives -->
-                <div class="absolute top-0 left-1/4 right-1/4 h-1 bg-blue-600 rounded-full"></div>
-
-                <div class="grid grid-cols-3 gap-6 pt-6">
+            <!-- ==================================================== -->
+            <!-- LEVEL 3: SEKRETARIAT & KEBENDAHARAAN (KIRI & KANAN)  -->
+            <!-- (Dengan Garis Koordinasi Horizontal Sesuai Referensi)-->
+            <!-- ==================================================== -->
+            <div class="relative flex flex-col items-center">
+                <!-- Two Parallel Stacks: Left (Sekretariat) & Right (Kebendaharaan) -->
+                <div class="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 relative">
                     
-                    <!-- 1. KLASTER WAKIL KETUA (Kiri) -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-0.5 h-6 bg-blue-600 -mt-6"></div>
-                        <div class="w-full max-w-sm rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/60 p-4 space-y-3">
-                            <div class="text-center pb-2 border-b border-indigo-200 dark:border-indigo-900/40">
-                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-user-shield"></i>
-                                    <span>Jajaran Wakil Ketua</span>
-                                </span>
+                    <!-- KIRI: SEKRETARIAT -->
+                    <div class="flex flex-col items-center space-y-3">
+                        <!-- 1. SEKRETARIS -->
+                        @if($tree['sekretariat']['utama'])
+                            @php $sec = $tree['sekretariat']['utama']; @endphp
+                            <div class="w-full max-w-[240px] rounded-xl bg-white dark:bg-slate-800 border border-purple-500 shadow-md overflow-hidden">
+                                <div class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white px-2.5 py-1.5 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-white text-purple-700 shadow-sm flex items-center justify-center text-[10px] font-bold flex-shrink-0 overflow-hidden">
+                                        @if($sec->foto)
+                                            <img src="{{ $sec->foto_url }}" alt="{{ $sec->nama }}" width="28" height="28" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid fa-pen-nib"></i>
+                                        @endif
+                                    </div>
+                                    <span class="text-[11px] font-black uppercase tracking-wide truncate">
+                                        {{ $sec->jabatan }}
+                                    </span>
+                                </div>
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                        {{ $sec->nama }}
+                                    </h4>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                        {{ $sec->nomor_kartu ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Vertical line to Wakil Sekretaris -->
+                        <div class="w-0.5 h-3 bg-purple-500"></div>
+
+                        <!-- 2. WAKIL SEKRETARIS -->
+                        @if($tree['sekretariat']['wakil'])
+                            @php $wsec = $tree['sekretariat']['wakil']; @endphp
+                            <div class="w-full max-w-[240px] rounded-xl bg-white dark:bg-slate-800 border border-sky-500 shadow-md overflow-hidden">
+                                <div class="bg-gradient-to-r from-sky-600 to-cyan-600 text-white px-2.5 py-1.5 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-white text-sky-600 shadow-sm flex items-center justify-center text-[10px] font-bold flex-shrink-0 overflow-hidden">
+                                        @if($wsec->foto)
+                                            <img src="{{ $wsec->foto_url }}" alt="{{ $wsec->nama }}" width="28" height="28" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid fa-file-lines"></i>
+                                        @endif
+                                    </div>
+                                    <span class="text-[11px] font-black uppercase tracking-wide truncate">
+                                        {{ $wsec->jabatan }}
+                                    </span>
+                                </div>
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                        {{ $wsec->nama }}
+                                    </h4>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                        {{ $wsec->nomor_kartu ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- KANAN: KEBENDAHARAAN -->
+                    <div class="flex flex-col items-center space-y-3">
+                        <!-- 1. BENDAHARA -->
+                        @if($tree['kebendaharaan']['utama'])
+                            @php $ben = $tree['kebendaharaan']['utama']; @endphp
+                            <div class="w-full max-w-[240px] rounded-xl bg-white dark:bg-slate-800 border border-amber-500 shadow-md overflow-hidden">
+                                <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-2.5 py-1.5 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-white text-amber-600 shadow-sm flex items-center justify-center text-[10px] font-bold flex-shrink-0 overflow-hidden">
+                                        @if($ben->foto)
+                                            <img src="{{ $ben->foto_url }}" alt="{{ $ben->nama }}" width="28" height="28" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid fa-coins"></i>
+                                        @endif
+                                    </div>
+                                    <span class="text-[11px] font-black uppercase tracking-wide truncate">
+                                        {{ $ben->jabatan }}
+                                    </span>
+                                </div>
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                        {{ $ben->nama }}
+                                    </h4>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                        {{ $ben->nomor_kartu ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Vertical line to Wakil Bendahara -->
+                        <div class="w-0.5 h-3 bg-amber-500"></div>
+
+                        <!-- 2. WAKIL BENDAHARA -->
+                        @if($tree['kebendaharaan']['wakil'])
+                            @php $wben = $tree['kebendaharaan']['wakil']; @endphp
+                            <div class="w-full max-w-[240px] rounded-xl bg-white dark:bg-slate-800 border border-emerald-500 shadow-md overflow-hidden">
+                                <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2.5 py-1.5 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full bg-white text-emerald-600 shadow-sm flex items-center justify-center text-[10px] font-bold flex-shrink-0 overflow-hidden">
+                                        @if($wben->foto)
+                                            <img src="{{ $wben->foto_url }}" alt="{{ $wben->nama }}" width="28" height="28" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid fa-receipt"></i>
+                                        @endif
+                                    </div>
+                                    <span class="text-[11px] font-black uppercase tracking-wide truncate">
+                                        {{ $wben->jabatan }}
+                                    </span>
+                                </div>
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                        {{ $wben->nama }}
+                                    </h4>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                        {{ $wben->nomor_kartu ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Garis Koordinasi Horizontal Antara Sekretaris <---> Bendahara (Hidden on Mobile) -->
+                    <div class="hidden sm:flex absolute top-5 left-1/2 -translate-x-1/2 items-center justify-center gap-1 z-10">
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-arrow-left"></i></span>
+                        <span class="px-2 py-0.5 rounded text-[8px] font-bold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 whitespace-nowrap shadow-xs">
+                            Koordinasi
+                        </span>
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+
+                    <!-- Garis Koordinasi Horizontal Antara Wakil Sekretaris <---> Wakil Bendahara -->
+                    <div class="hidden sm:flex absolute bottom-5 left-1/2 -translate-x-1/2 items-center justify-center gap-1 z-10">
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-arrow-left"></i></span>
+                        <span class="px-2 py-0.5 rounded text-[8px] font-bold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 whitespace-nowrap shadow-xs">
+                            Koordinasi
+                        </span>
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+
+                </div>
+
+                <!-- Central Spine continuing down to Bidang-Bidang -->
+                <div class="w-0.5 h-8 bg-blue-600 dark:bg-blue-400 mt-3"></div>
+                <div class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] -mt-2 shadow-sm">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- LEVEL 4: BIDANG-BIDANG KERJA (DIVISI OPERASIONAL)    -->
+            <!-- (Sesuai Referensi: Header -> Kabid -> Wakabid -> Anggota)-->
+            <!-- ==================================================== -->
+            <div class="space-y-4 pt-2">
+                <!-- Section Separator Banner -->
+                <div class="text-center">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-blue-600 text-white shadow-sm">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <span>JAJARAN BIDANG KERJA OPERASIONAL</span>
+                    </span>
+                </div>
+
+                <!-- Responsive Grid for the 7 Bidang (Fitted, No Horizontal Scroll Needed) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    @php
+                        $bidangStyles = [
+                            'pembelaan' => ['grad' => 'from-indigo-700 to-blue-700', 'border' => 'border-indigo-400', 'icon_color' => 'text-indigo-700'],
+                            'organisasi' => ['grad' => 'from-blue-700 to-sky-600', 'border' => 'border-blue-400', 'icon_color' => 'text-blue-700'],
+                            'pendidikan' => ['grad' => 'from-emerald-700 to-teal-600', 'border' => 'border-emerald-400', 'icon_color' => 'text-emerald-700'],
+                            'publikasi' => ['grad' => 'from-cyan-700 to-blue-600', 'border' => 'border-cyan-400', 'icon_color' => 'text-cyan-700'],
+                            'kesejahteraan' => ['grad' => 'from-amber-600 to-yellow-600', 'border' => 'border-amber-400', 'icon_color' => 'text-amber-700'],
+                            'siwo' => ['grad' => 'from-rose-700 to-red-600', 'border' => 'border-rose-400', 'icon_color' => 'text-rose-700'],
+                            'kemasyarakatan' => ['grad' => 'from-teal-700 to-emerald-600', 'border' => 'border-teal-400', 'icon_color' => 'text-teal-700'],
+                        ];
+                    @endphp
+
+                    @foreach($tree['bidangs'] as $bKey => $b)
+                        @php $st = $bidangStyles[$bKey] ?? $bidangStyles['pembelaan']; @endphp
+                        <div class="flex flex-col items-center bg-slate-50/70 dark:bg-slate-800/40 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                            
+                            <!-- 1. Header Bidang Capsule -->
+                            <div class="w-full rounded-xl bg-gradient-to-r {{ $st['grad'] }} text-white p-2 shadow-sm flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-white {{ $st['icon_color'] }} shadow-xs flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                                    <i class="fa-solid {{ $b['info']['icon'] }}"></i>
+                                </div>
+                                <div class="min-w-0 flex-grow">
+                                    <span class="block text-[9px] font-extrabold uppercase tracking-widest text-white/80">
+                                        BIDANG {{ $b['info']['code'] ?? '' }}
+                                    </span>
+                                    <h5 class="text-[11px] font-black uppercase text-white truncate leading-tight">
+                                        {{ $b['info']['title'] }}
+                                    </h5>
+                                </div>
                             </div>
 
-                            <div class="space-y-2.5">
-                                @foreach($tree['wakil_ketua'] as $wk)
-                                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-950 shadow-sm hover:shadow transition-all">
-                                        <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold overflow-hidden flex-shrink-0 aspect-square ring-1 ring-indigo-200 dark:ring-indigo-800">
-                                            <img src="{{ $wk->foto_url }}" alt="{{ $wk->nama }}" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="min-w-0 flex-grow">
-                                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase text-indigo-700 bg-indigo-50 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900 mb-0.5">
-                                                {{ $wk->jabatan }}
-                                            </span>
-                                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $wk->nama }}">{{ $wk->nama }}</h4>
-                                            <div class="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
-                                                <span class="font-mono">{{ $wk->nomor_kartu ?? '-' }}</span>
-                                                <span>•</span>
-                                                <span class="font-bold text-[9px] {{ $wk->ukw_badge_color }} px-1.5 rounded">{{ $wk->tingkat_ukw }}</span>
-                                            </div>
-                                        </div>
+                            <!-- Down Arrow Connector -->
+                            <div class="w-0.5 h-2.5 bg-slate-300 dark:bg-slate-700 -my-1"></div>
+                            <i class="fa-solid fa-caret-down text-slate-400 dark:text-slate-600 text-[10px]"></i>
+
+                            <!-- 2. KEPALA BIDANG -->
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-2 shadow-xs text-center">
+                                <span class="block text-[9px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                    KEPALA BIDANG
+                                </span>
+                                <h6 class="text-xs font-black text-slate-900 dark:text-white mt-0.5 truncate">
+                                    {{ $b['kabid']?->nama ?? 'Belum Ditunjuk' }}
+                                </h6>
+                            </div>
+
+                            <!-- Down Arrow Connector -->
+                            <div class="w-0.5 h-2.5 bg-slate-300 dark:bg-slate-700 -my-1"></div>
+                            <i class="fa-solid fa-caret-down text-slate-400 dark:text-slate-600 text-[10px]"></i>
+
+                            <!-- 3. WAKIL KEPALA BIDANG -->
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-2 shadow-xs text-center">
+                                <span class="block text-[9px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                    WAKIL KEPALA BIDANG
+                                </span>
+                                <h6 class="text-xs font-black text-slate-900 dark:text-white mt-0.5 truncate">
+                                    {{ $b['wakabid']?->nama ?? 'Belum Ditunjuk' }}
+                                </h6>
+                            </div>
+
+                            <!-- Down Arrow Connector -->
+                            <div class="w-0.5 h-2.5 bg-slate-300 dark:bg-slate-700 -my-1"></div>
+                            <i class="fa-solid fa-caret-down text-slate-400 dark:text-slate-600 text-[10px]"></i>
+
+                            <!-- 4. ANGGOTA BIDANG -->
+                            <div class="w-full rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 overflow-hidden text-center shadow-xs">
+                                <div class="bg-blue-600 text-white text-[9px] font-black uppercase py-0.5 tracking-wider">
+                                    ANGGOTA
+                                </div>
+                                <div class="p-1.5 space-y-1">
+                                    @forelse($b['anggota'] as $ang)
+                                        <p class="text-[11px] font-bold text-slate-800 dark:text-slate-200 truncate" title="{{ $ang->nama }}">
+                                            {{ $ang->nama }}
+                                        </p>
+                                    @empty
+                                        <p class="text-[10px] text-slate-400 italic">
+                                            -
+                                        </p>
+                                    @endforelse
+                                </div>
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- ==================================================== -->
+                <!-- LEVEL 5: ANGGOTA PELAKSANA / PENDUKUNG               -->
+                <!-- ==================================================== -->
+                @if(count($tree['anggota_umum']) > 0)
+                    <div class="pt-3 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="w-full max-w-xl rounded-2xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-3 shadow-sm text-center">
+                            <span class="inline-block px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 mb-2">
+                                <i class="fa-solid fa-users text-blue-600"></i> Anggota Pelaksana Tambahan
+                            </span>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                @foreach($tree['anggota_umum'] as $au)
+                                    <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
+                                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ $au->nama }}</p>
+                                        <span class="text-[9px] text-slate-500 dark:text-slate-400 font-mono">{{ $au->nomor_kartu ?? '-' }}</span>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
+                @endif
 
-                    <!-- 2. KLASTER SEKRETARIAT (Tengah) -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-0.5 h-6 bg-blue-600 -mt-6"></div>
-                        <div class="w-full max-w-sm rounded-2xl bg-teal-50/50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-900/60 p-4 space-y-3">
-                            <div class="text-center pb-2 border-b border-teal-200 dark:border-teal-900/40">
-                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-teal-700 dark:text-teal-300 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-file-signature"></i>
-                                    <span>Sekretariat Organisasi</span>
-                                </span>
-                            </div>
-
-                            <div class="space-y-2.5">
-                                @if($tree['sekretariat']['utama'])
-                                    @php $sec = $tree['sekretariat']['utama']; @endphp
-                                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-teal-200 dark:border-teal-950 shadow-sm hover:shadow transition-all ring-1 ring-teal-400/30">
-                                        <div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-950 text-teal-700 flex items-center justify-center font-bold overflow-hidden flex-shrink-0 aspect-square ring-1 ring-teal-300 dark:ring-teal-700">
-                                            <img src="{{ $sec->foto_url }}" alt="{{ $sec->nama }}" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="min-w-0 flex-grow">
-                                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase text-teal-800 bg-teal-100 dark:bg-teal-900/60 dark:text-teal-200 mb-0.5">
-                                                {{ $sec->jabatan }}
-                                            </span>
-                                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $sec->nama }}">{{ $sec->nama }}</h4>
-                                            <div class="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
-                                                <span class="font-mono">{{ $sec->nomor_kartu ?? '-' }}</span>
-                                                <span>•</span>
-                                                <span class="font-bold text-[9px] {{ $sec->ukw_badge_color }} px-1.5 rounded">{{ $sec->tingkat_ukw }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if($tree['sekretariat']['wakil'])
-                                    @php $wsec = $tree['sekretariat']['wakil']; @endphp
-                                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-teal-100 dark:border-teal-950 shadow-sm hover:shadow transition-all">
-                                        <div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-950 text-teal-700 flex items-center justify-center font-bold overflow-hidden flex-shrink-0 aspect-square ring-1 ring-teal-200 dark:ring-teal-800">
-                                            <img src="{{ $wsec->foto_url }}" alt="{{ $wsec->nama }}" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="min-w-0 flex-grow">
-                                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase text-teal-700 bg-teal-50 dark:bg-teal-950/80 dark:text-teal-300 border border-teal-200 mb-0.5">
-                                                {{ $wsec->jabatan }}
-                                            </span>
-                                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $wsec->nama }}">{{ $wsec->nama }}</h4>
-                                            <div class="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
-                                                <span class="font-mono">{{ $wsec->nomor_kartu ?? '-' }}</span>
-                                                <span>•</span>
-                                                <span class="font-bold text-[9px] {{ $wsec->ukw_badge_color }} px-1.5 rounded">{{ $wsec->tingkat_ukw }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. KLASTER KEBENDAHARAAN (Kanan) -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-0.5 h-6 bg-blue-600 -mt-6"></div>
-                        <div class="w-full max-w-sm rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 p-4 space-y-3">
-                            <div class="text-center pb-2 border-b border-emerald-200 dark:border-emerald-900/40">
-                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-coins"></i>
-                                    <span>Kebendaharaan Organisasi</span>
-                                </span>
-                            </div>
-
-                            <div class="space-y-2.5">
-                                @if($tree['kebendaharaan']['utama'])
-                                    @php $ben = $tree['kebendaharaan']['utama']; @endphp
-                                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-950 shadow-sm hover:shadow transition-all ring-1 ring-emerald-400/30">
-                                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 flex items-center justify-center font-bold overflow-hidden flex-shrink-0 aspect-square ring-1 ring-emerald-300 dark:ring-emerald-700">
-                                            <img src="{{ $ben->foto_url }}" alt="{{ $ben->nama }}" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="min-w-0 flex-grow">
-                                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 dark:bg-emerald-900/60 dark:text-emerald-200 mb-0.5">
-                                                {{ $ben->jabatan }}
-                                            </span>
-                                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $ben->nama }}">{{ $ben->nama }}</h4>
-                                            <div class="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
-                                                <span class="font-mono">{{ $ben->nomor_kartu ?? '-' }}</span>
-                                                <span>•</span>
-                                                <span class="font-bold text-[9px] {{ $ben->ukw_badge_color }} px-1.5 rounded">{{ $ben->tingkat_ukw }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if($tree['kebendaharaan']['wakil'])
-                                    @php $wben = $tree['kebendaharaan']['wakil']; @endphp
-                                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-emerald-950 shadow-sm hover:shadow transition-all">
-                                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 flex items-center justify-center font-bold overflow-hidden flex-shrink-0 aspect-square ring-1 ring-emerald-200 dark:ring-emerald-800">
-                                            <img src="{{ $wben->foto_url }}" alt="{{ $wben->nama }}" width="48" height="48" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="min-w-0 flex-grow">
-                                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase text-emerald-700 bg-emerald-50 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200 mb-0.5">
-                                                {{ $wben->jabatan }}
-                                            </span>
-                                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate" title="{{ $wben->nama }}">{{ $wben->nama }}</h4>
-                                            <div class="flex items-center gap-2 mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
-                                                <span class="font-mono">{{ $wben->nomor_kartu ?? '-' }}</span>
-                                                <span>•</span>
-                                                <span class="font-bold text-[9px] {{ $wben->ukw_badge_color }} px-1.5 rounded">{{ $wben->tingkat_ukw }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
 
-            <!-- Central Bus Connector from Executives Down into 7 Divisions -->
-            <div class="flex flex-col items-center -my-2">
-                <div class="w-1 h-8 bg-blue-600"></div>
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black text-white bg-blue-600 shadow-md uppercase tracking-wider">
-                    <i class="fa-solid fa-arrow-down"></i>
-                    <span>Garis Instruksi & Garis Komando Bidang Operasional</span>
-                </div>
-                <div class="w-1 h-8 bg-blue-600"></div>
-            </div>
-
-            <!-- ========================================== -->
-            <!-- LEVEL 3: 7 BIDANG KERJA (PILAR-PILAR OPERASIONAL) -->
-            <!-- ========================================== -->
-            <div class="relative">
-                <!-- Massive Horizontal Connector across all 7 Bidangs -->
-                <div class="absolute top-0 left-6 right-6 h-1 bg-gradient-to-r from-amber-500 via-blue-600 to-teal-500 rounded-full"></div>
-
-                <div class="grid grid-cols-7 gap-3.5 pt-6">
-                    @foreach($tree['bidangs'] as $bKey => $b)
-                        <div class="flex flex-col items-center">
-                            <!-- Dropdown connector into each column -->
-                            <div class="w-0.5 h-6 bg-blue-600 -mt-6"></div>
-
-                            <!-- Bidang Pillar Container -->
-                            <div class="w-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm p-3 flex flex-col justify-between hover:shadow-lg transition-all space-y-3">
-                                
-                                <!-- Bidang Header Title -->
-                                <div class="text-center pb-2 border-b border-slate-100 dark:border-slate-800">
-                                    <div class="w-8 h-8 rounded-lg mx-auto mb-1 flex items-center justify-center text-xs font-bold shadow-sm 
-                                        {{ $b['info']['color'] === 'amber' ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400' : '' }}
-                                        {{ $b['info']['color'] === 'emerald' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400' : '' }}
-                                        {{ $b['info']['color'] === 'blue' ? 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-400' : '' }}
-                                        {{ $b['info']['color'] === 'indigo' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-400' : '' }}
-                                        {{ $b['info']['color'] === 'rose' ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-400' : '' }}
-                                        {{ $b['info']['color'] === 'violet' ? 'bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-400' : '' }}
-                                        {{ $b['info']['color'] === 'cyan' ? 'bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-400' : '' }}">
-                                        <i class="fa-solid {{ $b['info']['icon'] }}"></i>
-                                    </div>
-                                    <h4 class="text-[11px] font-black text-slate-900 dark:text-white leading-tight uppercase">
-                                        {{ $b['info']['title'] }}
-                                    </h4>
-                                </div>
-
-                                <!-- Sequential Hierarchy Cards inside the Bidang (Kabid -> Wakabid -> Anggota) -->
-                                <div class="space-y-2">
-                                    @forelse($b['members'] as $idx => $m)
-                                        @if($idx > 0)
-                                            <!-- Instruction connector between members within the same division -->
-                                            <div class="flex justify-center -my-1">
-                                                <div class="w-0.5 h-3 bg-slate-300 dark:bg-slate-700"></div>
-                                            </div>
-                                        @endif
-
-                                        <div class="p-2 rounded-xl border text-center transition-all 
-                                            {{ $idx === 0 ? 'bg-slate-50 dark:bg-slate-800/80 border-slate-300 dark:border-slate-700 shadow-sm' : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800' }}">
-                                            
-                                            <!-- Mini Role Label -->
-                                            <div class="text-[9px] font-black uppercase tracking-wider mb-1 truncate
-                                                {{ $idx === 0 ? 'text-blue-700 dark:text-blue-400' : ($idx === 1 ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400') }}">
-                                                {{ $m->jabatan }}
-                                            </div>
-
-                                            <!-- Photo -->
-                                            <div class="w-10 h-10 rounded-xl overflow-hidden mx-auto mb-1 ring-1 ring-slate-200 dark:ring-slate-700 shadow-sm">
-                                                <img src="{{ $m->foto_url }}" alt="{{ $m->nama }}" width="40" height="40" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                            </div>
-
-                                            <!-- Name -->
-                                            <h5 class="text-[11px] font-bold text-slate-900 dark:text-white leading-tight line-clamp-2" title="{{ $m->nama }}">
-                                                {{ $m->nama }}
-                                            </h5>
-
-                                            <!-- UKW badge -->
-                                            <div class="mt-1">
-                                                <span class="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded {{ $m->ukw_badge_color }}">
-                                                    {{ $m->tingkat_ukw }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    @empty
-                                        <div class="text-center py-4 text-slate-400 text-[10px]">
-                                            Belum ada pengurus
-                                        </div>
-                                    @endforelse
-                                </div>
-
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <!-- ========================================== -->
-            <!-- LEVEL 4: ANGGOTA UMUM                      -->
-            <!-- ========================================== -->
-            @if($tree['anggota_umum']->count() > 0)
-                <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <div class="flex flex-col items-center mb-4">
-                        <div class="w-1 h-6 bg-slate-300 dark:bg-slate-700 -mt-4"></div>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 uppercase tracking-wider">
-                            <i class="fa-solid fa-users"></i> Jajaran Anggota Kepengurusan
-                        </span>
-                    </div>
-
-                    <div class="flex flex-wrap items-center justify-center gap-3">
-                        @foreach($tree['anggota_umum'] as $ag)
-                            <div class="flex items-center gap-2.5 p-2 px-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 min-w-[200px]">
-                                <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 ring-1 ring-slate-300 dark:ring-slate-600">
-                                    <img src="{{ $ag->foto_url }}" alt="{{ $ag->nama }}" width="32" height="32" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                </div>
-                                <div class="min-w-0 flex-grow">
-                                    <h6 class="text-[11px] font-bold text-slate-900 dark:text-white truncate" title="{{ $ag->nama }}">{{ $ag->nama }}</h6>
-                                    <div class="text-[9px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                                        <span class="font-bold uppercase text-[8px] px-1 rounded bg-slate-200 dark:bg-slate-700">ANGGOTA</span>
-                                        <span>•</span>
-                                        <span class="font-mono">{{ $ag->nomor_kartu ?? '-' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
-            <!-- Watermark Footer on Canvas -->
-            <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-semibold">
-                <span>Dikeluarkan oleh Sekretariat PWI Kabupaten Banyuasin • Sistem Informasi MIS PWI</span>
-                <span>Dokumen Bagan Resmi 32 Pejabat Pengurus • Dicetak: {{ date('d-m-Y') }}</span>
+            <!-- Footer SK & Legalitas Resmi -->
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+                <span>Ditetapkan di Pangkalan Balai • Surat Keputusan PWI Banyuasin 2025–2028</span>
+                <span class="mt-1 sm:mt-0 font-semibold text-slate-600 dark:text-slate-400">Portal Resmi: pwiba.or.id</span>
             </div>
 
         </div>

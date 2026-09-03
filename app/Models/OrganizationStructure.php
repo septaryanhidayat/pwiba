@@ -82,7 +82,22 @@ class OrganizationStructure extends Model
         $structures = $query->orderBy('urutan')->get();
 
         $ketua = $structures->first(fn ($s) => strtoupper(trim($s->jabatan)) === 'KETUA');
-        $wakilKetuaList = $structures->filter(fn ($s) => str_starts_with(strtoupper(trim($s->jabatan)), 'WAKIL KETUA'))->values();
+        $wakilKetuaList = $structures->filter(fn ($s) => str_starts_with(strtoupper(trim($s->jabatan)), 'WAKIL KETUA'))
+            ->sortBy(function ($s) {
+                $j = strtoupper(trim($s->jabatan));
+                if ($j === 'WAKIL KETUA' || str_contains($j, 'WAKIL KETUA 1') || str_contains($j, 'WAKIL KETUA I')) {
+                    return 1;
+                }
+                if (str_contains($j, 'WAKIL KETUA 2') || str_contains($j, 'WAKIL KETUA II')) {
+                    return 2;
+                }
+                if (str_contains($j, 'WAKIL KETUA 3') || str_contains($j, 'WAKIL KETUA III')) {
+                    return 3;
+                }
+
+                return 4;
+            })->values();
+
         $sekretaris = $structures->first(fn ($s) => strtoupper(trim($s->jabatan)) === 'SEKRETARIS');
         $wakilSekretaris = $structures->first(fn ($s) => strtoupper(trim($s->jabatan)) === 'WAKIL SEKRETARIS');
         $bendahara = $structures->first(fn ($s) => strtoupper(trim($s->jabatan)) === 'BENDAHARA');
@@ -97,13 +112,13 @@ class OrganizationStructure extends Model
         ])->merge($wakilKetuaList->pluck('id'))->filter()->all();
 
         $bidangDefs = [
-            'pembelaan' => ['title' => 'Bidang Pembelaan Wartawan', 'icon' => 'fa-shield-halved', 'color' => 'amber', 'match' => 'PEMBELAAN'],
-            'kesejahteraan' => ['title' => 'Bidang Kesejahteraan', 'icon' => 'fa-hand-holding-heart', 'color' => 'emerald', 'match' => 'KESEJAHTERAAN'],
-            'publikasi' => ['title' => 'Bidang Publikasi & Informasi', 'icon' => 'fa-bullhorn', 'color' => 'blue', 'match' => 'PUBLIKASI'],
-            'pendidikan' => ['title' => 'Bidang Pendidikan & Pelatihan', 'icon' => 'fa-graduation-cap', 'color' => 'indigo', 'match' => 'PENDIDIKAN'],
-            'siwo' => ['title' => 'Seksi Wartawan Olahraga (SIWO)', 'icon' => 'fa-trophy', 'color' => 'rose', 'match' => 'SIWO'],
-            'organisasi' => ['title' => 'Bidang Organisasi & Kaderisasi', 'icon' => 'fa-sitemap', 'color' => 'violet', 'match' => 'ORGANISASI'],
-            'kemasyarakatan' => ['title' => 'Bidang Sosial & Kemasyarakatan', 'icon' => 'fa-users', 'color' => 'cyan', 'match' => 'MASYARAKAT'],
+            'pembelaan' => ['code' => 'A', 'title' => 'Pembelaan Wartawan', 'icon' => 'fa-shield-halved', 'color' => 'indigo', 'match' => 'PEMBELAAN'],
+            'organisasi' => ['code' => 'B', 'title' => 'Organisasi & Kaderisasi', 'icon' => 'fa-sitemap', 'color' => 'blue', 'match' => 'ORGANISASI'],
+            'pendidikan' => ['code' => 'C', 'title' => 'Pendidikan & Pelatihan', 'icon' => 'fa-graduation-cap', 'color' => 'emerald', 'match' => 'PENDIDIKAN'],
+            'publikasi' => ['code' => 'D', 'title' => 'Publikasi & Informasi', 'icon' => 'fa-bullhorn', 'color' => 'sky', 'match' => 'PUBLIKASI'],
+            'kesejahteraan' => ['code' => 'E', 'title' => 'Kesejahteraan', 'icon' => 'fa-hand-holding-heart', 'color' => 'amber', 'match' => 'KESEJAHTERAAN'],
+            'siwo' => ['code' => 'F', 'title' => 'Seksi Wartawan Olahraga (SIWO)', 'icon' => 'fa-trophy', 'color' => 'rose', 'match' => 'SIWO'],
+            'kemasyarakatan' => ['code' => 'G', 'title' => 'Sosial & Kemasyarakatan', 'icon' => 'fa-users', 'color' => 'teal', 'match' => 'MASYARAKAT'],
         ];
 
         $bidangs = [];
@@ -114,17 +129,11 @@ class OrganizationStructure extends Model
                 }
 
                 return str_contains(strtoupper($s->jabatan), $b['match']);
-            })->sortBy(function ($s) {
-                $j = strtoupper($s->jabatan);
-                if (str_starts_with($j, 'KABID') || str_starts_with($j, 'KETUA')) {
-                    return 1;
-                }
-                if (str_starts_with($j, 'WAKABID') || str_starts_with($j, 'WAKIL')) {
-                    return 2;
-                }
-
-                return 3;
             })->values();
+
+            $kabid = $membersInBidang->first(fn ($s) => str_starts_with(strtoupper(trim($s->jabatan)), 'KABID') || str_starts_with(strtoupper(trim($s->jabatan)), 'KETUA'));
+            $wakabid = $membersInBidang->first(fn ($s) => str_starts_with(strtoupper(trim($s->jabatan)), 'WAKABID') || str_starts_with(strtoupper(trim($s->jabatan)), 'WAKIL'));
+            $anggotaList = $membersInBidang->filter(fn ($s) => $s->id !== $kabid?->id && $s->id !== $wakabid?->id)->values();
 
             foreach ($membersInBidang as $m) {
                 $assignedIds[] = $m->id;
@@ -132,6 +141,9 @@ class OrganizationStructure extends Model
 
             $bidangs[$key] = [
                 'info' => $b,
+                'kabid' => $kabid,
+                'wakabid' => $wakabid,
+                'anggota' => $anggotaList,
                 'members' => $membersInBidang,
             ];
         }

@@ -545,9 +545,12 @@ class PwiWebTest extends TestCase
         $response = $this->get('/struktur-organisasi');
         $response->assertStatus(200);
         $response->assertSee('Bagan Alur & Hirarki Kepengurusan', false);
-        $response->assertSee('Garis Instruksi & Garis Komando Bidang Operasional', false);
+        $response->assertSee('JAJARAN BIDANG KERJA OPERASIONAL', false);
         $response->assertSee('Wardoyo, S.I.Kom', false);
-        $response->assertSee('Unduh Gambar (PNG)', false);
+        $response->assertSee('WAKIL KETUA 1', false);
+        $response->assertSee('WAKIL KETUA 2', false);
+        $response->assertSee('WAKIL KETUA 3', false);
+        $response->assertSee('Unduh PNG', false);
     }
 
     public function test_public_members_page_renders_malyadi_and_radar_banyuasin_when_enabled(): void
