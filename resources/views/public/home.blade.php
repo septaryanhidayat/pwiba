@@ -7,9 +7,9 @@
 
 <!-- 1. Hero Section -->
 <section id="beranda" class="relative gradient-mesh text-white pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
-    <!-- Ambient Glow Background Circles -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+    <!-- Ambient Glow Background Circles (Smooth Animated Floating Mesh) -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none animate-orb-glow"></div>
+    <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-amber-500/15 rounded-full blur-2xl pointer-events-none animate-orb-glow-delayed"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -18,24 +18,24 @@
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 
                 <!-- Badge Indicator -->
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
+                <div class="hero-badge-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span>Portal Resmi Organisasi Pers Terverifikasi</span>
                 </div>
 
                 <!-- Main Headline -->
-                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                <h1 class="hero-title-anim text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                     Sinergi Pers Bermartabat <br class="hidden sm:inline">
-                    <span class="text-gradient-gold">Banyuasin Bangkit & Sejahtera</span>
+                    <span class="text-gradient-gold text-shimmer">Banyuasin Bangkit & Sejahtera</span>
                 </h1>
 
                 <!-- Subtitle -->
-                <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                <p class="hero-desc-anim text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
                     Wadah terdepan jurnalis profesional di Kabupaten Banyuasin, Sumatera Selatan. Menjaga kemerdekaan pers, meningkatkan kompetensi kewartawanan, dan mengawal pembangunan daerah dengan informasi akurat dan kredibel.
                 </p>
 
                 <!-- Dual CTA Buttons -->
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                <div class="hero-cta-anim flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                     <a href="#berita" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-amber-500/30">
                         <i class="fa-solid fa-newspaper text-sm"></i>
                         <span>Baca Berita Terkini</span>
@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- Quick Stats Pill List -->
-                <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                <div class="hero-stats-anim grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
                     <div>
                         <div class="text-2xl sm:text-3xl font-extrabold text-white">{{ $ukwStats['total_aktif'] ?? 48 }}</div>
                         <div class="text-xs text-slate-400">Wartawan Aktif</div>
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
-            <div class="lg:col-span-5 relative flex justify-center items-end">
+            <div class="hero-card-anim lg:col-span-5 relative flex justify-center items-end">
                 <div class="relative w-full max-w-md mx-auto group animate-float-slow">
                     <!-- Glow Backdrop -->
                     <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -144,7 +144,7 @@
 <section id="profil" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-200 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
             <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 px-3.5 py-1 rounded-full border border-amber-200 dark:border-amber-400/30">
                 Profil & Landasan Organisasi
             </span>
@@ -159,8 +159,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
             <!-- Left: Sambutan Ketua PWI Card -->
-            <div class="lg:col-span-5 flex flex-col">
-                <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between flex-grow">
+            <div class="lg:col-span-5 flex flex-col" data-aos="fade-right" data-aos-delay="100">
+                <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between flex-grow hover-lift">
                     <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div>
@@ -210,7 +210,7 @@
             <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                 
                 <!-- Visi Card -->
-                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all text-center sm:text-left">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all text-center sm:text-left hover-lift" data-aos="fade-left" data-aos-delay="150">
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 mb-2">
                         <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base flex-shrink-0">
                             <i class="fa-solid fa-eye"></i>
@@ -225,7 +225,7 @@
                 <!-- 4 Misi Grid Cards (Asli pwiba.or.id) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
@@ -235,7 +235,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="250">
                         <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-newspaper"></i>
                         </div>
@@ -245,7 +245,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="300">
                         <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-users"></i>
                         </div>
@@ -255,7 +255,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="350">
                         <div class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
@@ -371,7 +371,7 @@
 <section id="berita" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end" data-aos="fade-up">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 px-3.5 py-1 rounded-full border border-amber-200 dark:border-amber-400/30">
                     Publikasi & Rilis Pers
@@ -448,7 +448,7 @@
 <section id="galeri" class="py-20 bg-slate-900 text-white relative overflow-hidden" x-data="{ selectedPhoto: null, selectedTitle: '', selectedDate: '', selectedDesc: '' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 text-center sm:text-left items-center sm:items-end" data-aos="fade-up">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/15">
                     Dokumentasi Visual
@@ -516,11 +516,11 @@
 <section id="bukutamu" class="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-200 relative">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden" data-aos="fade-up">
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 
                 <!-- Left Sidebar: Contact Info -->
-                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between text-center lg:text-left items-center lg:items-start">
+                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between text-center lg:text-left items-center lg:items-start" data-aos="fade-right" data-aos-delay="100">
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Buku Tamu & Kemitraan</span>
                         <h3 class="text-2xl font-extrabold text-white mt-2 leading-tight">
@@ -558,7 +558,7 @@
                 </div>
 
                 <!-- Right Form Area -->
-                <div class="lg:col-span-7 p-8 sm:p-10">
+                <div class="lg:col-span-7 p-8 sm:p-10" data-aos="fade-left" data-aos-delay="150">
                     
                     @if(session('success_inbox'))
                         <div class="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center gap-3">

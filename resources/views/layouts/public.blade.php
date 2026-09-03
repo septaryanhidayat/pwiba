@@ -160,6 +160,60 @@
             transform: translateY(-6px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
+        /* Hero Entrance Keyframes (GPU-accelerated transform & opacity) */
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroScaleIn {
+            from { opacity: 0; transform: scale(0.95) translateY(16px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes orbGlow {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.5; }
+            50% { transform: translate(20px, -15px) scale(1.1); opacity: 0.85; }
+        }
+        @keyframes shimmerSlow {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .hero-badge-anim {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+        .hero-title-anim {
+            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .hero-desc-anim {
+            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+        }
+        .hero-cta-anim {
+            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+        .hero-stats-anim {
+            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+        }
+        .hero-card-anim {
+            animation: heroScaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+        .animate-orb-glow {
+            animation: orbGlow 8s ease-in-out infinite;
+        }
+        .animate-orb-glow-delayed {
+            animation: orbGlow 10s ease-in-out 3s infinite;
+        }
+        .text-shimmer {
+            background: linear-gradient(90deg, #F59E0B 0%, #FDE68A 50%, #D97706 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerSlow 6s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased bg-slate-50 dark:bg-[#0B132B] text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-amber-500 selection:text-white" 
