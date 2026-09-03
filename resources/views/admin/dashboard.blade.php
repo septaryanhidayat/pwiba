@@ -7,26 +7,28 @@
 <div class="space-y-8">
     
     <!-- Top Action & Welcome Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">Executive Panel</span>
                 <span class="text-xs text-slate-500 dark:text-slate-400">PWI Kabupaten Banyuasin</span>
             </div>
-            <h2 class="text-xl font-black text-slate-900 dark:text-white">Ringkasan & Metrik Operasional Organisasi</h2>
+            <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">Ringkasan & Metrik Operasional Organisasi</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Pantau publikasi berita, persuratan resmi, hasil notulen rapat, dan sertifikasi anggota</p>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-            <a href="{{ route('admin.posts.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all hover:scale-105 active:scale-95">
-                <i class="fa-solid fa-pen-nib"></i>
+        
+        <!-- 3 Action Buttons (Strictly 1 Single Row on Mobile & Desktop) -->
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2.5 sm:flex sm:items-center w-full lg:w-auto pt-1 lg:pt-0">
+            <a href="{{ route('admin.posts.create') }}" class="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3.5 py-2.5 rounded-xl text-[11px] sm:text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all hover:scale-105 active:scale-95 whitespace-nowrap text-center">
+                <i class="fa-solid fa-pen-nib text-[10px] sm:text-xs"></i>
                 <span>Tulis Berita</span>
             </a>
-            <a href="{{ route('admin.letters.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95">
-                <i class="fa-solid fa-envelope-open-text"></i>
+            <a href="{{ route('admin.letters.create') }}" class="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3.5 py-2.5 rounded-xl text-[11px] sm:text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95 whitespace-nowrap text-center">
+                <i class="fa-solid fa-envelope-open-text text-[10px] sm:text-xs"></i>
                 <span>Buat Surat</span>
             </a>
-            <a href="{{ route('admin.meetings.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all hover:scale-105 active:scale-95">
-                <i class="fa-solid fa-clipboard-check"></i>
+            <a href="{{ route('admin.meetings.create') }}" class="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3.5 py-2.5 rounded-xl text-[11px] sm:text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all hover:scale-105 active:scale-95 whitespace-nowrap text-center">
+                <i class="fa-solid fa-clipboard-check text-[10px] sm:text-xs"></i>
                 <span>Catat Notulen</span>
             </a>
         </div>
