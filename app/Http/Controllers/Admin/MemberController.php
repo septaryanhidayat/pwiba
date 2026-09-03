@@ -109,7 +109,29 @@ class MemberController extends Controller
         ]);
 
         // Handle Media selection or custom media input
-        if ($request->filled('nama_media_custom')) {
+        if ($request->filled('media_id')) {
+            $med = Media::find($request->media_id);
+            if ($med) {
+                if ($request->filled('nama_media_custom') && strcasecmp(trim($request->nama_media_custom), $med->nama_media) !== 0) {
+                    $mediaName = trim($request->nama_media_custom);
+                    $matchedMedia = Media::whereRaw('LOWER(nama_media) = ?', [strtolower($mediaName)])->first();
+                    if ($matchedMedia) {
+                        $validated['media_id'] = $matchedMedia->id;
+                        $validated['nama_media_custom'] = $matchedMedia->nama_media;
+                    } else {
+                        $newMedia = Media::create([
+                            'nama_media' => $mediaName,
+                            'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://'.ltrim($mediaName, 'https://') : null),
+                        ]);
+                        $validated['media_id'] = $newMedia->id;
+                        $validated['nama_media_custom'] = $mediaName;
+                    }
+                } else {
+                    $validated['media_id'] = $med->id;
+                    $validated['nama_media_custom'] = $med->nama_media;
+                }
+            }
+        } elseif ($request->filled('nama_media_custom')) {
             $mediaName = trim($request->nama_media_custom);
             $matchedMedia = Media::whereRaw('LOWER(nama_media) = ?', [strtolower($mediaName)])->first();
             if ($matchedMedia) {
@@ -118,14 +140,11 @@ class MemberController extends Controller
             } else {
                 $newMedia = Media::create([
                     'nama_media' => $mediaName,
-                    'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://' . ltrim($mediaName, 'https://') : null),
+                    'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://'.ltrim($mediaName, 'https://') : null),
                 ]);
                 $validated['media_id'] = $newMedia->id;
                 $validated['nama_media_custom'] = $mediaName;
             }
-        } elseif ($request->filled('media_id')) {
-            $med = Media::find($request->media_id);
-            $validated['nama_media_custom'] = $med ? $med->nama_media : null;
         }
 
         if ($request->hasFile('foto')) {
@@ -159,7 +178,30 @@ class MemberController extends Controller
         ]);
 
         // Handle Media selection or custom media input
-        if ($request->filled('nama_media_custom')) {
+        if ($request->filled('media_id')) {
+            $med = Media::find($request->media_id);
+            if ($med) {
+                // If custom text was also typed and differs from selected media, check if it's a new or different media
+                if ($request->filled('nama_media_custom') && strcasecmp(trim($request->nama_media_custom), $med->nama_media) !== 0) {
+                    $mediaName = trim($request->nama_media_custom);
+                    $matchedMedia = Media::whereRaw('LOWER(nama_media) = ?', [strtolower($mediaName)])->first();
+                    if ($matchedMedia) {
+                        $validated['media_id'] = $matchedMedia->id;
+                        $validated['nama_media_custom'] = $matchedMedia->nama_media;
+                    } else {
+                        $newMedia = Media::create([
+                            'nama_media' => $mediaName,
+                            'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://'.ltrim($mediaName, 'https://') : null),
+                        ]);
+                        $validated['media_id'] = $newMedia->id;
+                        $validated['nama_media_custom'] = $mediaName;
+                    }
+                } else {
+                    $validated['media_id'] = $med->id;
+                    $validated['nama_media_custom'] = $med->nama_media;
+                }
+            }
+        } elseif ($request->filled('nama_media_custom')) {
             $mediaName = trim($request->nama_media_custom);
             $matchedMedia = Media::whereRaw('LOWER(nama_media) = ?', [strtolower($mediaName)])->first();
             if ($matchedMedia) {
@@ -168,14 +210,11 @@ class MemberController extends Controller
             } else {
                 $newMedia = Media::create([
                     'nama_media' => $mediaName,
-                    'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://' . ltrim($mediaName, 'https://') : null),
+                    'website' => str_starts_with($mediaName, 'http') ? $mediaName : (str_contains($mediaName, '.') ? 'https://'.ltrim($mediaName, 'https://') : null),
                 ]);
                 $validated['media_id'] = $newMedia->id;
                 $validated['nama_media_custom'] = $mediaName;
             }
-        } elseif ($request->filled('media_id')) {
-            $med = Media::find($request->media_id);
-            $validated['nama_media_custom'] = $med ? $med->nama_media : null;
         } else {
             $validated['media_id'] = null;
             $validated['nama_media_custom'] = null;

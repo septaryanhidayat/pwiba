@@ -20,54 +20,92 @@
     </div>
 </div>
 
-<div class="py-16 bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-200" x-data="{ viewMode: 'chart' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @forelse($structures as $s)
-                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0 aspect-square">
-                                <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
+        <!-- View Mode Switcher Header -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+            <div>
+                <h3 class="text-lg font-black text-slate-900 dark:text-white">
+                    Susunan 32 Pejabat Pengurus PWI Banyuasin
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Pilih model tampilan bagan visual bergaris instruksi atau daftar kartu profil
+                </p>
+            </div>
+
+            <!-- Switcher Tabs -->
+            <div class="inline-flex items-center p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <button type="button" 
+                        @click="viewMode = 'chart'"
+                        :class="viewMode === 'chart' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <span>Bagan Hirarki (Org Chart)</span>
+                </button>
+                <button type="button" 
+                        @click="viewMode = 'grid'"
+                        :class="viewMode === 'grid' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <span>Daftar Kartu (Grid)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- TAMPILAN 1: BAGAN STRUKTUR HIRARKI VISUAL BERGARIS INSTRUKSI -->
+        <div x-show="viewMode === 'chart'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+            @include('partials.organization-chart', ['tree' => $tree])
+        </div>
+
+        <!-- TAMPILAN 2: DAFTAR KARTU GRID TRADISIONAL -->
+        <div x-show="viewMode === 'grid'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @forelse($structures as $s)
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0 aspect-square">
+                                    <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                </div>
+                                <div class="min-w-0 flex-grow">
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
+                                    <span class="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase truncate">
+                                        {{ $s->nomor_kartu ?? 'KTA PWI' }}
+                                    </span>
+                                </div>
                             </div>
-                            <div class="min-w-0 flex-grow">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
-                                <span class="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase truncate">
-                                    {{ $s->nomor_kartu ?? 'KTA PWI' }}
-                                </span>
+
+                            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 mb-4">
+                                <div class="text-[10px] uppercase font-bold text-slate-400">Jabatan Kepengurusan</div>
+                                <div class="text-xs font-extrabold text-blue-900 dark:text-blue-300 leading-snug">{{ $s->jabatan }}</div>
                             </div>
                         </div>
 
-                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 mb-4">
-                            <div class="text-[10px] uppercase font-bold text-slate-400">Jabatan Kepengurusan</div>
-                            <div class="text-xs font-extrabold text-blue-900 dark:text-blue-300 leading-snug">{{ $s->jabatan }}</div>
+                        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5">
+                                <a href="{{ $s->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="X Twitter {{ $s->nama }}" class="w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white text-slate-500 dark:text-slate-400 flex items-center justify-center text-[10px] transition-colors" title="X (Twitter)">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <a href="{{ $s->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook {{ $s->nama }}" class="w-6 h-6 rounded-md bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] transition-colors" title="Facebook">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="{{ $s->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram {{ $s->nama }}" class="w-6 h-6 rounded-md bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-600 hover:text-white text-rose-500 dark:text-rose-400 flex items-center justify-center text-[10px] transition-colors" title="Instagram">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="{{ $s->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube {{ $s->nama }}" class="w-6 h-6 rounded-md bg-red-50 dark:bg-red-950/60 hover:bg-red-600 hover:text-white text-red-600 dark:text-red-400 flex items-center justify-center text-[10px] transition-colors" title="YouTube">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+                            </div>
+                            <span class="text-slate-400 text-[10px] font-bold">{{ $s->periode }}</span>
                         </div>
                     </div>
-
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                        <div class="flex items-center gap-1.5">
-                            <a href="{{ $s->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white text-slate-500 dark:text-slate-400 flex items-center justify-center text-[10px] transition-colors" title="X (Twitter)">
-                                <i class="fa-brands fa-x-twitter"></i>
-                            </a>
-                            <a href="{{ $s->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] transition-colors" title="Facebook">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                            <a href="{{ $s->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-600 hover:text-white text-rose-500 dark:text-rose-400 flex items-center justify-center text-[10px] transition-colors" title="Instagram">
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                            <a href="{{ $s->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" class="w-6 h-6 rounded-md bg-red-50 dark:bg-red-950/60 hover:bg-red-600 hover:text-white text-red-600 dark:text-red-400 flex items-center justify-center text-[10px] transition-colors" title="YouTube">
-                                <i class="fa-brands fa-youtube"></i>
-                            </a>
-                        </div>
-                        <span class="text-slate-400 text-[10px] font-bold">{{ $s->periode }}</span>
+                @empty
+                    <div class="col-span-4 text-center py-12 text-slate-400">
+                        Data pengurus belum tersedia.
                     </div>
-                </div>
-            @empty
-                <div class="col-span-4 text-center py-12 text-slate-400">
-                    Data pengurus belum tersedia.
-                </div>
-            @endforelse
+                @endforelse
+            </div>
         </div>
 
     </div>

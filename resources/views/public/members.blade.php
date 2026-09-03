@@ -108,16 +108,16 @@
                         <!-- Social Media Icons for Each Journalist -->
                         <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <a href="{{ $m->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white text-slate-500 dark:text-slate-400 flex items-center justify-center text-xs transition-colors" title="X (Twitter)">
+                                <a href="{{ $m->x_twitter ?: 'https://x.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="X Twitter {{ $m->nama }}" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white text-slate-500 dark:text-slate-400 flex items-center justify-center text-xs transition-colors" title="X (Twitter)">
                                     <i class="fa-brands fa-x-twitter"></i>
                                 </a>
-                                <a href="{{ $m->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs transition-colors" title="Facebook">
+                                <a href="{{ $m->facebook ?: 'https://facebook.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook {{ $m->nama }}" class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs transition-colors" title="Facebook">
                                     <i class="fa-brands fa-facebook-f"></i>
                                 </a>
-                                <a href="{{ $m->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" class="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white text-rose-500 dark:text-rose-400 flex items-center justify-center text-xs transition-colors" title="Instagram">
+                                <a href="{{ $m->instagram ?: 'https://instagram.com/pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram {{ $m->nama }}" class="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white text-rose-500 dark:text-rose-400 flex items-center justify-center text-xs transition-colors" title="Instagram">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
-                                <a href="{{ $m->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" class="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-600 hover:text-white text-red-600 dark:text-red-400 flex items-center justify-center text-xs transition-colors" title="YouTube">
+                                <a href="{{ $m->youtube ?: 'https://youtube.com/@pwibanyuasin' }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube {{ $m->nama }}" class="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-600 hover:text-white text-red-600 dark:text-red-400 flex items-center justify-center text-xs transition-colors" title="YouTube">
                                     <i class="fa-brands fa-youtube"></i>
                                 </a>
                             </div>

@@ -4,7 +4,50 @@
 @section('page_title', 'Struktur Organisasi')
 
 @section('content')
-<div class="space-y-6" x-data="{ modalTambah: false, editData: null }">
+<div class="space-y-6" x-data="{
+    tab: 'table',
+    modalTambah: false,
+    editModal: false,
+    structuresData: {
+        @foreach($structures as $s)
+            '{{ $s->id }}': {!! json_encode($s) !!},
+        @endforeach
+    },
+    editForm: {
+        id: '',
+        nama: '',
+        nomor_kartu: '',
+        tingkat_ukw: 'Wartawan Muda',
+        jabatan: '',
+        urutan: 1,
+        x_twitter: '',
+        facebook: '',
+        instagram: '',
+        youtube: '',
+    },
+    openEdit(id) {
+        const s = this.structuresData[id] || {};
+        this.editForm = {
+            id: s.id || id,
+            nama: s.nama || '',
+            nomor_kartu: s.nomor_kartu || '',
+            tingkat_ukw: s.tingkat_ukw || 'Belum UKW',
+            jabatan: s.jabatan || '',
+            urutan: s.urutan || 1,
+            x_twitter: s.x_twitter || '',
+            facebook: s.facebook || '',
+            instagram: s.instagram || '',
+            youtube: s.youtube || '',
+        };
+        this.editModal = true;
+        this.$nextTick(() => {
+            const form = document.getElementById('editOrganizationForm');
+            if (form) {
+                form.action = '{{ url('admin/struktur-organisasi') }}/' + (s.id || id);
+            }
+        });
+    }
+}">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -12,14 +55,40 @@
             <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Struktur Kepengurusan PWI Banyuasin</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Susunan 32 pejabat pengurus harian dan kepala seksi bidang Masa Bhakti 2025–2028</p>
         </div>
-        <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
-            <i class="fa-solid fa-plus"></i>
-            <span>+ Tambah Pengurus</span>
-        </button>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Tab Switcher (Tabel vs Bagan) -->
+            <div class="inline-flex items-center p-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 shadow-sm">
+                <button type="button" 
+                        @click="tab = 'table'" 
+                        :class="tab === 'table' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <i class="fa-solid fa-table-list"></i>
+                    <span>Tabel Data</span>
+                </button>
+                <button type="button" 
+                        @click="tab = 'chart'" 
+                        :class="tab === 'chart' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <span>Visualisasi Bagan</span>
+                </button>
+            </div>
+
+            <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
+                <i class="fa-solid fa-plus"></i>
+                <span>+ Tambah Pengurus</span>
+            </button>
+        </div>
     </div>
 
-    <!-- Table Container (Clean White Background Card) -->
-    <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+    <!-- TAB 1: VISUALISASI BAGAN HIRARKI (ORG CHART) -->
+    <div x-show="tab === 'chart'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        @include('partials.organization-chart', ['tree' => $tree])
+    </div>
+
+    <!-- TAB 2: TABLE CONTAINER -->
+    <div x-show="tab === 'table'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
         
         <!-- Filter Bar -->
         <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-900/50">
@@ -72,7 +141,7 @@
                             <td class="py-3.5 px-6 font-bold text-slate-900 dark:text-white">{{ $s->nama }}</td>
                             <td class="py-3.5 px-6 font-mono text-slate-800 dark:text-slate-300 font-semibold">{{ $s->nomor_kartu ?? '-' }}</td>
                             <td class="py-3.5 px-6">
-                                <span class="inline-block px-2.5 py-1 rounded-lg text-[10px] font-bold {{ $s->tingkat_ukw === 'Wartawan Utama' ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 dark:border-rose-800' : ($s->tingkat_ukw === 'Wartawan Madya' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($s->tingkat_ukw === 'Wartawan Muda' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800' : 'bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300')) }}">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-[10px] font-bold {{ $s->ukw_badge_color }}">
                                     {{ $s->tingkat_ukw ?? 'Belum UKW' }}
                                 </span>
                             </td>
@@ -84,13 +153,13 @@
                             </td>
                             <td class="py-3.5 px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
-                                    <button type="button" @click="editData = {{ json_encode($s) }}" class="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all" title="Edit Pengurus">
+                                    <button type="button" @click="openEdit({{ $s->id }})" class="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all cursor-pointer" title="Edit Pengurus">
                                         <i class="fa-solid fa-pen text-xs"></i>
                                     </button>
                                     <form action="{{ route('admin.organization.destroy', $s->id) }}" method="POST" onsubmit="return confirm('Hapus pengurus {{ $s->nama }}?')" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-all" title="Hapus">
+                                        <button type="submit" class="p-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-all cursor-pointer" title="Hapus">
                                             <i class="fa-solid fa-trash text-xs"></i>
                                         </button>
                                     </form>
@@ -211,34 +280,34 @@
     </div>
 
     <!-- Modal Edit Pengurus -->
-    <div x-show="editData" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto" @click.away="editData = null">
+    <div x-show="editModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto" @click.away="editModal = false">
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-pen text-blue-600"></i> Edit Pengurus
                 </h3>
-                <button @click="editData = null" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button @click="editModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form :action="'{{ url('admin/struktur-organisasi') }}/' + (editData ? editData.id : '')" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form id="editOrganizationForm" :action="'{{ url('admin/struktur-organisasi') }}/' + editForm.id" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PUT')
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Lengkap & Gelar *</label>
-                    <input type="text" name="nama" :value="editData ? editData.nama : ''" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="nama" x-model="editForm.nama" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Kartu (KTA)</label>
-                        <input type="text" name="nomor_kartu" :value="editData ? editData.nomor_kartu : ''" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="text" name="nomor_kartu" x-model="editForm.nomor_kartu" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tingkat UKW</label>
-                        <select name="tingkat_ukw" :value="editData ? editData.tingkat_ukw : ''" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <select name="tingkat_ukw" x-model="editForm.tingkat_ukw" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                             <option value="Wartawan Utama">Wartawan Utama</option>
                             <option value="Wartawan Madya">Wartawan Madya</option>
                             <option value="Wartawan Muda">Wartawan Muda</option>
@@ -250,11 +319,11 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Jabatan Pengurus *</label>
-                        <input type="text" name="jabatan" :value="editData ? editData.jabatan : ''" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="text" name="jabatan" x-model="editForm.jabatan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Urutan Tampil (No)</label>
-                        <input type="number" name="urutan" :value="editData ? editData.urutan : 1" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="number" name="urutan" x-model="editForm.urutan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                 </div>
 
@@ -271,31 +340,31 @@
                             <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                                 <i class="fa-brands fa-x-twitter text-slate-800 dark:text-white mr-1"></i> X (Twitter)
                             </label>
-                            <input type="text" name="x_twitter" :value="editData ? editData.x_twitter : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://x.com/username">
+                            <input type="text" name="x_twitter" x-model="editForm.x_twitter" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://x.com/username">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                                 <i class="fa-brands fa-facebook-f text-blue-600 mr-1"></i> Facebook
                             </label>
-                            <input type="text" name="facebook" :value="editData ? editData.facebook : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://facebook.com/username">
+                            <input type="text" name="facebook" x-model="editForm.facebook" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://facebook.com/username">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                                 <i class="fa-brands fa-instagram text-rose-500 mr-1"></i> Instagram
                             </label>
-                            <input type="text" name="instagram" :value="editData ? editData.instagram : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://instagram.com/username">
+                            <input type="text" name="instagram" x-model="editForm.instagram" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://instagram.com/username">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                                 <i class="fa-brands fa-youtube text-red-600 mr-1"></i> YouTube
                             </label>
-                            <input type="text" name="youtube" :value="editData ? editData.youtube : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://youtube.com/@channel">
+                            <input type="text" name="youtube" x-model="editForm.youtube" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none" placeholder="https://youtube.com/@channel">
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <button type="button" @click="editData = null" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
+                    <button type="button" @click="editModal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all">Simpan Perubahan</button>
                 </div>
             </form>

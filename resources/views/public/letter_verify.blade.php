@@ -150,7 +150,7 @@
                         <a href="{{ route('home') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all">
                             <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda PWI
                         </a>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['no_telp'] ?? '085377991976') }}?text={{ urlencode('Halo Sekretariat PWI Banyuasin, saya ingin mengonfirmasi surat nomor: ' . $letter->nomor_surat) }}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['no_telp'] ?? '085377991976') }}?text={{ urlencode('Halo Sekretariat PWI Banyuasin, saya ingin mengonfirmasi surat nomor: ' . $letter->nomor_surat) }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md">
                             <i class="fa-brands fa-whatsapp text-sm"></i> Konfirmasi Sekretariat PWI
                         </a>
                     </div>

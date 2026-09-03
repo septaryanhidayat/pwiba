@@ -21,6 +21,8 @@ cookies.txt
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/app/public/*
+!/storage/app/public/.gitignore
 /vendor
 _ide_helper.php
 Homestead.json

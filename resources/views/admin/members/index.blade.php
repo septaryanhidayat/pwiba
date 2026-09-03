@@ -4,7 +4,72 @@
 @section('page_title', 'Data Wartawan')
 
 @section('content')
-<div class="space-y-6" x-data="{ modalTambah: false, editData: null, detailData: null }">
+<div class="space-y-6" x-data="{
+    modalTambah: false,
+    editModal: false,
+    mediaMap: {
+        @foreach($mediaList as $med)
+            '{{ $med->id }}': '{{ addslashes($med->nama_media) }}',
+        @endforeach
+    },
+    membersData: {
+        @foreach($members as $m)
+            '{{ $m->id }}': {!! json_encode($m) !!},
+        @endforeach
+    },
+    editForm: {
+        id: '',
+        nama: '',
+        nomor_kartu: '',
+        nomor_kartu_ukw: '',
+        tingkat_ukw: 'Belum UKW',
+        jabatan: 'ANGGOTA',
+        masa_berlaku: '',
+        no_hp: '',
+        status: 'aktif',
+        media_id: '',
+        nama_media_custom: '',
+    },
+    openEdit(id) {
+        const m = this.membersData[id] || {};
+        this.editForm = {
+            id: m.id || id,
+            nama: m.nama || '',
+            nomor_kartu: m.nomor_kartu || '',
+            nomor_kartu_ukw: m.nomor_kartu_ukw || '',
+            tingkat_ukw: m.tingkat_ukw || 'Belum UKW',
+            jabatan: m.jabatan || 'ANGGOTA',
+            masa_berlaku: m.masa_berlaku ? String(m.masa_berlaku).substring(0, 10) : '',
+            no_hp: m.no_hp || '',
+            status: m.status || 'aktif',
+            media_id: m.media_id ? String(m.media_id) : '',
+            nama_media_custom: m.nama_media_custom || (m.media ? m.media.nama_media : ''),
+        };
+        this.editModal = true;
+        this.$nextTick(() => {
+            const form = document.getElementById('editMemberForm');
+            if (form) {
+                form.action = '{{ url('admin/anggota') }}/' + (m.id || id);
+            }
+        });
+    },
+    onMediaChange() {
+        if (this.editForm.media_id && this.mediaMap[this.editForm.media_id]) {
+            this.editForm.nama_media_custom = this.mediaMap[this.editForm.media_id];
+        }
+    },
+    onCustomMediaInput() {
+        const typed = this.editForm.nama_media_custom.trim().toLowerCase();
+        let foundId = '';
+        for (const [id, name] of Object.entries(this.mediaMap)) {
+            if (name.toLowerCase() === typed) {
+                foundId = id;
+                break;
+            }
+        }
+        this.editForm.media_id = foundId;
+    }
+}">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -121,7 +186,7 @@
                             </td>
                             <td class="py-3.5 px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
-                                    <button type="button" @click="editData = {{ json_encode($m) }}" class="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all cursor-pointer" title="Edit Anggota & Media">
+                                    <button type="button" @click="openEdit({{ $m->id }})" class="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all cursor-pointer" title="Edit Anggota & Media">
                                         <i class="fa-solid fa-pen text-xs"></i>
                                     </button>
                                     <form action="{{ route('admin.members.destroy', $m->id) }}" method="POST" onsubmit="return confirm('Hapus wartawan {{ $m->nama }}?')" class="inline">
@@ -249,41 +314,41 @@
     </div>
 
     <!-- Modal Edit Anggota -->
-    <div x-show="editData" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto" @click.away="editData = null">
+    <div x-show="editModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto" @click.away="editModal = false">
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-user-pen text-blue-600"></i> Edit Data Wartawan & Nama Media
                 </h3>
-                <button @click="editData = null" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button @click="editModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form :action="'{{ url('admin/anggota') }}/' + (editData ? editData.id : '')" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form id="editMemberForm" :action="'{{ url('admin/anggota') }}/' + editForm.id" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PUT')
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Lengkap & Gelar *</label>
-                    <input type="text" name="nama" :value="editData ? editData.nama : ''" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="nama" x-model="editForm.nama" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Kartu (KTA)</label>
-                        <input type="text" name="nomor_kartu" :value="editData ? editData.nomor_kartu : ''" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="text" name="nomor_kartu" x-model="editForm.nomor_kartu" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Registrasi Kartu UKW</label>
-                        <input type="text" name="nomor_kartu_ukw" :value="editData ? (editData.nomor_kartu_ukw || '') : ''" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm" placeholder="Contoh: 1231-PWI/WU/DP/XII/2018/17/02/76">
+                        <input type="text" name="nomor_kartu_ukw" x-model="editForm.nomor_kartu_ukw" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm" placeholder="Contoh: 1231-PWI/WU/DP/XII/2018/17/02/76">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tingkat UKW *</label>
-                        <select name="tingkat_ukw" :value="editData ? editData.tingkat_ukw : ''" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <select name="tingkat_ukw" x-model="editForm.tingkat_ukw" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                             <option value="Belum UKW">Belum UKW</option>
                             <option value="Wartawan Muda">Wartawan Muda</option>
                             <option value="Wartawan Madya">Wartawan Madya</option>
@@ -292,21 +357,28 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Jabatan Organisasi *</label>
-                        <input type="text" name="jabatan" :value="editData ? editData.jabatan : ''" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="text" name="jabatan" x-model="editForm.jabatan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Masa Berlaku KTA</label>
-                        <input type="date" name="masa_berlaku" :value="editData && editData.masa_berlaku ? editData.masa_berlaku.substring(0,10) : ''" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <input type="date" name="masa_berlaku" x-model="editForm.masa_berlaku" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Status Keanggotaan</label>
-                        <select name="status" :value="editData ? editData.status : 'aktif'" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <select name="status" x-model="editForm.status" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                             <option value="aktif">Aktif</option>
                             <option value="tidak_aktif">Belum / Tidak Aktif</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">No. WhatsApp / HP</label>
+                        <input type="text" name="no_hp" x-model="editForm.no_hp" placeholder="08xxxxxxxxxx" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     </div>
                 </div>
 
@@ -319,7 +391,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Pilih dari Media Terdaftar</label>
-                            <select name="media_id" :value="editData ? editData.media_id : ''" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                            <select name="media_id" x-model="editForm.media_id" @change="onMediaChange()" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                                 <option value="">-- Pilih Media Terdaftar --</option>
                                 @foreach($mediaList as $med)
                                     <option value="{{ $med->id }}">{{ $med->nama_media }}</option>
@@ -328,10 +400,10 @@
                         </div>
                         <div>
                             <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Edit / Ketik Nama Media Langsung</label>
-                            <input type="text" name="nama_media_custom" :value="editData ? (editData.nama_media_custom || (editData.media ? editData.media.nama_media : '')) : ''" placeholder="Nama media / portal..." class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                            <input type="text" name="nama_media_custom" x-model="editForm.nama_media_custom" @input="onCustomMediaInput()" placeholder="Nama media / portal..." class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                         </div>
                     </div>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400">Anda dapat mengubah pilihan media atau mengetikkan nama media baru secara langsung di kolom ini.</p>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400">Pilih media dari daftar, atau ketik nama media baru untuk mendaftarkannya otomatis.</p>
                 </div>
 
                 <div>
@@ -340,7 +412,7 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <button type="button" @click="editData = null" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
+                    <button type="button" @click="editModal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all">Simpan Perubahan</button>
                 </div>
             </form>

@@ -6,6 +6,12 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia</title>
     
+    <meta name="description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Masa Bhakti 2025–2028. Informasi berita daerah, direktori insan pers terverifikasi, galeri kegiatan, dan layanan keabsahan surat digital.')">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="PWI Kabupaten Banyuasin">
+    <meta name="theme-color" content="#0B132B">
+
     <!-- Favicon Resmi PWI Banyuasin -->
     <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/images/pwi-logo.png') }}">
@@ -32,6 +38,31 @@
 
     <!-- Preload LCP Hero Image -->
     <link rel="preload" as="image" href="{{ asset('assets/images/wardoyo-ketua.webp') }}" type="image/webp" fetchpriority="high">
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => 'Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin',
+        'alternateName' => 'PWI Banyuasin',
+        'url' => url('/'),
+        'logo' => asset('assets/images/pwi-logo.png'),
+        'description' => 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Masa Bhakti 2025–2028.',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'addressLocality' => 'Pangkalan Balai, Banyuasin',
+            'addressRegion' => 'Sumatera Selatan',
+            'addressCountry' => 'ID',
+        ],
+        'sameAs' => [
+            'https://facebook.com/pwibanyuasin',
+            'https://instagram.com/pwibanyuasin',
+            'https://x.com/pwibanyuasin',
+            'https://youtube.com/@pwibanyuasin',
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
 
     <!-- Google Fonts: Plus Jakarta Sans (Non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,7 +413,7 @@
                         <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="YouTube">
                             <i class="fa-brands fa-youtube text-sm"></i>
                         </a>
-                        <a href="https://wa.me/6285377991976" target="_blank" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="WhatsApp">
+                        <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="WhatsApp">
                             <i class="fa-brands fa-whatsapp text-sm"></i>
                         </a>
                     </div>

@@ -125,9 +125,10 @@ class PublicController extends Controller
     public function organization()
     {
         $structures = OrganizationStructure::orderBy('urutan')->get();
+        $tree = OrganizationStructure::getHierarchyTree();
         $settings = Setting::pluck('value', 'key')->all();
 
-        return view('public.organization', compact('structures', 'settings'));
+        return view('public.organization', compact('structures', 'tree', 'settings'));
     }
 
     public function leaders()

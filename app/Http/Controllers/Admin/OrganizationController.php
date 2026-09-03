@@ -28,9 +28,10 @@ class OrganizationController extends Controller
         $perPage = $request->get('entries', 10);
         $structures = $query->orderBy('urutan', 'asc')->paginate($perPage);
         $officials = $structures;
+        $tree = OrganizationStructure::getHierarchyTree();
         $members = Member::where('status', 'aktif')->orderBy('nama', 'asc')->get();
 
-        return view('admin.organization.index', compact('structures', 'officials', 'members'));
+        return view('admin.organization.index', compact('structures', 'officials', 'tree', 'members'));
     }
 
     public function store(Request $request)

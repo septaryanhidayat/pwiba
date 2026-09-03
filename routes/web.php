@@ -28,7 +28,7 @@ Route::get('/struktur-organisasi', [PublicController::class, 'organization'])->n
 Route::get('/ketua-dari-masa-ke-masa', [PublicController::class, 'leaders'])->name('leaders.public');
 Route::get('/anggota', [PublicController::class, 'members'])->name('members.public');
 Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.public');
-Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store');
+Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store')->middleware('throttle:10,1');
 Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter'])->name('letter.verify');
 
 /*
@@ -37,7 +37,7 @@ Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter']
 |--------------------------------------------------------------------------
 */
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post')->middleware('throttle:5,1');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*

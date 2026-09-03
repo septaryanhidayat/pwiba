@@ -125,6 +125,7 @@
                                 </button>
                                 <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" 
                                    target="_blank" 
+                                   rel="noopener noreferrer"
                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white border border-white/15 transition-all shadow-sm">
                                     <i class="fa-solid fa-file-pdf text-rose-400"></i>
                                     <span>Unduh PDF</span>
@@ -192,7 +193,7 @@
                                 <i class="fa-solid fa-book-open"></i>
                                 <span>Baca Sambutan Lengkap</span>
                             </button>
-                            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all">
+                            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all">
                                 <i class="fa-solid fa-file-pdf text-rose-400"></i>
                                 <span>Unduh PDF</span>
                             </a>
@@ -738,7 +739,7 @@
 
         <!-- Modal Footer -->
         <div class="p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 shadow-md transition-all">
+            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 shadow-md transition-all">
                 <i class="fa-solid fa-file-pdf"></i>
                 <span>Unduh Dokumen Asli (PDF)</span>
             </a>

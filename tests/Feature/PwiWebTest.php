@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Gallery;
 use App\Models\Leader;
 use App\Models\Letter;
+use App\Models\Media;
 use App\Models\MeetingMinute;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
@@ -509,5 +510,59 @@ class PwiWebTest extends TestCase
             'foto' => $fakePhoto,
         ])->assertRedirect(route('admin.leaders.index'));
         $testLeader->delete();
+    }
+
+    public function test_admin_can_update_member_media_properly(): void
+    {
+        $admin = User::first();
+        $this->assertNotNull($admin);
+
+        $member = Member::where('nama', 'like', '%Malyadi%')->first();
+        $this->assertNotNull($member);
+
+        $mediaRadar = Media::where('nama_media', 'like', '%Radar Banyuasin%')->first();
+        $this->assertNotNull($mediaRadar);
+
+        $response = $this->actingAs($admin)->put(route('admin.members.update', $member->id), [
+            'nama' => 'Malyadi, SH, M.Si',
+            'nomor_kartu' => $member->nomor_kartu,
+            'nomor_kartu_ukw' => $member->nomor_kartu_ukw,
+            'tingkat_ukw' => $member->tingkat_ukw,
+            'masa_berlaku' => $member->masa_berlaku ? $member->masa_berlaku->format('Y-m-d') : '2028-04-16',
+            'jabatan' => $member->jabatan,
+            'media_id' => $mediaRadar->id,
+            'nama_media_custom' => $mediaRadar->nama_media,
+            'status' => 'aktif',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertEquals($mediaRadar->id, $member->fresh()->media_id);
+        $this->assertEquals($mediaRadar->nama_media, $member->fresh()->nama_media_custom);
+    }
+
+    public function test_public_organization_renders_hierarchy_tree_chart(): void
+    {
+        $response = $this->get('/struktur-organisasi');
+        $response->assertStatus(200);
+        $response->assertSee('Bagan Alur & Hirarki Kepengurusan', false);
+        $response->assertSee('Garis Instruksi & Garis Komando Bidang Operasional', false);
+        $response->assertSee('Wardoyo, S.I.Kom', false);
+        $response->assertSee('Unduh Gambar (PNG)', false);
+    }
+
+    public function test_public_members_page_renders_malyadi_and_radar_banyuasin_when_enabled(): void
+    {
+        Setting::updateOrCreate(['key' => 'show_public_members'], ['value' => '1']);
+
+        $member = Member::where('nama', 'like', '%Malyadi%')->first();
+        $mediaRadar = Media::where('nama_media', 'like', '%Radar Banyuasin%')->first();
+        $member->media_id = $mediaRadar->id;
+        $member->nama_media_custom = $mediaRadar->nama_media;
+        $member->save();
+
+        $response = $this->get('/anggota?search=Malyadi');
+        $response->assertStatus(200);
+        $response->assertSee('Malyadi, SH, M.Si', false);
+        $response->assertSee('Radar Banyuasin', false);
     }
 }

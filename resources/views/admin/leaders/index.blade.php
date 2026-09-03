@@ -4,7 +4,47 @@
 @section('page_title', 'Ketua Dari Masa ke Masa')
 
 @section('content')
-<div class="space-y-6" x-data="{ modalTambah: false, editData: null }">
+<div class="space-y-6" x-data="{
+    modalTambah: false,
+    editModal: false,
+    leadersData: {
+        @foreach($leaders as $l)
+            '{{ $l->id }}': {!! json_encode($l) !!},
+        @endforeach
+    },
+    editForm: {
+        id: '',
+        nama: '',
+        jabatan: '',
+        periode: '',
+        tahun_mulai: '',
+        tahun_selesai: '',
+        urutan: 1,
+        keterangan: '',
+        status_aktif: false,
+    },
+    openEdit(id) {
+        const l = this.leadersData[id] || {};
+        this.editForm = {
+            id: l.id || id,
+            nama: l.nama || '',
+            jabatan: l.jabatan || '',
+            periode: l.periode || '',
+            tahun_mulai: l.tahun_mulai || '',
+            tahun_selesai: l.tahun_selesai || '',
+            urutan: l.urutan || 1,
+            keterangan: l.keterangan || '',
+            status_aktif: Boolean(l.status_aktif),
+        };
+        this.editModal = true;
+        this.$nextTick(() => {
+            const form = document.getElementById('editLeaderForm');
+            if (form) {
+                form.action = '{{ route('admin.leaders.index') }}/' + (l.id || id);
+            }
+        });
+    }
+}">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -93,7 +133,7 @@
                             </td>
                             <td class="py-3.5 px-6 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <button @click="editData = {{ json_encode($l) }}" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/60 transition-colors cursor-pointer border border-amber-200 dark:border-amber-800">
+                                    <button @click="openEdit({{ $l->id }})" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/60 transition-colors cursor-pointer border border-amber-200 dark:border-amber-800">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                     <form action="{{ route('admin.leaders.destroy', $l->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data Ketua {{ $l->nama }}?')">
@@ -199,50 +239,50 @@
     </div>
 
     <!-- Modal Edit Ketua -->
-    <div x-show="editData" x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div @click.away="editData = null" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5">
+    <div x-show="editModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div @click.away="editModal = false" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5">
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-pen-to-square text-amber-500"></i>
                     <span>Edit Data Ketua</span>
                 </h3>
-                <button @click="editData = null" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button @click="editModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <form :action="'{{ route('admin.leaders.index') }}/' + editData?.id" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
+            <form id="editLeaderForm" :action="'{{ route('admin.leaders.index') }}/' + editForm.id" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
                 @csrf
                 @method('PUT')
 
                 <div>
                     <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap & Gelar *</label>
-                    <input type="text" name="nama" :value="editData?.nama" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
+                    <input type="text" name="nama" x-model="editForm.nama" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Jabatan *</label>
-                        <input type="text" name="jabatan" :value="editData?.jabatan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="text" name="jabatan" x-model="editForm.jabatan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Periode *</label>
-                        <input type="text" name="periode" :value="editData?.periode" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="text" name="periode" x-model="editForm.periode" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-medium text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-3 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Tahun Mulai</label>
-                        <input type="number" name="tahun_mulai" :value="editData?.tahun_mulai" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
+                        <input type="number" name="tahun_mulai" x-model="editForm.tahun_mulai" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Tahun Selesai</label>
-                        <input type="number" name="tahun_selesai" :value="editData?.tahun_selesai" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
+                        <input type="number" name="tahun_selesai" x-model="editForm.tahun_selesai" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Urutan *</label>
-                        <input type="number" name="urutan" :value="editData?.urutan" required class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
+                        <input type="number" name="urutan" x-model="editForm.urutan" required class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none">
                     </div>
                 </div>
 
@@ -254,16 +294,16 @@
 
                 <div>
                     <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Keterangan / Catatan Sejarah</label>
-                    <textarea name="keterangan" x-text="editData?.keterangan" rows="2" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                    <textarea name="keterangan" x-model="editForm.keterangan" rows="2" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-600"></textarea>
                 </div>
 
                 <div class="flex items-center gap-2 pt-1">
-                    <input type="checkbox" name="status_aktif" id="status_aktif_edit" value="1" :checked="editData?.status_aktif" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                    <input type="checkbox" name="status_aktif" id="status_aktif_edit" value="1" x-model="editForm.status_aktif" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
                     <label for="status_aktif_edit" class="font-bold text-slate-800 dark:text-slate-200">Tandai sebagai Ketua Petahana / Aktif Saat Ini</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <button type="button" @click="editData = null" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <button type="button" @click="editModal = false" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
                         Batal
                     </button>
                     <button type="submit" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold shadow-sm">

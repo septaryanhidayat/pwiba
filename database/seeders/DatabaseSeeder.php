@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             'ketua_sambutan' => 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.',
             'visi' => 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.',
             'misi' => "1. Menjadikan PWI Banyuasin sebagai wadah yang lebih solid dan berdaya saing.\n2. Berkontribusi nyata bagi masyarakat serta kemajuan pers nasional.\n3. Meningkatkan kesejahteraan dan solidaritas anggota, dengan mendorong program dukungan bagi jurnalis.\n4. Menjalin kemitraan strategis dengan pemerintah, swasta, dan organisasi masyarakat untuk memperluas ruang gerak jurnalis.",
-            'show_public_members' => '0',
+            'show_public_members' => '1',
         ];
 
         foreach ($settings as $k => $v) {
@@ -223,7 +223,7 @@ class DatabaseSeeder extends Seeder
                 'tingkat_ukw' => 'Wartawan Madya',
                 'masa_berlaku' => '2028-04-16',
                 'nomor_kartu_ukw' => '6385-PWI/WDya/DP/XI/2013/11/11/89',
-                'media' => 'Harian Banyuasin',
+                'media' => 'Radar Banyuasin',
                 'jabatan' => 'ANGGOTA',
                 'foto' => 'members/6d11401163f0fcc59c136d0a12f004ce.webp',
                 'status' => 'aktif',
@@ -704,7 +704,7 @@ class DatabaseSeeder extends Seeder
 
         $allMembers = [];
         foreach ($officialMembers as $om) {
-            $mediaId = !empty($om['media']) ? Media::where('nama_media', $om['media'])->value('id') : null;
+            $mediaId = ! empty($om['media']) ? Media::where('nama_media', $om['media'])->value('id') : null;
 
             $mRecord = Member::create([
                 'id' => $om['id'],

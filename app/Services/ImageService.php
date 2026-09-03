@@ -30,50 +30,37 @@ class ImageService
         // Try converting to WebP using GD
         $image = self::createImageFromUploadedFile($realPath, $file->getClientMimeType() ?: $file->getMimeType());
 
-        if ($image !== false) {
-            // Buffer the WebP stream
-            ob_start();
-            imagewebp($image, null, $quality);
-            $webpData = ob_get_clean();
-            imagedestroy($image);
+        if ($image === false) {
+            throw new \InvalidArgumentException('Format file tidak valid atau bukan file gambar yang didukung.');
+        }
 
-            if (! empty($webpData)) {
-                Storage::disk($disk)->put($relativePath, $webpData);
+        // Buffer the WebP stream
+        ob_start();
+        imagewebp($image, null, $quality);
+        $webpData = ob_get_clean();
+        imagedestroy($image);
 
-                // If storing on public disk, mirror to public/storage if directory exists
-                if ($disk === 'public') {
-                    $publicDestDir = public_path('storage/'.trim($directory, '/'));
-                    if (! is_dir($publicDestDir)) {
-                        @mkdir($publicDestDir, 0777, true);
-                    }
-                    @file_put_contents($publicDestDir.'/'.$randomName, $webpData);
+        if (! empty($webpData)) {
+            Storage::disk($disk)->put($relativePath, $webpData);
 
-                    $directPublicDir = public_path(trim($directory, '/'));
-                    if (is_dir($directPublicDir)) {
-                        @file_put_contents($directPublicDir.'/'.$randomName, $webpData);
-                    }
+            // If storing on public disk, mirror to public/storage if directory exists
+            if ($disk === 'public') {
+                $publicDestDir = public_path('storage/'.trim($directory, '/'));
+                if (! is_dir($publicDestDir)) {
+                    @mkdir($publicDestDir, 0777, true);
                 }
+                @file_put_contents($publicDestDir.'/'.$randomName, $webpData);
 
-                return $relativePath;
+                $directPublicDir = public_path(trim($directory, '/'));
+                if (is_dir($directPublicDir)) {
+                    @file_put_contents($directPublicDir.'/'.$randomName, $webpData);
+                }
             }
+
+            return $relativePath;
         }
 
-        // Fallback: if conversion fails, store original file
-        $stored = $file->store($directory, $disk);
-        if ($disk === 'public') {
-            $publicDestDir = public_path('storage/'.trim($directory, '/'));
-            if (! is_dir($publicDestDir)) {
-                @mkdir($publicDestDir, 0777, true);
-            }
-            @copy(Storage::disk('public')->path($stored), public_path('storage/'.$stored));
-
-            $directPublicDir = public_path(trim($directory, '/'));
-            if (is_dir($directPublicDir)) {
-                @copy(Storage::disk('public')->path($stored), public_path($stored));
-            }
-        }
-
-        return $stored;
+        throw new \RuntimeException('Gagal mengonversi gambar ke WebP.');
     }
 
     /**
