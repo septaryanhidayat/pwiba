@@ -1,0 +1,447 @@
+
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Trying to access array offset on value of type null</p>
+<p>Filename: models/Surat_model.php</p>
+<p>Line Number: 84</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/models/Surat_model.php<br />
+			Line: 84<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 623<br />
+			Function: get_by_id			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: 8192</p>
+<p>Message:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated</p>
+<p>Filename: helpers/tgl_indo_helper.php</p>
+<p>Line Number: 63</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/helpers/tgl_indo_helper.php<br />
+			Line: 63<br />
+			Function: strtotime			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/models/Surat_model.php<br />
+			Line: 84<br />
+			Function: shortdate_indo			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 623<br />
+			Function: get_by_id			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined array key "kd_surat"</p>
+<p>Filename: models/Surat_model.php</p>
+<p>Line Number: 87</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/models/Surat_model.php<br />
+			Line: 87<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 623<br />
+			Function: get_by_id			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined array key "tujuan_audensi"</p>
+<p>Filename: models/Surat_model.php</p>
+<p>Line Number: 91</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/models/Surat_model.php<br />
+			Line: 91<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 623<br />
+			Function: get_by_id			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined array key "keperluan_audensi"</p>
+<p>Filename: models/Surat_model.php</p>
+<p>Line Number: 92</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/models/Surat_model.php<br />
+			Line: 92<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 623<br />
+			Function: get_by_id			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined property: stdClass::$no_surat_keluar</p>
+<p>Filename: controllers/Surat.php</p>
+<p>Line Number: 657</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 657<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined property: stdClass::$kd_surat</p>
+<p>Filename: controllers/Surat.php</p>
+<p>Line Number: 663</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 663<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Undefined property: stdClass::$no_surat_keluar</p>
+<p>Filename: controllers/Surat.php</p>
+<p>Line Number: 686</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 686<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  Cannot modify header information - headers already sent by (output started at /home/pwibaori/public_html/system/core/Exceptions.php:272)</p>
+<p>Filename: core/Common.php</p>
+<p>Line Number: 571</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/application/controllers/Surat.php<br />
+			Line: 692<br />
+			Function: view			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/pwibaori/public_html/index.php<br />
+			Line: 315<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+<style type="text/css">
+
+::selection { background-color: #E13300; color: white; }
+::-moz-selection { background-color: #E13300; color: white; }
+
+body {
+	background-color: #fff;
+	margin: 40px;
+	font: 13px/20px normal Helvetica, Arial, sans-serif;
+	color: #4F5155;
+}
+
+a {
+	color: #003399;
+	background-color: transparent;
+	font-weight: normal;
+}
+
+h1 {
+	color: #444;
+	background-color: transparent;
+	border-bottom: 1px solid #D0D0D0;
+	font-size: 19px;
+	font-weight: normal;
+	margin: 0 0 14px 0;
+	padding: 14px 15px 10px 15px;
+}
+
+code {
+	font-family: Consolas, Monaco, Courier New, Courier, monospace;
+	font-size: 12px;
+	background-color: #f9f9f9;
+	border: 1px solid #D0D0D0;
+	color: #002166;
+	display: block;
+	margin: 14px 0 14px 0;
+	padding: 12px 10px 12px 10px;
+}
+
+#container {
+	margin: 10px;
+	border: 1px solid #D0D0D0;
+	box-shadow: 0 0 8px #D0D0D0;
+}
+
+p {
+	margin: 12px 15px 12px 15px;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<h1>An Error Was Encountered</h1>
+		<p>Unable to load the requested file: admin/cetak_surat_default.php</p>	</div>
+</body>
+</html>
