@@ -159,7 +159,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
             <!-- Left: Sambutan Ketua PWI Card -->
-            <div class="lg:col-span-5 flex flex-col" data-aos="fade-right" data-aos-delay="100">
+            <div class="lg:col-span-5 flex flex-col" data-aos="fade-up">
                 <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between flex-grow hover-lift">
                     <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -210,7 +210,7 @@
             <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                 
                 <!-- Visi Card -->
-                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all text-center sm:text-left hover-lift" data-aos="fade-left" data-aos-delay="150">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:border-amber-400/50 transition-all text-center sm:text-left hover-lift" data-aos="fade-up">
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 mb-2">
                         <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base flex-shrink-0">
                             <i class="fa-solid fa-eye"></i>
@@ -225,7 +225,7 @@
                 <!-- 4 Misi Grid Cards (Asli pwiba.or.id) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="40">
                         <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
@@ -235,7 +235,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="250">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="80">
                         <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-newspaper"></i>
                         </div>
@@ -245,7 +245,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="120">
                         <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-users"></i>
                         </div>
@@ -255,7 +255,7 @@
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="350">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="160">
                         <div class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
@@ -296,7 +296,7 @@
             @forelse($structures->take(4) as $s)
                 <div class="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between"
                      data-aos="fade-up" 
-                     data-aos-delay="{{ $loop->iteration * 120 }}">
+                     data-aos-delay="{{ $loop->iteration * 40 }}">
                     
                     <!-- Symmetrical Photo Frame -->
                     <div class="relative w-full aspect-[3/4] bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -391,7 +391,7 @@
             @forelse($posts as $p)
                 <article class="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1.5"
                          data-aos="fade-up"
-                         data-aos-delay="{{ $loop->iteration * 80 }}">
+                         data-aos-delay="{{ $loop->iteration * 40 }}">
                     
                     <!-- Post Thumbnail -->
                     <a href="{{ route('news.show', $p->slug) }}" class="relative block overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-800">
@@ -470,7 +470,7 @@
                 <div @click="selectedPhoto = '{{ $g->foto_url }}'; selectedTitle = '{{ addslashes($g->judul) }}'; selectedDate = '{{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d F Y') : '-' }}'; selectedDesc = '{{ addslashes($g->deskripsi) }}'" 
                      class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg hover-lift"
                      data-aos="fade-up"
-                     data-aos-delay="{{ $loop->iteration * 80 }}">
+                     data-aos-delay="{{ $loop->iteration * 40 }}">
                     <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     
@@ -520,7 +520,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12">
                 
                 <!-- Left Sidebar: Contact Info -->
-                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between text-center lg:text-left items-center lg:items-start" data-aos="fade-right" data-aos-delay="100">
+                <div class="lg:col-span-5 bg-gradient-to-br from-[#0B132B] to-[#1C2541] p-8 sm:p-10 text-white flex flex-col justify-between text-center lg:text-left items-center lg:items-start" data-aos="fade-up">
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Buku Tamu & Kemitraan</span>
                         <h3 class="text-2xl font-extrabold text-white mt-2 leading-tight">
@@ -558,7 +558,7 @@
                 </div>
 
                 <!-- Right Form Area -->
-                <div class="lg:col-span-7 p-8 sm:p-10" data-aos="fade-left" data-aos-delay="150">
+                <div class="lg:col-span-7 p-8 sm:p-10" data-aos="fade-up">
                     
                     @if(session('success_inbox'))
                         <div class="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center gap-3">

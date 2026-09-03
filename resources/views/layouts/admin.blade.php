@@ -424,5 +424,79 @@
 
     </div>
 
+    <!-- SweetAlert2 Scripts & Global Handler -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: {!! json_encode(session('success')) !!},
+                confirmButtonColor: '#2563eb',
+                confirmButtonText: 'Selesai',
+                timer: 3500,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    title: 'dark:text-white font-bold',
+                    confirmButton: 'rounded-xl px-6 py-2.5 font-bold text-xs shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
+    @if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                text: {!! json_encode(session('error')) !!},
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'Tutup',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    title: 'dark:text-white font-bold',
+                    confirmButton: 'rounded-xl px-6 py-2.5 font-bold text-xs shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto upgrade all CRUD forms with confirm() to SweetAlert2
+            document.querySelectorAll('form').forEach(function(form) {
+                const onsubmit = form.getAttribute('onsubmit');
+                if (onsubmit && onsubmit.includes('confirm')) {
+                    form.removeAttribute('onsubmit');
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: 'Konfirmasi Tindakan',
+                            text: 'Apakah Anda yakin ingin menghapus / memproses data ini? Tindakan ini tidak dapat dibatalkan.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            cancelButtonColor: '#64748b',
+                            confirmButtonText: 'Ya, Lanjutkan',
+                            cancelButtonText: 'Batal',
+                            customClass: {
+                                popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                                title: 'font-bold dark:text-white',
+                                confirmButton: 'rounded-xl px-5 py-2.5 font-bold text-xs shadow-md',
+                                cancelButton: 'rounded-xl px-5 py-2.5 font-bold text-xs'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

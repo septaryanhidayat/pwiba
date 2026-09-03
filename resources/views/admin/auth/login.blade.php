@@ -211,7 +211,7 @@
                         <!-- Email Input -->
                         <div class="space-y-1.5">
                             <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                                Email Administrator
+                                Isikan Email Anda
                             </label>
                             <div class="relative group">
                                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors">
@@ -223,7 +223,7 @@
                                        value="{{ old('email') }}" 
                                        required 
                                        autofocus
-                                       placeholder="nama@pwibanyuasin.or.id" 
+                                       placeholder="email@anda.com" 
                                        autocomplete="email"
                                        class="w-full pl-10 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-300 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 outline-none transition-all shadow-sm">
                             </div>
@@ -300,8 +300,43 @@
 
     <!-- Simple Modern Footer -->
     <footer class="relative z-10 w-full py-4 text-center text-xs text-slate-500 dark:text-slate-400">
-        <p>&copy; {{ date('Y') }} PWI Kabupaten Banyuasin. Hak Cipta Dilindungi.</p>
     </footer>
 
+    <!-- SweetAlert2 Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Informasi',
+                text: {!! json_encode(session('success')) !!},
+                timer: 3500,
+                timerProgressBar: true,
+                confirmButtonColor: '#2563eb',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    confirmButton: 'rounded-xl px-5 py-2.5 font-bold text-xs shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
+    @if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Perhatian',
+                text: {!! json_encode(session('error')) !!},
+                confirmButtonColor: '#ef4444',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    confirmButton: 'rounded-xl px-5 py-2.5 font-bold text-xs shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
 </body>
 </html>

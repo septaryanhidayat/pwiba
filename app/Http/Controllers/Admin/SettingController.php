@@ -45,13 +45,20 @@ class SettingController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'password' => 'required|string|min:6|confirmed',
+            'current_password' => 'required|current_password',
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'current_password.required' => 'Kata sandi saat ini wajib diisi.',
+            'current_password.current_password' => 'Kata sandi saat ini yang Anda masukkan salah.',
+            'password.required' => 'Kata sandi baru wajib diisi.',
+            'password.min' => 'Kata sandi baru minimal harus 8 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi baru tidak cocok.',
         ]);
 
         $user = Auth::user();
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->back()->with('success', 'Kata sandi admin berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Kata sandi admin berhasil diperbarui dengan aman.');
     }
 }

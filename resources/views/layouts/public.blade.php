@@ -161,22 +161,20 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* Hero Entrance Keyframes (GPU-accelerated transform & opacity) */
-        @keyframes heroFadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw;
+            width: 100%;
         }
+
+        /* Fast, Crisp Fade-Up Keyframe (Vertical only, 0 horizontal shift, GPU accelerated) */
         @keyframes heroFadeUp {
-            from { opacity: 0; transform: translateY(24px); }
+            from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes heroScaleIn {
-            from { opacity: 0; transform: scale(0.95) translateY(16px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
         }
         @keyframes orbGlow {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.5; }
-            50% { transform: translate(20px, -15px) scale(1.1); opacity: 0.85; }
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.08); opacity: 0.8; }
         }
         @keyframes shimmerSlow {
             0% { background-position: -200% 0; }
@@ -184,22 +182,22 @@
         }
 
         .hero-badge-anim {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+            animation: heroFadeUp 0.35s ease-out both;
         }
         .hero-title-anim {
-            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            animation: heroFadeUp 0.35s ease-out 0.05s both;
         }
         .hero-desc-anim {
-            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+            animation: heroFadeUp 0.35s ease-out 0.1s both;
         }
         .hero-cta-anim {
-            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+            animation: heroFadeUp 0.35s ease-out 0.15s both;
         }
         .hero-stats-anim {
-            animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+            animation: heroFadeUp 0.35s ease-out 0.2s both;
         }
         .hero-card-anim {
-            animation: heroScaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+            animation: heroFadeUp 0.4s ease-out 0.1s both;
         }
         .animate-orb-glow {
             animation: orbGlow 8s ease-in-out infinite;
@@ -593,17 +591,70 @@
 
     </div>
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success_inbox'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Pesan Terkirim!',
+                text: {!! json_encode(session('success_inbox')) !!},
+                confirmButtonColor: '#2563eb',
+                confirmButtonText: 'Tutup',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    title: 'text-xl font-bold dark:text-white',
+                    confirmButton: 'rounded-xl px-6 py-2.5 font-bold text-sm shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
+    @if(session('error_inbox'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Perhatian',
+                text: {!! json_encode(session('error_inbox')) !!},
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'Tutup',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl dark:bg-slate-900 dark:text-white',
+                    title: 'text-xl font-bold dark:text-white',
+                    confirmButton: 'rounded-xl px-6 py-2.5 font-bold text-sm shadow-md'
+                }
+            });
+        });
+    </script>
+    @endif
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: {!! json_encode(session('success')) !!},
+                timer: 3500,
+                timerProgressBar: true,
+                confirmButtonColor: '#2563eb'
+            });
+        });
+    </script>
+    @endif
+
     <!-- AOS JS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof AOS !== 'undefined') {
                 AOS.init({
-                    duration: 700,
-                    easing: 'ease-out-cubic',
+                    duration: 350,
+                    easing: 'ease-out',
                     once: true,
-                    offset: 40,
-                    delay: 50,
+                    offset: 20,
+                    delay: 0,
                 });
             }
         });

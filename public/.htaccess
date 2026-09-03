@@ -89,5 +89,17 @@
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "public, max-age=2592000, must-revalidate"
     </FilesMatch>
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# Block Direct Access to Hidden & Sensitive Files (.env, .git, .sql, etc.)
+<FilesMatch "(^\.|\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist|env)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 

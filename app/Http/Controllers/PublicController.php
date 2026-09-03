@@ -14,6 +14,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
 
 class PublicController extends Controller
@@ -183,25 +184,42 @@ class PublicController extends Controller
 
     public function storeInbox(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'instansi' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'telepon' => 'nullable|string|max:50',
-            'tujuan' => 'nullable|string|max:255',
-            'keperluan' => 'required|string|max:255',
+        $throttleKey = 'inbox|'.$request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            return redirect()->back()->with('error_inbox', "Terlalu banyak pengiriman pesan. Demi keamanan, silakan coba kembali dalam {$seconds} detik.");
+        }
+
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'instansi' => 'nullable|string|max:150',
+            'email' => 'nullable|email|max:100',
+            'telepon' => 'nullable|string|max:30',
+            'tujuan' => 'nullable|string|max:150',
+            'keperluan' => 'required|string|max:200',
             'pesan' => 'required|string|max:3000',
         ]);
 
+        RateLimiter::hit($throttleKey, 120);
+
+        // Sanitize string inputs against XSS
+        foreach ($validated as $key => $val) {
+            if (is_string($val)) {
+                $validated[$key] = strip_tags(trim($val));
+            }
+        }
+
         Inbox::create([
             'tanggal' => now(),
-            'nama' => $request->nama,
-            'instansi' => $request->instansi ?? 'Umum / Masyarakat',
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-            'tujuan' => $request->tujuan ?? 'PWI Kabupaten Banyuasin',
-            'keperluan' => $request->keperluan,
-            'pesan' => $request->pesan,
+            'nama' => $validated['nama'],
+            'instansi' => $validated['instansi'] ?? 'Umum / Masyarakat',
+            'email' => $validated['email'] ?? null,
+            'telepon' => $validated['telepon'] ?? null,
+            'tujuan' => $validated['tujuan'] ?? 'PWI Kabupaten Banyuasin',
+            'keperluan' => $validated['keperluan'],
+            'pesan' => $validated['pesan'],
             'status' => 'baru',
         ]);
 
