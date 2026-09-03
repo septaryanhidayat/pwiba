@@ -78,7 +78,7 @@ class LeaderController extends Controller
         $validated['status_aktif'] = $request->has('status_aktif');
 
         if ($request->hasFile('foto')) {
-            $validated['foto'] = ImageService::convertToWebp($request->file('foto'), 'leaders');
+            $validated['foto'] = ImageService::uploadAndConvertToWebp($request->file('foto'), 'leaders');
         }
 
         Leader::create($validated);
@@ -108,7 +108,7 @@ class LeaderController extends Controller
             if ($leader->foto && Storage::disk('public')->exists($leader->foto)) {
                 Storage::disk('public')->delete($leader->foto);
             }
-            $validated['foto'] = ImageService::convertToWebp($request->file('foto'), 'leaders');
+            $validated['foto'] = ImageService::uploadAndConvertToWebp($request->file('foto'), 'leaders');
         }
 
         $leader->update($validated);

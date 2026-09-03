@@ -47,6 +47,11 @@ class ImageService
                         @mkdir($publicDestDir, 0777, true);
                     }
                     @file_put_contents($publicDestDir.'/'.$randomName, $webpData);
+
+                    $directPublicDir = public_path(trim($directory, '/'));
+                    if (is_dir($directPublicDir)) {
+                        @file_put_contents($directPublicDir.'/'.$randomName, $webpData);
+                    }
                 }
 
                 return $relativePath;
@@ -61,9 +66,26 @@ class ImageService
                 @mkdir($publicDestDir, 0777, true);
             }
             @copy(Storage::disk('public')->path($stored), public_path('storage/'.$stored));
+
+            $directPublicDir = public_path(trim($directory, '/'));
+            if (is_dir($directPublicDir)) {
+                @copy(Storage::disk('public')->path($stored), public_path($stored));
+            }
         }
 
         return $stored;
+    }
+
+    /**
+     * Alias for uploadAndConvertToWebp.
+     */
+    public static function convertToWebp(
+        UploadedFile $file,
+        string $directory,
+        string $disk = 'public',
+        int $quality = 82
+    ): string {
+        return self::uploadAndConvertToWebp($file, $directory, $disk, $quality);
     }
 
     /**

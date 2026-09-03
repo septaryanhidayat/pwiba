@@ -445,5 +445,22 @@ class PwiWebTest extends TestCase
             'urutan' => $leader->urutan,
             'keterangan' => 'Ketua Pertama Terverifikasi',
         ])->assertRedirect(route('admin.leaders.index'));
+
+        // Test PUT /admin/ketua-dari-masa-ke-masa/{id} with uploaded photo succeeds
+        $testLeader = Leader::create([
+            'nama' => 'Testing Leader',
+            'jabatan' => 'Ketua Demisioner',
+            'periode' => '1999 - 2000',
+            'urutan' => 99,
+        ]);
+        $fakePhoto = UploadedFile::fake()->image('test_leader.jpg', 400, 500);
+        $this->actingAs($admin)->put("/admin/ketua-dari-masa-ke-masa/{$testLeader->id}", [
+            'nama' => 'Testing Leader Updated',
+            'jabatan' => 'Ketua Demisioner',
+            'periode' => '1999 - 2000',
+            'urutan' => 99,
+            'foto' => $fakePhoto,
+        ])->assertRedirect(route('admin.leaders.index'));
+        $testLeader->delete();
     }
 }
