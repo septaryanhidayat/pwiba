@@ -26,7 +26,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Admin User
+        // 1. Admin Users
+        User::firstOrCreate(
+            ['email' => 'admin@pwiba.or.id'],
+            [
+                'name' => 'Admin PWI Banyuasin',
+                'password' => Hash::make('wardoyo#'),
+            ]
+        );
+
         User::firstOrCreate(
             ['email' => 'admin@pwibanyuasin.or.id'],
             [
