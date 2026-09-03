@@ -193,7 +193,7 @@
                         Kepengurusan
                     </a>
                     <a href="{{ route('leaders.public') }}" class="px-3 py-2 text-sm font-medium {{ request()->routeIs('leaders.public') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10' }} rounded-lg transition-colors">
-                        Ketua Masa ke Masa
+                        Sejarah
                     </a>
                     <a href="{{ route('news.index') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
                         Berita
@@ -256,7 +256,7 @@
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Beranda</a>
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Profil & Visi</a>
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#kepengurusan" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Kepengurusan</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Ketua Dari Masa ke Masa</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah</a>
             <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
             <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
             <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Direktori Anggota</a>
@@ -324,7 +324,7 @@
                         <li><a href="{{ route('home') }}#beranda" class="hover:text-amber-400 transition-colors">Beranda Utama</a></li>
                         <li><a href="{{ route('home') }}#profil" class="hover:text-amber-400 transition-colors">Visi & Misi</a></li>
                         <li><a href="{{ route('organization.public') }}" class="hover:text-amber-400 transition-colors">Susunan Pengurus</a></li>
-                        <li><a href="{{ route('leaders.public') }}" class="hover:text-amber-400 transition-colors">Ketua Dari Masa ke Masa</a></li>
+                        <li><a href="{{ route('leaders.public') }}" class="hover:text-amber-400 transition-colors">Sejarah PWI (Ketua)</a></li>
                         <li><a href="{{ route('members.public') }}" class="hover:text-amber-400 transition-colors">Direktori Wartawan</a></li>
                         <li><a href="{{ route('gallery.public') }}" class="hover:text-amber-400 transition-colors">Galeri Dokumentasi</a></li>
                     </ul>
@@ -370,6 +370,160 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Widgets: Scroll to Top & WhatsApp Pengurus Inti -->
+    <div x-data="{ 
+            waModalOpen: false, 
+            showScrollTop: false,
+            init() {
+                window.addEventListener('scroll', () => {
+                    this.showScrollTop = window.pageYOffset > 300;
+                });
+            },
+            scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+         }"
+         x-init="init()"
+         class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
+        
+        <!-- WhatsApp Pengurus Popover Modal -->
+        <div x-show="waModalOpen" 
+             x-cloak 
+             @click.away="waModalOpen = false"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+             class="pointer-events-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-5 sm:p-6 max-w-sm sm:max-w-xl md:max-w-2xl w-full mb-2">
+            
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm shadow-sm">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </span>
+                    <div>
+                        <h4 class="text-sm font-extrabold text-slate-900 dark:text-white leading-tight">Kontak Pengurus PWI</h4>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Pilih kontak WhatsApp pengurus harian di bawah ini</p>
+                    </div>
+                </div>
+                <button @click="waModalOpen = false" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Grid 4 Pengurus -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                
+                <!-- 1. Wardoyo, S.I.Kom -->
+                <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_1_wardoyo.webp') }}" alt="Wardoyo, S.I.Kom" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="space-y-0.5 mb-3">
+                        <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Wardoyo, S.I.Kom</h5>
+                        <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">KETUA PWI BANYUASIN</p>
+                    </div>
+                    <a href="https://api.whatsapp.com/send/?phone=6285377991976&text=Halo+Wardoyo%2C+S.I.Kom+&type=phone_number&app_absent=0" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="w-10 h-10 rounded-full bg-[#1E8E5A] hover:bg-[#25D366] text-white flex items-center justify-center text-lg shadow-md hover:scale-110 transition-transform"
+                       title="WhatsApp Wardoyo, S.I.Kom">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <!-- 2. H. Gusra Yetri, SH -->
+                <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_2_gusra.webp') }}" alt="H. Gusra Yetri, SH" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="space-y-0.5 mb-3">
+                        <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">H. Gusra Yetri, SH</h5>
+                        <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">WAKIL KETUA PWI</p>
+                    </div>
+                    <a href="https://api.whatsapp.com/send/?phone=6281210999194&text=Halo+H.+Gusra+Yetri%2CSH+&type=phone_number&app_absent=0" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="w-10 h-10 rounded-full bg-[#1E8E5A] hover:bg-[#25D366] text-white flex items-center justify-center text-lg shadow-md hover:scale-110 transition-transform"
+                       title="WhatsApp H. Gusra Yetri, SH">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <!-- 3. Deni Arianto -->
+                <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_3_deni.webp') }}" alt="Deni Arianto" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="space-y-0.5 mb-3">
+                        <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Deni Arianto</h5>
+                        <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">SEKRETARIS PWI</p>
+                    </div>
+                    <a href="https://api.whatsapp.com/send/?phone=628127883727&text=Halo+Deni+Arianto+&type=phone_number&app_absent=0" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="w-10 h-10 rounded-full bg-[#1E8E5A] hover:bg-[#25D366] text-white flex items-center justify-center text-lg shadow-md hover:scale-110 transition-transform"
+                       title="WhatsApp Deni Arianto">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <!-- 4. Ridho Andi Sucipto, M.Pd -->
+                <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_4_ridho.webp') }}" alt="Ridho Andi Sucipto, M.Pd" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="space-y-0.5 mb-3">
+                        <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Ridho Andi Sucipto, M.Pd</h5>
+                        <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">BENDAHARA PWI</p>
+                    </div>
+                    <a href="https://api.whatsapp.com/send/?phone=6285268778890&text=Halo+Ridho+Andi+Sucipto.M.Pd+&type=phone_number&app_absent=0" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="w-10 h-10 rounded-full bg-[#1E8E5A] hover:bg-[#25D366] text-white flex items-center justify-center text-lg shadow-md hover:scale-110 transition-transform"
+                       title="WhatsApp Ridho Andi Sucipto, M.Pd">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Floating Buttons Row (Scroll to Top & WhatsApp Trigger) -->
+        <div class="flex items-center gap-3 pointer-events-auto">
+            <!-- Scroll to Top Button -->
+            <button x-show="showScrollTop" 
+                    x-cloak 
+                    @click="scrollToTop()" 
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-y-4 scale-75"
+                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave="transition ease-in duration-200 transform"
+                    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave-end="opacity-0 translate-y-4 scale-75"
+                    type="button" 
+                    class="w-12 h-12 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center text-base hover:scale-110 active:scale-95 transition-all cursor-pointer group"
+                    aria-label="Gulir ke Atas"
+                    title="Gulir ke Atas">
+                <i class="fa-solid fa-arrow-up group-hover:-translate-y-0.5 transition-transform"></i>
+            </button>
+
+            <!-- WhatsApp Floating Trigger Button -->
+            <button @click="waModalOpen = !waModalOpen" 
+                    type="button" 
+                    class="relative w-14 h-14 rounded-2xl bg-[#075E54] hover:bg-[#128C7E] text-white shadow-2xl flex items-center justify-center text-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    aria-label="Hubungi WhatsApp Pengurus"
+                    title="Hubungi Pengurus via WhatsApp">
+                <i class="fa-brands fa-whatsapp" x-show="!waModalOpen"></i>
+                <i class="fa-solid fa-xmark text-lg" x-show="waModalOpen" x-cloak></i>
+                <!-- Online Pulse Dot -->
+                <span class="absolute top-1 right-1 flex h-3.5 w-3.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white"></span>
+                </span>
+            </button>
+        </div>
+
+    </div>
 
     <!-- AOS JS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

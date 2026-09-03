@@ -7,6 +7,7 @@ use App\Models\Leader;
 use App\Models\Letter;
 use App\Models\MeetingMinute;
 use App\Models\Member;
+use App\Models\OrganizationStructure;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\ImageService;
@@ -346,6 +347,20 @@ class PwiWebTest extends TestCase
 
         $leadersCount = Leader::count();
         $this->assertEquals(5, $leadersCount);
+
+        $orgsCount = OrganizationStructure::count();
+        $this->assertEquals(32, $orgsCount);
+    }
+
+    public function test_home_page_shows_four_distinct_executives_and_sejarah_menu(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('Sejarah');
+        $response->assertSee('Wardoyo, S.I.Kom');
+        $response->assertSee('H. Gusra Yetri, SH');
+        $response->assertSee('Deni Arianto');
+        $response->assertSee('Ridho Andi Sucipto, M.Pd');
     }
 
     public function test_all_admin_navigation_pages_render_status_200(): void

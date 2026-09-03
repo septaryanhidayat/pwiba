@@ -219,10 +219,10 @@
                     <span>Struktur Organisasi</span>
                 </a>
 
-                <!-- 2.1. Ketua Dari Masa ke Masa -->
+                <!-- 2.1. Sejarah (Ketua Dari Masa ke Masa) -->
                 <a href="{{ route('admin.leaders.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.leaders.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-award text-sm w-4 text-amber-400"></i>
-                    <span>Ketua Dari Masa ke Masa</span>
+                    <span>Sejarah (Ketua)</span>
                 </a>
 
                 <div class="px-3 pt-4 pb-1 text-[10px] font-extrabold text-blue-300/70 uppercase tracking-wider">
