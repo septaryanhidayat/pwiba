@@ -2,7 +2,7 @@
 -- PWI BANYUASIN MANAGEMENT INFORMATION SYSTEM (MIS)
 -- Complete MySQL Database Export for phpMyAdmin
 -- Target Production Domain: https://pwiba.berandadigital.net/public
--- Date Generated: 2026-09-03 07:56:11
+-- Date Generated: 2026-09-03 08:44:52
 -- ========================================================
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -18,11 +18,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `email_verified_at` timestamp DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -48,15 +48,13 @@ CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(255) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
+  `ip_address` varchar(255) DEFAULT NULL,
+  `user_agent` longtext DEFAULT NULL,
   `payload` longtext NOT NULL,
-  `last_activity` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sessions_user_id_index` (`user_id`),
-  KEY `sessions_last_activity_index` (`last_activity`)
+  `last_activity` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -66,24 +64,23 @@ DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) NOT NULL,
-  `nomor_kartu` varchar(100) DEFAULT NULL,
-  `tingkat_ukw` varchar(100) DEFAULT 'Belum UKW',
+  `nomor_kartu` varchar(255) DEFAULT NULL,
+  `tingkat_ukw` varchar(255) NOT NULL DEFAULT 'Belum UKW',
   `masa_berlaku` date DEFAULT NULL,
-  `jabatan` varchar(255) DEFAULT 'ANGGOTA',
+  `jabatan` varchar(255) NOT NULL DEFAULT 'ANGGOTA',
   `media_id` bigint(20) UNSIGNED DEFAULT NULL,
   `nama_media_custom` varchar(255) DEFAULT NULL,
-  `nama_media` varchar(255) DEFAULT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'aktif',
   `foto` varchar(255) DEFAULT NULL,
+  `no_hp` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'aktif',
+  `catatan` longtext DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   `x_twitter` varchar(255) DEFAULT NULL,
   `facebook` varchar(255) DEFAULT NULL,
   `instagram` varchar(255) DEFAULT NULL,
   `youtube` varchar(255) DEFAULT NULL,
-  `no_hp` varchar(50) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `catatan` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -148,23 +145,22 @@ INSERT INTO `members` (`id`, `nama`, `nomor_kartu`, `tingkat_ukw`, `masa_berlaku
 DROP TABLE IF EXISTS `organization_structures`;
 CREATE TABLE IF NOT EXISTS `organization_structures` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `member_id` bigint(20) UNSIGNED DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
-  `nomor_kartu` varchar(100) DEFAULT NULL,
-  `tingkat_ukw` varchar(100) DEFAULT 'Belum UKW',
+  `nomor_kartu` varchar(255) DEFAULT NULL,
+  `tingkat_ukw` varchar(255) DEFAULT NULL,
   `masa_berlaku` date DEFAULT NULL,
   `jabatan` varchar(255) NOT NULL,
-  `urutan` int(11) NOT NULL DEFAULT 99,
+  `urutan` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+  `periode` varchar(255) NOT NULL DEFAULT '2024-2027',
   `foto` varchar(255) DEFAULT NULL,
-  `periode` varchar(50) DEFAULT '2025–2028',
-  `member_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   `x_twitter` varchar(255) DEFAULT NULL,
   `facebook` varchar(255) DEFAULT NULL,
   `instagram` varchar(255) DEFAULT NULL,
   `youtube` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `organization_structures_member_id_foreign` (`member_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `organization_structures` (32 records)
@@ -210,10 +206,10 @@ CREATE TABLE IF NOT EXISTS `media` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama_media` varchar(255) NOT NULL,
   `website` varchar(255) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'aktif',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -269,17 +265,16 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `judul` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `ringkasan` text DEFAULT NULL,
+  `kategori` varchar(255) NOT NULL DEFAULT 'Kegiatan',
+  `penulis` varchar(255) NOT NULL DEFAULT 'Wardoyo, S.I.Kom',
+  `ringkasan` longtext DEFAULT NULL,
   `konten` longtext NOT NULL,
-  `kategori` varchar(100) NOT NULL DEFAULT 'Berita PWI',
-  `penulis` varchar(255) NOT NULL DEFAULT 'Redaksi PWI Banyuasin',
   `gambar` varchar(255) DEFAULT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'published',
-  `views` int(11) NOT NULL DEFAULT 0,
-  `views_count` int(11) NOT NULL DEFAULT 0,
-  `published_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'published',
+  `views_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+  `published_at` timestamp DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `posts_slug_unique` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -322,11 +317,11 @@ DROP TABLE IF EXISTS `galleries`;
 CREATE TABLE IF NOT EXISTS `galleries` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `judul` varchar(255) NOT NULL,
-  `deskripsi` text DEFAULT NULL,
+  `deskripsi` longtext DEFAULT NULL,
   `foto` varchar(255) NOT NULL,
   `tanggal_kegiatan` date DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -358,10 +353,9 @@ INSERT INTO `galleries` (`id`, `judul`, `deskripsi`, `foto`, `tanggal_kegiatan`,
 DROP TABLE IF EXISTS `letters`;
 CREATE TABLE IF NOT EXISTS `letters` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(64) DEFAULT NULL,
   `nomor_surat` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
-  `jenis_surat` varchar(100) NOT NULL,
+  `jenis_surat` varchar(255) NOT NULL,
   `member_id` bigint(20) UNSIGNED DEFAULT NULL,
   `tujuan` varchar(255) NOT NULL,
   `keperluan` varchar(255) NOT NULL,
@@ -378,10 +372,11 @@ CREATE TABLE IF NOT EXISTS `letters` (
   `file_dokumen` varchar(255) DEFAULT NULL,
   `penandatangan_nama` varchar(255) NOT NULL DEFAULT 'Wardoyo, S.I.Kom',
   `penandatangan_sekretaris` varchar(255) NOT NULL DEFAULT 'Deni Arianto',
-  `status_verifikasi` varchar(50) NOT NULL DEFAULT 'TERVERIFIKASI & SAH',
-  `hash_keabsahan` varchar(64) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
+  `uuid` varchar(255) DEFAULT NULL,
+  `status_verifikasi` varchar(255) NOT NULL DEFAULT 'TERVERIFIKASI & SAH',
+  `hash_keabsahan` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `letters_nomor_surat_unique` (`nomor_surat`),
   UNIQUE KEY `letters_uuid_unique` (`uuid`)
@@ -493,11 +488,11 @@ CREATE TABLE IF NOT EXISTS `incoming_letters` (
   `tanggal_diterima` date NOT NULL,
   `pengirim` varchar(255) NOT NULL,
   `perihal` varchar(255) NOT NULL,
-  `isi_ringkas` text DEFAULT NULL,
+  `isi_ringkas` longtext DEFAULT NULL,
   `file_lampiran` varchar(255) DEFAULT NULL,
-  `status_disposisi` varchar(50) NOT NULL DEFAULT 'Diterima',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `status_disposisi` varchar(255) NOT NULL DEFAULT 'Diterima',
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -519,12 +514,12 @@ CREATE TABLE IF NOT EXISTS `meeting_minutes` (
   `tempat` varchar(255) NOT NULL,
   `pemimpin_rapat` varchar(255) NOT NULL DEFAULT 'Wardoyo, S.I.Kom',
   `notulis` varchar(255) NOT NULL DEFAULT 'Deni Arianto',
-  `agenda` text NOT NULL,
+  `agenda` longtext NOT NULL,
   `pembahasan` longtext NOT NULL,
   `kesimpulan` longtext NOT NULL,
   `file_lampiran` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -541,13 +536,11 @@ CREATE TABLE IF NOT EXISTS `meeting_attendances` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `meeting_minute_id` bigint(20) UNSIGNED NOT NULL,
   `member_id` bigint(20) UNSIGNED NOT NULL,
-  `status_kehadiran` varchar(50) NOT NULL DEFAULT 'Hadir',
+  `status_kehadiran` varchar(255) NOT NULL DEFAULT 'hadir',
   `keterangan` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `meeting_attendances_meeting_minute_id_foreign` (`meeting_minute_id`),
-  KEY `meeting_attendances_member_id_foreign` (`member_id`)
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `meeting_attendances` (96 records)
@@ -656,18 +649,17 @@ INSERT INTO `meeting_attendances` (`id`, `meeting_minute_id`, `member_id`, `stat
 DROP TABLE IF EXISTS `inboxes`;
 CREATE TABLE IF NOT EXISTS `inboxes` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tanggal` date NOT NULL,
+  `tanggal` date DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
-  `instansi` varchar(255) DEFAULT 'Umum / Masyarakat',
+  `instansi` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `telepon` varchar(50) DEFAULT NULL,
-  `tujuan` varchar(255) DEFAULT 'PWI Kabupaten Banyuasin',
+  `telepon` varchar(255) DEFAULT NULL,
+  `tujuan` varchar(255) NOT NULL DEFAULT 'PWI Banyuasin',
   `keperluan` varchar(255) NOT NULL,
-  `pesan` text NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'baru',
-  `catatan_admin` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `pesan` longtext DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'baru',
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -682,12 +674,11 @@ INSERT INTO `inboxes` (`id`, `tanggal`, `nama`, `instansi`, `email`, `telepon`, 
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `key` varchar(100) NOT NULL,
-  `value` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `settings_key_unique` (`key`)
+  `key` varchar(255) NOT NULL,
+  `value` longtext DEFAULT NULL,
+  `created_at` timestamp DEFAULT NULL,
+  `updated_at` timestamp DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `settings` (16 records)
@@ -714,9 +705,9 @@ INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) NOT NULL,
-  `batch` int(11) NOT NULL,
+  `batch` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
