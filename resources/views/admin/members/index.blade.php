@@ -53,53 +53,54 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-300">
-                <thead class="bg-slate-950/70 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
+                <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
-                        <th class="py-3.5 px-6 text-center w-16">NO</th>
-                        <th class="py-3.5 px-6 w-20 text-center">FOTO</th>
-                        <th class="py-3.5 px-6">NAMA</th>
-                        <th class="py-3.5 px-6">NOMOR KARTU</th>
-                        <th class="py-3.5 px-6">TINGKAT</th>
-                        <th class="py-3.5 px-6">MASA BERLAKU</th>
-                        <th class="py-3.5 px-6">JABATAN</th>
-                        <th class="py-3.5 px-6 text-center w-36">AKSI</th>
+                        <th class="py-3.5 px-6 text-center w-16 font-bold">NO</th>
+                        <th class="py-3.5 px-6 w-20 text-center font-bold">FOTO</th>
+                        <th class="py-3.5 px-6 font-bold">NAMA</th>
+                        <th class="py-3.5 px-6 font-bold">NOMOR KARTU</th>
+                        <th class="py-3.5 px-6 font-bold">TINGKAT</th>
+                        <th class="py-3.5 px-6 font-bold">MASA BERLAKU</th>
+                        <th class="py-3.5 px-6 font-bold">JABATAN</th>
+                        <th class="py-3.5 px-6 text-center w-36 font-bold">AKSI</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/60">
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($members as $index => $m)
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-3.5 px-6 text-center font-bold text-slate-500">{{ $members->firstItem() + $index }}</td>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
+                            <td class="py-3.5 px-6 text-center font-bold text-slate-500 dark:text-slate-400">{{ $members->firstItem() + $index }}</td>
                             <td class="py-3.5 px-6 text-center">
-                                <div class="w-10 h-10 rounded-xl bg-slate-800 overflow-hidden mx-auto">
+                                <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 ring-1 ring-slate-300 dark:ring-slate-700 overflow-hidden mx-auto shadow-sm">
                                     <img src="{{ $m->foto_url }}" alt="{{ $m->nama }}" class="w-full h-full object-cover">
                                 </div>
                             </td>
-                            <td class="py-3.5 px-6 font-bold text-white">
-                                {{ $m->nama }}
-                                <span class="block text-[11px] font-normal text-slate-400">{{ $m->nama_media }}</span>
+                            <td class="py-3.5 px-6">
+                                <div class="font-bold text-slate-900 dark:text-white">{{ $m->nama }}</div>
+                                <span class="block text-[11px] font-medium text-slate-600 dark:text-slate-400">{{ $m->nama_media }}</span>
                             </td>
-                            <td class="py-3.5 px-6 font-mono text-slate-300">{{ $m->nomor_kartu ?? '-' }}</td>
+                            <td class="py-3.5 px-6 font-mono text-slate-800 dark:text-slate-300 font-semibold">{{ $m->nomor_kartu ?? '-' }}</td>
                             <td class="py-3.5 px-6">
                                 <span class="inline-block px-2.5 py-1 rounded-lg text-[11px] font-bold {{ $m->ukw_color_badge }}">
                                     {{ $m->tingkat_ukw }}
                                 </span>
                             </td>
+                            <td class="py-3.5 px-6 text-slate-800 dark:text-slate-300 font-semibold">{{ $m->masa_berlaku ? $m->masa_berlaku->format('d-m-Y') : '-' }}</td>
                             <td class="py-3.5 px-6">
-                                <span class="inline-block px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-[11px]">
+                                <span class="inline-block px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[#0B132B] dark:text-slate-200 font-bold text-[11px]">
                                     {{ $m->jabatan }}
                                 </span>
                             </td>
                             <td class="py-3.5 px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
-                                    <button type="button" @click="editData = {{ json_encode($m) }}" class="p-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white border border-blue-500/20 transition-all" title="Edit Anggota">
-                                        <i class="fa-solid fa-pen"></i>
+                                    <button type="button" @click="editData = {{ json_encode($m) }}" class="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all" title="Edit Anggota">
+                                        <i class="fa-solid fa-pen text-xs"></i>
                                     </button>
                                     <form action="{{ route('admin.members.destroy', $m->id) }}" method="POST" onsubmit="return confirm('Hapus wartawan {{ $m->nama }}?')" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white border border-rose-500/20 transition-all" title="Hapus">
-                                            <i class="fa-solid fa-trash"></i>
+                                        <button type="submit" class="p-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-all" title="Hapus">
+                                            <i class="fa-solid fa-trash text-xs"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -107,7 +108,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="py-12 text-center text-slate-500">
+                            <td colspan="8" class="py-12 text-center text-slate-500 dark:text-slate-400 font-medium">
                                 Tidak ada data anggota aktif.
                             </td>
                         </tr>

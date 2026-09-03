@@ -3,6 +3,8 @@
 @section('title', 'Beranda Resmi PWI Kabupaten Banyuasin')
 
 @section('content')
+<div x-data="{ modalSambutan: false }">
+
 <!-- 1. Hero Section -->
 <section id="beranda" class="relative gradient-mesh text-white pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
     <!-- Ambient Glow Background Circles -->
@@ -89,45 +91,38 @@
                                  class="w-full max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
                         </div>
 
-                        <!-- Floating Executive Identity Badge -->
-                        <div class="p-5 bg-gradient-to-t from-slate-950 via-slate-900/95 to-slate-900 border-t border-white/10 relative z-20">
-                            <div class="flex items-center justify-between gap-3">
-                                <div>
-                                    <div class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                                        <i class="fa-solid fa-circle-check text-[10px]"></i> Ketua PWI Banyuasin
-                                    </div>
-                                    <h3 class="text-xl font-black text-white tracking-tight mt-0.5">
-                                        Wardoyo, S.I.Kom
-                                    </h3>
-                                    <p class="text-xs text-slate-300 font-medium mt-0.5">
-                                        No. KTA: 06.00.17208.14B
-                                    </p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                                        <i class="fa-solid fa-award"></i> Wartawan Utama
-                                    </span>
+                        <!-- Executive Identity & Sambutan Singkat (Tanpa Status Wartawan) -->
+                        <div class="p-5 sm:p-6 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20">
+                            <div>
+                                <h3 class="text-xl font-black text-white tracking-tight">
+                                    Wardoyo, S.I.Kom
+                                </h3>
+                                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
+                                    Ketua PWI Kabupaten Banyuasin
                                 </div>
                             </div>
 
-                            <!-- UKW Summary Mini Grid -->
-                            <div class="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-white/10 text-center">
-                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-[10px] text-slate-400">Utama</div>
-                                    <div class="text-xs font-bold text-rose-400">{{ $ukwStats['utama'] ?? 4 }}</div>
-                                </div>
-                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-[10px] text-slate-400">Madya</div>
-                                    <div class="text-xs font-bold text-cyan-400">{{ $ukwStats['madya'] ?? 6 }}</div>
-                                </div>
-                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-[10px] text-slate-400">Muda</div>
-                                    <div class="text-xs font-bold text-emerald-400">{{ $ukwStats['muda'] ?? 21 }}</div>
-                                </div>
-                                <div class="p-2 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-[10px] text-slate-400">Total</div>
-                                    <div class="text-xs font-bold text-amber-400">{{ $totalMembers ?? 48 }}</div>
-                                </div>
+                            <!-- Sambutan Singkat Resmi Pelantikan -->
+                            <div class="mt-3 pt-3 border-t border-white/10">
+                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-3 italic">
+                                    "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi, memperkuat peran pers yang independen dan terus berkontribusi dalam pembangunan daerah."
+                                </p>
+                            </div>
+
+                            <!-- Actions: Baca Sambutan Lengkap & Unduh Dokumen PDF -->
+                            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-3">
+                                <button @click="modalSambutan = true" 
+                                        type="button" 
+                                        class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-book-open text-xs"></i>
+                                    <span>Baca Sambutan Lengkap &rarr;</span>
+                                </button>
+                                <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" 
+                                   target="_blank" 
+                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white border border-white/15 transition-all shadow-sm">
+                                    <i class="fa-solid fa-file-pdf text-rose-400"></i>
+                                    <span>Unduh PDF</span>
+                                </a>
                             </div>
                         </div>
 
@@ -182,8 +177,19 @@
                         <div class="relative">
                             <i class="fa-solid fa-quote-left text-amber-400/20 text-4xl absolute -top-3 -left-2"></i>
                             <p class="text-sm text-slate-300 italic leading-relaxed relative z-10 pl-6">
-                                "{{ $settings['ketua_sambutan'] ?? 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.' }}"
+                                "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi, memperkuat peran pers yang independen dan terus berkontribusi dalam pembangunan daerah. Bersama pengurus PWI kami berkomitmen organisasi ini berjalan sesuai dengan fungsi dan perannya sebagai pilar keempat demokrasi, serta menjadi mitra strategis bagi seluruh elemen masyarakat."
                             </p>
+                        </div>
+
+                        <div class="mt-6 flex flex-wrap items-center gap-3">
+                            <button @click="modalSambutan = true" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md cursor-pointer">
+                                <i class="fa-solid fa-book-open"></i>
+                                <span>Baca Sambutan Lengkap</span>
+                            </button>
+                            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all">
+                                <i class="fa-solid fa-file-pdf text-rose-400"></i>
+                                <span>Unduh PDF</span>
+                            </a>
                         </div>
                     </div>
 
@@ -564,4 +570,142 @@
 
     </div>
 </section>
+
+<!-- Modal Sambutan Lengkap Ketua PWI Banyuasin (Sesuai Naskah Asli PDF) -->
+<div x-show="modalSambutan" 
+     x-cloak 
+     class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 scale-95"
+     x-transition:enter-end="opacity-100 scale-100"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-95">
+    
+    <div class="relative w-full max-w-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8"
+         @click.away="modalSambutan = false">
+        
+        <!-- Modal Header -->
+        <div class="p-6 bg-gradient-to-r from-[#0B132B] to-[#1C2541] text-white flex items-center justify-between border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-9 h-9 object-contain">
+                <div>
+                    <h3 class="text-base font-bold text-white">Naskah Sambutan Resmi Pelantikan</h3>
+                    <p class="text-xs text-amber-400 font-medium">Ketua PWI Kabupaten Banyuasin Masa Bakti 2025–2028</p>
+                </div>
+            </div>
+            <button @click="modalSambutan = false" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Modal Body (Official Speech Text) -->
+        <div class="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
+            
+            <div class="text-center pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div class="font-extrabold text-[#0B132B] dark:text-white text-base">PERSATUAN WARTAWAN INDONESIA (PWI)</div>
+                <div class="font-bold text-amber-600 dark:text-amber-400 text-sm">KABUPATEN BANYUASIN</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Gedung Auditorium Pemkab Banyuasin • Rabu, 26 November 2025
+                </div>
+            </div>
+
+            <div class="space-y-4 font-sans">
+                <p class="font-bold text-slate-900 dark:text-white">
+                    Bismillahirahmanirrahim<br>
+                    Assalamu’alaikum Wr. Wb.<br>
+                    Selamat pagi dan salam sejahtera untuk kita semua.
+                </p>
+                
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
+                    <div class="font-bold text-slate-900 dark:text-white mb-1.5 uppercase tracking-wider">Yang saya hormati :</div>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                        <li>Ketua PWI Provinsi Sumatera Selatan beserta jajaran pengurus</li>
+                        <li>Bupati Banyuasin beserta Wakil Bupati Banyuasin</li>
+                        <li>Sekda Banyuasin</li>
+                        <li>Ketua DPRD Kabupaten Banyuasin</li>
+                        <li>Unsur Forum Koordinasi Pimpinan Daerah (Forkopimda) Kabupaten Banyuasin</li>
+                        <li>Ketua KPU Banyuasin</li>
+                        <li>Kepala Cabang Bank Mandiri Pangkalan Balai</li>
+                        <li>Para tokoh masyarakat, rekan-rekan insan pers serta hadirin sekalian yang berbahagia.</li>
+                    </ul>
+                </div>
+
+                <p>
+                    Mengawali sambutan ini perkenankanlah saya mengajak Bapak / Ibu untuk senantiasa memanjatkan Puji syukur ke hadirat Allah Subhanahu wa Ta’ala, Tuhan Yang Maha Esa, karena atas rahmat dan karunia-Nya, kita dapat berkumpul di Gedung Auditorium Pemkab Banyuasin dalam keadaan sehat dalam rangka menghadiri acara pelantikan Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Masa bakti 2025-2028. Rabu 26 November 2025.
+                </p>
+
+                <p class="font-bold text-slate-900 dark:text-white">Hadirin yang saya hormati,</p>
+
+                <p>
+                    Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi, memperkuat peran pers yang independen dan terus berkontribusi dalam pembangunan daerah.
+                </p>
+
+                <p>
+                    Saya pribadi merasa terhormat, sekaligus tertantang atas kepercayaan yang diberikan kepada saya untuk memimpin PWI Kabupaten Banyuasin. Amanah ini bukan untuk dibanggakan, tetapi untuk dijalankan dengan penuh tanggung jawab, integritas dan dedikasi.
+                </p>
+
+                <p>
+                    Bersama pengurus PWI kami berkomitmen organisasi ini berjalan sesuai dengan fungsi dan perannya sebagai pilar keempat demokrasi, serta menjadi mitra strategis bagi pemerintah daerah, DPRD, Forkopimda dan seluruh elemen masyarakat.
+                </p>
+
+                <p class="font-bold text-slate-900 dark:text-white">Hadirin yang saya hormati,</p>
+
+                <p>
+                    Kabupaten Banyuasin dikenal sebagai daerah yang kaya sumber daya alam dan potensi pertanian. Melalui peran PWI, kami ingin mendorong dan bersinergi dengan Pemerintah Kabupaten Banyuasin dalam mewujudkan visi besar <strong>Menjadikan Kabupaten Banyuasin sebagai lumbung pangan nasional dan daerah penghasil padi peringkat pertama di Indonesia</strong>.
+                </p>
+
+                <p>
+                    Kami menyadari, cita-cita besar ini tidak bisa dicapai sendiri. Diperlukan kerjasama yang solid antara pemerintah, masyarakat dan insan pers.
+                </p>
+
+                <p>
+                    Kami PWI Banyuasin siap menjadi jembatan komunikasi, penyambung informasi yang akurat, edukatif dan konstruktif untuk membangun kesadaran bersama akan pentingnya ketahanan pangan dan kesejahteraan masyarakat.
+                </p>
+
+                <p>
+                    Kami juga bertekad untuk terus meningkatkan kapasitas wartawan di Banyuasin, agar senantiasa profesional, beretika, dan mampu menyajikan informasi yang mencerahkan publik.
+                </p>
+
+                <p>
+                    Akhirnya, izinkan saya menyampaikan terima kasih yang sebesar-besarnya kepada Ketua PWI Provinsi Sumatera Selatan dan jajaran, kepada Bupati dan Wakil Bupati Banyuasin, Ketua DPRD Banyuasin, Forkopimda, serta seluruh pihak yang telah membantu atas terselenggaranya pelantikan ini.
+                </p>
+
+                <p>
+                    Semoga ke depan, sinergi antara PWI, pemerintah, dan seluruh stakeholder dapat terus terjalin erat demi kemajuan Banyuasin dan Sumatera Selatan.
+                </p>
+
+                <p class="font-bold text-[#0B132B] dark:text-amber-400 text-base">
+                    Mari kita bekerja bersama berkolaborasi dan berkarya untuk Banyuasin bangkit, adil sejahtera dan berkelanjutan.
+                </p>
+
+                <p>
+                    Sekian dan Terima kasih.<br>
+                    Wassalamu’alaikum Wr. Wb.
+                </p>
+
+                <div class="pt-6 text-right">
+                    <div class="font-bold text-xs uppercase text-slate-500 dark:text-slate-400">KETUA PWI BANYUASIN</div>
+                    <div class="text-lg font-black text-[#0B132B] dark:text-white mt-1">WARDOYO, S.I.Kom</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 shadow-md transition-all">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Unduh Dokumen Asli (PDF)</span>
+            </a>
+            <button @click="modalSambutan = false" class="w-full sm:w-auto px-6 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 transition-all cursor-pointer">
+                Tutup
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
 @endsection

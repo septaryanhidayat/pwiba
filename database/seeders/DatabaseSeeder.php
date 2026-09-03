@@ -156,6 +156,14 @@ class DatabaseSeeder extends Seeder
 
         $allMembers = [];
         foreach ($rawMembers as $index => $rm) {
+            $rowNum = $index + 1;
+            $foto = null;
+            if ($rowNum === 1) {
+                $foto = 'assets/images/wardoyo-ketua.png';
+            } elseif (file_exists(public_path("assets/images/wartawan/wartawan_{$rowNum}.png"))) {
+                $foto = "assets/images/wartawan/wartawan_{$rowNum}.png";
+            }
+
             $mRecord = Member::create([
                 'nama' => $rm['nama'],
                 'nomor_kartu' => $rm['nomor_kartu'],
@@ -163,6 +171,7 @@ class DatabaseSeeder extends Seeder
                 'masa_berlaku' => $rm['masa_berlaku'] ? Carbon::parse($rm['masa_berlaku']) : null,
                 'jabatan' => $rm['jabatan'],
                 'media_id' => ($index % count($mediaList)) + 1,
+                'foto' => $foto,
                 'status' => $rm['status'],
                 'no_hp' => '08' . rand(1111111111, 9999999999),
                 'email' => Str::slug($rm['nama']) . '@pwibanyuasin.or.id',
@@ -170,40 +179,40 @@ class DatabaseSeeder extends Seeder
             $allMembers[] = $mRecord;
         }
 
-        // 5. Organization Structure (32 Pengurus Lengkap dari ref/new/lengkap - struktur organisasi.png)
+        // 5. Organization Structure (32 Pengurus Lengkap dengan Foto Asli dari ref/new/nama wartawan.png)
         $structures = [
             ['nama' => 'Wardoyo, S.I.Kom', 'nomor_kartu' => '06.00.17208.14B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'KETUA', 'urutan' => 1, 'foto' => 'assets/images/wardoyo-ketua.png'],
-            ['nama' => 'Kurnia Efrida Yanti', 'nomor_kartu' => '06.00.17680.15B', 'tingkat_ukw' => 'Wartawan Madya', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'WAKABID PEMBELAAN WARTAWAN', 'urutan' => 2],
-            ['nama' => 'Hardaya', 'nomor_kartu' => '06.00.237.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID PEMBELAAN WARTAWAN', 'urutan' => 3],
-            ['nama' => 'Nachung Tahjudin', 'nomor_kartu' => '06.00.18140.17.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2026-12-22', 'jabatan' => 'KABID KESEJAHTERAAN', 'urutan' => 4],
-            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.23442.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'WAKABID KESEJAHTERAAN', 'urutan' => 5],
-            ['nama' => 'Evi Farlina', 'nomor_kartu' => '06.00.20621.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'ANGGOTA BID KESEJAHTERAAN', 'urutan' => 6],
-            ['nama' => 'Soni Harsono, S.I.Kom', 'nomor_kartu' => '06.00.23533.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'KABID PUBLIKASI DAN INFORMASI', 'urutan' => 7],
-            ['nama' => 'Herwanto', 'nomor_kartu' => '06.00.71.19.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-11-05', 'jabatan' => 'WAKABID PUBLIKASI DAN INFORMASI', 'urutan' => 8],
-            ['nama' => 'Frans Iskandar', 'nomor_kartu' => '06.00.76.13.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-10-13', 'jabatan' => 'ANGGOTA BID PUBLIKASI DAN INFORMASI', 'urutan' => 9],
-            ['nama' => 'M. Riza Vahlevi', 'nomor_kartu' => '06.00.17785.15B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-06-27', 'jabatan' => 'KABID PENDIDIKAN', 'urutan' => 10],
-            ['nama' => 'Maulana', 'nomor_kartu' => '06.00.109.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-12-05', 'jabatan' => 'WAKABID PENDIDIKAN', 'urutan' => 11],
-            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA I', 'urutan' => 12, 'foto' => 'https://pwiba.or.id/assets/img/profil/465ed3dcd686f05d023e9fbbf2c4317b.jpg'],
-            ['nama' => 'Dodi', 'nomor_kartu' => '06.00.31.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA BID PENDIDIKAN', 'urutan' => 13],
-            ['nama' => 'Indra Utama', 'nomor_kartu' => '06001380709.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'KABID SIWO', 'urutan' => 14],
-            ['nama' => 'Quata Akda', 'nomor_kartu' => '06.00.17783.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-22', 'jabatan' => 'WAKABID SIWO', 'urutan' => 15],
-            ['nama' => 'Topik Istora', 'nomor_kartu' => '06.00.283.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-14', 'jabatan' => 'ANGGOTA BID SIWO', 'urutan' => 16],
-            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.21030.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-07', 'jabatan' => 'KABID ORGANISASI', 'urutan' => 17],
-            ['nama' => 'Vilkadi', 'nomor_kartu' => '06.00.20970.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID ORGANISASI', 'urutan' => 18],
-            ['nama' => 'Denni Dwi Saputra', 'nomor_kartu' => '06.00.28.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'ANGGOTA BID ORGANISASI', 'urutan' => 19],
-            ['nama' => 'Ahmad Hermanto', 'nomor_kartu' => '06.00.269.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'KABID SOSIAL KEMASYARAKATAN', 'urutan' => 20],
-            ['nama' => 'Amin Mukri', 'nomor_kartu' => '06.00.17780.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID KEMASYARAKATAN', 'urutan' => 21],
-            ['nama' => 'Sudirman', 'nomor_kartu' => '06.00.40,22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID KEMASYARAKATAN', 'urutan' => 22],
-            ['nama' => 'Noverta Salyadi', 'nomor_kartu' => '06.00.14043.09B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKIL KETUA II', 'urutan' => 23],
-            ['nama' => 'Drs. Lubis Rahman', 'nomor_kartu' => '06.00.200.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-09-10', 'jabatan' => 'WAKIL KETUA III', 'urutan' => 24],
-            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 25, 'foto' => 'https://pwiba.or.id/assets/img/profil/55b12cd07713eeb01457d10daf7ac822.jpg'],
-            ['nama' => 'Irwan September', 'nomor_kartu' => '06.00.27.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-08-01', 'jabatan' => 'WAKIL SEKRETARIS', 'urutan' => 26],
-            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 27, 'foto' => 'https://pwiba.or.id/assets/img/profil/f273f241d79dc02c32e031499da5d175.jpg'],
-            ['nama' => 'Drs. H. Ujang Idrus', 'nomor_kartu' => '06.00.5293.95B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2037-11-28', 'jabatan' => 'WAKIL BENDAHARA', 'urutan' => 28],
-            ['nama' => 'Sunardi, SH', 'nomor_kartu' => '06.00.29.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-08-21', 'jabatan' => 'KABID PEMBELAAN WARTAWAN', 'urutan' => 29],
-            ['nama' => 'Yokin Darma Pratama', 'nomor_kartu' => '06.00.238.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA', 'urutan' => 30],
-            ['nama' => 'Supriyanto', 'nomor_kartu' => '06.00.20.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2025-10-01', 'jabatan' => 'ANGGOTA', 'urutan' => 31],
-            ['nama' => 'Afri Yanto', 'nomor_kartu' => '010101', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-03-19', 'jabatan' => 'ANGGOTA', 'urutan' => 32],
+            ['nama' => 'Kurnia Efrida Yanti', 'nomor_kartu' => '06.00.17680.15B', 'tingkat_ukw' => 'Wartawan Madya', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'WAKABID PEMBELAAN WARTAWAN', 'urutan' => 2, 'foto' => 'assets/images/wartawan/wartawan_5.png'],
+            ['nama' => 'Hardaya', 'nomor_kartu' => '06.00.237.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID PEMBELAAN WARTAWAN', 'urutan' => 3, 'foto' => 'assets/images/wartawan/wartawan_6.png'],
+            ['nama' => 'Nachung Tahjudin', 'nomor_kartu' => '06.00.18140.17.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2026-12-22', 'jabatan' => 'KABID KESEJAHTERAAN', 'urutan' => 4, 'foto' => 'assets/images/wartawan/wartawan_7.png'],
+            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.23442.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-13', 'jabatan' => 'WAKABID KESEJAHTERAAN', 'urutan' => 5, 'foto' => 'assets/images/wartawan/wartawan_8.png'],
+            ['nama' => 'Evi Farlina', 'nomor_kartu' => '06.00.20621.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'ANGGOTA BID KESEJAHTERAAN', 'urutan' => 6, 'foto' => 'assets/images/wartawan/wartawan_9.png'],
+            ['nama' => 'Soni Harsono, S.I.Kom', 'nomor_kartu' => '06.00.23533.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-03', 'jabatan' => 'KABID PUBLIKASI DAN INFORMASI', 'urutan' => 7, 'foto' => 'assets/images/wartawan/wartawan_10.png'],
+            ['nama' => 'Herwanto', 'nomor_kartu' => '06.00.71.19.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-11-05', 'jabatan' => 'WAKABID PUBLIKASI DAN INFORMASI', 'urutan' => 8, 'foto' => 'assets/images/wartawan/wartawan_11.png'],
+            ['nama' => 'Frans Iskandar', 'nomor_kartu' => '06.00.76.13.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-10-13', 'jabatan' => 'ANGGOTA BID PUBLIKASI DAN INFORMASI', 'urutan' => 9, 'foto' => 'assets/images/wartawan/wartawan_12.png'],
+            ['nama' => 'M. Riza Vahlevi', 'nomor_kartu' => '06.00.17785.15B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2028-06-27', 'jabatan' => 'KABID PENDIDIKAN', 'urutan' => 10, 'foto' => 'assets/images/wartawan/wartawan_13.png'],
+            ['nama' => 'Maulana', 'nomor_kartu' => '06.00.109.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-12-05', 'jabatan' => 'WAKABID PENDIDIKAN', 'urutan' => 11, 'foto' => 'assets/images/wartawan/wartawan_14.png'],
+            ['nama' => 'H. Gusra Yetri, SH', 'nomor_kartu' => '06.00.278.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-10-23', 'jabatan' => 'WAKIL KETUA I', 'urutan' => 12, 'foto' => 'assets/images/wartawan/wartawan_2.png'],
+            ['nama' => 'Dodi', 'nomor_kartu' => '06.00.31.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA BID PENDIDIKAN', 'urutan' => 13, 'foto' => 'assets/images/wartawan/wartawan_15.png'],
+            ['nama' => 'Indra Utama', 'nomor_kartu' => '06001380709.B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'KABID SIWO', 'urutan' => 14, 'foto' => 'assets/images/wartawan/wartawan_16.png'],
+            ['nama' => 'Quata Akda', 'nomor_kartu' => '06.00.17783.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-22', 'jabatan' => 'WAKABID SIWO', 'urutan' => 15, 'foto' => 'assets/images/wartawan/wartawan_17.png'],
+            ['nama' => 'Topik Istora', 'nomor_kartu' => '06.00.283.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-14', 'jabatan' => 'ANGGOTA BID SIWO', 'urutan' => 16, 'foto' => 'assets/images/wartawan/wartawan_18.png'],
+            ['nama' => 'Muhammad Arfan', 'nomor_kartu' => '06.00.21030.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-07-07', 'jabatan' => 'KABID ORGANISASI', 'urutan' => 17, 'foto' => 'assets/images/wartawan/wartawan_19.png'],
+            ['nama' => 'Vilkadi', 'nomor_kartu' => '06.00.20970.22B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID ORGANISASI', 'urutan' => 18, 'foto' => 'assets/images/wartawan/wartawan_20.png'],
+            ['nama' => 'Denni Dwi Saputra', 'nomor_kartu' => '06.00.28.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'ANGGOTA BID ORGANISASI', 'urutan' => 19, 'foto' => 'assets/images/wartawan/wartawan_21.png'],
+            ['nama' => 'Ahmad Hermanto', 'nomor_kartu' => '06.00.269.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-01-30', 'jabatan' => 'KABID SOSIAL KEMASYARAKATAN', 'urutan' => 20, 'foto' => 'assets/images/wartawan/wartawan_22.png'],
+            ['nama' => 'Amin Mukri', 'nomor_kartu' => '06.00.17780.15B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKABID KEMASYARAKATAN', 'urutan' => 21, 'foto' => 'assets/images/wartawan/wartawan_23.png'],
+            ['nama' => 'Sudirman', 'nomor_kartu' => '06.00.40,22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-06-11', 'jabatan' => 'ANGGOTA BID KEMASYARAKATAN', 'urutan' => 22, 'foto' => 'assets/images/wartawan/wartawan_24.png'],
+            ['nama' => 'Noverta Salyadi', 'nomor_kartu' => '06.00.14043.09B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-06-17', 'jabatan' => 'WAKIL KETUA II', 'urutan' => 23, 'foto' => 'assets/images/wartawan/wartawan_25.png'],
+            ['nama' => 'Drs. Lubis Rahman', 'nomor_kartu' => '06.00.200.24.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-09-10', 'jabatan' => 'WAKIL KETUA III', 'urutan' => 24, 'foto' => 'assets/images/wartawan/wartawan_26.png'],
+            ['nama' => 'Deni Arianto', 'nomor_kartu' => '06.00.20644.21B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2027-08-30', 'jabatan' => 'SEKRETARIS', 'urutan' => 25, 'foto' => 'assets/images/wartawan/wartawan_3.png'],
+            ['nama' => 'Irwan September', 'nomor_kartu' => '06.00.27.22.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-08-01', 'jabatan' => 'WAKIL SEKRETARIS', 'urutan' => 26, 'foto' => 'assets/images/wartawan/wartawan_27.png'],
+            ['nama' => 'Ridho Andi Sucipto, M.Pd', 'nomor_kartu' => '06.00.2341.25B', 'tingkat_ukw' => 'Wartawan Muda', 'masa_berlaku' => '2028-05-01', 'jabatan' => 'BENDAHARA', 'urutan' => 27, 'foto' => 'assets/images/wartawan/wartawan_4.png'],
+            ['nama' => 'Drs. H. Ujang Idrus', 'nomor_kartu' => '06.00.5293.95B', 'tingkat_ukw' => 'Wartawan Utama', 'masa_berlaku' => '2037-11-28', 'jabatan' => 'WAKIL BENDAHARA', 'urutan' => 28, 'foto' => 'assets/images/wartawan/wartawan_28.png'],
+            ['nama' => 'Sunardi, SH', 'nomor_kartu' => '06.00.29.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2028-08-21', 'jabatan' => 'KABID PEMBELAAN WARTAWAN', 'urutan' => 29, 'foto' => 'assets/images/wartawan/wartawan_29.png'],
+            ['nama' => 'Yokin Darma Pratama', 'nomor_kartu' => '06.00.238.20.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2027-08-16', 'jabatan' => 'ANGGOTA', 'urutan' => 30, 'foto' => 'assets/images/wartawan/wartawan_31.png'],
+            ['nama' => 'Supriyanto', 'nomor_kartu' => '06.00.20.16.MU', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2025-10-01', 'jabatan' => 'ANGGOTA', 'urutan' => 31, 'foto' => 'assets/images/wartawan/wartawan_32.png'],
+            ['nama' => 'Afri Yanto', 'nomor_kartu' => '010101', 'tingkat_ukw' => 'Belum UKW', 'masa_berlaku' => '2026-03-19', 'jabatan' => 'ANGGOTA', 'urutan' => 32, 'foto' => 'assets/images/wartawan/wartawan_30.png'],
         ];
 
         foreach ($structures as $st) {

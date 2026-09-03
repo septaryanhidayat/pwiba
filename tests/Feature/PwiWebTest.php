@@ -214,4 +214,24 @@ class PwiWebTest extends TestCase
         $this->actingAs($admin)->get('/admin/pengaturan/data-pwi')->assertStatus(200)->assertSee('Pengaturan Identitas Kantor PWI');
         $this->actingAs($admin)->get('/admin/pengaturan/ganti-sandi')->assertStatus(200)->assertSee('Ganti Kata Sandi Administrator');
     }
+
+    public function test_hero_banner_displays_ketua_and_sambutan_pdf_links(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('Wardoyo, S.I.Kom');
+        $response->assertSee('Ketua PWI Kabupaten Banyuasin');
+        $response->assertSee('Pelantikan ini bukan sekadar seremonial');
+        $response->assertSee('assets/dokumen/sambutan-ketua.pdf');
+        $this->assertFileExists(public_path('assets/dokumen/sambutan-ketua.pdf'));
+    }
+
+    public function test_wartawan_photos_are_assigned_in_database(): void
+    {
+        $memberWithPhoto = Member::whereNotNull('foto')->where('nama', '!=', 'Wardoyo, S.I.Kom')->first();
+        $this->assertNotNull($memberWithPhoto);
+        $this->assertStringContainsString('assets/images/wartawan/', $memberWithPhoto->foto);
+        $this->assertFileExists(public_path($memberWithPhoto->foto));
+    }
 }
+
