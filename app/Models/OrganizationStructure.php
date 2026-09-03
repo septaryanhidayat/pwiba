@@ -117,7 +117,7 @@ class OrganizationStructure extends Model
             'pendidikan' => ['code' => 'C', 'title' => 'Pendidikan & Pelatihan', 'icon' => 'fa-graduation-cap', 'color' => 'emerald', 'match' => 'PENDIDIKAN'],
             'publikasi' => ['code' => 'D', 'title' => 'Publikasi & Informasi', 'icon' => 'fa-bullhorn', 'color' => 'sky', 'match' => 'PUBLIKASI'],
             'kesejahteraan' => ['code' => 'E', 'title' => 'Kesejahteraan', 'icon' => 'fa-hand-holding-heart', 'color' => 'amber', 'match' => 'KESEJAHTERAAN'],
-            'siwo' => ['code' => 'F', 'title' => 'Seksi Wartawan Olahraga (SIWO)', 'icon' => 'fa-trophy', 'color' => 'rose', 'match' => 'SIWO'],
+            'siwo' => ['code' => 'F', 'title' => 'SIWO (Olahraga)', 'icon' => 'fa-trophy', 'color' => 'rose', 'match' => 'SIWO'],
             'kemasyarakatan' => ['code' => 'G', 'title' => 'Sosial & Kemasyarakatan', 'icon' => 'fa-users', 'color' => 'teal', 'match' => 'MASYARAKAT'],
         ];
 
