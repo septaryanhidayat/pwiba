@@ -1,4 +1,4 @@
-{{-- Component Bagan Struktur Organisasi Visual Landscape Tanpa Foto --}}
+{{-- Component Bagan Struktur Organisasi Visual Landscape Tanpa Foto dengan Logo PWI & Anti-Clipping --}}
 <div x-data="{
     zoomLevel: 100,
     isFullscreen: false,
@@ -26,22 +26,35 @@
             html2canvas(target, {
                 scale: 2.5,
                 useCORS: true,
+                allowTaint: true,
                 backgroundColor: '#ffffff',
                 logging: false,
                 windowWidth: target.scrollWidth,
                 windowHeight: target.scrollHeight,
+                onclone: (clonedDoc) => {
+                    const canvasEl = clonedDoc.getElementById('org-chart-canvas');
+                    if (canvasEl) {
+                        canvasEl.style.transform = 'none';
+                        // Pastikan tidak ada teks yang terpotong (anti-clipping)
+                        canvasEl.style.overflow = 'visible';
+                        canvasEl.querySelectorAll('*').forEach(el => {
+                            el.style.overflow = 'visible';
+                            el.style.textOverflow = 'clip';
+                        });
+                    }
+                }
             }).then(canvas => {
                 target.style.transform = prevTransform;
                 this.isExporting = false;
                 const link = document.createElement('a');
-                link.download = 'bagan-struktur-organisasi-pwi-banyuasin-landscape.png';
+                link.download = 'bagan-struktur-organisasi-pwi-banyuasin.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Bagan Berhasil Diunduh!',
-                        text: 'File gambar bagan landscape resolusi tinggi telah disimpan dalam format PNG.',
+                        text: 'File gambar bagan landscape resolusi tinggi telah disimpan dalam format PNG tanpa terpotong.',
                         timer: 2500,
                         showConfirmButton: false,
                     });
@@ -66,10 +79,14 @@
 }" class="space-y-3" id="org-chart-root">
 
     <style>
+        #org-chart-canvas * {
+            box-sizing: border-box;
+            line-height: 1.35;
+        }
         @media print {
             @page {
                 size: landscape;
-                margin: 6mm;
+                margin: 5mm;
             }
             body {
                 background: #ffffff !important;
@@ -113,7 +130,7 @@
                         Format Landscape
                     </span>
                 </h4>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Bagan resmi: Kompak, proporsional, dan siap cetak tanpa terpotong</p>
+                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Bagan resmi: Kompak, proporsional, dan siap cetak tanpa teks terpotong</p>
             </div>
         </div>
 
@@ -156,18 +173,27 @@
     <!-- Chart Canvas Container (Landscape Scroll Wrapper) -->
     <div id="org-chart-wrapper" class="relative w-full overflow-x-auto rounded-3xl bg-slate-100/60 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 shadow-inner p-2 sm:p-4 transition-all">
         
-        <!-- The Printable & Exportable Canvas (Landscape Width ~1100px) -->
+        <!-- The Printable & Exportable Canvas (Landscape Width ~1140px, Anti-Clipping Layout) -->
         <div id="org-chart-canvas" 
              :style="'transform: scale(' + (zoomLevel / 100) + '); transform-origin: top center; transition: transform 0.2s ease-out;'"
-             class="w-[1120px] mx-auto p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-4"
-             style="background-image: radial-gradient(rgba(100, 116, 139, 0.1) 1px, transparent 1px); background-size: 16px 16px;">
+             class="w-[1140px] mx-auto p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-5"
+             style="background-image: radial-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px); background-size: 16px 16px;">
             
-            <!-- Bagan Header Title (Landscape Style) -->
+            <!-- Bagan Header Title dengan Logo PWI Resmi -->
             <div class="text-center pb-3 border-b border-slate-200 dark:border-slate-800">
-                <h2 class="text-base sm:text-lg font-black text-[#0B132B] dark:text-white uppercase tracking-wider leading-tight">
+                <!-- Logo PWI di Atas Bagan -->
+                <div class="flex items-center justify-center mb-2">
+                    <img src="{{ asset('assets/images/pwi-logo.png') }}" 
+                         alt="Logo Persatuan Wartawan Indonesia (PWI)" 
+                         class="h-14 w-auto object-contain drop-shadow-sm" 
+                         loading="eager" 
+                         crossorigin="anonymous">
+                </div>
+
+                <h2 class="text-base sm:text-lg font-black text-[#0B132B] dark:text-white uppercase tracking-wider leading-snug">
                     STRUKTUR ORGANISASI PERSATUAN WARTAWAN INDONESIA (PWI)
                 </h2>
-                <div class="flex items-center justify-center gap-2 mt-0.5">
+                <div class="flex items-center justify-center gap-2 mt-1">
                     <span class="text-xs sm:text-sm font-extrabold text-blue-700 dark:text-blue-400">
                         KABUPATEN BANYUASIN
                     </span>
@@ -183,28 +209,28 @@
             <!-- ==================================================== -->
             @if($tree['ketua'])
                 <div class="flex flex-col items-center">
-                    <!-- Ketua Compact Capsule Card (Tanpa Foto) -->
-                    <div class="w-60 rounded-xl bg-white dark:bg-slate-800 border-2 border-blue-600 dark:border-blue-500 shadow-md overflow-hidden transition-all hover:shadow-lg">
+                    <!-- Ketua Card (Anti-Clipping: Cukup Padding & Line-Height Bersih) -->
+                    <div class="w-64 rounded-xl bg-white dark:bg-slate-800 border-2 border-blue-600 dark:border-blue-500 shadow-md transition-all">
                         <!-- Header Capsule -->
-                        <div class="bg-gradient-to-r from-blue-700 to-sky-600 text-white px-2.5 py-1 flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-crown text-[10px] text-amber-300"></i>
-                            <span class="text-[11px] font-black uppercase tracking-wider">
+                        <div class="bg-gradient-to-r from-blue-700 to-sky-600 text-white rounded-t-lg px-3 py-1.5 flex items-center justify-center gap-1.5 min-h-[30px]">
+                            <i class="fa-solid fa-crown text-xs text-amber-300"></i>
+                            <span class="text-xs font-black uppercase tracking-wider leading-normal">
                                 {{ $tree['ketua']->jabatan }}
                             </span>
                         </div>
                         <!-- Body -->
-                        <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800">
-                            <h3 class="text-xs font-black text-slate-900 dark:text-white truncate">
+                        <div class="px-3 py-2 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[48px] flex flex-col justify-center">
+                            <h3 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-snug">
                                 {{ $tree['ketua']->nama }}
                             </h3>
-                            <p class="text-[9px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5 leading-normal">
                                 KTA: {{ $tree['ketua']->nomor_kartu ?? '-' }} • <span class="font-bold text-blue-600 dark:text-blue-400">{{ $tree['ketua']->tingkat_ukw ?? 'Utama' }}</span>
                             </p>
                         </div>
                     </div>
 
                     <!-- Vertical Line Connector from Ketua down -->
-                    <div class="w-0.5 h-3.5 bg-blue-600 dark:bg-blue-400"></div>
+                    <div class="w-0.5 h-4 bg-blue-600 dark:bg-blue-400"></div>
                 </div>
             @endif
 
@@ -213,10 +239,10 @@
             <!-- ==================================================== -->
             <div class="relative flex flex-col items-center">
                 <!-- Horizontal Bus connecting Wakil Ketua 1, 2, 3 -->
-                <div class="w-[580px] h-0.5 bg-blue-600 dark:bg-blue-400"></div>
+                <div class="w-[600px] h-0.5 bg-blue-600 dark:bg-blue-400"></div>
 
                 <!-- 3 Columns for Wakil Ketua -->
-                <div class="w-[620px] grid grid-cols-3 gap-3 pt-0">
+                <div class="w-[640px] grid grid-cols-3 gap-3.5 pt-0">
                     @php
                         $wkColors = [
                             0 => ['bg' => 'from-rose-600 to-red-600', 'border' => 'border-rose-500', 'icon' => 'fa-award', 'label' => 'WAKIL KETUA 1'],
@@ -232,18 +258,18 @@
                             <div class="w-0.5 h-3 bg-blue-600 dark:bg-blue-400"></div>
 
                             <!-- Wakil Ketua Card -->
-                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border {{ $cfg['border'] }} shadow-xs overflow-hidden">
-                                <div class="bg-gradient-to-r {{ $cfg['bg'] }} text-white px-2 py-0.5 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid {{ $cfg['icon'] }} text-[9px]"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-wide truncate">
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border {{ $cfg['border'] }} shadow-xs">
+                                <div class="bg-gradient-to-r {{ $cfg['bg'] }} text-white rounded-t-lg px-2.5 py-1 flex items-center justify-center gap-1.5 min-h-[26px]">
+                                    <i class="fa-solid {{ $cfg['icon'] }} text-[10px]"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-wide leading-normal">
                                         {{ $cfg['label'] }}
                                     </span>
                                 </div>
-                                <div class="px-2 py-1 text-center bg-white dark:bg-slate-800">
-                                    <h4 class="text-[11px] font-bold text-slate-900 dark:text-white truncate" title="{{ $wk->nama }}">
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[44px] flex flex-col justify-center">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
                                         {{ $wk->nama }}
                                     </h4>
-                                    <p class="text-[8px] text-slate-500 dark:text-slate-400 truncate">
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-normal">
                                         {{ $wk->tingkat_ukw ?? '-' }}
                                     </p>
                                 </div>
@@ -253,7 +279,7 @@
                 </div>
 
                 <!-- Central Spine continuing down from Wakil Ketua row -->
-                <div class="w-0.5 h-3.5 bg-blue-600 dark:bg-blue-400 mt-1"></div>
+                <div class="w-0.5 h-4 bg-blue-600 dark:bg-blue-400 mt-1"></div>
             </div>
 
             <!-- ==================================================== -->
@@ -262,25 +288,25 @@
             <!-- ==================================================== -->
             <div class="relative flex flex-col items-center">
                 <!-- Two Parallel Stacks: Left (Sekretariat) & Right (Kebendaharaan) -->
-                <div class="w-[580px] grid grid-cols-2 gap-6 relative">
+                <div class="w-[600px] grid grid-cols-2 gap-8 relative">
                     
                     <!-- KIRI: SEKRETARIAT -->
                     <div class="flex flex-col items-center space-y-2">
                         <!-- 1. SEKRETARIS -->
                         @if($tree['sekretariat']['utama'])
                             @php $sec = $tree['sekretariat']['utama']; @endphp
-                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-purple-500 shadow-xs overflow-hidden">
-                                <div class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white px-2 py-0.5 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-pen-nib text-[9px]"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-wide">
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-purple-500 shadow-xs">
+                                <div class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white rounded-t-lg px-2.5 py-1 flex items-center justify-center gap-1.5 min-h-[26px]">
+                                    <i class="fa-solid fa-pen-nib text-[10px]"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-wide leading-normal">
                                         {{ $sec->jabatan }}
                                     </span>
                                 </div>
-                                <div class="px-2 py-1 text-center bg-white dark:bg-slate-800">
-                                    <h4 class="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[44px] flex flex-col justify-center">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
                                         {{ $sec->nama }}
                                     </h4>
-                                    <p class="text-[8px] text-slate-500 dark:text-slate-400">
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-normal">
                                         {{ $sec->nomor_kartu ?? '-' }}
                                     </p>
                                 </div>
@@ -288,23 +314,23 @@
                         @endif
 
                         <!-- Vertical stem to Wakil Sekretaris -->
-                        <div class="w-0.5 h-2 bg-purple-500"></div>
+                        <div class="w-0.5 h-2.5 bg-purple-500"></div>
 
                         <!-- 2. WAKIL SEKRETARIS -->
                         @if($tree['sekretariat']['wakil'])
                             @php $wsec = $tree['sekretariat']['wakil']; @endphp
-                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-sky-500 shadow-xs overflow-hidden">
-                                <div class="bg-gradient-to-r from-sky-600 to-cyan-600 text-white px-2 py-0.5 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-file-signature text-[9px]"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-wide">
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-sky-500 shadow-xs">
+                                <div class="bg-gradient-to-r from-sky-600 to-cyan-600 text-white rounded-t-lg px-2.5 py-1 flex items-center justify-center gap-1.5 min-h-[26px]">
+                                    <i class="fa-solid fa-file-signature text-[10px]"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-wide leading-normal">
                                         {{ $wsec->jabatan }}
                                     </span>
                                 </div>
-                                <div class="px-2 py-1 text-center bg-white dark:bg-slate-800">
-                                    <h4 class="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[44px] flex flex-col justify-center">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
                                         {{ $wsec->nama }}
                                     </h4>
-                                    <p class="text-[8px] text-slate-500 dark:text-slate-400">
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-normal">
                                         {{ $wsec->nomor_kartu ?? '-' }}
                                     </p>
                                 </div>
@@ -317,18 +343,18 @@
                         <!-- 1. BENDAHARA -->
                         @if($tree['kebendaharaan']['utama'])
                             @php $ben = $tree['kebendaharaan']['utama']; @endphp
-                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-amber-500 shadow-xs overflow-hidden">
-                                <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-2 py-0.5 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-coins text-[9px]"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-wide">
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-amber-500 shadow-xs">
+                                <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white rounded-t-lg px-2.5 py-1 flex items-center justify-center gap-1.5 min-h-[26px]">
+                                    <i class="fa-solid fa-coins text-[10px]"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-wide leading-normal">
                                         {{ $ben->jabatan }}
                                     </span>
                                 </div>
-                                <div class="px-2 py-1 text-center bg-white dark:bg-slate-800">
-                                    <h4 class="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[44px] flex flex-col justify-center">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
                                         {{ $ben->nama }}
                                     </h4>
-                                    <p class="text-[8px] text-slate-500 dark:text-slate-400">
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-normal">
                                         {{ $ben->nomor_kartu ?? '-' }}
                                     </p>
                                 </div>
@@ -336,23 +362,23 @@
                         @endif
 
                         <!-- Vertical stem to Wakil Bendahara -->
-                        <div class="w-0.5 h-2 bg-amber-500"></div>
+                        <div class="w-0.5 h-2.5 bg-amber-500"></div>
 
                         <!-- 2. WAKIL BENDAHARA -->
                         @if($tree['kebendaharaan']['wakil'])
                             @php $wben = $tree['kebendaharaan']['wakil']; @endphp
-                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-emerald-500 shadow-xs overflow-hidden">
-                                <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-receipt text-[9px]"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-wide">
+                            <div class="w-full rounded-xl bg-white dark:bg-slate-800 border border-emerald-500 shadow-xs">
+                                <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg px-2.5 py-1 flex items-center justify-center gap-1.5 min-h-[26px]">
+                                    <i class="fa-solid fa-receipt text-[10px]"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-wide leading-normal">
                                         {{ $wben->jabatan }}
                                     </span>
                                 </div>
-                                <div class="px-2 py-1 text-center bg-white dark:bg-slate-800">
-                                    <h4 class="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                                <div class="px-2.5 py-1.5 text-center bg-white dark:bg-slate-800 rounded-b-lg min-h-[44px] flex flex-col justify-center">
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
                                         {{ $wben->nama }}
                                     </h4>
-                                    <p class="text-[8px] text-slate-500 dark:text-slate-400">
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 leading-normal">
                                         {{ $wben->nomor_kartu ?? '-' }}
                                     </p>
                                 </div>
@@ -362,20 +388,20 @@
 
                     {{-- Garis Koordinasi Horizontal 1 (Sekretaris <-> Bendahara) --}}
                     <div class="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1 z-10">
-                        <span class="text-blue-500 text-[10px]"><i class="fa-solid fa-caret-left"></i></span>
-                        <span class="px-1.5 py-0.2 rounded text-[7px] font-extrabold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-caret-left"></i></span>
+                        <span class="px-2 py-0.5 rounded text-[8px] font-extrabold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs leading-normal">
                             Koordinasi
                         </span>
-                        <span class="text-blue-500 text-[10px]"><i class="fa-solid fa-caret-right"></i></span>
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-caret-right"></i></span>
                     </div>
 
                     {{-- Garis Koordinasi Horizontal 2 (Wakil Sekretaris <-> Wakil Bendahara) --}}
                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1 z-10">
-                        <span class="text-blue-500 text-[10px]"><i class="fa-solid fa-caret-left"></i></span>
-                        <span class="px-1.5 py-0.2 rounded text-[7px] font-extrabold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-caret-left"></i></span>
+                        <span class="px-2 py-0.5 rounded text-[8px] font-extrabold uppercase bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs leading-normal">
                             Koordinasi
                         </span>
-                        <span class="text-blue-500 text-[10px]"><i class="fa-solid fa-caret-right"></i></span>
+                        <span class="text-blue-500 text-xs"><i class="fa-solid fa-caret-right"></i></span>
                     </div>
 
                 </div>
@@ -386,17 +412,17 @@
 
             <!-- ==================================================== -->
             <!-- LEVEL 4: 7 BIDANG KERJA (BERDERET HORIZONTAL)       -->
-            <!-- (Landscape: Header -> Kabid -> Wakabid -> Anggota)  -->
+            <!-- (Landscape Anti-Clipping: Header -> Kabid -> Wakabid -> Anggota) -->
             <!-- ==================================================== -->
             <div class="relative space-y-2 pt-1">
                 
                 <!-- Main Horizontal Distribution Bus across 7 Bidang -->
                 <div class="relative flex justify-center">
-                    <div class="w-[1020px] h-0.5 bg-blue-600 dark:bg-blue-400"></div>
+                    <div class="w-[1040px] h-0.5 bg-blue-600 dark:bg-blue-400"></div>
                 </div>
 
-                <!-- 7 Columns Side-by-Side in Clean Landscape -->
-                <div class="grid grid-cols-7 gap-2">
+                <!-- 7 Columns Side-by-Side in Clean Landscape (Anti-Clipping) -->
+                <div class="grid grid-cols-7 gap-2 sm:gap-2.5">
                     @php
                         $bidangStyles = [
                             'pembelaan' => ['grad' => 'from-indigo-700 to-blue-700', 'border' => 'border-indigo-400', 'icon' => 'fa-shield-halved'],
@@ -416,12 +442,12 @@
                             <!-- Drop stem from bus to column header -->
                             <div class="w-0.5 h-2 bg-blue-600 dark:bg-blue-400 -mt-2"></div>
 
-                            <!-- 1. Header Bidang Capsule -->
-                            <div class="w-full rounded-lg bg-gradient-to-r {{ $st['grad'] }} text-white p-1.5 shadow-xs text-center">
-                                <span class="block text-[8px] font-extrabold uppercase tracking-widest text-white/80">
+                            <!-- 1. Header Bidang Capsule (Anti-Clipping) -->
+                            <div class="w-full rounded-lg bg-gradient-to-r {{ $st['grad'] }} text-white p-1.5 shadow-xs text-center min-h-[34px] flex flex-col justify-center">
+                                <span class="block text-[8px] font-extrabold uppercase tracking-widest text-white/90 leading-normal">
                                     BIDANG {{ $b['info']['code'] ?? '' }}
                                 </span>
-                                <h5 class="text-[9px] font-black uppercase text-white truncate leading-tight mt-0.5" title="{{ $b['info']['title'] }}">
+                                <h5 class="text-[9px] font-black uppercase text-white leading-tight mt-0.5" title="{{ $b['info']['title'] }}">
                                     {{ $b['info']['title'] }}
                                 </h5>
                             </div>
@@ -429,12 +455,12 @@
                             <!-- Stem -->
                             <div class="w-0.5 h-1.5 bg-slate-300 dark:bg-slate-700"></div>
 
-                            <!-- 2. KEPALA BIDANG -->
-                            <div class="w-full rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-1.5 text-center shadow-2xs">
-                                <span class="block text-[7px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                            <!-- 2. KEPALA BIDANG (Anti-Clipping) -->
+                            <div class="w-full rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-1.5 text-center shadow-2xs min-h-[46px] flex flex-col justify-center">
+                                <span class="block text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-normal">
                                     KEPALA BIDANG
                                 </span>
-                                <h6 class="text-[10px] font-bold text-slate-900 dark:text-white truncate mt-0.5" title="{{ $b['kabid']?->nama ?? '-' }}">
+                                <h6 class="text-[10px] font-bold text-slate-900 dark:text-white leading-snug mt-0.5" title="{{ $b['kabid']?->nama ?? '-' }}">
                                     {{ $b['kabid']?->nama ?? '-' }}
                                 </h6>
                             </div>
@@ -442,12 +468,12 @@
                             <!-- Stem -->
                             <div class="w-0.5 h-1.5 bg-slate-300 dark:bg-slate-700"></div>
 
-                            <!-- 3. WAKIL KEPALA BIDANG -->
-                            <div class="w-full rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-1.5 text-center shadow-2xs">
-                                <span class="block text-[7px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                            <!-- 3. WAKIL KEPALA BIDANG (Anti-Clipping) -->
+                            <div class="w-full rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 p-1.5 text-center shadow-2xs min-h-[46px] flex flex-col justify-center">
+                                <span class="block text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-normal">
                                     WAKIL KEPALA
                                 </span>
-                                <h6 class="text-[10px] font-bold text-slate-900 dark:text-white truncate mt-0.5" title="{{ $b['wakabid']?->nama ?? '-' }}">
+                                <h6 class="text-[10px] font-bold text-slate-900 dark:text-white leading-snug mt-0.5" title="{{ $b['wakabid']?->nama ?? '-' }}">
                                     {{ $b['wakabid']?->nama ?? '-' }}
                                 </h6>
                             </div>
@@ -455,18 +481,18 @@
                             <!-- Stem -->
                             <div class="w-0.5 h-1.5 bg-slate-300 dark:bg-slate-700"></div>
 
-                            <!-- 4. ANGGOTA BIDANG -->
-                            <div class="w-full rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 overflow-hidden text-center shadow-2xs">
-                                <div class="bg-blue-600 text-white text-[7px] font-black uppercase py-0.5 tracking-wider">
+                            <!-- 4. ANGGOTA BIDANG (Anti-Clipping) -->
+                            <div class="w-full rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-center shadow-2xs">
+                                <div class="bg-blue-600 text-white text-[8px] font-black uppercase py-0.5 tracking-wider leading-normal rounded-t-md">
                                     ANGGOTA
                                 </div>
-                                <div class="p-1 space-y-0.5">
+                                <div class="p-1.5 space-y-0.5 min-h-[30px] flex flex-col justify-center">
                                     @forelse($b['anggota'] as $ang)
-                                        <p class="text-[9px] font-bold text-slate-800 dark:text-slate-200 truncate" title="{{ $ang->nama }}">
+                                        <p class="text-[9px] font-bold text-slate-800 dark:text-slate-200 leading-snug" title="{{ $ang->nama }}">
                                             {{ $ang->nama }}
                                         </p>
                                     @empty
-                                        <p class="text-[8px] text-slate-400 italic">-</p>
+                                        <p class="text-[8px] text-slate-400 italic leading-normal">-</p>
                                     @endforelse
                                 </div>
                             </div>
@@ -481,14 +507,14 @@
                 @if(count($tree['anggota_umum']) > 0)
                     <div class="pt-2 flex flex-col items-center">
                         <div class="w-0.5 h-2 bg-slate-300 dark:bg-slate-700"></div>
-                        <div class="w-full max-w-lg rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-center shadow-2xs">
-                            <span class="inline-block px-2 py-0.2 rounded text-[8px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1">
+                        <div class="w-full max-w-lg rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 px-3 py-2 text-center shadow-2xs">
+                            <span class="inline-block px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1 leading-normal">
                                 <i class="fa-solid fa-users text-blue-600"></i> Anggota Pelaksana Tambahan
                             </span>
                             <div class="grid grid-cols-3 gap-2">
                                 @foreach($tree['anggota_umum'] as $au)
-                                    <div class="px-2 py-1 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-                                        <p class="text-[10px] font-bold text-slate-900 dark:text-white truncate">{{ $au->nama }}</p>
+                                    <div class="px-2 py-1.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center min-h-[32px] flex items-center justify-center">
+                                        <p class="text-[10px] font-bold text-slate-900 dark:text-white leading-normal">{{ $au->nama }}</p>
                                     </div>
                                 @endforeach
                             </div>
@@ -499,7 +525,7 @@
             </div>
 
             <!-- Footer SK & Legalitas Resmi -->
-            <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] text-slate-400 dark:text-slate-500 font-medium">
+            <div class="pt-2.5 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] text-slate-400 dark:text-slate-500 font-medium">
                 <span>Ditetapkan di Pangkalan Balai • SK Resmi Pengurus PWI Banyuasin 2025–2028</span>
                 <span class="font-semibold text-slate-500 dark:text-slate-400">Portal Resmi: pwiba.or.id</span>
             </div>
