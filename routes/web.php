@@ -27,6 +27,7 @@ Route::get('/struktur-organisasi', [PublicController::class, 'organization'])->n
 Route::get('/anggota', [PublicController::class, 'members'])->name('members.public');
 Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.public');
 Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store');
+Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter'])->name('letter.verify');
 
 /*
 |--------------------------------------------------------------------------

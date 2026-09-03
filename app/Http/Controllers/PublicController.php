@@ -8,6 +8,7 @@ use App\Models\Media;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
 use App\Models\Post;
+use App\Models\Letter;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -158,5 +159,18 @@ class PublicController extends Controller
         ]);
 
         return redirect()->back()->with('success_inbox', 'Terima kasih! Pesan buku tamu Anda telah terkirim kepada Pengurus PWI Kabupaten Banyuasin.');
+    }
+
+    public function verifyLetter(string $hash)
+    {
+        $letter = Letter::where('uuid', $hash)
+            ->orWhere('hash_keabsahan', $hash)
+            ->orWhere('nomor_surat', $hash)
+            ->orWhere('id', $hash)
+            ->first();
+
+        $settings = Setting::pluck('value', 'key')->all();
+
+        return view('public.letter_verify', compact('letter', 'hash', 'settings'));
     }
 }

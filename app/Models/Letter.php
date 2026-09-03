@@ -11,6 +11,7 @@ class Letter extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uuid',
         'nomor_surat',
         'tanggal',
         'jenis_surat',
@@ -30,7 +31,27 @@ class Letter extends Model
         'file_dokumen',
         'penandatangan_nama',
         'penandatangan_sekretaris',
+        'status_verifikasi',
+        'hash_keabsahan',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($letter) {
+            if (empty($letter->uuid)) {
+                $letter->uuid = (string) \Illuminate\Support\Str::uuid();
+            }
+            if (empty($letter->hash_keabsahan)) {
+                $letter->hash_keabsahan = hash('sha256', ($letter->nomor_surat ?? '') . '|' . ($letter->tanggal ?? '') . '|' . ($letter->tujuan ?? '') . '|PWI-BANYUASIN-OFFICIAL');
+            }
+        });
+    }
+
+    public function getVerificationUrlAttribute(): string
+    {
+        return route('letter.verify', $this->uuid);
+    }
 
     protected $casts = [
         'tanggal' => 'date',

@@ -233,5 +233,25 @@ class PwiWebTest extends TestCase
         $this->assertStringContainsString('assets/images/wartawan/', $memberWithPhoto->foto);
         $this->assertFileExists(public_path($memberWithPhoto->foto));
     }
+
+    public function test_letter_verification_and_print_with_digital_qr(): void
+    {
+        $letter = Letter::first();
+        $this->assertNotNull($letter);
+
+        // Verification route
+        $verifyResponse = $this->get('/verifikasi-surat/' . $letter->uuid);
+        $verifyResponse->assertStatus(200);
+        $verifyResponse->assertSee('TERVERIFIKASI');
+        $verifyResponse->assertSee($letter->nomor_surat);
+
+        // Print view with QR code and Kop
+        $admin = User::first();
+        $printResponse = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
+        $printResponse->assertStatus(200);
+        $printResponse->assertSee('PERSATUAN WARTAWAN INDONESIA');
+        $printResponse->assertSee('PENGURUS KABUPATEN BANYUASIN');
+        $printResponse->assertSee('QR Code Verifikasi');
+    }
 }
 

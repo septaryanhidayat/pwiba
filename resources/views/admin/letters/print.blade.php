@@ -67,20 +67,30 @@
 </div>
 
 <div class="container-fluid px-0">
-    <!-- Kop Surat PWI Resmi -->
-    <div class="kop-surat d-flex align-items-center">
-        <div style="width: 100px; text-align: center;">
-            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" width="88" height="88">
-        </div>
-        <div class="text-center flex-grow-1 px-2">
-            <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
-            <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
-            <div class="kop-address">
-                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }}<br>
-                Telepon: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwibanyuasin.or.id' }}
+    <!-- Kop Surat PWI Banyuasin Resmi (Sesuai Format Lampiran PDF Asli) -->
+    <div class="kop-surat">
+        <div style="background: #0B2B68; color: #fff; border-radius: 4px; padding: 12px 15px 10px 15px; position: relative; text-align: center;">
+            <div style="position: absolute; left: 16px; top: 8px;">
+                <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" width="76" height="76" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+            </div>
+            <div style="margin-left: 70px; margin-right: 20px;">
+                <h1 style="font-size: 19pt; font-weight: 900; letter-spacing: 1px; margin: 0; line-height: 1.1; text-transform: uppercase;">
+                    PERSATUAN WARTAWAN INDONESIA
+                </h1>
+                <h2 style="font-size: 14pt; font-weight: 800; letter-spacing: 0.5px; margin: 2px 0 0 0; line-height: 1.2; text-transform: uppercase;">
+                    PENGURUS KABUPATEN BANYUASIN
+                </h2>
+                <div style="font-size: 10pt; font-weight: 600; font-style: italic; margin-top: 3px; letter-spacing: 0.5px; opacity: 0.95;">
+                    Central Executive Board
+                </div>
+                <div style="font-size: 10pt; font-weight: 800; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase;">
+                    INDONESIAN JOURNALIST'S ASSOCIATION
+                </div>
             </div>
         </div>
-        <div style="width: 100px;"></div>
+        <div style="font-size: 8.5pt; text-align: center; font-weight: 600; padding: 5px 0 3px 0; border-bottom: 2.5px solid #000; margin-bottom: 18px; color: #000;">
+            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
+        </div>
     </div>
 
     @if($letter->jenis_surat === 'SURAT TUGAS')
@@ -138,77 +148,91 @@
         </div>
 
     @else
-        <!-- Format Surat Audiensi / Biasa / Proposal -->
+        <!-- Format Surat Resmi Sesuai Lampiran PDF -->
         <div class="row mb-4">
             <div class="col-7">
-                <table>
+                <table style="width: 100%;">
                     <tr>
-                        <td width="100">Nomor</td>
-                        <td width="15">:</td>
-                        <td class="fw-bold">{{ $letter->nomor_surat }}</td>
+                        <td width="85" style="vertical-align: top;">Nomor</td>
+                        <td width="15" style="vertical-align: top;">:</td>
+                        <td class="fw-bold" style="vertical-align: top;">{{ $letter->nomor_surat }}</td>
                     </tr>
                     <tr>
-                        <td>Lampiran</td>
-                        <td>:</td>
-                        <td>{{ $letter->lampiran ?? '-' }}</td>
+                        <td style="vertical-align: top;">Lampiran</td>
+                        <td style="vertical-align: top;">:</td>
+                        <td style="vertical-align: top;">{{ $letter->lampiran ?? '1 (Satu) Berkas' }}</td>
                     </tr>
                     <tr>
-                        <td>Perihal</td>
-                        <td>:</td>
-                        <td class="fw-bold">{{ $letter->perihal ?? $letter->keperluan }}</td>
+                        <td style="vertical-align: top;">Perihal</td>
+                        <td style="vertical-align: top;">:</td>
+                        <td class="fw-bold" style="vertical-align: top;">{{ $letter->perihal ?? $letter->keperluan }}</td>
                     </tr>
                 </table>
             </div>
-            <div class="col-5 text-end">
-                Pangkalan Balai, {{ $letter->tanggal ? $letter->tanggal->translatedFormat('d F Y') : now()->translatedFormat('d F Y') }}
+            <div class="col-5">
+                <div>Pangkalan Balai, {{ $letter->tanggal ? $letter->tanggal->translatedFormat('d F Y') : now()->translatedFormat('d F Y') }}</div>
+                <div class="mt-2">Kepada Yth.</div>
+                <div class="fw-bold">{{ $letter->jabatan_pejabat ?? ($letter->tujuan ?? 'Ketua PWI Provinsi Sumatera Selatan') }}</div>
+                @if($letter->nama_pejabat && $letter->nama_pejabat !== $letter->tujuan)
+                    <div class="fw-bold">{{ $letter->nama_pejabat }}</div>
+                @endif
+                <div>di -</div>
+                <div>{{ $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Palembang') }}</div>
             </div>
         </div>
 
-        <div class="mb-4">
-            <div>Kepada Yth.</div>
-            <div class="fw-bold">{{ $letter->tujuan }}</div>
-            <div>{{ $letter->tempat_tujuan ?? 'Di Tempat' }}</div>
-        </div>
-
-        <div class="letter-content">
+        <div class="letter-content" style="font-size: 11pt; line-height: 1.6;">
             <p>Dengan hormat,</p>
             
             @if($letter->isi_surat)
                 {!! nl2br(e($letter->isi_surat)) !!}
             @else
                 <p>
-                    Sehubungan dengan pelaksanaan program kerja dan kegiatan Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin, bersama ini kami menyampaikan maksud dan permohonan terkait <strong>{{ $letter->keperluan }}</strong>.
+                    Menindaklanjuti upaya penertiban dan penyelamatan aset organisasi, bersama surat ini kami sampaikan dengan hormat permasalahan internal terkait permintaan penyerahan aset PWI Kabupaten Banyuasin pembeliaannya bersumber dari Dana Hibah Tahun 2024. Berdasarkan laporan yang bersangkutan saat konferda, tanggal 20 September 2025, dibeli sebanyak 2 unit Laptop. Namun sampai berakhir masa jabatannya Laptop belum diserahkan ke PWI Banyuasin.
                 </p>
                 <p>
-                    Besar harapan kami agar permohonan dan koordinasi ini dapat terjalin dengan baik demi mendukung kemajuan kemitraan, transparansi informasi, serta kondusifitas pers di Kabupaten Banyuasin.
+                    Adapun permohonan penyerahan aset telah kami layangkan secara resmi sebanyak 3 (tiga) kali kepada ASNAINI KHAMSIN, SE, Ketua PWI Kabupaten Banyuasin Periode 2022-2025. Namun tidak diindahkan sama sekali, dengan rincian sebagai berikut:
+                </p>
+                <ol>
+                    <li>Surat Pertama tanggal 14 Januari 2026 dengan Nomor: 013/PWI-BA/I/2026</li>
+                    <li>Surat Kedua tanggal 23 Februari 2026 dengan Nomor: 021/PWI-BA/II/2026 dan</li>
+                    <li>Surat Ketiga tanggal 20 Juli 2026. (Salinan surat-surat terlampir)</li>
+                </ol>
+                <p>
+                    Mengingat tidak adanya tanggapan atau itikad baik dari yang bersangkutan, maka berdasarkan hasil Rapat Pengurus PWI Kabupaten Banyuasin yang dilaksanakan, Senin 24 Agustus 2026, diputuskan untuk melaporkan secara resmi kepada PWI Provinsi Sumatera Selatan untuk meminta arahan, petunjuk, serta kebijakan lebih lanjut dalam mengambil langkah-langkah organisasi maupun hukum selanjutnya.
                 </p>
             @endif
 
             <p class="mt-4">
-                Demikian surat ini kami sampaikan. Atas perhatian, dukungan, dan kerja sama yang baik, kami ucapkan terima kasih.
+                Demikian surat permohonan ini kami sampaikan. Atas perhatian, petunjuk, dan kebijaksanaan Bapak Ketua PWI Provinsi Sumatera Selatan, kami ucapkan terima kasih.
             </p>
         </div>
     @endif
 
-    <!-- Tanda Tangan Resmi Pengurus PWI -->
-    <div class="row mt-4">
-        <div class="col-12 text-center mb-2">
-            <strong>PENGURUS PERSATUAN WARTAWAN INDONESIA (PWI)</strong><br>
-            <strong>KABUPATEN BANYUASIN</strong>
-        </div>
-        
-        <div class="col-6 text-center mt-3">
-            <div>Ketua,</div>
-            <div style="height: 70px;"></div>
-            <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_nama }}</div>
-            <div>KTA PWI: 06.00.17208.14B</div>
-        </div>
+    <!-- Tanda Tangan Resmi & QR Code Digital Sesuai Lampiran PDF -->
+    <div class="mt-4" style="page-break-inside: avoid;">
+        <div class="text-center" style="margin-left: auto; width: 420px; text-align: center;">
+            <div>Hormat kami,</div>
+            <div class="fw-bold mb-2">Pengurus PWI Banyuasin</div>
+            
+            <!-- QR Code Digital Verification -->
+            <div class="my-2 d-flex flex-column align-items-center justify-center">
+                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 120, 'QR Code Verifikasi Keabsahan Surat') !!}
+                <div style="font-size: 7.5pt; color: #475569; margin-top: 4px; font-style: italic;">
+                    Pindai untuk validasi keabsahan dokumen digital
+                </div>
+            </div>
 
-        <div class="col-6 text-center mt-3">
-            <div>Sekretaris,</div>
-            <div style="height: 70px;"></div>
-            <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
-            <div>KTA PWI: 06.00.20644.21B</div>
+            <div class="d-flex justify-content-between px-2 mt-2">
+                <div style="text-align: center; width: 180px;">
+                    <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
+                    <div style="font-size: 10pt;">Ketua</div>
+                </div>
+                <div style="text-align: center; width: 180px;">
+                    <div class="fw-bold text-decoration-underline">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
+                    <div style="font-size: 10pt;">Sekretaris</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
