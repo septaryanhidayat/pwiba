@@ -74,8 +74,20 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Modul Ketua Dari Masa ke Masa
     Route::get('/ketua-dari-masa-ke-masa', [LeaderController::class, 'index'])->name('leaders.index');
     Route::post('/ketua-dari-masa-ke-masa', [LeaderController::class, 'store'])->name('leaders.store');
-    Route::put('/ketua-dari-masa-ke-masa/{leader}', [LeaderController::class, 'update'])->name('leaders.update');
+    Route::match(['put', 'post'], '/ketua-dari-masa-ke-masa/{leader}', [LeaderController::class, 'update'])->name('leaders.update');
     Route::delete('/ketua-dari-masa-ke-masa/{leader}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
+    Route::get('/ketua-dari-masa-ke-masa/{leader}', function () {
+        return redirect()->route('admin.leaders.index');
+    });
+
+    // Aliases for /admin/leaders (Prevent 404 when form submits or navigated directly)
+    Route::get('/leaders', [LeaderController::class, 'index']);
+    Route::post('/leaders', [LeaderController::class, 'store']);
+    Route::match(['put', 'post'], '/leaders/{leader}', [LeaderController::class, 'update']);
+    Route::delete('/leaders/{leader}', [LeaderController::class, 'destroy']);
+    Route::get('/leaders/{leader}', function () {
+        return redirect()->route('admin.leaders.index');
+    });
 
     // Modul Surat Keluar (Administrasi)
     Route::get('/surat-keluar', [LetterController::class, 'index'])->name('letters.index');

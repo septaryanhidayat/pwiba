@@ -211,7 +211,7 @@
                 </button>
             </div>
 
-            <form :action="'{{ url('admin/leaders') }}/' + editData?.id" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
+            <form :action="'{{ route('admin.leaders.index') }}/' + editData?.id" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
                 @csrf
                 @method('PUT')
 

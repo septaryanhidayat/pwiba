@@ -414,4 +414,36 @@ class PwiWebTest extends TestCase
         $resMeeting->assertSee('page-sheet');
         $resMeeting->assertSee('paper-toolbar');
     }
+
+    public function test_admin_leaders_crud_and_aliases(): void
+    {
+        $admin = User::first();
+        $leader = Leader::first();
+        $this->assertNotNull($leader);
+
+        // Test GET /admin/ketua-dari-masa-ke-masa
+        $this->actingAs($admin)->get('/admin/ketua-dari-masa-ke-masa')
+            ->assertStatus(200)
+            ->assertSee('Ketua PWI Banyuasin Dari Masa ke Masa');
+
+        // Test GET /admin/leaders (alias)
+        $this->actingAs($admin)->get('/admin/leaders')
+            ->assertStatus(200)
+            ->assertSee('Ketua PWI Banyuasin Dari Masa ke Masa');
+
+        // Test GET /admin/leaders/{id} redirects gracefully instead of 404
+        $this->actingAs($admin)->get("/admin/leaders/{$leader->id}")
+            ->assertRedirect(route('admin.leaders.index'));
+
+        // Test PUT /admin/leaders/{id} succeeds
+        $this->actingAs($admin)->put("/admin/leaders/{$leader->id}", [
+            'nama' => $leader->nama,
+            'jabatan' => $leader->jabatan,
+            'periode' => $leader->periode,
+            'tahun_mulai' => $leader->tahun_mulai,
+            'tahun_selesai' => $leader->tahun_selesai,
+            'urutan' => $leader->urutan,
+            'keterangan' => 'Ketua Pertama Terverifikasi',
+        ])->assertRedirect(route('admin.leaders.index'));
+    }
 }
