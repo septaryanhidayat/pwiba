@@ -147,7 +147,7 @@
             <div class="h-20 px-6 flex items-center justify-between border-b border-white/10 bg-[#070D1E]">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-white/10 p-1.5 ring-1 ring-white/20 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                        <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <div class="text-[10px] font-bold text-amber-400 tracking-wider uppercase">Sistem Informasi MIS</div>

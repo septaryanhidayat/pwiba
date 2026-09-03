@@ -108,7 +108,7 @@
                 <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-6 text-white shadow-lg">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center">
-                            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo" class="w-full h-full object-contain">
+                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo" class="w-full h-full object-contain">
                         </div>
                         <div>
                             <h4 class="text-sm font-bold text-white">Sekretariat PWI Banyuasin</h4>

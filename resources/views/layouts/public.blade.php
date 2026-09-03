@@ -124,7 +124,7 @@
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
-                        <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
@@ -239,7 +239,7 @@
                 <div class="lg:col-span-2 space-y-4">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center">
-                            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-white leading-tight">PWI Kabupaten Banyuasin</h4>

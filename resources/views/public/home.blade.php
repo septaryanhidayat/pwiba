@@ -74,7 +74,7 @@
                     <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
                         <!-- Top Official Tag -->
                         <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
-                            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="PWI Logo" class="w-4 h-4 object-contain">
+                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" class="w-4 h-4 object-contain">
                             <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
@@ -620,7 +620,7 @@
         <!-- Modal Header -->
         <div class="p-6 bg-gradient-to-r from-[#0B132B] to-[#1C2541] text-white flex items-center justify-between border-b border-white/10">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-9 h-9 object-contain">
+                <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-9 h-9 object-contain">
                 <div>
                     <h3 class="text-base font-bold text-white">Naskah Sambutan Resmi Pelantikan</h3>
                     <p class="text-xs text-amber-400 font-medium">Ketua PWI Kabupaten Banyuasin Masa Bakti 2025–2028</p>

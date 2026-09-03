@@ -85,7 +85,7 @@
     <!-- Kop Surat PWI -->
     <div class="kop-surat d-flex align-items-center">
         <div style="width: 80px; text-align: center;">
-            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" width="75" height="75">
+            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="75" height="75">
         </div>
         <div class="text-center flex-grow-1 px-2">
             <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>

@@ -92,7 +92,7 @@
         <!-- Logo & Header -->
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white dark:bg-white/10 p-3.5 ring-1 ring-slate-200 dark:ring-white/20 shadow-2xl backdrop-blur-md mb-4 hover:scale-105 transition-transform">
-                <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
             </a>
             <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Portal Sistem Informasi MIS</h1>
             <p class="text-xs text-amber-600 dark:text-amber-400 font-bold mt-1 uppercase tracking-wider">Persatuan Wartawan Indonesia Banyuasin</p>

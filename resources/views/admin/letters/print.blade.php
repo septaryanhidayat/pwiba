@@ -181,7 +181,7 @@
     <!-- Kop Surat Resmi PWI Banyuasin -->
     <div class="kop-header">
         <div class="kop-box">
-            <img src="{{ asset('assets/images/pwi-logo.svg') }}" alt="Logo PWI" class="kop-logo">
+            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="kop-logo">
             <div style="margin-left: 65px; margin-right: 15px;">
                 <div class="kop-title-1">PERSATUAN WARTAWAN INDONESIA</div>
                 <div class="kop-title-2">PENGURUS KABUPATEN BANYUASIN</div>
