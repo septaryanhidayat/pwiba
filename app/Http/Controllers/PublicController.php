@@ -60,7 +60,7 @@ class PublicController extends Controller
             });
         }
 
-        $posts = $query->latest('published_at')->paginate(9);
+        $posts = $query->latest('published_at')->paginate(24);
         $categories = Post::where('status', 'published')->distinct()->pluck('kategori');
         $recentPosts = Post::where('status', 'published')->latest('published_at')->take(5)->get();
 
@@ -130,7 +130,7 @@ class PublicController extends Controller
 
     public function gallery()
     {
-        $galleries = Gallery::latest('tanggal_kegiatan')->paginate(12);
+        $galleries = Gallery::latest('tanggal_kegiatan')->paginate(24);
 
         return view('public.gallery', compact('galleries'));
     }

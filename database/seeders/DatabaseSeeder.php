@@ -276,20 +276,144 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // 7. Galleries (Foto Dokumentasi Asli pwiba.or.id)
-        $galleries = [
-            ['judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'deskripsi' => 'Bupati Banyuasin, Dr. H. Askolani, SH, MH memberikan Piala juara I Mini Soccer PWI Banyuasin 2026 di Stadion Mini Gading Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'galleries/f8ec3d4a1ef4abe74b332e46d395f141.webp'],
-            ['judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.', 'tanggal_kegiatan' => '2026-08-20', 'foto' => 'galleries/ccb967e2dcc8c71737fc08f05d9333e9.webp'],
-            ['judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.', 'tanggal_kegiatan' => '2026-06-25', 'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp'],
-            ['judul' => 'PWI - Tim Sespim Lemdiklat Polri', 'deskripsi' => 'Giat silaturahmi PWI Banyuasin di Polres Banyuasin bersama Tim Sespim Lemdiklat Polri (Brigjen Pol Defrian Dominando & Kombes Pol Joni Iskandar).', 'tanggal_kegiatan' => '2026-04-29', 'foto' => 'galleries/d2b050819fd26b2bdca26c97598991e1.webp'],
-            ['judul' => 'Rangkaian Giat HPN di Banten', 'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.', 'tanggal_kegiatan' => '2026-02-07', 'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp'],
-            ['judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026', 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.', 'tanggal_kegiatan' => '2026-02-06', 'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp'],
-            ['judul' => 'Rapat Persiapan ke Banten - HPN 2026', 'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.', 'tanggal_kegiatan' => '2026-02-03', 'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp'],
-            ['judul' => 'Audiensi di Lapas Kelas IIA Banyuasin', 'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.', 'tanggal_kegiatan' => '2026-01-27', 'foto' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp'],
+        // 7. Galleries (Seluruh 19 Foto Dokumentasi Galeri Lengkap)
+        $allGalleries = [
+            [
+                'id' => 1,
+                'judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
+                'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.Selasa 18 Agustus 2026.',
+                'foto' => 'galleries/e44ddc9ff3b7608ed6ce6af8aeb7b13e.webp',
+                'tanggal_kegiatan' => '2026-08-19',
+            ],
+            [
+                'id' => 2,
+                'judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin',
+                'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.',
+                'foto' => 'galleries/9cFhjTxQwpmEvdkjLLALebkNoFaq584GbNMmYB6V.webp',
+                'tanggal_kegiatan' => '2026-08-20',
+            ],
+            [
+                'id' => 3,
+                'judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa',
+                'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.',
+                'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
+                'tanggal_kegiatan' => '2026-06-25',
+            ],
+            [
+                'id' => 4,
+                'judul' => 'PWI - Tim Sespim Lemdiklat Polri',
+                'deskripsi' => '\r\nGiat. Rabu 29 April 2026 di Polres Banyuasin. Keterangan Foto : Wardoyo, S. I. Kom, Brigjen Pol Defrian Dominando, S. I. K, MH, Ridho Andi Sucipto, M. Pd dan Kombes Pol Joni Iskandar, S. I. K. Foto : Humas',
+                'foto' => 'galleries/d2b050819fd26b2bdca26c97598991e1.webp',
+                'tanggal_kegiatan' => '2026-05-04',
+            ],
+            [
+                'id' => 5,
+                'judul' => 'Rangkaian Giat HPN di Banten',
+                'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.',
+                'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp',
+                'tanggal_kegiatan' => '2026-02-07',
+            ],
+            [
+                'id' => 6,
+                'judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026',
+                'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.',
+                'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp',
+                'tanggal_kegiatan' => '2026-02-06',
+            ],
+            [
+                'id' => 7,
+                'judul' => 'Rapat Persiapan ke Banten - HPN 2026',
+                'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.',
+                'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp',
+                'tanggal_kegiatan' => '2026-02-03',
+            ],
+            [
+                'id' => 8,
+                'judul' => 'Audiensi di Lapas Kelas IIA Banyuasin',
+                'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.',
+                'foto' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp',
+                'tanggal_kegiatan' => '2026-01-27',
+            ],
+            [
+                'id' => 9,
+                'judul' => 'PWI Banyuasin Gelar Mini Soccer 2026',
+                'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.Selasa 18 Agustus 2026.',
+                'foto' => 'galleries/afaea919701acde8a482cfc41841bc84.webp',
+                'tanggal_kegiatan' => '2026-08-19',
+            ],
+            [
+                'id' => 10,
+                'judul' => 'Sinergi PWI -  Damdim 0430 /Banyuasin dan Mahasiswa',
+                'deskripsi' => '',
+                'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
+                'tanggal_kegiatan' => '2026-06-25',
+            ],
+            [
+                'id' => 11,
+                'judul' => 'Rangkaian giat HPN di Banten',
+                'deskripsi' => 'Seminar Sport Tourism Banten. Tanggal 7 Februari  2026 di Hotel Le Dian.  Foto : Humas',
+                'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp',
+                'tanggal_kegiatan' => '2026-02-12',
+            ],
+            [
+                'id' => 12,
+                'judul' => 'PWI Banyuasin -  berangkat ke Banten - HPN - 2026',
+                'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN). Jumat 06 Februari 2026',
+                'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp',
+                'tanggal_kegiatan' => '2026-02-06',
+            ],
+            [
+                'id' => 13,
+                'judul' => 'Rapat persiapan berangkat ke Banten - Hari Pers Nasional',
+                'deskripsi' => 'Rapat persiapan  ke Banten dalam rangka Hari Pers Nasional (HPN) Selasa 3 Februari  2026 di ruang rapat Dinas Komunikasi dan  Informatika  Kabupaten Banyuasin.',
+                'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp',
+                'tanggal_kegiatan' => '2026-02-06',
+            ],
+            [
+                'id' => 14,
+                'judul' => 'Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H - Wardoyo, S.I.Kom',
+                'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin - Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H - Ketua PWI Banyuasin - Wardoyo, S.I.Kom di Lapas. Selasa 27 Januari 2026. Foto : Wanto',
+                'foto' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp',
+                'tanggal_kegiatan' => '2026-01-28',
+            ],
+            [
+                'id' => 15,
+                'judul' => 'Foto audensi di Lapas Kelas II Banyuasin',
+                'deskripsi' => 'Pengurus PWI Banyuasin audensi  dan  foto bersama dengan Pejabat  Lapas kelas II Banyuasin,  Selasa, 27  Januari 2026. Foto : Humas',
+                'foto' => 'galleries/c6217fbc90d91382bc8cd717c9a9517b.webp',
+                'tanggal_kegiatan' => '2026-01-28',
+            ],
+            [
+                'id' => 16,
+                'judul' => 'Pelantikan PWI Banyuasin',
+                'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028. Rabu 26 November 2025 di Gedung  Auditorium Pemkab Banyuasin. Foto : Humas',
+                'foto' => 'galleries/d4c70f029077810e0eb82a1d7c042a10.webp',
+                'tanggal_kegiatan' => '2025-12-16',
+            ],
+            [
+                'id' => 17,
+                'judul' => 'PWi Banyuasin, giat Jumat Berbagi',
+                'deskripsi' => 'PWI Banyuasin mengadakan jumat berbagi di Jln KH. Sulaiman atau simpang  kedondong- Pangkalan Balai. Jumat 12 Desember 2025. Foto : Humas',
+                'foto' => 'galleries/62c61bc05fd2c56e4dfaed9437d11677.webp',
+                'tanggal_kegiatan' => '2025-12-16',
+            ],
+            [
+                'id' => 18,
+                'judul' => 'PWI Banyuasin Audiensi dengan Bupati Banyuasin',
+                'deskripsi' => 'Pengurus PWI Banyuasin Masa Bhakti 2025 - 2028 Audensi dengan Bupati Banyuasin- Bapak Dr.H.Askolani, SH, MH di Rumah Dinas Bupati. Kamis 11 November 2025. Foto : Humas',
+                'foto' => 'galleries/a45900ed75bb6941729a47db424629a2.webp',
+                'tanggal_kegiatan' => '2025-12-16',
+            ],
+            [
+                'id' => 19,
+                'judul' => 'PWI Banyuasin Audensi dengan Bupati Banyuasin',
+                'deskripsi' => 'Pengurus PWI Banyuasin Audensi dengan Bupati Banyuasin, Dr. H.Askolani, SH, MH. Kamis 11 Desember 2025. Foto : Humas',
+                'foto' => 'galleries/8cfd83065804b4fd862a5a529f50b596.webp',
+                'tanggal_kegiatan' => '2025-12-16',
+            ],
         ];
-
-        foreach ($galleries as $g) {
-            Gallery::create($g);
+        foreach ($allGalleries as $g) {
+            Gallery::updateOrCreate(['id' => $g['id']], $g);
         }
 
         // 8. Surat Keluar (91 Surat Keluar representatif dari ref/new/lengkap - surat keluar.png)
