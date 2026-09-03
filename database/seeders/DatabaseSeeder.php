@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Gallery;
 use App\Models\Inbox;
 use App\Models\IncomingLetter;
+use App\Models\Leader;
 use App\Models\Letter;
 use App\Models\Media;
 use App\Models\MeetingAttendance;
@@ -224,146 +225,512 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($structures as $st) {
-            OrganizationStructure::create($st);
+            OrganizationStructure::updateOrCreate(['nomor_kartu' => $st['nomor_kartu'], 'urutan' => $st['urutan']], $st);
         }
 
-        // 6. News Posts (22 Berita Lengkap dengan Foto Asli dari pwiba.or.id)
-        $newsItems = [
-            [
-                'judul' => 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
-                'gambar' => 'posts/ab51e7a5fbaa85fe67af6143c08707e5.webp',
-                'kategori' => 'Organisasi',
-            ],
-            [
-                'judul' => 'Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin',
-                'gambar' => 'posts/102a94b84592bf379cc27a97dd9dff2b.webp',
-                'kategori' => 'Kemitraan',
-            ],
-            [
-                'judul' => 'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
-                'gambar' => 'posts/04f62b08dac5547b16130d2544057152.webp',
-                'kategori' => 'Olahraga',
-            ],
-            [
-                'judul' => 'Gelar Turnamen Futsal, Kapolres Harapkan Pererat Silaturahmi Antara Polres dan PWI Banyuasin',
-                'gambar' => 'posts/f2b9f8cb00117d4bdafba3e50f1b6eac.webp',
-                'kategori' => 'Kemitraan',
-            ],
-            [
-                'judul' => 'Audensi : PWI Banyuasin dan Lapas Bangun Sinergi di Bidang Publikasi',
-                'gambar' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp',
-                'kategori' => 'Hukum & Pers',
-            ],
-            [
-                'judul' => 'TNI, Pers, dan Mahasiswa Bersatu dalam "Bola Gembira", Perkuat Sinergi untuk Banyuasin',
-                'gambar' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
-                'kategori' => 'Kegiatan',
-            ],
-        ];
-
-        foreach ($newsItems as $idx => $item) {
-            Post::create([
-                'judul' => $item['judul'],
-                'slug' => Str::slug($item['judul']).'-'.($idx + 1),
-                'kategori' => $item['kategori'],
-                'penulis' => 'Wardoyo, S.I.Kom',
-                'ringkasan' => "Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai {$item['judul']}. Mendorong peningkatan profesionalisme dan sinergi pers.",
-                'konten' => "<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; {$item['judul']}. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>",
-                'status' => 'published',
-                'gambar' => $item['gambar'],
-                'views_count' => rand(180, 950),
-                'published_at' => Carbon::now()->subDays($idx * 2 + 1),
-            ]);
-        }
-
-        // 7. Galleries (Seluruh 19 Foto Dokumentasi Galeri Lengkap)
-        $allGalleries = [
+        // 5.1. Ketua PWI Banyuasin Dari Masa ke Masa (5 Pemimpin Sejarah PWI Banyuasin)
+        $leaders = [
             [
                 'id' => 1,
+                'urutan' => 1,
+                'nama' => 'Dian Fauzen, ST',
+                'jabatan' => 'Ketua PWI Banyuasin',
+                'periode' => '2014 - 2016',
+                'tahun_mulai' => 2014,
+                'tahun_selesai' => 2016,
+                'foto' => 'leaders/dian-fauzen-ketua-2014-2016.webp',
+                'keterangan' => 'Ketua PWI Kabupaten Banyuasin Periode 2014 - 2016',
+                'status_aktif' => false,
+            ],
+            [
+                'id' => 2,
+                'urutan' => 2,
+                'nama' => 'Saryanto, SH',
+                'jabatan' => 'Ketua PWI Banyuasin',
+                'periode' => '2016 - 2019',
+                'tahun_mulai' => 2016,
+                'tahun_selesai' => 2019,
+                'foto' => 'leaders/saryanto-ketua-2016-2019.webp',
+                'keterangan' => 'Ketua PWI Kabupaten Banyuasin Periode 2016 - 2019',
+                'status_aktif' => false,
+            ],
+            [
+                'id' => 3,
+                'urutan' => 3,
+                'nama' => 'Dinding Karnadi, SH., CMe',
+                'jabatan' => 'Ketua PWI Banyuasin',
+                'periode' => '2019 - 2022',
+                'tahun_mulai' => 2019,
+                'tahun_selesai' => 2022,
+                'foto' => 'leaders/dinding-karnadi-ketua-2019-2022.webp',
+                'keterangan' => 'Ketua PWI Kabupaten Banyuasin Periode 2019 - 2022',
+                'status_aktif' => false,
+            ],
+            [
+                'id' => 4,
+                'urutan' => 4,
+                'nama' => 'Asnaini Khamsin, SE',
+                'jabatan' => 'Ketua PWI Banyuasin',
+                'periode' => '2022 - 2025',
+                'tahun_mulai' => 2022,
+                'tahun_selesai' => 2025,
+                'foto' => 'leaders/asnaini-khamsin-ketua-2022-2025.webp',
+                'keterangan' => 'Ketua PWI Kabupaten Banyuasin Periode 2022 - 2025',
+                'status_aktif' => false,
+            ],
+            [
+                'id' => 5,
+                'urutan' => 5,
+                'nama' => 'Wardoyo, S.I.Kom',
+                'jabatan' => 'Ketua PWI Banyuasin',
+                'periode' => '2025 - 2028',
+                'tahun_mulai' => 2025,
+                'tahun_selesai' => 2028,
+                'foto' => 'leaders/wardoyo-ketua-2025-2028.webp',
+                'keterangan' => 'Ketua PWI Kabupaten Banyuasin Periode 2025 - 2028 (Petahana / Aktif)',
+                'status_aktif' => true,
+            ],
+        ];
+        foreach ($leaders as $ldr) {
+            Leader::updateOrCreate(['id' => $ldr['id']], $ldr);
+        }
+
+        // 6. Berita Publish Resmi (Tepat 22 Berita Asli Tanpa Duplikasi & Gambar Sesuai 100%)
+        $allPosts = [
+            [
+                'id' => 9,
+                'judul' => 'Audensi : PWI Banyuasin dan Lapas  Bangun Sinergi  di Bidang Publikasi',
+                'slug' => 'audensi-pwi-banyuasin-dan-lapas-bangun-sinergi-di-bidang-publikasi',
+                'kategori' => 'Kemitraan & Hukum',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin audensi dengan Lembaga Pemasyarakatan (LP) Kelas II  A Banyuasin. Selasa 27 Januari 2026. Ketua PWI Banyuasin, Wardoyo, S.I.Kom mengatakan  tujuan audensi untuk menjalin kerjasama  serta mempererat sinergi antara media dan lembaga pemasyarakatan dibidang publikasi
+
+“Kita  hari ini, silaturahmi dengan Lapas Kelas II A Banyuasin, untuk membangun sinergi dan antara media dengan lembaga pemasyarakatan,”kata Wardoyo.
+Dikatakan PWI Banyuasin siap menjadi jembatan informasi akurat ke masyarakat,  “Kami berharap audensi ini membuka pintu kolaborasi yang lebih luas,  untuk membangun citra pemasyarakatan yang humanis dan profesional,”ujarnya.',
+                'konten' => '<p>Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin audensi dengan Lembaga Pemasyarakatan (LP) Kelas II&nbsp; A Banyuasin. Selasa 27 Januari 2026.<br>Ketua PWI Banyuasin, Wardoyo, S.I.Kom mengatakan&nbsp; tujuan audensi untuk menjalin kerjasama&nbsp; serta mempererat sinergi antara media dan lembaga pemasyarakatan dibidang publikasi<br>“Kita&nbsp; hari ini, silaturahmi dengan Lapas Kelas II A Banyuasin, untuk membangun sinergi dan antara media dengan lembaga pemasyarakatan,”kata Wardoyo.<br>Dikatakan PWI Banyuasin siap menjadi jembatan informasi akurat ke masyarakat,&nbsp; “Kami berharap audensi ini membuka pintu kolaborasi yang lebih luas,&nbsp; untuk membangun citra pemasyarakatan yang humanis dan profesional,”ujarnya.</p><p>Sementara itu, Kepala Lapas Kelas IIA Banyuasin, Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H Menyambut baik&nbsp; dan mengucapkan terima kasih&nbsp; kepada&nbsp; PWI Banyuasin.&nbsp; </p><p>“Terima kasih atas kunjungannya, mari kita&nbsp; bersinergi&nbsp; kolaborasi&nbsp; dan membangun komunikasi yang harmonis, tanpa media,&nbsp; kegiatan yang kami lakukan informasi tidak sampai ke masyarakat,”katanya.</p><p>Saat audensi, orang nomor satu di Lapas Kelas II Banyuasin mengatakan sesuai Asta Cita Presiden Prabowo Subianto untuk swasembada pangan nasional di Lapas&nbsp; Kelas IIA Banyuasin, menanam budidaya melon Inthanon di <i>green house</i>, melibatkan Warga Binaan Pemasyarakatan untuk kemandirian dan keterampilan usai bebas.</p><p>“Kami berharap Warga Binaan Pemasyarakatan bisa mendapatkan keterampilan baru yang berguna saat mereka kembali ke masyarakat,”jelasnya Dikatakan, rata-rata berat buah melebihi 2,5 kg per buah hasilnya memuaskan dan mampu bersaing di pasar (***)<br><br></p><p></p>',
+                'gambar' => 'posts/028e24ea1f6a7c25e6727c9b5d2fc1f3.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-01-27 15:25:56',
+            ],
+            [
+                'id' => 10,
+                'judul' => '200 Wartawan Siap Berangkat \'Retret\' Orientasi Kebangsaan dan Bela Negara',
+                'slug' => '200-wartawan-siap-berangkat-retret-orientasi-kebangsaan-dan-bela-negara-1',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'JAKARTA - Kementerian Pertahanan Republik Indonesia bersama Persatuan Wartawan Indonesia (PWI) Pusat hari ini, Jumat (23/1/2026), memfinalisasi peserta dan seluruh kelengkapan Diklat Bela Negara Wartawan PWI.
+
+Finalisasi tersebut mencakup data pribadi dan perlengkapan sekitar 200 wartawan anggota PWI yang akan mengikuti pelatihan Bela Negara di Pusat Pendidikan dan Pelatihan Bela Negara Kementerian Pertahanan, Bogor, pada 29 Januari hingga 1 Februari 2026.
+
+Para peserta diarahkan untuk mengambil pakaian dan berbagai kelengkapan kegiatan Bela Negara di Kantor PWI Pusat pada Rabu, 28 Januari 2026.
+
+Selanjutnya, pada Kamis, 29 Januari 2026, peserta akan berangkat bersama-sama menggunakan bus dari Kementerian Pertahanan RI pada pukul 06.30 WIB.',
+                'konten' => '',
+                'gambar' => 'posts/8808616915c4572d1d1b2f5c97be3510.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-01-29 03:56:27',
+            ],
+            [
+                'id' => 11,
+                'judul' => 'Dewan Pers Apresiasi Putusan MK Tolak Gugatan Uji Materi UU Pers',
+                'slug' => 'dewan-pers-apresiasi-putusan-mk-tolak-gugatan-uji-materi-uu-pers-1',
+                'kategori' => 'Dewan Pers',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Dewan Pers mengapresiasi putusan Mahkamah Konstitusi soal gugatan uji materi Undang-Undang Nomor 40 Tahun 1999 tentang Pers. Dalam putusannya MK menolak gugatan uji materi Pasal 15 ayat (2) huruf f, dan Pasal 15 ayat (5) UU Pers.
+
+Wakil Ketua Dewan Pers Agung Dharmajaya mengaku bersyukur. Ia berpendapat, sembilan hakim MK telah menjalankan tugasnya dengan pikiran jernih dan bersikap adil.
+
+“Itu juga menandakan tidak ada hal yang kontradiktif antara Pasal 15 ayat 2 huruf (f) dan Pasal 15 ayat 5 dalam UU Pers dengan UUD 1945. Justru pasal-pasal dalam UU Pers itu sinkron dengan UUD 1945,” ungkap Agung melalui siaran persnya, Rabu, 31 Agustus 2022.',
+                'konten' => '',
+                'gambar' => 'posts/bc666a2675b1a5eeefb687a61e7f5f7b.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-01-29 04:10:28',
+            ],
+            [
+                'id' => 12,
+                'judul' => 'Retret PWI 2026 Berakhir, Wartawan Diharap Jadi Agen Pemersatu Bangsa',
+                'slug' => 'retret-pwi-2026-berakhir-wartawan-diharap-jadi-agen-pemersatu-bangsa-1',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'BOGOR – Retret Persatuan Wartawan Indonesia (PWI) 2026 yang diselenggarakan oleh Kementerian Pertahanan Republik Indonesia (Kemhan RI) resmi berakhir.
+
+Acara penutupan Retret PWI 2026 dipimpin oleh Kepala BPSDM Pertahanan Kemhan, Mayor Jenderal TNI Ketut Gede Wetan Pastia, di Lapangan Tembak Batalyon 13 Grup 1 Kopassus, Bogor, Minggu, 1 Februari 2026.
+
+Penutupan kegiatan ditandai dengan penanggalan tanda peserta, penyematan brevet bela negara dan penyerahan sertifikat kepada peserta yang sekaligus dinyatakan sebagai Kader Bela Negara.
+
+Dalam sambutan penutupan, Sekjen Kemhan yang disampaikan Kepala BPSDM Pertahanan Kemhan, mengapresiasi kepada para peserta retret yang telah mengikuti kegiatan ini hingga akhir.',
+                'konten' => '',
+                'gambar' => 'posts/9f77e3196f402198087378e04f4f3d4d.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-02-02 07:48:18',
+            ],
+            [
+                'id' => 13,
+                'judul' => 'Polres Banyuasin  dan PWI Jalin Komunikasi',
+                'slug' => 'polres-banyuasin-dan-pwi-jalin-komunikasi',
+                'kategori' => 'Kemitraan & Hukum',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin tancap gas memperkuat kemitraan dengan aparat penegak hukum. Ketua PWI Banyuasin Wardoyo S.I.Kom, jajaran pengurus melakukan audiensi dengan Kapolres Banyuasin AKBP Risnan Aldino.SI.K MS.I di Mapolres Banyuasin. Selasa 24 Februari 2026',
+                'konten' => '<p>Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin tancap gas memperkuat kemitraan dengan aparat penegak hukum. Ketua PWI Banyuasin Wardoyo S.I.Kom, jajaran pengurus melakukan audiensi dengan Kapolres Banyuasin AKBP Risnan Aldino.SI.K MS.I di Mapolres Banyuasin. Selasa 24 Februari 2026<br></p><p>Pertemuan di ruang rapat utama Polres Banyuasin itu turut dihadiri Kasat Intelkam AKP Novi Dilhan SH serta jajaran Humas. Di balik suasana akrab, terselip pesan tegas: pers dan kepolisian harus berjalan beriringan menyajikan informasi yang akurat, berimbang, dan mencerahkan publik.<br><br>Ditegaskan PWI Banyuasin berkomitmen mendukung tugas-tugas kepolisian melalui karya jurnalistik yang profesional dan taat kode etik.<br><br>“Kami ingin membangun komunikasi yang lebih intens dan terbuka dengan Polres. Sinergi ini penting agar informasi yang sampai ke masyarakat benar-benar valid dan mencerdaskan,” ujar Wardoyo.<br><br>Masih kata orang nomor satu di PWI Banyuasin, di tengah derasnya arus informasi dan maraknya hoaks, kolaborasi antara insan pers dan kepolisian menjadi kebutuhan mendesak. Media, kata dia, bukan sekadar corong publikasi, tetapi juga mitra strategis dalam menjaga stabilitas daerah.<br><br>Kapolres Banyuasin AKBP Risnan Aldino menyambut positif audiensi tersebut. Ia menegaskan, pihaknya terbuka terhadap media dan siap memperkuat koordinasi demi terciptanya situasi kamtibmas yang kondusif.<br><br>“Polres Banyuasin terbuka terhadap rekan-rekan media. Kami berharap hubungan yang sudah baik ini semakin solid, sehingga setiap informasi terkait kamtibmas dapat tersampaikan dengan cepat dan tepat kepada masyarakat,” tegas kapolres Banyuasin&nbsp; Risnan.<br><br>Ia juga menekankan bahwa kemitraan dengan wartawan bukan hanya soal pemberitaan kegiatan seremonial, melainkan tanggung jawab bersama dalam memberikan edukasi hukum serta menangkal penyebaran berita bohong yang dapat memecah belah masyarakat.<br><br>Tak berhenti pada audiensi, PWI Banyuasin juga menyampaikan harapan adanya kerja sama konkret dengan Polres Banyuasin melalui pelaksanaan orientasi kewartawanan di lingkungan Polres. Kegiatan tersebut.<br><br>Banyuasin dan Polres Banyuasin sepakat memperkuat sinergi demi terciptanya iklim informasi yang sehat, profesional, dan kondusif di Kabupaten Banyuasin. Di tengah tantangan era digital, kolaborasi pers dan kepolisian menjadi kunci menjaga kepercayaan publik.<b> (WT)</b><br><br></p>',
+                'gambar' => 'posts/794cb36434d74f66ca60b04ef138eb8d.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-02-25 06:07:43',
+            ],
+            [
+                'id' => 14,
+                'judul' => 'Peringatan Hari Kebebasan Pers Dunia 2026: Dewan Pers Soroti Ledakan Informasi',
+                'slug' => 'peringatan-hari-kebebasan-pers-dunia-2026-dewan-pers-soroti-ledakan-informasi-1',
+                'kategori' => 'Dewan Pers',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Jakarta, 3 Mei 2026 — Peringatan Hari Kebebasan Pers Dunia (World Press Freedom Day) Tahun 2026 menjadi momentum penting bagi insan pers dan pemangku kepentingan untuk memperkuat komitmen terhadap kualitas informasi dan keberlanjutan industri media. Acara yang mengusung tema “Kolaborasi untuk Informasi Berkualitas dan Keberlanjutan Media”, ini digelar di kawasan arena Car Free Day, Jalan Jenderal Sudirman, Jakarta, pada Minggu (3/5/2026).
+
+Acara tersebut dihadiri oleh sejumlah tokoh penting, di antaranya Menteri Komunikasi dan Digital (Komdigi) Meutya Hafid, Ketua Dewan Pers Komaruddin Hidayat, Ketua Forum Organisasi Penyiaran Indonesia Komjen Pol (Purn). Drs. Imam Sudjarwo, serta konstituen pers dan pelaku industri media dari berbagai platform.',
+                'konten' => '',
+                'gambar' => 'posts/4e34df7ceb24e2aaf3a0ebcf8007c75a.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-05-04 06:28:26',
+            ],
+            [
+                'id' => 16,
+                'judul' => 'TNI, Pers, dan Mahasiswa Bersatu dalam “Bola Gembira”, Perkuat Sinergi untuk Banyuasin',
+                'slug' => 'tni-pers-dan-mahasiswa-bersatu-dalam-bola-gembira-perkuat-sinergi-untuk-banyuasin',
+                'kategori' => 'Olahraga & HPN',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Semangat kebersamaan dan sinergitas antara TNI, insan pers, dan kalangan mahasiswa tampak begitu hangat dalam kegiatan nonton bareng (nobar) bertajuk “Bola Gembira” yang digelar Kodim 0430/Banyuasin, Senin 22 Juni 2026 yang lalu.
+
+Kegiatan yang berlangsung penuh keakraban ini menjadi wadah mempererat komunikasi dan membangun hubungan yang lebih harmonis antara aparat kewilayahan, media massa, serta generasi muda Banyuasin.
+
+Hadir dalam kegiatan tersebut Ketua PWI Banyuasin Wardoyo, S.I.Kom., bersama anggota PWI, serta perwakilan mahasiswa yang tergabung dalam Forum Mahasiswa Banyuasin (FDM).
+
+Komandan Kodim 0430/Banyuasin Letkol Inf Handoyo Yudi Prasetyo, S.E., M.H.I., M.Han., melalui Kasdim Letkol Inf Drs. Syaibudin yang didampingi Pasi Ter Kapten Inf Panca Agung Putra Wijaya, Danramil Pangkalan Balai Kapten Inf Erwin Suhaimi, dan Pasi Pers Kapten Arh Mustajab, menegaskan pentingnya membangun kolaborasi yang kuat antara TNI, pers, dan mahasiswa sebagai elemen strategis dalam menjaga stabilitas serta mendorong pembangunan daerah.
+
+“Melalui momen ‘Bola Gembira’ ini, kita ingin menunjukkan bahwa hubungan TNI dengan pers dan mahasiswa bukanlah hubungan yang kaku atau formal semata. Kita membutuhkan ruang interaksi yang hangat agar sinergi yang terjalin dapat dibangun atas dasar saling percaya, saling memahami, dan saling mendukung,” ujar Syaibudin.',
+                'konten' => '<p>Semangat kebersamaan dan sinergitas antara TNI, insan pers, dan kalangan mahasiswa tampak begitu hangat dalam kegiatan nonton bareng (nobar) bertajuk “Bola Gembira” yang digelar Kodim 0430/Banyuasin, Senin 22 Juni 2026 yang lalu.<br><br>Kegiatan yang berlangsung penuh keakraban ini menjadi wadah mempererat komunikasi dan membangun hubungan yang lebih harmonis antara aparat kewilayahan, media massa, serta generasi muda Banyuasin.<br><br>Hadir dalam kegiatan tersebut Ketua PWI Banyuasin Wardoyo, S.I.Kom., bersama anggota PWI, serta perwakilan mahasiswa yang tergabung dalam Forum Mahasiswa Banyuasin (FDM).<br><br>Komandan Kodim 0430/Banyuasin Letkol Inf Handoyo Yudi Prasetyo, S.E., M.H.I., M.Han., melalui Kasdim Letkol Inf Drs. Syaibudin yang didampingi Pasi Ter Kapten Inf Panca Agung Putra Wijaya, Danramil Pangkalan Balai Kapten Inf Erwin Suhaimi, dan Pasi Pers Kapten Arh Mustajab, menegaskan pentingnya membangun kolaborasi yang kuat antara TNI, pers, dan mahasiswa sebagai elemen strategis dalam menjaga stabilitas serta mendorong pembangunan daerah.<br><br>“Melalui momen ‘Bola Gembira’ ini, kita ingin menunjukkan bahwa hubungan TNI dengan pers dan mahasiswa bukanlah hubungan yang kaku atau formal semata. Kita membutuhkan ruang interaksi yang hangat agar sinergi yang terjalin dapat dibangun atas dasar saling percaya, saling memahami, dan saling mendukung,” ujar Syaibudin.<br></p><p>Menurutnya, komunikasi yang baik akan melahirkan kolaborasi positif dalam menyikapi berbagai dinamika sosial yang berkembang di tengah masyarakat.<br>Ketua PWI Banyuasin, Wardoyo, menyambut baik inisiatif yang dilakukan Kodim 0430/Banyuasin.<br><br>Ia menilai kegiatan yang mengedepankan pendekatan humanis seperti ini mampu memperkuat hubungan emosional antarlembaga dan menciptakan suasana yang lebih terbuka dalam membangun daerah.<br><br>“Kegiatan seperti ini sangat positif. Selain mempererat silaturahmi, juga membuka ruang diskusi yang sehat antara TNI, wartawan, dan mahasiswa dalam menyikapi berbagai persoalan yang berkembang di Banyuasin,” katanya.<br><br>Senada dengan itu, perwakilan mahasiswa Banyuasin mengungkapkan bahwa kegiatan tersebut memberikan pemahaman baru mengenai peran TNI yang tidak hanya fokus pada pertahanan negara, tetapi juga aktif menjadi mitra masyarakat dalam berbagai aspek pembangunan sosial.<br>Sepanjang kegiatan, suasana berlangsung santai namun penuh makna.<br><br>Para peserta menikmati tayangan bersama sambil berdiskusi ringan mengenai berbagai isu aktual yang tengah berkembang di Kabupaten Banyuasin.<br><br>Melalui kegiatan “Bola Gembira”, Kodim 0430/Banyuasin berharap terbangun ekosistem komunikasi yang semakin sehat, kritis, dan konstruktif antara TNI, pers, dan mahasiswa. Sinergi yang kuat diharapkan mampu menjadi modal penting dalam menjaga kondusivitas daerah serta mendorong kemajuan Banyuasin yang lebih baik di masa mendatang.<br><br>Dengan semangat kebersamaan yang terjalin dalam kegiatan ini, TNI, pers, dan mahasiswa menunjukkan bahwa kolaborasi lintas elemen merupakan kekuatan besar dalam menjaga persatuan dan membangun Bumi Sedulang Setudung.(***)<br></p>',
+                'gambar' => 'posts/7e879422ad0bca300f286efb21f5fdea.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-06-25 08:31:52',
+            ],
+            [
+                'id' => 15,
+                'judul' => 'Dukung Tertib Administrasi, PWI Banyuasin Gerak Cepat Respons Surat PWI Sumsel',
+                'slug' => 'dukung-tertib-administrasi-pwi-banyuasin-gerak-cepat-respons-surat-pwi-sumsel-1',
+                'kategori' => 'Organisasi & Advokasi',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin secara resmi menyerahkan daftar data wartawan anggotanya kepada PWI Provinsi Sumatera Selatan, Rabu 24 Juni 2026.
+
+Langkah cepat dilakukan sebagai tindak lanjut atas Surat PWI Provinsi Sumatera Selatan Nomor: 72/PWI-SS/VI/2026 perihal pendataan anggota dalam rangka penerbitan Buku Putih PWI Sumsel Tahun 2026.
+
+Penyerahan database keanggotaan ini menegaskan komitmen PWI Kabupaten Banyuasin dalam mendukung tertib administrasi serta pemetaan profesi jurnalis yang valid di wilayah Sumatera Selatan.',
+                'konten' => '<p>Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin secara resmi menyerahkan daftar data wartawan anggotanya kepada PWI Provinsi Sumatera Selatan, Rabu 24 Juni 2026.<br><br>Langkah cepat dilakukan sebagai tindak lanjut atas Surat PWI Provinsi Sumatera Selatan Nomor: 72/PWI-SS/VI/2026 perihal pendataan anggota dalam rangka penerbitan Buku Putih PWI Sumsel Tahun 2026.<br><br>Penyerahan database keanggotaan ini menegaskan komitmen PWI Kabupaten Banyuasin dalam mendukung tertib administrasi serta pemetaan profesi jurnalis yang valid di wilayah Sumatera Selatan.<br></p><p>Ketua PWI Kabupaten Banyuasin, Wardoyo, S.I.Kom., menegaskan bahwa seluruh nama yang diserahkan dalam lampiran surat pengantar tersebut merupakan anggota PWI Banyuasi, yang sudah mendaftar dilaman atau portal PWI Banyuasin, https://pwiba.or.id.status keanggotaannya aktif.<p style="text-align: justify;">"Kami mendukung penuh penerbitan Buku Putih PWI Sumsel Tahun 2026 ini. Dokumen ini akan menjadi bagian&nbsp; dari rekam jejak digital serta perwujudan administrasi organisasi yang akuntabel, transparan, dan profesional,"Kata &nbsp;Wardoyo</p><p style="text-align: justify;">Dikatakan pendataan yang masif dan terstruktur melalui Buku Putih ini sangat penting bagi ekosistem pers di daerah. Selain sebagai database internal, Buku Putih ini nantinya dapat menjadi acuan resmi bagi stakeholder,&nbsp; baik pemerintah daerah, swasta, maupun masyaraka untuk memastikan legalitas dan profesionalisme wartawan PWI yang bertugas di lapangan.</p><p style="text-align: justify;">"Kami mengucapkan terima kasih yang sebesar-besarnya atas perhatian, kerja sama, dan bimbingan yang terus diberikan oleh PWI Provinsi Sumatera Selatan kepada&nbsp; PWI di tingkat kabupaten," ujarnya</p><p style="text-align: justify;">Diharapkan proses penyusunan Buku Putih PWI Sumsel 2026 dapat berjalan lancar sesuai linimasa organisasi, sekaligus menjadi standar baru dalam tata kelola organisasi pers di Sumatera Selatan. <strong>(Rilis)</strong></p><p></p></p>',
+                'gambar' => 'posts/106045e1c54ba3abed6c0cebb3b9a5d6.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-06-25 07:26:13',
+            ],
+            [
+                'id' => 17,
+                'judul' => 'PWI Banyuasin Hadiri Puncak HUT Bhayangkara ke-80 di Polres Banyuasin',
+                'slug' => 'pwi-banyuasin-hadiri-puncak-hut-bhayangkara-ke-80-di-polres-banyuasin-1',
+                'kategori' => 'Kemitraan & Hukum',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Jajaran pengurus dan anggota Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin menghadiri undangan resmi dari Kepolisian Resor (Polres) Banyuasin dalam rangka memperingati Hari Ulang Tahun (HUT) Bhayangkara ke-80. Acara yang berlangsung di Markas Polres Banyuasin pada Rabu, 1 Juli 2026.
+
+Kehadiran PWI Banyuasin ini menegaskan sinergi dan hubungan harmonis yang terus terjalin baik antara institusi kepolisian dan insan pers di wilayah hukum Kabupaten Banyuasin.',
+                'konten' => 'Jajaran pengurus dan anggota Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin menghadiri undangan resmi dari Kepolisian Resor (Polres) Banyuasin dalam rangka memperingati Hari Ulang Tahun (HUT) Bhayangkara ke-80. Acara yang berlangsung di Markas Polres Banyuasin pada Rabu, 1 Juli 2026.<br><br>Kehadiran PWI Banyuasin ini menegaskan sinergi dan hubungan harmonis yang terus terjalin baik antara institusi kepolisian dan insan pers di wilayah hukum Kabupaten Banyuasin.<br><br>Acara peringatan HUT Bhayangkara ke-80 ini diisi dengan serangkaian kegiatan, pemotongan tumpeng sebagai wujud rasa syukur, hingga ramah tamah bersama jajaran Forum Koordinasi Pimpinan Daerah (Forkopimda) Banyuasin, tokoh agama, dan tokoh masyarakat yang&nbsp; hadir.<br><br>Kapolres Banyuasin, AKBP Risnan Aldino, S.I.K menyampaikan apresiasi yang mendalam kepada seluruh elemen masyarakat, termasuk rekan-rekan media yang tergabung dalam PWI Banyuasin, atas dukungan penuh dalam menjaga kondusifitas, keamanan, dan ketertiban masyarakat (Kamtibmas) di wilayah Banyuasin.<br><br>Sementara itu, Ketua PWI Banyuasin menyampaikan ucapan selamat ulang tahun kepada Korps Bhayangkara. PWI Banyuasin berharap, di usianya yang ke-80 ini, Polri khususnya Polres Banyuasin—semakin profesional, modern, dan dicintai masyarakat, serta terus menjadi mitra strategis pers. (***)<br><br>',
+                'gambar' => 'posts/d4789982d974ed091917da4cd2430af0.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-02 22:01:55',
+            ],
+            [
+                'id' => 18,
+                'judul' => 'Kolaborasi PW NU Sumsel , Alfaone dan Media Massa Gelar Aksi Peduli Lingkungan Hidup',
+                'slug' => 'kolaborasi-pw-nu-sumsel-alfaone-dan-media-massa-gelar-aksi-peduli-lingkungan-hidup-1',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'PINGINTAU.ID, SUMSEL- Memperingati Hari Lingkungan Hidup Sedunia yang jatuh pada Jumat, 5 Juni 2026, Pengurus Wilayah Nahdlatul Ulama (PW NU) Sumatra Selatan (Sumsel) bersama Alfaone menggelar aksi peduli lingkungan yang berpusat di Pondok Pesantren Aulia Cendekia.
+
+Aksi nyata diwujudkan melalui penanaman pohon dan penebaran benih ikan di lingkungan pesantren, sebagai bentuk komitmen bersama dalam menjaga kelestarian alam dan ekosistem lokal.',
+                'konten' => '',
+                'gambar' => 'posts/58adce12b5d73107634831ebc38ac22b.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-02 22:15:50',
+            ],
+            [
+                'id' => 19,
+                'judul' => 'Persiapan Porwanas XV Makin Matang, Verifikasi Barcode Perketat Validasi Atlet',
+                'slug' => 'persiapan-porwanas-xv-makin-matang-verifikasi-barcode-perketat-validasi-atlet',
+                'kategori' => 'Olahraga & HPN',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Persiapan penyelenggaraan Pekan Olahraga Wartawan Nasional (Porwanas) XV terus dimatangkan. SIWO PWI Lampung bersama Komite Porwanas memastikan proses verifikasi atlet akan dilakukan lebih ketat melalui sistem pendaftaran berbasis digital guna menjamin keabsahan seluruh peserta.
+
+Komitmen tersebut mengemuka dalam rapat koordinasi yang digelar di Balai Wartawan Hi. Solfian Akhmad, Jumat (26/6/2026). Pertemuan tersebut membahas berbagai aspek teknis penyelenggaraan, mulai dari kesiapan pertandingan, penetapan nomor lomba, hingga mekanisme pendaftaran atlet.',
+                'konten' => '',
+                'gambar' => 'posts/c8c64b7ac719867c7cff7334b02043b0.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-02 23:10:05',
+            ],
+            [
+                'id' => 20,
+                'judul' => 'Dewan Pers: Saatnya Karya Jurnalistik Mendapat Hak Ekonominya',
+                'slug' => 'dewan-pers-saatnya-karya-jurnalistik-mendapat-hak-ekonominya-1',
+                'kategori' => 'Dewan Pers',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Meletakkan jurnalistik dalam karya yang memiliki hak atau nilai ekonomi adalah salah satu fokus yang tengah diperjuangkan oleh Dewan Pers pada semester pertama 2026 ini. Langkah tersebut dinilai penting untuk menjawab tantangan baru yang dihadapi industri media di era digital.
+
+Pada ketentuan yang berlaku saat ini, karya jurnalistik dapat dikutip dan digunakan oleh pihak lain secara gratis selama mencantumkan sumber. Namun, perkembangan teknologi, khususnya kehadiran kecerdasan buatan (artificial intelligence/AI), telah menghadirkan persoalan baru.',
+                'konten' => '',
+                'gambar' => 'posts/da2e9bea5cc61306b78bf8d9248374d0.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-17 00:14:10',
+            ],
+            [
+                'id' => 21,
+                'judul' => 'Pernyataan Dewan Pers Terkait Kasus Penghalangan Kerja Jurnalistik',
+                'slug' => 'pernyataan-dewan-pers-terkait-kasus-penghalangan-kerja-jurnalistik-1',
+                'kategori' => 'Dewan Pers',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Dewan Pers menerima informasi terkait penghalangan pelaksanaan tugas jurnalistik wartawan Tempo saat meliput di lingkungan Kejaksaan Agung, Jakarta, pada Kamis 9 Juli 2026. Jurnalis tersebut diminta oleh dua oknum aparat menghapus foto personil tentara yg bertugas di lingkungan Kejaksaan Agung.',
+                'konten' => '',
+                'gambar' => 'posts/b1cc2c829114b82a930fb00e4eb2b183.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-17 13:05:56',
+            ],
+            [
+                'id' => 22,
+                'judul' => 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
+                'slug' => 'penguatan-adart-pwi-pusat-sosialisasi-lima-po',
+                'kategori' => 'Organisasi & Advokasi',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'JAKARTA – Pengurus Pusat Persatuan Wartawan Indonesia (PWI) sebagai upaya penguatan konsolidasi organisasi dan mengawal profesi wartawan, melakukan sosialisasi lima Peraturan Organisasi (PO), yang sudah dibahas pada Rapat Pleno 30 Juni 2026.
+
+Sosiolisasi lima (PO) yang menjadi landasan penguatan tata kelola organisasi secara nasional, dipimpin langsung Ketua Umum PWI Pusat Akhmad Munir, didampingi Sekretaris Jenderal M. Selamet Susanto,
+
+bersama jajaran pengurus pusat dan diikuti secara langsung maupun daring oleh jajaran Pengurus PWI Pusat dan Pengurus Provinsi se-Indonesia.
+
+Sosialisasi lima PO, berlangsung pada Rabu, 15 Juli 2026, di Ruang Rapat PWI Pusat Lantai 4, Jalan Kebon Sirih No. 32–34, Jakarta Pusat, dengan menjelaskan satu per satu PO sebagai pedoman yang standar penyelenggaraan organisasi.',
+                'konten' => '',
+                'gambar' => 'posts/4e3e6b0752b86579157910b199ec606b.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-19 11:02:53',
+            ],
+            [
+                'id' => 23,
+                'judul' => 'UU  Pers, PD, PRT  PWI, KEJ, Kode Perilaku Wartawan',
+                'slug' => 'uu-pers-pd-prt-pwi-kej-kode-perilaku-wartawan-1',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Akses dan unduh berbagai dokumen resmi Persatuan Wartawan Indonesia, mulai dari peraturan dasar, panduan jurnalistik, hingga surat keputusan kepengurusan.',
+                'konten' => '',
+                'gambar' => 'posts/e2197e5239a7d4aa107b50aa6cba3927.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-19 11:19:33',
+            ],
+            [
+                'id' => 24,
+                'judul' => 'Dewan Pers Sesalkan Pernyataan Hotman Paris yang Dinilai Merendahkan Wartawan',
+                'slug' => 'dewan-pers-sesalkan-pernyataan-hotman-paris-yang-dinilai-merendahkan-wartawan-1',
+                'kategori' => 'Dewan Pers',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Jakarta – Dewan Pers menyayangkan pernyataan advokat Hotman Paris Hutapea yang dinilai bernada merendahkan profesi wartawan saat konferensi pers usai pemeriksaan kliennya, Febrie Adriansyah, di Gedung Jaksa Agung Muda Tindak Pidana Khusus (Jampidsus) Kejaksaan Agung, Jakarta, Jumat (17/7/2026).
+
+Peristiwa tersebut terjadi ketika seorang wartawan menanyakan apakah Febrie Adriansyah, mantan Jaksa Agung Muda Tindak Pidana Khusus, merasa dikriminalisasi dalam perkara dugaan korupsi dan tindak pidana pencucian uang PT Asabri yang menjeratnya. Menanggapi pertanyaan itu, Hotman Paris menjawab dengan kalimat, "Menurut kau gimana? Lu punya otak gak?"',
+                'konten' => '',
+                'gambar' => 'posts/dfb2f9a3b1b5c333b5d3ace47ec17699.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-20 23:29:52',
+            ],
+            [
+                'id' => 6,
+                'judul' => 'Intelkam Polda Sumsel Sambangi Ketua PWI Banyuasin, Perkuat Sinergi Jaga Kamtibmas',
+                'slug' => 'intelkam-polda-sumsel-sambangi-ketua-pwi-banyuasin-perkuat-sinergi-jaga-kamtibmas-1',
+                'kategori' => 'Kemitraan & Hukum',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin, Wardoyo, S.I.Kom, menerima kunjungan silaturahmi dari jajaran Intelkam Polda Sumatera Selatan (Sumsel). Kunjungan ini menjadi upaya memperkuat sinergitas serta menjaga stabilitas keamanan dan ketertiban masyarakat (kamtibmas) di wilayah Banyuasin.
+
+Silaturahmi tersebut berlangsung di kediaman Wardoyo di Tanah Mas Azhar KM 14, Kecamatan Talang Kelapa, Kabupaten Banyuasin, Kamis 18 Desember 2025.',
+                'konten' => '<p>Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin, Wardoyo, S.I.Kom, menerima kunjungan silaturahmi dari jajaran Intelkam Polda Sumatera Selatan (Sumsel). Kunjungan ini menjadi upaya memperkuat sinergitas serta menjaga stabilitas keamanan dan ketertiban masyarakat (kamtibmas) di wilayah Banyuasin.<br><br>Silaturahmi tersebut berlangsung di kediaman Wardoyo di Tanah Mas Azhar KM 14, Kecamatan Talang Kelapa, Kabupaten Banyuasin, Kamis 18 Desember 2025. <br></p><p>Ia menegaskan, peran pers sangat penting dalam menjaga situasi daerah tetap kondusif melalui penyampaian informasi yang berimbang dan bertanggung jawab.<br><br>“PWI Banyuasin siap terus bersinergi dengan Polda Sumsel dan Polres Banyuasin, baik dalam penyampaian informasi publik maupun dalam menjaga situasi kamtibmas yang aman dan kondusif,” ujarnya.<br>Hadir mewakili Intelkam Polda Sumsel yakni AKP Yuli M, Ipda Akian, dan Prasojo.<br><br>Wardoyo menyambut baik kunjungan tersebut dan mengapresiasi langkah Intelkam Polda Sumsel yang terus membangun komunikasi dengan insan pers.<br><br>“Terima kasih kepada Ibu AKP Yuli, Ipda Akian, dan Prasojo yang telah berkenan bersilaturahmi ke rumah Ketua PWI Banyuasin. Semoga rajutan silaturahmi ini semakin memperkuat sinergitas antara Intelkam Polda Sumsel dan PWI Banyuasin,” kata Wardoyo.<br></p><p>Dalam kesempatan tersebut, jajaran Intelkam Polda Sumsel juga menyampaikan ucapan selamat kepada Wardoyo atas amanah barunya sebagai Ketua PWI Banyuasin periode 2025–2028.<br><br>Sementara itu, Ipda Akian menyampaikan bahwa kunjungan tersebut murni sebagai ajang silaturahmi sekaligus bentuk dukungan terhadap kepemimpinan baru di PWI Banyuasin.<br><br>“Kami bersilaturahmi sekaligus mengucapkan selamat kepada Mas Wardoyo atas terpilihnya sebagai Ketua PWI Banyuasin. Harapannya, sinergi yang sudah terjalin dapat terus ditingkatkan,” kata Akia<br><br></p>',
+                'gambar' => 'posts/38d03477e82497d8dcb8a33e47a37927.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2025-12-19 06:55:23',
+            ],
+            [
+                'id' => 1,
+                'judul' => 'PWI Banyuasin Resmi Dilantik : Pemkab Harap Insan Pers Jaga Marwah, Profesionalisme dan Perkuat Demokrasi',
+                'slug' => 'pwi-banyuasin-resmi-dilantik-pemkab-harap-insan-pers-jaga-marwah-profesionalisme-dan-perkuat-demokrasi',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin periode 2025–2028 resmi dilantik pada Rabu (26/11/2025). Prosesi pelantikan berlangsung khidmat dan dihadiri jajaran Pemerintah Kabupaten Banyuasin, tokoh media, serta puluhan jurnalis dari berbagai organisasi pers. Pemkab Harap Insan Pers Jaga Marwah, Profesionalisme dan Perkuat Demokrasi. Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin periode 2025–2028 resmi dilantik. Rabu 26 November 2025.',
+                'konten' => '<p>Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin periode 2025–2028 resmi dilantik pada Rabu (26/11/2025). Prosesi pelantikan berlangsung khidmat dan dihadiri jajaran Pemerintah Kabupaten Banyuasin, tokoh media, serta puluhan jurnalis dari berbagai organisasi pers. Pemkab Harap Insan Pers Jaga Marwah, Profesionalisme dan Perkuat Demokrasi. Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin periode 2025–2028 resmi dilantik. Rabu 26 November 2025. </p><p><br>Prosesi pelantikan berlangsung khidmat dan dihadiri jajaran Pemerintah Kabupaten Banyuasin, tokoh media, serta puluhan jurnalis dari berbagai organisasi pers.<br></p><p>Dalam sambutannya, perwakilan Pemerintah Kabupaten Banyuasin menyampaikan harapan besar terhadap peran strategis PWI pada periode baru ini. Pemerintah menekankan pentingnya menjaga marwah profesi wartawan, meningkatkan kualitas pemberitaan, serta memperkuat kontribusi pers dalam proses demokrasi di daerah.<br></p><p>“Pers memiliki posisi penting sebagai pilar demokrasi. Kami berharap PWI Banyuasin mampu membawa ekosistem jurnalisme yang sehat, profesional, dan tetap mengedepankan etika dalam setiap penyajian informasi,”Kata Sekretaris Daerah (Sekda) Kabupaten Banyuasin, Ir. Erwin Ibrahim, ST., MM., MBA., IPU., ASEAN.Eng. Rabu (26/11)<br><br>Dikatakan Pelantikan momentum konsolidasi internal PWI untuk melanjutkan program peningkatan kompetensi wartawan di Banyuasin. Selain itu, PWI diharapkan menjadi mitra kritis pemerintah, bukan sekadar penyampai informasi, tetapi juga pengawas kebijakan publik.<br><br>Ketua PWI Banyuasin, Wardoyo, S.I.Kom yang baru dilantik menyatakan komitmennya untuk memperkuat solidaritas antarjurnalis, meningkatkan kualitas kerja, serta menjaga independensi dalam peliputan. <br><br>“Kami siap bersinergi, tetapi tetap menjalankan fungsi kontrol sosial demi kepentingan masyarakat,” tegasnya.<br><br>Acara ditutup dengan sesi foto bersama dan ramah tamah antara wartawan, pemerintah, dan tamu undangan. Pelantikan ini diharapkan menjadi titik awal bagi peningkatan kualitas pers di Bumi Sedulang Setudung. (***)<br></p>',
+                'gambar' => 'posts/berita1_1765956816.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2025-12-17 14:33:36',
+            ],
+            [
+                'id' => 26,
+                'judul' => 'Tak Sudi Marwah Pers Diusik, PWI Banyuasin Berdiri Tegak Dibelakang PWI Pusat!',
+                'slug' => 'tak-sudi-marwah-pers-diusik-pwi-banyuasin-berdiri-tegak-dibelakang-pwi-pusat',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin secara tegas menyatakan dukungan penuh terhadap langkah dan rilis resmi yang dikeluarkan oleh PWI Pusat merespons pernyataan pengacara Hotman Paris Hutapea.
+
+Jajaran PWI Banyuasin menilai bahwa pandangan dan arahan yang disampaikan PWI Pusat merupakan bentuk perlindungan konkret terhadap kehormatan profesi wartawan, kemerdekaan pers, serta ketaatan terhadap amanat Undang-Undang Nomor 40 Tahun 1999 tentang Pers dan Kode Etik Jurnalistik (KEJ).',
+                'konten' => '',
+                'gambar' => 'posts/f2b9f8cb00117d4bdafba3e50f1b6eac.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-07-21 16:26:36',
+            ],
+            [
+                'id' => 27,
+                'judul' => 'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
+                'slug' => 'semarakkan-kemerdekaan-pwi-banyuasin-gelar-turnamen-mini-soccer-2026',
+                'kategori' => 'Olahraga & HPN',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Dalam rangka mempererat tali silaturahmi sekaligus memeriahkan Hari Ulang Tahun (HUT) Kemerdekaan Republik Indonesia ke-81, Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin menggelar ajang Turnamen Mini Soccer. Selasa 18 Agustus 2026 di stadion Bintang Mini  Soccer Banyuasin III
+
+Kegiatan yang berlangsung meriah di Pangkalan Balai diikuti oleh belasan tim yang terdiri dari insan pers, perwakilan instansi pemerintah daerah, hingga organisasi masyarakat setempat.
+
+Ketua PWI Banyuasin, Wardoyo, S.I.Kom  menegaskan bahwa ajang ini tidak sekadar kompetisi olahraga, tetapi juga wadah untuk melepaskan penat dari rutinitas peliputan harian sekaligus menjaga kebugaran fisik para jurnalis.',
+                'konten' => 'Dalam rangka mempererat tali silaturahmi sekaligus memeriahkan Hari Ulang Tahun (HUT)
+Kemerdekaan Republik Indonesia ke-81, Persatuan Wartawan Indonesia (PWI)
+Kabupaten Banyuasin menggelar ajang Turnamen Mini Soccer. Selasa 18 Agustus 2026
+di stadion Bintang Mini Soccer Banyuasin III
+
+Kegiatan yang berlangsung meriah di Pangkalan Balai diikuti oleh belasan tim yang terdiri dari insan pers, perwakilan instansi pemerintah daerah, hingga organisasi masyarakat setempat.
+
+Ketua PWI Banyuasin, Wardoyo,S.I.Kom menegaskan bahwa ajang ini tidak
+sekadar kompetisi olahraga, tetapi juga wadah untuk melepaskan penat dari
+rutinitas peliputan harian sekaligus menjaga kebugaran fisik para jurnalis.
+
+"Sebagai pekerja media, mobilitas harian kita sangat tinggi. Melalui turnamen mini soccer ini, kita ingin mengampanyekan gaya hidup sehat sekaligus memperkuat soliditas antar-wartawan dan mitra kerja di Kabupaten Banyuasin. Menang atau kalah itu bonus, yang utama kebersamaan," tuturnya di sela-sela pertandingan.
+
+Masih kata Wardoyo,Junjung Tinggi Sportivitas, “Boleh adu strategi dan gengsi di dalam lapangan, tetapi begitu peluit panjang berbunyi, kita tetaplah sahabat,”ujarnya
+
+Orang nomor satu di PWI Banyuasin berpesan,Bermainlah dengan gembira, utamakan keselamatan, dan tunjukkan permainan yang menghibur.
+
+Sementara itu, Asisten II Bidang Perekonomian dan Pembangunan Kabupaten Banyuasin, Ir. Alpian Soleh, M.M., membuka Open Turnamen Mini Soccer PWI Banyuasin 2026. Dalam sambutannya, Alpian Soleh menyampaikan pesan pentingnya menjunjung tinggi sportivitas selama pertandingan berlangsung. Ia mengingatkan seluruh peserta untuk mematuhi aturan permainan serta saling menghargai baik terhadap lawan maupun rekan satu tim.
+
+"Jangan sampai karena permainan ini kita terpecah belah. Kita harus tetap kokoh dan kompak. Olahraga adalah sarana pemersatu, bukan pemecah," ujar Alpian.
+
+Hadir, dalam pembukaan turnamen, Asisten II Bidang Perekonomian dan Pembangunan Kabupaten Banyuasin, Ir. Alpian Soleh,M.M, Ketua DPRD Kabupaten Banyuasin, Abdul Rais, S.M., Plt. Sekretaris Dinas Kepemudaan, Olahraga dan Pariwisata (Disporapar) Kabupaten Banyuasin, Mat Rusik, S.E., M.Si., Kabag Umum Setda Kabupaten Banyuasin, Rustam. SH. M. Si, Plt KONI Banyuasin Rayan Nurdinsyah. SSTP. M. Si, serta unsur
+Forkopimda lainnya. (***)<p></p>',
+                'gambar' => 'posts/04f62b08dac5547b16130d2544057152.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-08-19 03:13:08',
+            ],
+            [
+                'id' => 28,
+                'judul' => 'Satu Lapangan, Satu Semangat,  Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin',
+                'slug' => 'satu-lapangan-satu-semangat-kemitraan-pwi-dan-pemerintah-daerah-menggema-di-banyuasin',
+                'kategori' => 'Kegiatan PWI',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'Bupati Banyuasin Dr. H. Askolani, S.H., M.H. secara resmi menutup Turnamen Mini Soccer Perdana yang diselenggarakan oleh Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin di Lapangan Bintang Mega Mini Soccer, Kelurahan Kedondong Raye, Pangkalan Balai, Kamis 20 Agustus 2026.
+
+Ajang yang berlangsung selama tiga hari dari tanggal 18 -20 Agustus 2026 berjalan meriah dan mendapat antusiasme tinggi dari para peserta maupun masyarakat. Selain menjadi wadah kompetisi, kegiatan sebagai sarana mempererat tali silaturahmi serta mendorong semangat sportivitas dan kebersamaan di Kabupaten Banyuasin.',
+                'konten' => 'Bupati Banyuasin Dr. H. Askolani, S.H., M.H. secara resmi menutup Turnamen Mini Soccer Perdana yang diselenggarakan oleh Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin di Lapangan Bintang Mega Mini Soccer, Kelurahan Kedondong Raye, Pangkalan Balai, Kamis 20 Agustus 2026.<br><br><br>Ajang yang berlangsung selama tiga hari dari tanggal 18 -20 Agustus 2026 berjalan meriah dan mendapat antusiasme tinggi dari para peserta maupun masyarakat. Selain menjadi wadah kompetisi, kegiatan sebagai sarana mempererat tali silaturahmi serta mendorong semangat sportivitas dan kebersamaan di Kabupaten Banyuasin.<br><br>Ketua PWI Kabupaten Banyuasin, Wardoyo, S.I.Kom., menyampaikan apresiasi mendalam kepada seluruh pihak yang telah mendukung terselenggaranya mini Soccer PWI Banyuasin yang perdana<br><br>"Kami dari PWI Banyuasin mengucapkan terima kasih kepada Bapak Bupati Banyuasin, seluruh jajaran Pemkab, panitia, wasit, serta peserta yang telah memberikan dukungan atas terselenggara mini soccer PWI Banyuasin yang perdana,”<br><br>Masih Kata Wardoyo, menang kalah itu hal yang biasa dalam bertanding,&nbsp; Yang paling penting dari kegiatan ini adalah silaturahmi dan sportivitas.<br><br>“Kami berharap turnamen ini menjadi agenda rutin tahunan PWI Banyuasin dengan skala yang lebih besar, mohon dukunganya Bapak Bupati Banyuasin,"Tegas Wardoyo.<br><br>Sementara itu, Bupati Banyuasin Dr. H. Askolani, SH, MH&nbsp; turut memuji inisiatif PWI Banyuasin. Ia menilai kegiatan olahraga seperti ini tidak hanya sekadar ajang unjuk kebolehan, tetapi juga ampuh membangun rasa kebersamaan antara insan pers, pemerintah dan elemen masyarakat.<br><br>“Atas nama Pemerintah Banyuasin dan atas nama pribadi memberi apresiasi kepada PWI Banyuasin yang telah sukses mengadakan Turnamen Mini Soccer, dalam rangka HUT Kemerdekaan RI yang Ke-81,”kata Bupati Banyuasin Dr. H. Askolani.<br><br>Daftar Pemenang dan Penghargaan<br><br>Juara I – Araey FC: Mengamankan Trofi Bergilir, uang pembinaan Rp4,5 juta, medali dan sertifikat.<br>Juara II – Suggar Daddy,&nbsp; Meraih uang pembinaan Rp3,5 juta, medali, dan sertifikat.<br>Juara III – Al Quds,&nbsp; Meraih uang pembinaan Rp2,5 juta, medali dan sertifikat.<br>Juara IV – Nafas Tua FC,&nbsp; Meraih uang pembinaan Rp1 juta dan sertifikat.<br><br>Sedangkan untuk Top Scorer – Ade (Al Quds),&nbsp; mencetak 14 gol sepanjang turnamen, berhak atas trofi Top Score dan uang pembinaan Rp500ribu. (Tim)<br><br>',
+                'gambar' => 'posts/102a94b84592bf379cc27a97dd9dff2b.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-08-21 02:35:10',
+            ],
+            [
+                'id' => 29,
+                'judul' => 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO',
+                'slug' => 'penguatan-adart-pwi-pusat-sosialisasi-lima-po-2',
+                'kategori' => 'Organisasi & Advokasi',
+                'penulis' => 'Wardoyo, S.I.Kom',
+                'ringkasan' => 'JAKARTA – Pengurus Pusat Persatuan Wartawan Indonesia (PWI) sebagai upaya penguatan konsolidasi organisasi dan mengawal profesi wartawan, melakukan sosialisasi lima Peraturan Organisasi (PO), yang sudah dibahas pada Rapat Pleno 30 Juni 2026.
+Sosiolisasi lima (PO) yang menjadi landasan penguatan tata kelola organisasi secara nasional, dipimpin langsung Ketua Umum PWI Pusat Akhmad Munir, didampingi Sekretaris Jenderal M. Selamet Susanto,
+bersama jajaran pengurus pusat dan diikuti secara langsung maupun daring oleh jajaran Pengurus PWI Pusat dan Pengurus Provinsi se-Indonesia.',
+                'konten' => '',
+                'gambar' => 'posts/ab51e7a5fbaa85fe67af6143c08707e5.webp',
+                'status' => 'published',
+                'views_count' => 0,
+                'published_at' => '2026-08-25 02:36:21',
+            ],
+        ];
+        foreach ($allPosts as $p) {
+            Post::updateOrCreate(['id' => $p['id']], $p);
+        }
+
+        // 7. Galeri PWI Resmi (Tepat 17 Dokumentasi Kegiatan Lengkap & Foto Terverifikasi)
+        $allGalleries = [
+            [
+                'id' => 29,
+                'judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
+                'deskripsi' => 'Bupati Banyuasin, Dr.H.Askolani, SH,MH  memberikan Piala juara I Mini Soccer PWI Banyuasin 2026 di Stadion Mini Gading Pangkalan Balai',
+                'foto' => 'galleries/f8ec3d4a1ef4abe74b332e46d395f141.webp',
+                'tanggal_kegiatan' => '2026-08-31',
+            ],
+            [
+                'id' => 28,
+                'judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
+                'deskripsi' => 'Penutupan  Turnamen Mini Soccer 2026 PWI Banyuasin  di Pangkalan Balai. Kamis 20 Agustus 2026.',
+                'foto' => 'galleries/ccb967e2dcc8c71737fc08f05d9333e9.webp',
+                'tanggal_kegiatan' => '2026-08-31',
+            ],
+            [
+                'id' => 27,
                 'judul' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026',
                 'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.Selasa 18 Agustus 2026.',
                 'foto' => 'galleries/e44ddc9ff3b7608ed6ce6af8aeb7b13e.webp',
                 'tanggal_kegiatan' => '2026-08-19',
             ],
             [
-                'id' => 2,
-                'judul' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin',
-                'deskripsi' => 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.',
-                'foto' => 'galleries/9cFhjTxQwpmEvdkjLLALebkNoFaq584GbNMmYB6V.webp',
-                'tanggal_kegiatan' => '2026-08-20',
-            ],
-            [
-                'id' => 3,
-                'judul' => 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa',
-                'deskripsi' => 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.',
-                'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
-                'tanggal_kegiatan' => '2026-06-25',
-            ],
-            [
-                'id' => 4,
-                'judul' => 'PWI - Tim Sespim Lemdiklat Polri',
-                'deskripsi' => '\r\nGiat. Rabu 29 April 2026 di Polres Banyuasin. Keterangan Foto : Wardoyo, S. I. Kom, Brigjen Pol Defrian Dominando, S. I. K, MH, Ridho Andi Sucipto, M. Pd dan Kombes Pol Joni Iskandar, S. I. K. Foto : Humas',
-                'foto' => 'galleries/d2b050819fd26b2bdca26c97598991e1.webp',
-                'tanggal_kegiatan' => '2026-05-04',
-            ],
-            [
-                'id' => 5,
-                'judul' => 'Rangkaian Giat HPN di Banten',
-                'deskripsi' => 'Seminar Sport Tourism Banten dalam rangka Hari Pers Nasional 2026 delegasi PWI Banyuasin di Hotel Le Dian.',
-                'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp',
-                'tanggal_kegiatan' => '2026-02-07',
-            ],
-            [
-                'id' => 6,
-                'judul' => 'PWI Banyuasin Berangkat ke Banten - HPN 2026',
-                'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN) 2026.',
-                'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp',
-                'tanggal_kegiatan' => '2026-02-06',
-            ],
-            [
-                'id' => 7,
-                'judul' => 'Rapat Persiapan ke Banten - HPN 2026',
-                'deskripsi' => 'Rapat persiapan delegasi ke Banten dalam rangka HPN di ruang rapat Diskominfo Banyuasin.',
-                'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp',
-                'tanggal_kegiatan' => '2026-02-03',
-            ],
-            [
-                'id' => 8,
-                'judul' => 'Audiensi di Lapas Kelas IIA Banyuasin',
-                'deskripsi' => 'Kepala Lembaga Pemasyarakatan Kelas IIA Banyuasin Dr. Tetra Destorie Imantoro, A.Md.IP., S.Sos., M.H menerima kunjungan Ketua PWI Banyuasin Wardoyo, S.I.Kom.',
-                'foto' => 'galleries/12ee2975e657e43e83ac7b7c4bcb0eb4.webp',
-                'tanggal_kegiatan' => '2026-01-27',
-            ],
-            [
-                'id' => 9,
+                'id' => 25,
                 'judul' => 'PWI Banyuasin Gelar Mini Soccer 2026',
                 'deskripsi' => 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.Selasa 18 Agustus 2026.',
                 'foto' => 'galleries/afaea919701acde8a482cfc41841bc84.webp',
                 'tanggal_kegiatan' => '2026-08-19',
             ],
             [
-                'id' => 10,
+                'id' => 24,
                 'judul' => 'Sinergi PWI -  Damdim 0430 /Banyuasin dan Mahasiswa',
                 'deskripsi' => '',
                 'foto' => 'galleries/1cfefb92f8afafe981cea6adf5f5acd4.webp',
                 'tanggal_kegiatan' => '2026-06-25',
             ],
             [
-                'id' => 11,
+                'id' => 23,
+                'judul' => 'PWI - Tim Sespim Lemdiklat Polri',
+                'deskripsi' => 'Giat. Rabu 29 April 2026 di Polres Banyuasin. Keterangan Foto : Wardoyo, S. I. Kom, Brigjen Pol Defrian Dominando, S. I. K, MH, Ridho Andi Sucipto, M. Pd dan Kombes Pol Joni Iskandar, S. I. K. Foto : Humas',
+                'foto' => 'galleries/d2b050819fd26b2bdca26c97598991e1.webp',
+                'tanggal_kegiatan' => '2026-05-04',
+            ],
+            [
+                'id' => 17,
                 'judul' => 'Rangkaian giat HPN di Banten',
                 'deskripsi' => 'Seminar Sport Tourism Banten. Tanggal 7 Februari  2026 di Hotel Le Dian.  Foto : Humas',
                 'foto' => 'galleries/9685b7220dbf97f4cb0b9ada41a776e6.webp',
                 'tanggal_kegiatan' => '2026-02-12',
             ],
             [
-                'id' => 12,
+                'id' => 16,
                 'judul' => 'PWI Banyuasin -  berangkat ke Banten - HPN - 2026',
                 'deskripsi' => 'PWI Banyuasin berangkat ke Banten dalam rangka Hari Pers Nasional (HPN). Jumat 06 Februari 2026',
                 'foto' => 'galleries/ba23abe354a929947e4db89c17bda404.webp',
                 'tanggal_kegiatan' => '2026-02-06',
             ],
             [
-                'id' => 13,
+                'id' => 15,
                 'judul' => 'Rapat persiapan berangkat ke Banten - Hari Pers Nasional',
                 'deskripsi' => 'Rapat persiapan  ke Banten dalam rangka Hari Pers Nasional (HPN) Selasa 3 Februari  2026 di ruang rapat Dinas Komunikasi dan  Informatika  Kabupaten Banyuasin.',
                 'foto' => 'galleries/146a259265d7af805eac32f39ec3c89c.webp',
@@ -377,35 +744,49 @@ class DatabaseSeeder extends Seeder
                 'tanggal_kegiatan' => '2026-01-28',
             ],
             [
-                'id' => 15,
+                'id' => 13,
                 'judul' => 'Foto audensi di Lapas Kelas II Banyuasin',
                 'deskripsi' => 'Pengurus PWI Banyuasin audensi  dan  foto bersama dengan Pejabat  Lapas kelas II Banyuasin,  Selasa, 27  Januari 2026. Foto : Humas',
                 'foto' => 'galleries/c6217fbc90d91382bc8cd717c9a9517b.webp',
                 'tanggal_kegiatan' => '2026-01-28',
             ],
             [
-                'id' => 16,
+                'id' => 10,
                 'judul' => 'Pelantikan PWI Banyuasin',
-                'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028. Rabu 26 November 2025 di Gedung  Auditorium Pemkab Banyuasin. Foto : Humas',
-                'foto' => 'galleries/d4c70f029077810e0eb82a1d7c042a10.webp',
+                'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028. Rabu 26 November 2025 di Gedung Auditorium Pemkab Banyuasin. Foto : Humas',
+                'foto' => 'galleries/296afb0c86ba6526b068fe954bd7a800.webp',
+                'tanggal_kegiatan' => '2025-12-19',
+            ],
+            [
+                'id' => 8,
+                'judul' => 'PWi Banyuasin, giat Jumat Berbagi',
+                'deskripsi' => 'PWI Banyuasin mengadakan jumat  berbagi di Km42. Jumat 5 Desember 2025. Foto : Humas',
+                'foto' => 'galleries/9ab600e29ac0798c1ad4502e5d64e609.webp',
                 'tanggal_kegiatan' => '2025-12-16',
             ],
             [
-                'id' => 17,
+                'id' => 7,
                 'judul' => 'PWi Banyuasin, giat Jumat Berbagi',
                 'deskripsi' => 'PWI Banyuasin mengadakan jumat berbagi di Jln KH. Sulaiman atau simpang  kedondong- Pangkalan Balai. Jumat 12 Desember 2025. Foto : Humas',
                 'foto' => 'galleries/62c61bc05fd2c56e4dfaed9437d11677.webp',
                 'tanggal_kegiatan' => '2025-12-16',
             ],
             [
-                'id' => 18,
+                'id' => 6,
                 'judul' => 'PWI Banyuasin Audiensi dengan Bupati Banyuasin',
                 'deskripsi' => 'Pengurus PWI Banyuasin Masa Bhakti 2025 - 2028 Audensi dengan Bupati Banyuasin- Bapak Dr.H.Askolani, SH, MH di Rumah Dinas Bupati. Kamis 11 November 2025. Foto : Humas',
                 'foto' => 'galleries/a45900ed75bb6941729a47db424629a2.webp',
                 'tanggal_kegiatan' => '2025-12-16',
             ],
             [
-                'id' => 19,
+                'id' => 5,
+                'judul' => 'Pelantikan PWI Banyuasin',
+                'deskripsi' => 'Pelantikan PWI Banyuasin Masa Bhakti 2025 - 2028. Rabu 26 November 2025 di Gedung  Auditorium Pemkab Banyuasin. Foto : Humas',
+                'foto' => 'galleries/d4c70f029077810e0eb82a1d7c042a10.webp',
+                'tanggal_kegiatan' => '2025-12-16',
+            ],
+            [
+                'id' => 3,
                 'judul' => 'PWI Banyuasin Audensi dengan Bupati Banyuasin',
                 'deskripsi' => 'Pengurus PWI Banyuasin Audensi dengan Bupati Banyuasin, Dr. H.Askolani, SH, MH. Kamis 11 Desember 2025. Foto : Humas',
                 'foto' => 'galleries/8cfd83065804b4fd862a5a529f50b596.webp',
@@ -437,7 +818,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($lettersData as $ld) {
-            Letter::create(array_merge([
+            Letter::updateOrCreate(['nomor_surat' => $ld['nomor_surat']], array_merge([
                 'tempat_tujuan' => 'Di Tempat',
                 'penandatangan_nama' => 'Wardoyo, S.I.Kom',
                 'penandatangan_sekretaris' => 'Deni Arianto',
@@ -468,12 +849,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($incomingList as $in) {
-            IncomingLetter::create($in);
+            IncomingLetter::updateOrCreate(['nomor_surat' => $in['nomor_surat']], $in);
         }
 
         // 10. Notulen Rapat & Daftar Hadir (Fitur Baru PRD v2.0)
-        $meeting1 = MeetingMinute::create([
+        $meeting1 = MeetingMinute::updateOrCreate([
             'judul_rapat' => 'Rapat Pleno Persiapan Turnamen Mini Soccer Piala PWI 2026 & Konsolidasi UKW',
+        ], [
             'tanggal' => Carbon::parse('2026-08-10'),
             'waktu_mulai' => '09:00:00',
             'waktu_selesai' => '12:30:00',
@@ -485,19 +867,21 @@ class DatabaseSeeder extends Seeder
             'kesimpulan' => "1. Turnamen Mini Soccer dijadwalkan tanggal 19-31 Agustus 2026 dengan 16 tim peserta mitra instansi.\n2. Mengirimkan surat pemberitahuan UKW ke PWI Sumsel.\n3. Seluruh anggota PWI Banyuasin wajib berpartisipasi aktif dalam kepanitiaan.",
         ]);
 
-        // Catat absensi kehadiran untuk 48 anggota
+        // Catat absensi kehadiran untuk anggota
         foreach ($allMembers as $i => $m) {
             $status = ($i % 7 == 0) ? 'izin' : (($i % 13 == 0) ? 'alpa' : 'hadir');
-            MeetingAttendance::create([
+            MeetingAttendance::updateOrCreate([
                 'meeting_minute_id' => $meeting1->id,
                 'member_id' => $m->id,
+            ], [
                 'status_kehadiran' => $status,
                 'keterangan' => $status === 'izin' ? 'Tugas Peliputan Luar Kota' : ($status === 'alpa' ? 'Tanpa Keterangan' : 'Hadir Tepat Waktu'),
             ]);
         }
 
-        $meeting2 = MeetingMinute::create([
+        $meeting2 = MeetingMinute::updateOrCreate([
             'judul_rapat' => 'Rapat Evaluasi Kinerja Semester I & Verifikasi Berkas Keanggotaan',
+        ], [
             'tanggal' => Carbon::parse('2026-06-15'),
             'waktu_mulai' => '13:30:00',
             'waktu_selesai' => '16:00:00',
@@ -511,9 +895,10 @@ class DatabaseSeeder extends Seeder
 
         foreach ($allMembers as $i => $m) {
             $status = ($i % 5 == 0) ? 'izin' : 'hadir';
-            MeetingAttendance::create([
+            MeetingAttendance::updateOrCreate([
                 'meeting_minute_id' => $meeting2->id,
                 'member_id' => $m->id,
+            ], [
                 'status_kehadiran' => $status,
                 'keterangan' => $status === 'izin' ? 'Sedang Liputan di Betung' : 'Hadir',
             ]);

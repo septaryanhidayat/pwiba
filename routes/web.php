@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\IncomingLetterController;
+use App\Http\Controllers\Admin\LeaderController;
 use App\Http\Controllers\Admin\LetterController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MeetingMinuteController;
@@ -24,6 +25,7 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/berita', [PublicController::class, 'news'])->name('news.index');
 Route::get('/berita/{slug}', [PublicController::class, 'newsDetail'])->name('news.show');
 Route::get('/struktur-organisasi', [PublicController::class, 'organization'])->name('organization.public');
+Route::get('/ketua-dari-masa-ke-masa', [PublicController::class, 'leaders'])->name('leaders.public');
 Route::get('/anggota', [PublicController::class, 'members'])->name('members.public');
 Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.public');
 Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store');
@@ -68,6 +70,12 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::post('/struktur-organisasi', [OrganizationController::class, 'store'])->name('organization.store');
     Route::put('/struktur-organisasi/{id}', [OrganizationController::class, 'update'])->name('organization.update');
     Route::delete('/struktur-organisasi/{id}', [OrganizationController::class, 'destroy'])->name('organization.destroy');
+
+    // Modul Ketua Dari Masa ke Masa
+    Route::get('/ketua-dari-masa-ke-masa', [LeaderController::class, 'index'])->name('leaders.index');
+    Route::post('/ketua-dari-masa-ke-masa', [LeaderController::class, 'store'])->name('leaders.store');
+    Route::put('/ketua-dari-masa-ke-masa/{leader}', [LeaderController::class, 'update'])->name('leaders.update');
+    Route::delete('/ketua-dari-masa-ke-masa/{leader}', [LeaderController::class, 'destroy'])->name('leaders.destroy');
 
     // Modul Surat Keluar (Administrasi)
     Route::get('/surat-keluar', [LetterController::class, 'index'])->name('letters.index');

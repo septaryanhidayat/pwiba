@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use App\Models\Inbox;
+use App\Models\Leader;
 use App\Models\Letter;
 use App\Models\Media;
 use App\Models\Member;
@@ -97,6 +98,14 @@ class PublicController extends Controller
         $settings = Setting::pluck('value', 'key')->all();
 
         return view('public.organization', compact('structures', 'settings'));
+    }
+
+    public function leaders()
+    {
+        $leaders = Leader::orderBy('urutan', 'asc')->get();
+        $settings = Setting::pluck('value', 'key')->all();
+
+        return view('public.leaders', compact('leaders', 'settings'));
     }
 
     public function members(Request $request)

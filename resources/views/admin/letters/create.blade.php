@@ -26,7 +26,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat Resmi *</label>
-                    <input type="text" name="nomor_surat" value="{{ old('nomor_surat', $generatedNumber) }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-blue-700 dark:text-blue-400 focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="nomor_surat" value="{{ old('nomor_surat', $generatedNumber ?? $nomorSurat ?? '') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-blue-700 dark:text-blue-400 focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                     <span class="text-[11px] text-slate-500 mt-1 block">Nomor surat otomatis sesuai format baku organisasi.</span>
                 </div>
 
@@ -67,7 +67,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Penandatangan (Ketua) *</label>
-                    <input type="text" name="penandatangan_nama" value="{{ old('penandatangan_nama', $defaultKetua) }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="penandatangan_nama" value="{{ old('penandatangan_nama', $defaultKetua ?? 'Wardoyo, S.I.Kom') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                 </div>
 
                 <div>

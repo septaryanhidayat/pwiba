@@ -40,9 +40,11 @@ class LetterController extends Controller
     {
         $jenis = $request->get('jenis', 'SURAT BIASA');
         $nomorSurat = Letter::generateNomorSurat($jenis);
+        $generatedNumber = $nomorSurat;
+        $defaultKetua = 'Wardoyo, S.I.Kom';
         $members = Member::where('status', 'aktif')->orderBy('nama')->get();
 
-        return view('admin.letters.create', compact('jenis', 'nomorSurat', 'members'));
+        return view('admin.letters.create', compact('jenis', 'nomorSurat', 'generatedNumber', 'defaultKetua', 'members'));
     }
 
     public function store(Request $request)

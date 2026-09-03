@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Gallery;
+use App\Models\Leader;
 use App\Models\Letter;
 use App\Models\MeetingMinute;
 use App\Models\Member;
@@ -275,5 +277,106 @@ class PwiWebTest extends TestCase
         $response->assertSee('pwi-logo.webp');
         $response->assertSee('text-center md:text-left');
         $response->assertSee('items-center md:items-start');
+    }
+
+    public function test_public_leaders_page_renders_with_proportional_data(): void
+    {
+        $response = $this->get('/ketua-dari-masa-ke-masa');
+        $response->assertStatus(200);
+        $response->assertSee('Ketua PWI Kabupaten Banyuasin');
+        $response->assertSee('Dari Masa ke Masa');
+        $response->assertSee('Wardoyo, S.I.Kom');
+        $response->assertSee('2025 - 2028');
+        $response->assertSee('Saryanto, SH');
+        $response->assertSee('Dian Fauzen, ST');
+    }
+
+    public function test_admin_can_manage_leaders_crud(): void
+    {
+        $admin = User::first();
+        $this->assertNotNull($admin);
+
+        // Index
+        $indexResponse = $this->actingAs($admin)->get(route('admin.leaders.index'));
+        $indexResponse->assertStatus(200);
+        $indexResponse->assertSee('Ketua PWI Banyuasin Dari Masa ke Masa');
+
+        // Create / Store
+        $storeResponse = $this->actingAs($admin)->post(route('admin.leaders.store'), [
+            'nama' => 'Ketua Percobaan, S.Pd',
+            'jabatan' => 'Ketua PWI Banyuasin',
+            'periode' => '2028 - 2031',
+            'tahun_mulai' => 2028,
+            'tahun_selesai' => 2031,
+            'urutan' => 6,
+            'keterangan' => 'Ketua masa depan',
+        ]);
+        $storeResponse->assertRedirect(route('admin.leaders.index'));
+
+        $leader = Leader::where('nama', 'Ketua Percobaan, S.Pd')->first();
+        $this->assertNotNull($leader);
+        $this->assertEquals('2028 - 2031', $leader->periode);
+
+        // Update
+        $updateResponse = $this->actingAs($admin)->put(route('admin.leaders.update', $leader->id), [
+            'nama' => 'Ketua Percobaan, M.Si',
+            'jabatan' => 'Ketua PWI Banyuasin',
+            'periode' => '2028 - 2031',
+            'tahun_mulai' => 2028,
+            'tahun_selesai' => 2031,
+            'urutan' => 6,
+            'keterangan' => 'Ketua masa depan terupdate',
+        ]);
+        $updateResponse->assertRedirect(route('admin.leaders.index'));
+        $this->assertEquals('Ketua Percobaan, M.Si', $leader->fresh()->nama);
+
+        // Delete
+        $deleteResponse = $this->actingAs($admin)->delete(route('admin.leaders.destroy', $leader->id));
+        $deleteResponse->assertRedirect(route('admin.leaders.index'));
+        $this->assertNull(Leader::find($leader->id));
+    }
+
+    public function test_database_has_exact_22_published_news_and_17_galleries(): void
+    {
+        $publishedNewsCount = Post::where('status', 'published')->count();
+        $this->assertEquals(22, $publishedNewsCount);
+
+        $galleryCount = Gallery::count();
+        $this->assertEquals(17, $galleryCount);
+
+        $leadersCount = Leader::count();
+        $this->assertEquals(5, $leadersCount);
+    }
+
+    public function test_all_admin_navigation_pages_render_status_200(): void
+    {
+        $admin = User::first();
+        $this->assertNotNull($admin);
+
+        $urls = [
+            '/admin/dashboard',
+            '/admin/anggota',
+            '/admin/anggota/tidak-aktif',
+            '/admin/media',
+            '/admin/struktur-organisasi',
+            '/admin/ketua-dari-masa-ke-masa',
+            '/admin/notulen-rapat',
+            '/admin/notulen-rapat/tambah',
+            '/admin/surat-keluar',
+            '/admin/surat-keluar/buat',
+            '/admin/surat-masuk',
+            '/admin/inbox',
+            '/admin/berita/publish',
+            '/admin/berita/draft',
+            '/admin/berita/tambah',
+            '/admin/galeri',
+            '/admin/pengaturan/data-pwi',
+            '/admin/pengaturan/ganti-sandi',
+        ];
+
+        foreach ($urls as $url) {
+            $response = $this->actingAs($admin)->get($url);
+            $response->assertStatus(200);
+        }
     }
 }
