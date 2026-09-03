@@ -4,50 +4,56 @@
 @section('page_title', 'Struktur Organisasi')
 
 @section('content')
-<div class="space-y-6" x-data="{
-    tab: 'table',
-    modalTambah: false,
-    editModal: false,
-    structuresData: {
-        @foreach($structures as $s)
-            '{{ $s->id }}': {!! json_encode($s) !!},
-        @endforeach
-    },
-    editForm: {
-        id: '',
-        nama: '',
-        nomor_kartu: '',
-        tingkat_ukw: 'Wartawan Muda',
-        jabatan: '',
-        urutan: 1,
-        x_twitter: '',
-        facebook: '',
-        instagram: '',
-        youtube: '',
-    },
-    openEdit(id) {
-        const s = this.structuresData[id] || {};
-        this.editForm = {
-            id: s.id || id,
-            nama: s.nama || '',
-            nomor_kartu: s.nomor_kartu || '',
-            tingkat_ukw: s.tingkat_ukw || 'Belum UKW',
-            jabatan: s.jabatan || '',
-            urutan: s.urutan || 1,
-            x_twitter: s.x_twitter || '',
-            facebook: s.facebook || '',
-            instagram: s.instagram || '',
-            youtube: s.youtube || '',
-        };
-        this.editModal = true;
-        this.$nextTick(() => {
-            const form = document.getElementById('editOrganizationForm');
-            if (form) {
-                form.action = '{{ url('admin/struktur-organisasi') }}/' + (s.id || id);
+<script>
+    function orgManager() {
+        return {
+            tab: 'table',
+            modalTambah: false,
+            editModal: false,
+            structuresData: {
+                @foreach($structures as $s)
+                    '{{ $s->id }}': {!! json_encode($s) !!},
+                @endforeach
+            },
+            editForm: {
+                id: '',
+                nama: '',
+                nomor_kartu: '',
+                tingkat_ukw: 'Wartawan Muda',
+                jabatan: '',
+                urutan: 1,
+                x_twitter: '',
+                facebook: '',
+                instagram: '',
+                youtube: '',
+            },
+            openEdit(id) {
+                const s = this.structuresData[id] || {};
+                this.editForm = {
+                    id: s.id || id,
+                    nama: s.nama || '',
+                    nomor_kartu: s.nomor_kartu || '',
+                    tingkat_ukw: s.tingkat_ukw || 'Belum UKW',
+                    jabatan: s.jabatan || '',
+                    urutan: s.urutan || 1,
+                    x_twitter: s.x_twitter || '',
+                    facebook: s.facebook || '',
+                    instagram: s.instagram || '',
+                    youtube: s.youtube || '',
+                };
+                this.editModal = true;
+                this.$nextTick(() => {
+                    const form = document.getElementById('editOrganizationForm');
+                    if (form) {
+                        form.action = '{{ url('admin/struktur-organisasi') }}/' + (s.id || id);
+                    }
+                });
             }
-        });
+        };
     }
-}">
+</script>
+
+<div class="space-y-6" x-data="orgManager()">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

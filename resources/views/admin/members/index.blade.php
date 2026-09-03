@@ -4,72 +4,78 @@
 @section('page_title', 'Data Wartawan')
 
 @section('content')
-<div class="space-y-6" x-data="{
-    modalTambah: false,
-    editModal: false,
-    mediaMap: {
-        @foreach($mediaList as $med)
-            '{{ $med->id }}': '{{ addslashes($med->nama_media) }}',
-        @endforeach
-    },
-    membersData: {
-        @foreach($members as $m)
-            '{{ $m->id }}': {!! json_encode($m) !!},
-        @endforeach
-    },
-    editForm: {
-        id: '',
-        nama: '',
-        nomor_kartu: '',
-        nomor_kartu_ukw: '',
-        tingkat_ukw: 'Belum UKW',
-        jabatan: 'ANGGOTA',
-        masa_berlaku: '',
-        no_hp: '',
-        status: 'aktif',
-        media_id: '',
-        nama_media_custom: '',
-    },
-    openEdit(id) {
-        const m = this.membersData[id] || {};
-        this.editForm = {
-            id: m.id || id,
-            nama: m.nama || '',
-            nomor_kartu: m.nomor_kartu || '',
-            nomor_kartu_ukw: m.nomor_kartu_ukw || '',
-            tingkat_ukw: m.tingkat_ukw || 'Belum UKW',
-            jabatan: m.jabatan || 'ANGGOTA',
-            masa_berlaku: m.masa_berlaku ? String(m.masa_berlaku).substring(0, 10) : '',
-            no_hp: m.no_hp || '',
-            status: m.status || 'aktif',
-            media_id: m.media_id ? String(m.media_id) : '',
-            nama_media_custom: m.nama_media_custom || (m.media ? m.media.nama_media : ''),
+<script>
+    function memberManager() {
+        return {
+            modalTambah: false,
+            editModal: false,
+            mediaMap: {
+                @foreach($mediaList as $med)
+                    '{{ $med->id }}': {!! json_encode($med->nama_media) !!},
+                @endforeach
+            },
+            membersData: {
+                @foreach($members as $m)
+                    '{{ $m->id }}': {!! json_encode($m) !!},
+                @endforeach
+            },
+            editForm: {
+                id: '',
+                nama: '',
+                nomor_kartu: '',
+                nomor_kartu_ukw: '',
+                tingkat_ukw: 'Belum UKW',
+                jabatan: 'ANGGOTA',
+                masa_berlaku: '',
+                no_hp: '',
+                status: 'aktif',
+                media_id: '',
+                nama_media_custom: '',
+            },
+            openEdit(id) {
+                const m = this.membersData[id] || {};
+                this.editForm = {
+                    id: m.id || id,
+                    nama: m.nama || '',
+                    nomor_kartu: m.nomor_kartu || '',
+                    nomor_kartu_ukw: m.nomor_kartu_ukw || '',
+                    tingkat_ukw: m.tingkat_ukw || 'Belum UKW',
+                    jabatan: m.jabatan || 'ANGGOTA',
+                    masa_berlaku: m.masa_berlaku ? String(m.masa_berlaku).substring(0, 10) : '',
+                    no_hp: m.no_hp || '',
+                    status: m.status || 'aktif',
+                    media_id: m.media_id ? String(m.media_id) : '',
+                    nama_media_custom: m.nama_media_custom || (m.media ? m.media.nama_media : ''),
+                };
+                this.editModal = true;
+                this.$nextTick(() => {
+                    const form = document.getElementById('editMemberForm');
+                    if (form) {
+                        form.action = '{{ url('admin/anggota') }}/' + (m.id || id);
+                    }
+                });
+            },
+            onMediaChange() {
+                if (this.editForm.media_id && this.mediaMap[this.editForm.media_id]) {
+                    this.editForm.nama_media_custom = this.mediaMap[this.editForm.media_id];
+                }
+            },
+            onCustomMediaInput() {
+                const typed = this.editForm.nama_media_custom.trim().toLowerCase();
+                let foundId = '';
+                for (const [id, name] of Object.entries(this.mediaMap)) {
+                    if (name.toLowerCase() === typed) {
+                        foundId = id;
+                        break;
+                    }
+                }
+                this.editForm.media_id = foundId;
+            }
         };
-        this.editModal = true;
-        this.$nextTick(() => {
-            const form = document.getElementById('editMemberForm');
-            if (form) {
-                form.action = '{{ url('admin/anggota') }}/' + (m.id || id);
-            }
-        });
-    },
-    onMediaChange() {
-        if (this.editForm.media_id && this.mediaMap[this.editForm.media_id]) {
-            this.editForm.nama_media_custom = this.mediaMap[this.editForm.media_id];
-        }
-    },
-    onCustomMediaInput() {
-        const typed = this.editForm.nama_media_custom.trim().toLowerCase();
-        let foundId = '';
-        for (const [id, name] of Object.entries(this.mediaMap)) {
-            if (name.toLowerCase() === typed) {
-                foundId = id;
-                break;
-            }
-        }
-        this.editForm.media_id = foundId;
     }
-}">
+</script>
+
+<div class="space-y-6" x-data="memberManager()">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

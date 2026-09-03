@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Schema;
 
 class OrganizationStructure extends Model
 {
@@ -74,7 +75,11 @@ class OrganizationStructure extends Model
      */
     public static function getHierarchyTree(): array
     {
-        $structures = static::where('status', '!=', 'nonaktif')->orderBy('urutan')->get();
+        $query = static::query();
+        if (Schema::hasColumn('organization_structures', 'status')) {
+            $query->where('status', '!=', 'nonaktif');
+        }
+        $structures = $query->orderBy('urutan')->get();
 
         $ketua = $structures->first(fn ($s) => strtoupper(trim($s->jabatan)) === 'KETUA');
         $wakilKetuaList = $structures->filter(fn ($s) => str_starts_with(strtoupper(trim($s->jabatan)), 'WAKIL KETUA'))->values();

@@ -4,47 +4,53 @@
 @section('page_title', 'Ketua Dari Masa ke Masa')
 
 @section('content')
-<div class="space-y-6" x-data="{
-    modalTambah: false,
-    editModal: false,
-    leadersData: {
-        @foreach($leaders as $l)
-            '{{ $l->id }}': {!! json_encode($l) !!},
-        @endforeach
-    },
-    editForm: {
-        id: '',
-        nama: '',
-        jabatan: '',
-        periode: '',
-        tahun_mulai: '',
-        tahun_selesai: '',
-        urutan: 1,
-        keterangan: '',
-        status_aktif: false,
-    },
-    openEdit(id) {
-        const l = this.leadersData[id] || {};
-        this.editForm = {
-            id: l.id || id,
-            nama: l.nama || '',
-            jabatan: l.jabatan || '',
-            periode: l.periode || '',
-            tahun_mulai: l.tahun_mulai || '',
-            tahun_selesai: l.tahun_selesai || '',
-            urutan: l.urutan || 1,
-            keterangan: l.keterangan || '',
-            status_aktif: Boolean(l.status_aktif),
-        };
-        this.editModal = true;
-        this.$nextTick(() => {
-            const form = document.getElementById('editLeaderForm');
-            if (form) {
-                form.action = '{{ route('admin.leaders.index') }}/' + (l.id || id);
+<script>
+    function leaderManager() {
+        return {
+            modalTambah: false,
+            editModal: false,
+            leadersData: {
+                @foreach($leaders as $l)
+                    '{{ $l->id }}': {!! json_encode($l) !!},
+                @endforeach
+            },
+            editForm: {
+                id: '',
+                nama: '',
+                jabatan: '',
+                periode: '',
+                tahun_mulai: '',
+                tahun_selesai: '',
+                urutan: 1,
+                keterangan: '',
+                status_aktif: false,
+            },
+            openEdit(id) {
+                const l = this.leadersData[id] || {};
+                this.editForm = {
+                    id: l.id || id,
+                    nama: l.nama || '',
+                    jabatan: l.jabatan || '',
+                    periode: l.periode || '',
+                    tahun_mulai: l.tahun_mulai || '',
+                    tahun_selesai: l.tahun_selesai || '',
+                    urutan: l.urutan || 1,
+                    keterangan: l.keterangan || '',
+                    status_aktif: Boolean(l.status_aktif),
+                };
+                this.editModal = true;
+                this.$nextTick(() => {
+                    const form = document.getElementById('editLeaderForm');
+                    if (form) {
+                        form.action = '{{ route('admin.leaders.index') }}/' + (l.id || id);
+                    }
+                });
             }
-        });
+        };
     }
-}">
+</script>
+
+<div class="space-y-6" x-data="leaderManager()">
     
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

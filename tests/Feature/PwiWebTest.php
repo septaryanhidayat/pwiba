@@ -565,4 +565,21 @@ class PwiWebTest extends TestCase
         $response->assertSee('Malyadi, SH, M.Si', false);
         $response->assertSee('Radar Banyuasin', false);
     }
+
+    public function test_admin_organization_structure_renders_without_sql_errors(): void
+    {
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get('/admin/struktur-organisasi');
+        $response->assertStatus(200);
+        $response->assertSee('Struktur Kepengurusan PWI Banyuasin');
+    }
+
+    public function test_admin_members_page_does_not_leak_javascript_code_in_html(): void
+    {
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get('/admin/anggota');
+        $response->assertStatus(200);
+        $response->assertSee('function memberManager()', false);
+        $response->assertSee('x-data="memberManager()"', false);
+    }
 }
