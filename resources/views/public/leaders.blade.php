@@ -52,8 +52,11 @@
                         
                         <img src="{{ $leader->foto_url }}" 
                              alt="{{ $leader->nama }}" 
+                             width="300"
+                             height="375"
                              class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                             loading="lazy">
+                             loading="lazy"
+                             decoding="async">
                         
                         <!-- Overlay Zoom Icon -->
                         <div class="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

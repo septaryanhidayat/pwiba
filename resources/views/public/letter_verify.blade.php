@@ -13,7 +13,7 @@
                 <!-- Top Header Banner Deep Blue PWI -->
                 <div class="bg-[#0B2B68] text-white p-6 sm:p-8 text-center relative overflow-hidden">
                     <div class="relative z-10 flex flex-col items-center">
-                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-20 h-20 mb-3 drop-shadow-md">
+                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="80" height="80" class="w-20 h-20 mb-3 drop-shadow-md">
                         <span class="px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest bg-white/15 text-amber-300 border border-white/20 mb-2">
                             Sistem Verifikasi Digital Dokumen Resmi
                         </span>

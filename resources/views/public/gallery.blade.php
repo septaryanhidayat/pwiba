@@ -30,7 +30,7 @@
                      class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer hover:-translate-y-1 flex flex-col">
                     
                     <div class="relative aspect-[4/3] bg-slate-900 overflow-hidden">
-                        <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-slate-950/40 transition-colors"></div>
                         <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                             <i class="fa-solid fa-expand"></i>

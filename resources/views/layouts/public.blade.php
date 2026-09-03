@@ -29,16 +29,23 @@
     <meta name="twitter:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, dan layanan pers.')">
     <meta name="twitter:image" content="{{ asset('assets/images/pwi-logo.png') }}">
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <!-- Preload LCP Hero Image -->
+    <link rel="preload" as="image" href="{{ asset('assets/images/wardoyo-ketua.webp') }}" type="image/webp" fetchpriority="high">
+
+    <!-- Google Fonts: Plus Jakarta Sans (Non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
     
-    <!-- FontAwesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- FontAwesome 6 (Non-render-blocking) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     
-    <!-- AOS Animation CSS (Animate On Scroll) -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <!-- AOS Animation CSS (Non-render-blocking) -->
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
     
     <!-- Anti-FOUC Theme Initializer (Default: Light Mode) -->
     <script>
@@ -80,8 +87,15 @@
 
     <style>
         [x-cloak] { display: none !important; }
+        @font-face {
+            font-display: swap;
+        }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            text-rendering: optimizeLegibility;
+        }
+        img {
+            content-visibility: auto;
         }
         .glass-nav {
             backdrop-filter: blur(12px);
@@ -172,7 +186,7 @@
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
-                        <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                        <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
@@ -291,7 +305,7 @@
                 <div class="lg:col-span-2 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="flex flex-col sm:flex-row items-center gap-3">
                         <div class="w-12 h-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center shadow-md">
-                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                         </div>
                         <div class="text-center sm:text-left">
                             <h4 class="text-lg font-bold text-white leading-tight">PWI Kabupaten Banyuasin</h4>
@@ -419,8 +433,8 @@
                 
                 <!-- 1. Wardoyo, S.I.Kom -->
                 <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
-                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_1_wardoyo.webp') }}" alt="Wardoyo, S.I.Kom" class="w-full h-full object-cover object-top">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200 aspect-square">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_1_wardoyo.webp') }}" alt="Wardoyo, S.I.Kom" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="space-y-0.5 mb-3">
                         <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Wardoyo, S.I.Kom</h5>
@@ -436,8 +450,8 @@
 
                 <!-- 2. H. Gusra Yetri, SH -->
                 <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
-                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_2_gusra.webp') }}" alt="H. Gusra Yetri, SH" class="w-full h-full object-cover object-top">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200 aspect-square">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_2_gusra.webp') }}" alt="H. Gusra Yetri, SH" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="space-y-0.5 mb-3">
                         <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">H. Gusra Yetri, SH</h5>
@@ -453,8 +467,8 @@
 
                 <!-- 3. Deni Arianto -->
                 <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
-                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_3_deni.webp') }}" alt="Deni Arianto" class="w-full h-full object-cover object-top">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200 aspect-square">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_3_deni.webp') }}" alt="Deni Arianto" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="space-y-0.5 mb-3">
                         <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Deni Arianto</h5>
@@ -470,8 +484,8 @@
 
                 <!-- 4. Ridho Andi Sucipto, M.Pd -->
                 <div class="flex flex-col items-center justify-between p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200">
-                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_4_ridho.webp') }}" alt="Ridho Andi Sucipto, M.Pd" class="w-full h-full object-cover object-top">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-600 dark:border-amber-400 shadow-md mb-2 bg-slate-200 aspect-square">
+                        <img src="{{ asset('assets/images/pengurus/pengurus_inti_4_ridho.webp') }}" alt="Ridho Andi Sucipto, M.Pd" width="80" height="80" loading="lazy" decoding="async" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="space-y-0.5 mb-3">
                         <h5 class="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-tight">Ridho Andi Sucipto, M.Pd</h5>

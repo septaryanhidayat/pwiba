@@ -48,8 +48,8 @@
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow-md overflow-hidden flex-shrink-0">
-                                <img src="{{ $m->foto_url }}" alt="{{ $m->nama }}" class="w-full h-full object-cover">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow-md overflow-hidden flex-shrink-0 aspect-square">
+                                <img src="{{ $m->foto_url }}" alt="{{ $m->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
                             </div>
                             <div class="min-w-0 flex-grow">
                                 <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $m->nama }}</h4>

@@ -48,7 +48,7 @@
 
                     <!-- Featured Image -->
                     <div class="rounded-2xl overflow-hidden aspect-[16/9] bg-slate-100 dark:bg-slate-800 mb-8 shadow-md">
-                        <img src="{{ $post->gambar_url }}" alt="{{ $post->judul }}" class="w-full h-full object-cover">
+                        <img src="{{ $post->gambar_url }}" alt="{{ $post->judul }}" width="800" height="450" fetchpriority="high" class="w-full h-full object-cover">
                     </div>
 
                     <!-- Article Body -->
@@ -88,8 +88,8 @@
                     <div class="space-y-4">
                         @foreach($relatedPosts as $rp)
                             <a href="{{ route('news.show', $rp->slug) }}" class="flex gap-3 group">
-                                <div class="w-20 h-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0">
-                                    <img src="{{ $rp->gambar_url }}" alt="{{ $rp->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                <div class="w-20 h-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 aspect-[5/4]">
+                                    <img src="{{ $rp->gambar_url }}" alt="{{ $rp->judul }}" width="80" height="64" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                 </div>
                                 <div class="min-w-0 flex-grow">
                                     <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2 leading-snug">
@@ -107,8 +107,8 @@
                 <!-- Secretariat Box -->
                 <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-6 text-white shadow-lg">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center">
-                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo" class="w-full h-full object-contain">
+                        <div class="w-10 h-10 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center aspect-square">
+                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo" width="40" height="40" class="w-full h-full object-contain">
                         </div>
                         <div>
                             <h4 class="text-sm font-bold text-white">Sekretariat PWI Banyuasin</h4>

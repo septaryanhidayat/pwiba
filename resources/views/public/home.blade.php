@@ -15,7 +15,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <!-- Left Hero Content -->
-            <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-up" data-aos-duration="800">
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 
                 <!-- Badge Indicator -->
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
-            <div class="lg:col-span-5 relative flex justify-center items-end" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+            <div class="lg:col-span-5 relative flex justify-center items-end">
                 <div class="relative w-full max-w-md mx-auto group animate-float-slow">
                     <!-- Glow Backdrop -->
                     <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -74,7 +74,7 @@
                     <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
                         <!-- Top Official Tag -->
                         <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
-                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="PWI Logo" class="w-4 h-4 object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="PWI Logo" width="16" height="16" class="w-4 h-4 object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
                             <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
@@ -85,11 +85,16 @@
                         </div>
 
                         <!-- Photo Portrait -->
-                        <div class="relative pt-6 px-4 flex justify-center">
+                        <div class="relative pt-6 px-4 flex justify-center min-h-[380px] sm:min-h-[460px]">
                             <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
+                                 width="400"
+                                 height="460"
+                                 fetchpriority="high"
+                                 loading="eager"
+                                 decoding="sync"
                                  onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
-                                 class="w-full max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
+                                 class="w-full h-auto max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
                         </div>
 
                         <!-- Executive Identity & Sambutan Singkat (Tanpa Status Wartawan) -->
@@ -161,8 +166,8 @@
                     <div>
                         <div class="flex flex-col sm:flex-row items-center gap-4 mb-6 text-center sm:text-left">
                             <div class="relative">
-                                <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden">
-                                    <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" alt="Ketua PWI Banyuasin" onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'" class="w-full h-full object-cover rounded-xl">
+                                <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden aspect-square">
+                                    <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" alt="Ketua PWI Banyuasin" width="64" height="64" loading="lazy" decoding="async" onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'" class="w-full h-full object-cover rounded-xl">
                                 </div>
                                 <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px]">
                                     <i class="fa-solid fa-check text-white"></i>
@@ -295,7 +300,7 @@
                     
                     <!-- Symmetrical Photo Frame -->
                     <div class="relative w-full aspect-[3/4] bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                        <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+                        <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="300" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
                         
                         <!-- Subtle Bottom Gradient -->
                         <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
@@ -390,7 +395,7 @@
                     
                     <!-- Post Thumbnail -->
                     <a href="{{ route('news.show', $p->slug) }}" class="relative block overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-800">
-                        <img src="{{ $p->gambar_url }}" alt="{{ $p->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ $p->gambar_url }}" alt="{{ $p->judul }}" width="400" height="250" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-3 left-3">
                             <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900/80 text-amber-300 backdrop-blur-md shadow-sm border border-white/10">
                                 {{ $p->kategori }}
@@ -466,7 +471,7 @@
                      class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg hover-lift"
                      data-aos="fade-up"
                      data-aos-delay="{{ $loop->iteration * 80 }}">
-                    <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     
                     <div class="absolute bottom-0 inset-x-0 p-5">
@@ -627,7 +632,7 @@
         <!-- Modal Header -->
         <div class="p-6 bg-gradient-to-r from-[#0B132B] to-[#1C2541] text-white flex items-center justify-between border-b border-white/10">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-9 h-9 object-contain">
+                <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="36" height="36" loading="lazy" decoding="async" class="w-9 h-9 object-contain">
                 <div>
                     <h3 class="text-base font-bold text-white">Naskah Sambutan Resmi Pelantikan</h3>
                     <p class="text-xs text-amber-400 font-medium">Ketua PWI Kabupaten Banyuasin Masa Bakti 2025–2028</p>

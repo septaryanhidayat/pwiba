@@ -28,8 +28,8 @@
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0">
-                                <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" class="w-full h-full object-cover">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0 aspect-square">
+                                <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
                             </div>
                             <div class="min-w-0 flex-grow">
                                 <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
