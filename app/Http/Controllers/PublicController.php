@@ -12,42 +12,69 @@ use App\Models\OrganizationStructure;
 use App\Models\Post;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 class PublicController extends Controller
 {
+    protected function ensureTablesExist(): void
+    {
+        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+                if (Schema::hasTable('posts') && Post::count() === 0) {
+                    Artisan::call('db:seed', ['--force' => true]);
+                }
+            } catch (\Throwable $e) {
+                // Silently ignore if artisan migrate cannot run on hosting
+            }
+        }
+    }
+
     public function index()
     {
+        $this->ensureTablesExist();
+
         // 1. Core Profile & News Data for Modern Single-Page Home
-        $posts = Post::where('status', 'published')->latest('published_at')->take(6)->get();
-        $structures = OrganizationStructure::orderBy('urutan')->get();
-        $galleries = Gallery::latest('tanggal_kegiatan')->take(9)->get();
-        $settings = Setting::pluck('value', 'key')->all();
+        $posts = Schema::hasTable('posts') ? Post::where('status', 'published')->latest('published_at')->take(6)->get() : collect();
+        $structures = Schema::hasTable('organization_structures') ? OrganizationStructure::orderBy('urutan')->get() : collect();
+        $galleries = Schema::hasTable('galleries') ? Gallery::latest('tanggal_kegiatan')->take(9)->get() : collect();
+        $settings = Schema::hasTable('settings') ? Setting::pluck('value', 'key')->all() : [];
 
         // 2. Organization Statistics
         $ukwStats = [
-            'belum_ukw' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Belum UKW')->count(),
-            'muda' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Muda')->count(),
-            'madya' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Madya')->count(),
-            'utama' => Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Utama')->count(),
-            'total_aktif' => Member::where('status', 'aktif')->count(),
+            'belum_ukw' => Schema::hasTable('members') ? Member::where('status', 'aktif')->where('tingkat_ukw', 'Belum UKW')->count() : 0,
+            'muda' => Schema::hasTable('members') ? Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Muda')->count() : 0,
+            'madya' => Schema::hasTable('members') ? Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Madya')->count() : 0,
+            'utama' => Schema::hasTable('members') ? Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Utama')->count() : 0,
+            'total_aktif' => Schema::hasTable('members') ? Member::where('status', 'aktif')->count() : 0,
         ];
 
-        $mediaCount = Media::count();
-        $newsCount = Post::where('status', 'published')->count();
-        $galleryCount = Gallery::count();
+        $mediaCount = Schema::hasTable('media') ? Media::count() : 0;
+        $newsCount = Schema::hasTable('posts') ? Post::where('status', 'published')->count() : 0;
+        $galleryCount = Schema::hasTable('galleries') ? Gallery::count() : 0;
 
         // 3. Featured Members
-        $featuredMembers = Member::where('status', 'aktif')
+        $featuredMembers = Schema::hasTable('members') ? Member::where('status', 'aktif')
             ->whereIn('jabatan', ['KETUA', 'SEKRETARIS', 'BENDAHARA', 'WAKIL KETUA I', 'WAKIL KETUA II', 'WAKIL KETUA III'])
-            ->get();
+            ->get() : collect();
 
         return view('public.home', compact('posts', 'structures', 'galleries', 'settings', 'ukwStats', 'mediaCount', 'newsCount', 'galleryCount', 'featuredMembers'));
     }
 
     public function news(Request $request)
     {
+        $this->ensureTablesExist();
+
+        if (! Schema::hasTable('posts')) {
+            $posts = new LengthAwarePaginator([], 0, 9);
+            $categories = [];
+            $popularPosts = collect();
+
+            return view('public.news', compact('posts', 'categories', 'popularPosts'));
+        }
+
         $query = Post::where('status', 'published');
 
         if ($request->filled('kategori')) {
