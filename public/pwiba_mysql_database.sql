@@ -2,7 +2,7 @@
 -- PWI BANYUASIN MANAGEMENT INFORMATION SYSTEM (MIS)
 -- Complete MySQL Database Export for phpMyAdmin
 -- Target Production Domain: https://pwiba.berandadigital.net/public
--- Date Generated: 2026-09-03 07:50:49
+-- Date Generated: 2026-09-03 07:56:11
 -- ========================================================
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(50) NOT NULL DEFAULT 'admin',
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -28,9 +27,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data untuk tabel `users` (1 records)
-INSERT INTO `users` VALUES
-(1, 'Admin PWI Banyuasin', 'admin@pwibanyuasin.or.id', NULL, '$2y$12$CAkivZ.qKN2M/n5d7DlaCO6Jk9n5dtIKuMHKp6ZLmnbxtQu4nEz9K', NULL, '2026-09-03 06:23:39', '2026-09-03 06:23:39');
+-- Dumping data untuk tabel `users` (2 records)
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin PWI Banyuasin', 'admin@pwibanyuasin.or.id', NULL, '$2y$12$9NR3o8ku9RSir4QRincH6erG8Ry6h1axkU7mUB2XmELiap1umsKVG', NULL, '2026-09-03 06:23:39', '2026-09-03 07:55:44'),
+(2, 'Administrator PWI Banyuasin', 'admin@pwiba.or.id', NULL, '$2y$12$GDFPlGOgCFPL3i0Bi5gKwu7Z8f.jjoaLunozz5009Qvk0KNN8JACm', NULL, '2026-09-03 07:55:44', '2026-09-03 07:55:44');
 
 -- --------------------------------------------------------
 -- Struktur tabel `password_reset_tokens`
@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS `members` (
   `tingkat_ukw` varchar(100) DEFAULT 'Belum UKW',
   `masa_berlaku` date DEFAULT NULL,
   `jabatan` varchar(255) DEFAULT 'ANGGOTA',
+  `media_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `nama_media_custom` varchar(255) DEFAULT NULL,
   `nama_media` varchar(255) DEFAULT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'aktif',
   `foto` varchar(255) DEFAULT NULL,
@@ -77,13 +79,16 @@ CREATE TABLE IF NOT EXISTS `members` (
   `facebook` varchar(255) DEFAULT NULL,
   `instagram` varchar(255) DEFAULT NULL,
   `youtube` varchar(255) DEFAULT NULL,
+  `no_hp` varchar(50) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `catatan` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `members` (51 records)
-INSERT INTO `members` VALUES
+INSERT INTO `members` (`id`, `nama`, `nomor_kartu`, `tingkat_ukw`, `masa_berlaku`, `jabatan`, `media_id`, `nama_media_custom`, `foto`, `no_hp`, `email`, `status`, `catatan`, `created_at`, `updated_at`, `x_twitter`, `facebook`, `instagram`, `youtube`) VALUES
 (1, 'Wardoyo, S.I.Kom', '06.00.17208.14B', 'Wartawan Utama', '2028-05-13 00:00:00', 'KETUA', 1, NULL, 'members/ffc1c03913030da616be13fad47ac62c.png', '081765550871', 'wardoyo-sikom@pwibanyuasin.or.id', 'aktif', NULL, '2026-09-03 06:23:39', '2026-09-03 07:22:52', NULL, NULL, NULL, NULL),
 (2, 'H. Gusra Yetri, SH', '06.00.278.16.MU', 'Belum UKW', '2026-10-23 00:00:00', 'WAKIL KETUA I', 2, NULL, 'assets/images/wartawan/wartawan_2.png', '085355243550', 'h-gusra-yetri-sh@pwibanyuasin.or.id', 'aktif', NULL, '2026-09-03 06:23:39', '2026-09-03 06:23:39', NULL, NULL, NULL, NULL),
 (3, 'Deni Arianto', '06.00.20644.21B', 'Wartawan Muda', '2027-08-30 00:00:00', 'SEKRETARIS', 3, NULL, 'members/55b12cd07713eeb01457d10daf7ac822.jpg', '084401834436', 'deni-arianto@pwibanyuasin.or.id', 'aktif', NULL, '2026-09-03 06:23:39', '2026-09-03 07:22:52', NULL, NULL, NULL, NULL),
@@ -134,7 +139,7 @@ INSERT INTO `members` VALUES
 (48, 'Suharni', '06.00.239.20.MU', 'Belum UKW', '2028-07-06 00:00:00', 'ANGGOTA', 7, NULL, 'members/f5f3153e385e6c0d3d354323143dd514.jpeg', '088960464461', 'suharni@pwibanyuasin.or.id', 'aktif', NULL, '2026-09-03 06:23:40', '2026-09-03 07:22:57', NULL, NULL, NULL, NULL),
 (49, 'H. Gusra Yetri,SH', '06.00.278.16.MU', 'Belum UKW', '2026-10-23 00:00:00', 'WAKIL KETUA I', NULL, NULL, 'members/465ed3dcd686f05d023e9fbbf2c4317b.jpg', NULL, NULL, 'aktif', NULL, '2026-09-03 07:22:52', '2026-09-03 07:22:52', NULL, NULL, NULL, NULL),
 (50, 'Ridho Andi Sucipto.M.Pd', '06.00.2341.25B', 'Wartawan Muda', '2028-05-01 00:00:00', 'BENDAHARA', NULL, NULL, 'members/f273f241d79dc02c32e031499da5d175.jpg', NULL, NULL, 'aktif', NULL, '2026-09-03 07:22:53', '2026-09-03 07:22:53', NULL, NULL, NULL, NULL);
-INSERT INTO `members` VALUES
+INSERT INTO `members` (`id`, `nama`, `nomor_kartu`, `tingkat_ukw`, `masa_berlaku`, `jabatan`, `media_id`, `nama_media_custom`, `foto`, `no_hp`, `email`, `status`, `catatan`, `created_at`, `updated_at`, `x_twitter`, `facebook`, `instagram`, `youtube`) VALUES
 (51, 'Dr. Icuk M Sakir, S.Sos. M.Si', '06.00.7651.96B', 'Wartawan Utama', '2025-08-01 00:00:00', 'ANGGOTA', NULL, NULL, 'members/5b3c2e7429a857ded770506767d71975.jpg', NULL, NULL, 'aktif', NULL, '2026-09-03 07:22:57', '2026-09-03 07:22:57', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -163,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `organization_structures` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `organization_structures` (32 records)
-INSERT INTO `organization_structures` VALUES
+INSERT INTO `organization_structures` (`id`, `member_id`, `nama`, `nomor_kartu`, `tingkat_ukw`, `masa_berlaku`, `jabatan`, `urutan`, `periode`, `foto`, `created_at`, `updated_at`, `x_twitter`, `facebook`, `instagram`, `youtube`) VALUES
 (1, NULL, 'Wardoyo, S.I.Kom', '06.00.17208.14B', 'Wartawan Utama', '2028-05-13 00:00:00', 'KETUA', 1, '2024-2027', 'assets/images/pengurus/pengurus_inti_1_wardoyo.jpg', '2026-09-03 06:23:40', '2026-09-03 07:08:13', 'https://x.com/pwibanyuasin', 'https://facebook.com/pwibanyuasin', 'https://instagram.com/pwibanyuasin', 'https://youtube.com/@pwibanyuasin'),
 (2, NULL, 'Kurnia Efrida Yanti', '06.00.17680.15B', 'Wartawan Madya', '2028-06-03 00:00:00', 'WAKABID PEMBELAAN WARTAWAN', 5, '2024-2027', 'assets/images/wartawan/wartawan_5.png', '2026-09-03 06:23:40', '2026-09-03 07:08:13', NULL, NULL, NULL, NULL),
 (3, NULL, 'Hardaya', '06.00.237.22.MU', 'Belum UKW', '2027-06-11 00:00:00', 'ANGGOTA BID PEMBELAAN WARTAWAN', 6, '2024-2027', 'assets/images/wartawan/wartawan_6.png', '2026-09-03 06:23:40', '2026-09-03 07:08:13', NULL, NULL, NULL, NULL),
@@ -213,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `media` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `media` (41 records)
-INSERT INTO `media` VALUES
+INSERT INTO `media` (`id`, `nama_media`, `website`, `alamat`, `logo`, `created_at`, `updated_at`) VALUES
 (1, 'AKSARANEWS', 'https://Aksaranews.co', 'RT 006 Dusun II Desa Talang Ipuh ', NULL, '2026-09-03 06:23:39', '2026-09-03 07:22:41'),
 (2, 'BERITA KITA', 'https://beritakitanews.com', 'PALEMBANG', NULL, '2026-09-03 06:23:39', '2026-09-03 07:22:41'),
 (3, 'Berita Sriwijaya', 'https://beritasriwijaya.com', 'Cafe Utopla, Depan Hotel Aryaduta, Simpang Lumban Tirta  \r\n', NULL, '2026-09-03 06:23:39', '2026-09-03 07:22:41'),
@@ -271,6 +276,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `gambar` varchar(255) DEFAULT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'published',
   `views` int(11) NOT NULL DEFAULT 0,
+  `views_count` int(11) NOT NULL DEFAULT 0,
   `published_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -279,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `posts` (28 records)
-INSERT INTO `posts` VALUES
+INSERT INTO `posts` (`id`, `judul`, `slug`, `kategori`, `penulis`, `ringkasan`, `konten`, `gambar`, `status`, `views_count`, `published_at`, `created_at`, `updated_at`) VALUES
 (1, 'Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO', 'penguatan-adart-pwi-pusat-sosialisasi-lima-po-1', 'Organisasi', 'Wardoyo, S.I.Kom', 'Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO. Mendorong peningkatan profesionalisme dan sinergi pers.', '<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; Penguatan AD/ART, PWI Pusat Sosialisasi Lima PO. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>', 'https://pwiba.or.id/uploads/berita/ab51e7a5fbaa85fe67af6143c08707e5.png', 'published', 669, '2026-09-02 06:23:40', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
 (2, 'Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin', 'satu-lapangan-satu-semangat-kemitraan-pwi-dan-pemerintah-daerah-menggema-di-banyuasin-2', 'Kemitraan', 'Wardoyo, S.I.Kom', 'Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin. Mendorong peningkatan profesionalisme dan sinergi pers.', '<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; Satu Lapangan, Satu Semangat, Kemitraan PWI dan Pemerintah Daerah Menggema di Banyuasin. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>', 'https://pwiba.or.id/uploads/berita/102a94b84592bf379cc27a97dd9dff2b.jpg', 'published', 238, '2026-08-31 06:23:40', '2026-09-03 06:23:40', '2026-09-03 06:39:45'),
 (3, 'Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'semarakkan-kemerdekaan-pwi-banyuasin-gelar-turnamen-mini-soccer-2026-3', 'Olahraga', 'Wardoyo, S.I.Kom', 'Liputan resmi kegiatan dan rilis pers PWI Banyuasin mengenai Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026. Mendorong peningkatan profesionalisme dan sinergi pers.', '<p><strong>PANGKALAN BALAI, PWI BANYUASIN</strong> &mdash; Semarakkan Kemerdekaan, PWI Banyuasin Gelar Turnamen Mini Soccer 2026. Dalam rangka mewujudkan pers yang kredibel, beretika, dan profesional di Kabupaten Banyuasin, PWI terus berkomitmen menjalin kemitraan positif dengan seluruh pemangku kepentingan.</p><p>Ketua PWI Banyuasin Wardoyo, S.I.Kom menegaskan bahwa peran pers tidak hanya sebagai penyampai informasi kepada masyarakat, tetapi juga sebagai pilar demokrasi yang mengawal pembangunan di Kabupaten Banyuasin secara kritis, konstruktif, dan berimbang.</p><p>Diharapkan melalui kegiatan ini, hubungan harmonis antara jurnalis dengan instansi terkait dan masyarakat luas semakin kokoh dan terpercaya.</p>', 'https://pwiba.or.id/uploads/berita/04f62b08dac5547b16130d2544057152.jpg', 'published', 750, '2026-08-29 06:23:40', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
@@ -325,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `galleries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `galleries` (19 records)
-INSERT INTO `galleries` VALUES
+INSERT INTO `galleries` (`id`, `judul`, `deskripsi`, `foto`, `tanggal_kegiatan`, `created_at`, `updated_at`) VALUES
 (1, 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026', 'PWI Banyuasin Gelar Turnamen Mini Soccer 2026 di Pangkalan Balai.Selasa 18 Agustus 2026.', 'galleries/e44ddc9ff3b7608ed6ce6af8aeb7b13e.jpg', '2026-08-19 00:00:00', '2026-09-03 06:23:40', '2026-09-03 07:22:47'),
 (2, 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin', 'Penutupan Turnamen Mini Soccer 2026 PWI Banyuasin di Pangkalan Balai.', 'galleries/9cFhjTxQwpmEvdkjLLALebkNoFaq584GbNMmYB6V.jpg', '2026-08-20 00:00:00', '2026-09-03 06:23:40', '2026-09-03 06:54:11'),
 (3, 'Sinergi PWI - Dandim 0430 /Banyuasin dan Mahasiswa', 'Silaturahmi dan sinergi kemitraan PWI Banyuasin bersama Kodim 0430/Banyuasin dan elemen mahasiswa.', 'https://pwiba.or.id/assets/img/galeri/1cfefb92f8afafe981cea6adf5f5acd4.jpg', '2026-06-25 00:00:00', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
@@ -382,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `letters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `letters` (91 records)
-INSERT INTO `letters` VALUES
+INSERT INTO `letters` (`id`, `nomor_surat`, `tanggal`, `jenis_surat`, `member_id`, `tujuan`, `keperluan`, `perihal`, `tempat_tujuan`, `nama_pejabat`, `jabatan_pejabat`, `alamat_tujuan`, `lokasi`, `tanggal_mulai`, `tanggal_selesai`, `lampiran`, `isi_surat`, `file_dokumen`, `penandatangan_nama`, `penandatangan_sekretaris`, `created_at`, `updated_at`, `uuid`, `status_verifikasi`, `hash_keabsahan`) VALUES
 (1, '093/PWI-BA/VIII/2026', '2026-08-26 00:00:00', 'SURAT BIASA', NULL, 'Kurnaidi, ST', 'Permohonan Arahan dan Petunjuk', 'Permohonan Arahan dan Petunjuk', 'Di Tempat', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sdgsdgsdg fhfdhdfhdfh\r\ndgd\r\ndfhdfjlkjdkfjgl\r\ngkjskljskgjsdklgj\r\njskldjgklsdjgklsdjg;s\r\njskldgjsdlkgjsdlkgj\r\njskldjgklsdjglksdjgk;sjlkj;\r\njskdjglksdjgkljsdkl\r\njslkgslglskdjgl\r\nskdjgklsdgksdjgsdjk', NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 06:23:40', '2026-09-03 07:28:17', '2a49b609-7569-4e0f-b70c-cd6905c66432', 'TERVERIFIKASI & SAH', 'd020215f30d4611b958393a3ecb185799f55b63e64eeb6bc3663aa7d768de694'),
 (2, '092/PWI-BA/VIII/2026', '2026-08-13 00:00:00', 'SURAT BIASA', NULL, 'AKBP Risnan Aldino,SIK.,M.Si,', ' Bantuan Pengamanan Kegiatan Turnamen Mini Soccer PWI Banyuasin', ' Bantuan Pengamanan Kegiatan Turnamen Mini Soccer PWI Banyuasin', 'Di Tempat', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Sehubungan dengan agenda PWI Kabupaten Banyuasin, bersama ini kami sampaikan maksud Bantuan Pengamanan Turnamen Mini Soccer. Besar harapan kami terjalin koordinasi dan kerja sama yang baik.', NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 06:23:40', '2026-09-03 07:28:17', '01412703-0124-4567-be59-28a8a6a63326', 'TERVERIFIKASI & SAH', '8771057c9ccaf969c527e700efbed59a4ec5c2f6ef66ef68cac32ff4e40da19b'),
 (3, '091/PWI-BA/VIII/2026', '2026-08-13 00:00:00', 'SURAT BIASA', NULL, 'dr. Nilawati, M.K.M', 'Bantuan Tim Medis ', 'Bantuan Tim Medis ', 'Di Tempat', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Sehubungan dengan agenda PWI Kabupaten Banyuasin, bersama ini kami sampaikan maksud Bantuan Tim Medis Turnamen. Besar harapan kami terjalin koordinasi dan kerja sama yang baik.', NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 06:23:40', '2026-09-03 07:28:17', 'b164b9e7-408a-4d6a-8b68-6850eda23da1', 'TERVERIFIKASI & SAH', 'ded1558463632c5135f1cf7ffbafecb81e9038d1d69e9c5bff04f6e25beeb927'),
@@ -433,7 +439,7 @@ INSERT INTO `letters` VALUES
 (48, '048/PWI-BA/IV/2026', '2026-04-27 00:00:00', 'PROPOSAL', NULL, 'Dr. H. Askolani Jasi, SH.MH', 'Permohonan Hibah Tanah ', 'Permohonan Hibah Tanah ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p></p><p></p><p></p><p></p><p>Dengan hormat, </p><p align=\"justify\">Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin menyampaikan salam dan doa semoga Bupati Banyuasin – Bapak Dr.H. Askolani Jasi, SH.MH beserta jajaran senantiasa diberikan kesehatan serta kekuatan dalam menjalankan roda pemerintahan demi kemajuan Kabupaten Banyuasin yang kita cintai.&nbsp; Sebagai organisasi profesi wartawan tertua dan terbesar di Indonesia, PWI Kabupaten Banyuasin memiliki peran strategis sebagai mitra pemerintah dalam diseminasi informasi, kontrol sosial, serta peningkatan literasi masyarakat untuk mendukung percepatan pembangunan daerah. </p><p align=\"justify\">Sehubungan dengan hal tersebut, saat in PWI Kabupaten Banyuasin belum memiliki kantor tetap yang representatif untuk menjalankan fungsi administratif, pusat pelatihan jurnalistik, serta tempat koordinasi anggota. Demi optimalisasi kinerja organisasi, kami mengajukan permohonan hibah berupa sebidang tanah milik Pemerintah Kabupaten Banyuasin yang terletak di samping kantor Baznas <br></p><p></p><p align=\"justify\">Besar harapan kami Bupati Banyuasin dapat mengabulkan permohonan ini.&nbsp; Demikian permohonan ini kami sampaikan. Atas perhatian, dukungan, dan perkenan Bapak, kami ucapkan terima kasih<br></p><p></p><p></p><p></p>', NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', '85dbbc9c-c6b6-427b-b8b0-0359f5e68805', 'TERVERIFIKASI & SAH', 'c784662f1804b528c5864fb0c31cdc4fad76c966e1dbecd2c9f842435ddb17ee'),
 (49, '047/PWI-BA/IV/2026', '2026-04-24 00:00:00', 'PROPOSAL', NULL, 'C.q PT. MEDCO E&P', 'Permohonan Dana', 'Permohonan Dana', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<div align=\"justify\">Dengan hormat,\r\n</div><div align=\"justify\"><br></div><div align=\"justify\">Teriring salam dan do’a, kami sampaikan semoga bapak selalu dalam keadaan baik dan sukses dalam menjalankan aktifitas. Khususnya rasa hormat dan bangga kami haturkan kepada Bapak/Ibu kiranya terus diberkahi oleh Tuhan Yang Maha Esa, Aamiin.\r\n\r\n</div><div align=\"justify\"><br></div><div align=\"justify\">Selaku mitra yang ada di Wilayah Kabupaten Banyuasin, bersama ini kami pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin menyampaikan Permohonan Bantuan Dana untuk Kegiatan Orientasi Anggota PWI dan Pelatihan Kemahiran Berbahasa Indonesia bagi Wartawan di Banyuasin. Rencananya akan dilaksanakan&nbsp; tanggal,&nbsp; 9&nbsp;  Mei 2026 \r\n\r\n</div><div align=\"justify\"><br></div><div align=\"justify\">Demikian Permohonan Bantuan Dana ini kami sampaikan, besar harapan kami diksbulkannya.  Atas bantuannya diucapkan  terima kasih.\r\n</div><div align=\"justify\"><br></div><div align=\"center\">\r\n<b>PERSATUAN WARTAWAN INDONESIA (PWI) </b></div><div align=\"center\"><b>\r\nKABUPATEN BANYUASIN\r\n</b></div>', NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', '97ccc9b6-a493-4f87-850d-fdbae409af3e', 'TERVERIFIKASI & SAH', '152f1557d2263abf1c93a3b83ab7f63605e796afa442262db6f096725e9b6adf'),
 (50, '046/PWI-BA/III/2026', '2026-03-24 00:00:00', 'SURAT BIASA', NULL, 'Desi Ari Pressanti, S.S., M.Hum', 'Pelatihan Kemahiran Berbahasa Indonesia bagi Wartawan', 'Pelatihan Kemahiran Berbahasa Indonesia bagi Wartawan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', 'b65d385a-7449-4d24-8657-0e43c3976c51', 'TERVERIFIKASI & SAH', 'ed67890c87b73df5b043a6dc16dd792cc62840c57b73b3643d22b25a9eb33adf');
-INSERT INTO `letters` VALUES
+INSERT INTO `letters` (`id`, `nomor_surat`, `tanggal`, `jenis_surat`, `member_id`, `tujuan`, `keperluan`, `perihal`, `tempat_tujuan`, `nama_pejabat`, `jabatan_pejabat`, `alamat_tujuan`, `lokasi`, `tanggal_mulai`, `tanggal_selesai`, `lampiran`, `isi_surat`, `file_dokumen`, `penandatangan_nama`, `penandatangan_sekretaris`, `created_at`, `updated_at`, `uuid`, `status_verifikasi`, `hash_keabsahan`) VALUES
 (51, '045/PWI-BA/III/2026', '2026-03-09 00:00:00', 'SURAT BIASA', NULL, 'PWI Banyuasin', ' Undangan Pembentukan Panitia Orientasi Wartawan', ' Undangan Pembentukan Panitia Orientasi Wartawan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', 'ef4c29d9-94a4-4406-82e6-9ed66048cc43', 'TERVERIFIKASI & SAH', '23e01ade7d78d02b019b1a6dc6374b93231bac236b97ab13f0ccae565cb7b9a1'),
 (52, '042/PWI-BA/II/2026', '2026-02-26 00:00:00', 'SURAT TUGAS', NULL, 'Palembang ', 'Kegiatan PWI', 'Kegiatan PWI', NULL, NULL, NULL, NULL, 'Palembang ', '2026-02-26 00:00:00', '2026-02-27 00:00:00', NULL, NULL, NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', 'edd7b492-b187-4ffc-8f47-9552751627b1', 'TERVERIFIKASI & SAH', '1e5cbdc67a93478179f16ba56991d116ff6a26cb7a17926cc63f7a05c82169d7'),
 (53, '044/PWI-BA/II/2026', '2026-02-23 00:00:00', 'SURAT BIASA', NULL, 'Asnaini Khamsin, SE', 'Permohonan penyerahan Aset PWI Banyuasin', 'Permohonan penyerahan Aset PWI Banyuasin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Wardoyo, S.I.Kom', 'Deni Arianto', '2026-09-03 07:23:00', '2026-09-03 07:23:00', '0ed53920-afef-4dd9-8284-a62f034498de', 'TERVERIFIKASI & SAH', '4c1246a962b247f3c417ceca976033a7374226de2dd9d5ee572ff3dad0f0b3db'),
@@ -496,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `incoming_letters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `incoming_letters` (2 records)
-INSERT INTO `incoming_letters` VALUES
+INSERT INTO `incoming_letters` (`id`, `nomor_surat`, `tanggal_surat`, `tanggal_diterima`, `pengirim`, `perihal`, `isi_ringkas`, `file_lampiran`, `status_disposisi`, `created_at`, `updated_at`) VALUES
 (1, '005/124/Diskominfo/2026', '2026-08-20 00:00:00', '2026-08-21 00:00:00', 'Dinas Kominfo Kabupaten Banyuasin', 'Undangan Forum Koordinasi Kemitraan Media', 'Permohonan delegasi 5 orang pengurus PWI untuk menghadiri Rapat Kordinasi Media Pers di Ruang Rapat Pemkab Banyuasin.', NULL, 'Diterima & Ditindaklanjuti', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
 (2, 'B/452/VIII/HUM.6.1/2026/Polres', '2026-08-15 00:00:00', '2026-08-16 00:00:00', 'Kepolisian Resor Banyuasin', 'Penyampaian Rilis Pers Pengamanan Pilkada Damai', 'Sinergi publikasi bersama media anggota PWI Banyuasin terkait Deklarasi Pilkada Damai 2026.', NULL, 'Disposisi Ketua', '2026-09-03 06:23:40', '2026-09-03 06:23:40');
 
@@ -523,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `meeting_minutes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `meeting_minutes` (2 records)
-INSERT INTO `meeting_minutes` VALUES
+INSERT INTO `meeting_minutes` (`id`, `judul_rapat`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `tempat`, `pemimpin_rapat`, `notulis`, `agenda`, `pembahasan`, `kesimpulan`, `file_lampiran`, `created_at`, `updated_at`) VALUES
 (1, 'Rapat Pleno Persiapan Turnamen Mini Soccer Piala PWI 2026 & Konsolidasi UKW', '2026-08-10 00:00:00', '09:00:00', '12:30:00', 'Sekretariat PWI Kabupaten Banyuasin, Jl. Merdeka No. 3', 'Wardoyo, S.I.Kom (Ketua PWI)', 'Deni Arianto (Sekretaris PWI)', '1. Pembentukan Panitia Pelaksana Turnamen Mini Soccer 2026\n2. Sosialisasi Program Uji Kompetensi Wartawan (UKW) Angkatan VII\n3. Penertiban Administrasi KTA dan Iuran Anggota', 'Rapat dibuka pukul 09.00 WIB oleh Ketua PWI Banyuasin. Dilanjutkan pemaparan ketua SIWO mengenai kesiapan lapangan Sedulang Setudung dan koordinasi izin keramaian ke Polres Banyuasin. Bendahara memaparkan estimasi anggaran dan penggalangan sponsor. Dilanjutkan pembahasan pendaftaran peserta UKW bagi 16 wartawan yang belum memiliki sertifikat UKW.', '1. Turnamen Mini Soccer dijadwalkan tanggal 19-31 Agustus 2026 dengan 16 tim peserta mitra instansi.\n2. Mengirimkan surat pemberitahuan UKW ke PWI Sumsel.\n3. Seluruh anggota PWI Banyuasin wajib berpartisipasi aktif dalam kepanitiaan.', NULL, '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
 (2, 'Rapat Evaluasi Kinerja Semester I & Verifikasi Berkas Keanggotaan', '2026-06-15 00:00:00', '13:30:00', '16:00:00', 'Ruang Rapat Sekretariat PWI Banyuasin', 'Wardoyo, S.I.Kom', 'Deni Arianto', '1. Evaluasi Liputan Berita dan Website Resmi PWI\n2. Verifikasi Data Wartawan Aktif dan Non-Aktif\n3. Rencana Bantuan Hukum & Pembelaan Wartawan', 'Pembahasan mengenai pentingnya pembaruan website profil dan sistem informasi keanggotaan PWI Banyuasin agar mudah diakses publik dan dinas. Bidang Pembelaan Wartawan melaporkan situasi kondusif di lapangan.', '1. Merilis portal digital baru terintegrasi.\n2. Mewajibkan seluruh anggota memperbarui masa berlaku KTA PWI.\n3. Menjadwalkan safari jurnalistik ke instansi Forkopimda.', NULL, '2026-09-03 06:23:41', '2026-09-03 06:23:41');
 
@@ -545,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `meeting_attendances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `meeting_attendances` (96 records)
-INSERT INTO `meeting_attendances` VALUES
+INSERT INTO `meeting_attendances` (`id`, `meeting_minute_id`, `member_id`, `status_kehadiran`, `keterangan`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'izin', 'Tugas Peliputan Luar Kota', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
 (2, 1, 2, 'hadir', 'Hadir Tepat Waktu', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
 (3, 1, 3, 'hadir', 'Hadir Tepat Waktu', '2026-09-03 06:23:40', '2026-09-03 06:23:40'),
@@ -596,7 +602,7 @@ INSERT INTO `meeting_attendances` VALUES
 (48, 1, 48, 'hadir', 'Hadir Tepat Waktu', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
 (49, 2, 1, 'izin', 'Sedang Liputan di Betung', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
 (50, 2, 2, 'hadir', 'Hadir', '2026-09-03 06:23:41', '2026-09-03 06:23:41');
-INSERT INTO `meeting_attendances` VALUES
+INSERT INTO `meeting_attendances` (`id`, `meeting_minute_id`, `member_id`, `status_kehadiran`, `keterangan`, `created_at`, `updated_at`) VALUES
 (51, 2, 3, 'hadir', 'Hadir', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
 (52, 2, 4, 'hadir', 'Hadir', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
 (53, 2, 5, 'hadir', 'Hadir', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
@@ -666,7 +672,7 @@ CREATE TABLE IF NOT EXISTS `inboxes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `inboxes` (2 records)
-INSERT INTO `inboxes` VALUES
+INSERT INTO `inboxes` (`id`, `tanggal`, `nama`, `instansi`, `email`, `telepon`, `tujuan`, `keperluan`, `pesan`, `status`, `created_at`, `updated_at`) VALUES
 (1, '2026-09-01 06:23:41', 'H. Erwin Ibrahim, ST., M.M., M.B.A', 'Sekretariat Daerah Kabupaten Banyuasin', 'sekda@banyuasinkab.go.id', '081278990011', 'Ketua PWI Banyuasin', 'Koordinasi Kerjasama Publikasi Pembangunan Daerah', 'Kami dari Pemkab Banyuasin siap bersinergi dengan rekan-rekan jurnalis PWI untuk menginformasikan program strategis Banyuasin Bangkit Adil dan Sejahtera.', 'baru', '2026-09-03 06:23:41', '2026-09-03 06:23:41'),
 (2, '2026-08-29 06:23:41', 'Kapolres Banyuasin', 'Polres Banyuasin', 'humas.polresbanyuasin@polri.go.id', '085267001122', 'Pengurus PWI Banyuasin', 'Undangan Press Conference Akhir Bulan', 'Mengundang jajaran pengurus dan anggota PWI Banyuasin pada kegiatan rilis pers capaian kamtibmas.', 'dibaca', '2026-09-03 06:23:41', '2026-09-03 06:23:41');
 
@@ -685,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `settings` (16 records)
-INSERT INTO `settings` VALUES
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
 (1, 'nama_pwi', 'PWI Kabupaten Banyuasin', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
 (2, 'alamat_kantor', 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', '2026-09-03 06:23:39', '2026-09-03 07:23:01'),
 (3, 'kota', 'Pangkalan Balai', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
@@ -715,7 +721,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data untuk tabel `migrations` (7 records)
-INSERT INTO `migrations` VALUES
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
