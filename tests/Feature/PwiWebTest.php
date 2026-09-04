@@ -875,4 +875,20 @@ class PwiWebTest extends TestCase
         $homeResponse->assertSee('Jalan PWI Terintegrasi No. 99, Pangkalan Balai');
         $homeResponse->assertSee('0812-9999-8888');
     }
+
+    public function test_watermark_beranda_teknologi_digital_renders_in_public_and_admin_footers(): void
+    {
+        // Public footer check
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('Beranda Teknologi Digital');
+        $homeResponse->assertSee('https://berandadigital.net');
+
+        // Admin footer check
+        $admin = User::first();
+        $adminResponse = $this->actingAs($admin)->get(route('admin.dashboard'));
+        $adminResponse->assertStatus(200);
+        $adminResponse->assertSee('Beranda Teknologi Digital');
+        $adminResponse->assertSee('https://berandadigital.net');
+    }
 }

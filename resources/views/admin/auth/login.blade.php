@@ -300,6 +300,17 @@
 
     <!-- Simple Modern Footer -->
     <footer class="relative z-10 w-full py-4 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center justify-center gap-2">
+            <span>&copy; {{ date('Y') }} PWI Kabupaten Banyuasin</span>
+            <span class="text-slate-300 dark:text-slate-700">•</span>
+            <a href="https://berandadigital.net" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="text-[11px] text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" 
+               title="Beranda Teknologi Digital">
+                Beranda Teknologi Digital
+            </a>
+        </div>
     </footer>
 
     <!-- SweetAlert2 Scripts -->
