@@ -57,19 +57,52 @@
                     </div>
 
                     <!-- Share Section -->
-                    <div class="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">Bagikan Berita Ini:</span>
-                        <div class="flex items-center gap-2">
-                            <a href="https://api.whatsapp.com/send?text={{ urlencode($post->judul . ' ' . url()->current()) }}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors flex items-center gap-1.5">
-                                <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+                    <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-center sm:text-left">Bagikan Berita Ini:</span>
+                        
+                        <!-- 1 Baris Horizontal Ikon Bulat -->
+                        <div class="flex items-center justify-center sm:justify-end gap-2 overflow-x-auto py-0.5 no-scrollbar max-w-full">
+                            <!-- WhatsApp -->
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode($post->judul . ' ' . url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white dark:bg-emerald-950/60 dark:text-emerald-400 dark:hover:bg-emerald-500 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke WhatsApp" aria-label="Bagikan ke WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
                             </a>
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors flex items-center gap-1.5">
-                                <i class="fa-brands fa-facebook text-sm"></i> Facebook
+
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white dark:bg-blue-950/60 dark:text-blue-400 dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Facebook" aria-label="Bagikan ke Facebook">
+                                <i class="fa-brands fa-facebook-f text-xs sm:text-sm"></i>
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->judul) }}&url={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/60 transition-colors flex items-center gap-1.5">
-                                <i class="fa-brands fa-x-twitter text-sm"></i> Twitter
+
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" onclick="copyNewsLink(event, 'Tautan disalin! Buka Instagram untuk membagikan.')" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-pink-50 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 text-pink-600 hover:text-white dark:bg-pink-950/60 dark:text-pink-400 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Instagram" aria-label="Bagikan ke Instagram">
+                                <i class="fa-brands fa-instagram text-sm sm:text-base"></i>
                             </a>
+
+                            <!-- X (Twitter) -->
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->judul) }}&url={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-slate-100 hover:bg-black text-slate-800 hover:text-white dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-white dark:hover:text-black transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke X" aria-label="Bagikan ke X">
+                                <i class="fa-brands fa-x-twitter text-xs sm:text-sm"></i>
+                            </a>
+
+                            <!-- Telegram -->
+                            <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->judul) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-sky-50 hover:bg-sky-500 text-sky-500 hover:text-white dark:bg-sky-950/60 dark:text-sky-400 dark:hover:bg-sky-500 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Telegram" aria-label="Bagikan ke Telegram">
+                                <i class="fa-brands fa-telegram text-sm sm:text-base"></i>
+                            </a>
+
+                            <!-- Threads -->
+                            <a href="https://www.threads.net/intent/post?text={{ urlencode($post->judul . ' ' . url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-zinc-100 hover:bg-zinc-900 text-zinc-800 hover:text-white dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Threads" aria-label="Bagikan ke Threads">
+                                <i class="fa-brands fa-threads text-sm sm:text-base"></i>
+                            </a>
+
+                            <!-- Salin Tautan -->
+                            <button type="button" onclick="copyNewsLink(event)" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-slate-100 hover:bg-blue-600 text-slate-700 hover:text-white dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105 cursor-pointer" title="Salin Tautan Berita" aria-label="Salin Tautan Berita">
+                                <i class="fa-solid fa-link text-xs sm:text-sm" id="copyShareIcon"></i>
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- Toast Notifikasi Salin Tautan -->
+                    <div id="copyToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-slate-900/90 dark:bg-white/90 text-white dark:text-slate-900 text-xs font-semibold rounded-full shadow-lg pointer-events-none transition-all duration-300 opacity-0 translate-y-4 z-50 flex items-center gap-2">
+                        <i class="fa-solid fa-check text-emerald-400 dark:text-emerald-600"></i>
+                        <span id="copyToastText">Tautan berita berhasil disalin!</span>
                     </div>
 
                 </article>
@@ -130,3 +163,53 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+function copyNewsLink(e, customMsg) {
+    const url = window.location.href;
+    
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).catch(function() {
+            fallbackCopyText(url);
+        });
+    } else {
+        fallbackCopyText(url);
+    }
+
+    const icon = document.getElementById('copyShareIcon');
+    if (icon) {
+        icon.className = 'fa-solid fa-check text-emerald-500 text-xs sm:text-sm';
+        setTimeout(() => {
+            icon.className = 'fa-solid fa-link text-xs sm:text-sm';
+        }, 2000);
+    }
+
+    const toast = document.getElementById('copyToast');
+    const toastText = document.getElementById('copyToastText');
+    if (toast && toastText) {
+        toastText.textContent = customMsg || 'Tautan berita berhasil disalin!';
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-4');
+        }, 2500);
+    }
+}
+
+function fallbackCopyText(text) {
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    tempInput.style.position = 'fixed';
+    tempInput.style.opacity = '0';
+    document.body.appendChild(tempInput);
+    tempInput.focus();
+    tempInput.select();
+    try {
+        document.execCommand('copy');
+    } catch (err) {}
+    document.body.removeChild(tempInput);
+}
+</script>
+@endpush

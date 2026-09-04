@@ -677,4 +677,25 @@ class PwiWebTest extends TestCase
         $publicDetail->assertSee('color: #0b2b68;', false);
         $publicDetail->assertSee('Rapat Koordinasi Bersejarah PWI Banyuasin', false);
     }
+
+    public function test_news_detail_renders_all_seven_circular_share_buttons(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        $response = $this->get(route('news.show', $post->slug));
+        $response->assertStatus(200);
+        $response->assertSee('Bagikan Berita Ini:', false);
+
+        // Assert 7 round share icons exist
+        $response->assertSee('fa-whatsapp', false);
+        $response->assertSee('fa-facebook-f', false);
+        $response->assertSee('fa-instagram', false);
+        $response->assertSee('fa-x-twitter', false);
+        $response->assertSee('fa-telegram', false);
+        $response->assertSee('fa-threads', false);
+        $response->assertSee('copyShareIcon', false);
+        $response->assertSee('rounded-full', false);
+        $response->assertSee('copyNewsLink', false);
+    }
 }
