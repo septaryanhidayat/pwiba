@@ -678,7 +678,7 @@ class PwiWebTest extends TestCase
         $publicDetail->assertSee('Rapat Koordinasi Bersejarah PWI Banyuasin', false);
     }
 
-    public function test_news_detail_renders_four_circular_share_buttons(): void
+    public function test_news_detail_renders_all_seven_circular_share_buttons_without_adblock_risk(): void
     {
         $post = Post::where('status', 'published')->first();
         $this->assertNotNull($post);
@@ -687,17 +687,28 @@ class PwiWebTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Bagikan Berita Ini:', false);
 
-        // Assert only 4 round share icons exist: WA, IG, Threads, Salin Tautan
+        // Assert all 7 round share icons exist
         $response->assertSee('fa-whatsapp', false);
+        $response->assertSee('fa-facebook-f', false);
         $response->assertSee('fa-instagram', false);
+        $response->assertSee('fa-x-twitter', false);
+        $response->assertSee('fa-telegram', false);
         $response->assertSee('fa-threads', false);
         $response->assertSee('copyShareIcon', false);
         $response->assertSee('rounded-full', false);
         $response->assertSee('copyNewsLink', false);
 
-        // Assert other share platforms are not present in share section
-        $response->assertDontSee('facebook.com/sharer/sharer.php', false);
-        $response->assertDontSee('twitter.com/intent/tweet', false);
-        $response->assertDontSee('t.me/share/url', false);
+        // Assert all 7 shareTo actions are present in buttons
+        $response->assertSee("shareTo('whatsapp')", false);
+        $response->assertSee("shareTo('facebook')", false);
+        $response->assertSee("shareTo('instagram')", false);
+        $response->assertSee("shareTo('x')", false);
+        $response->assertSee("shareTo('telegram')", false);
+        $response->assertSee("shareTo('threads')", false);
+
+        // Assert direct tracker URLs are NOT used on <a> tags to prevent Brave Shields / adblocker cosmetic hiding
+        $response->assertDontSee('href="https://www.facebook.com/sharer', false);
+        $response->assertDontSee('href="https://twitter.com/intent', false);
+        $response->assertDontSee('href="https://t.me/share', false);
     }
 }
