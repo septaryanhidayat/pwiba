@@ -6,7 +6,7 @@
     <title>Login Administrator - PWI Kabupaten Banyuasin</title>
 
     <!-- Favicon Resmi PWI Banyuasin -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -128,7 +128,7 @@
     <header class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center gap-3 group">
             <div class="w-10 h-10 rounded-xl bg-white dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
-                <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" width="32" height="32" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="32" height="32" class="w-full h-full object-contain">
             </div>
             <div class="flex flex-col">
                 <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">Portal Resmi</span>
@@ -170,7 +170,7 @@
                     <div class="text-center space-y-3">
                         <div class="inline-flex relative">
                             <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 p-2.5 shadow-xl ring-1 ring-slate-200 dark:ring-white/15 flex items-center justify-center animate-float">
-                                <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="PWI Logo" width="56" height="56" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                                <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" width="56" height="56" class="w-full h-full object-contain">
                             </div>
                             <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

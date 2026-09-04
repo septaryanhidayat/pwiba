@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -35,6 +36,11 @@ class Post extends Model
                 $post->slug = Str::slug($post->judul).'-'.Str::random(5);
             }
         });
+    }
+
+    public function views(): HasMany
+    {
+        return $this->hasMany(PostView::class);
     }
 
     public function getGambarUrlAttribute(): string

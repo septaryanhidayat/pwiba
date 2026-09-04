@@ -7,8 +7,8 @@
     <title>@yield('title', 'Dashboard MIS') - PWI Banyuasin</title>
 
     <!-- Favicon Resmi PWI Banyuasin -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -155,7 +155,7 @@
             <div class="h-20 px-6 flex items-center justify-between border-b border-white/10 bg-[#070D1E]">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-white/10 p-1.5 ring-1 ring-white/20 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                        <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
+                        <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <div class="text-[10px] font-bold text-amber-400 tracking-wider uppercase">Sistem Informasi MIS</div>
@@ -350,36 +350,41 @@
     <div class="lg:pl-72 flex flex-col flex-grow min-w-0 min-h-screen bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
         
         <!-- Top Navbar -->
-        <header class="sticky top-0 z-40 h-20 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 sm:px-8 flex items-center justify-between transition-colors duration-200 shadow-sm">
-            <div class="flex items-center gap-3">
-                <button @click="sidebarOpen = true" class="lg:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10">
-                    <i class="fa-solid fa-bars text-lg"></i>
+        <header class="sticky top-0 z-40 h-16 sm:h-20 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-3.5 sm:px-8 flex items-center justify-between transition-colors duration-200 shadow-xs">
+            <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1 mr-2">
+                <button @click="sidebarOpen = true" 
+                        class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-xs flex items-center justify-center flex-shrink-0 cursor-pointer"
+                        aria-label="Buka Menu Sidebar">
+                    <i class="fa-solid fa-bars text-sm sm:text-base"></i>
                 </button>
-                <div>
-                    <h1 class="text-base sm:text-lg font-black text-[#0B132B] dark:text-white">@yield('page_title', 'Sistem Informasi PWI')</h1>
-                    <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hidden sm:block">Persatuan Wartawan Indonesia Kabupaten Banyuasin</p>
+                <div class="min-w-0 flex-1">
+                    <h1 class="text-sm sm:text-base md:text-lg font-black text-[#0B132B] dark:text-white truncate leading-tight">
+                        @yield('page_title', 'Sistem Informasi PWI')
+                    </h1>
+                    <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hidden sm:block truncate mt-0.5">
+                        Persatuan Wartawan Indonesia Kabupaten Banyuasin
+                    </p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3 sm:gap-4">
-                
+            <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                 <!-- Dark / Light Mode Toggle Button in Header -->
                 <button @click="toggleTheme()" 
                         type="button" 
-                        class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-amber-400 transition-all shadow-sm flex items-center justify-center cursor-pointer"
+                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-400 transition-all shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0"
                         :title="isDark ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'"
                         aria-label="Toggle Theme">
-                    <i class="fa-solid fa-sun text-base text-amber-400" x-show="isDark" x-cloak></i>
-                    <i class="fa-solid fa-moon text-base text-slate-700" x-show="!isDark"></i>
+                    <i class="fa-solid fa-sun text-sm sm:text-base text-amber-400" x-show="isDark" x-cloak></i>
+                    <i class="fa-solid fa-moon text-sm sm:text-base text-slate-700 dark:text-slate-200" x-show="!isDark"></i>
                 </button>
 
-                <a href="{{ route('home') }}" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 border border-amber-300 dark:border-amber-400/30 transition-colors shadow-sm">
+                <a href="{{ route('home') }}" target="_blank" class="hidden sm:inline-flex items-center gap-2 h-10 px-3.5 rounded-xl text-xs font-bold text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 border border-amber-300 dark:border-amber-400/30 transition-colors shadow-xs">
                     <i class="fa-solid fa-globe text-amber-600 dark:text-amber-400"></i>
                     <span>Portal Publik</span>
                 </a>
 
-                <div class="flex items-center gap-2 pl-3 sm:pl-4 border-l border-slate-300 dark:border-slate-800">
-                    <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 flex items-center justify-center font-bold text-xs text-blue-700 dark:text-blue-300">
+                <div class="flex items-center gap-2">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 flex items-center justify-center font-bold text-xs text-blue-700 dark:text-blue-300 shadow-xs flex-shrink-0">
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <span class="text-xs font-bold text-slate-800 dark:text-slate-200 hidden md:block">Admin PWI</span>

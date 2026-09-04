@@ -10,11 +10,13 @@ use App\Models\MeetingMinute;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
 use App\Models\Post;
+use App\Models\PostView;
 use App\Models\Setting;
 use App\Models\User;
 use App\Services\ImageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -622,7 +624,7 @@ class PwiWebTest extends TestCase
         $letterPrint->assertStatus(200);
         $letterPrint->assertSee('margin: 0.5cm', false);
         $letterPrint->assertSee('padding: 0.5cm', false);
-        $letterPrint->assertSee('Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', false);
+        $letterPrint->assertSee('Jalan Merdeka NO 3 RT 02 RW 02', false);
         $letterPrint->assertDontSee('Sumatera Selatan<br>', false);
         $letterPrint->assertSee('btn-paper-a4', false);
         $letterPrint->assertSee('btn-paper-legal', false);
@@ -710,5 +712,167 @@ class PwiWebTest extends TestCase
         $response->assertDontSee('href="https://www.facebook.com/sharer', false);
         $response->assertDontSee('href="https://twitter.com/intent', false);
         $response->assertDontSee('href="https://t.me/share', false);
+    }
+
+    public function test_first_visit_increments_views_count_and_creates_post_view_record(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        $initialViews = $post->views_count;
+        $initialRecords = PostView::where('post_id', $post->id)->count();
+
+        $response = $this->withServerVariables([
+            'REMOTE_ADDR' => '192.168.10.15',
+            'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        ])->get(route('news.show', $post->slug));
+
+        $response->assertStatus(200);
+
+        $post->refresh();
+        $this->assertEquals($initialViews + 1, $post->views_count);
+        $this->assertEquals($initialRecords + 1, PostView::where('post_id', $post->id)->count());
+
+        $latestView = PostView::where('post_id', $post->id)->latest('id')->first();
+        $this->assertEquals('192.168.10.15', $latestView->ip_address);
+    }
+
+    public function test_refreshing_page_in_same_session_does_not_increment_counter(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        // First visit
+        $this->withSession(['viewed_post_'.$post->id => now()->timestamp])
+            ->get(route('news.show', $post->slug))
+            ->assertStatus(200);
+
+        $post->refresh();
+        $viewsAfterFirst = $post->views_count;
+
+        // Second visit with same session (refresh)
+        $this->withSession(['viewed_post_'.$post->id => now()->timestamp])
+            ->get(route('news.show', $post->slug))
+            ->assertStatus(200);
+
+        $post->refresh();
+        $this->assertEquals($viewsAfterFirst, $post->views_count);
+    }
+
+    public function test_bot_crawlers_are_ignored_and_do_not_increment_counter(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        $initialViews = $post->views_count;
+
+        // Bot visit (Googlebot)
+        $this->withServerVariables([
+            'REMOTE_ADDR' => '66.249.66.1',
+            'HTTP_USER_AGENT' => 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+        ])->get(route('news.show', $post->slug))->assertStatus(200);
+
+        $post->refresh();
+        $this->assertEquals($initialViews, $post->views_count);
+
+        // Bot visit (AhrefsBot)
+        $this->withServerVariables([
+            'REMOTE_ADDR' => '54.36.148.1',
+            'HTTP_USER_AGENT' => 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)',
+        ])->get(route('news.show', $post->slug))->assertStatus(200);
+
+        $post->refresh();
+        $this->assertEquals($initialViews, $post->views_count);
+    }
+
+    public function test_sync_post_views_artisan_command(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        // Set a fake views_count
+        $post->update(['views_count' => 999]);
+
+        $exitCode = Artisan::call('posts:sync-views', ['--reset-all' => true]);
+        $this->assertEquals(0, $exitCode);
+
+        $post->refresh();
+        $realCount = PostView::where('post_id', $post->id)->count();
+        $this->assertEquals($realCount, $post->views_count);
+    }
+
+    public function test_pagination_renders_numeric_and_icons_without_raw_translation_keys(): void
+    {
+        // Seed enough posts to generate pagination (more than 9)
+        for ($i = 1; $i <= 15; $i++) {
+            Post::create([
+                'judul' => "Berita Uji Pagination $i",
+                'ringkasan' => "Ringkasan berita ke-$i",
+                'konten' => "<p>Isi berita ke-$i</p>",
+                'status' => 'published',
+                'published_at' => now()->subMinutes($i),
+            ]);
+        }
+
+        $response = $this->get('/berita');
+        $response->assertStatus(200);
+
+        // Ensure raw pagination translation strings are never displayed
+        $response->assertDontSee('pagination.previous');
+        $response->assertDontSee('pagination.next');
+
+        // Check for modern chevron icons
+        $response->assertSee('fa-chevron-left');
+        $response->assertSee('fa-chevron-right');
+
+        // Check admin posts pagination
+        $admin = User::first();
+        $adminPosts = $this->actingAs($admin)->get(route('admin.posts.index'));
+        $adminPosts->assertStatus(200);
+        $adminPosts->assertDontSee('pagination.previous');
+        $adminPosts->assertDontSee('pagination.next');
+    }
+
+    public function test_admin_header_has_symmetric_controls_and_clean_buttons(): void
+    {
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+        $response->assertStatus(200);
+
+        // Header controls have symmetric w-9 h-9 rounded-xl sizing
+        $response->assertSee('w-9 h-9 rounded-xl');
+
+        // Check organization page doesn't have duplicate + + in buttons
+        $orgResponse = $this->actingAs($admin)->get(route('admin.organization.index'));
+        $orgResponse->assertStatus(200);
+        $orgResponse->assertDontSee('+ +');
+        $orgResponse->assertSee('Tambah Pengurus');
+    }
+
+    public function test_centralized_office_settings_can_be_updated_and_reflected_globally(): void
+    {
+        $admin = User::first();
+
+        // Update office settings via admin endpoint
+        $response = $this->actingAs($admin)->post(route('admin.settings.office.update'), [
+            'nama_pwi' => 'PWI Kabupaten Banyuasin',
+            'alamat_kantor' => 'Jalan PWI Terintegrasi No. 99, Pangkalan Balai',
+            'kota' => 'Pangkalan Balai',
+            'no_telp' => '0812-9999-8888',
+            'email' => 'sekretariat@pwiba.or.id',
+            'ketua_nama' => 'Wardoyo, S.I.Kom',
+            'ketua_sambutan' => 'Sambutan resmi PWI',
+            'visi' => 'Visi PWI',
+            'misi' => 'Misi PWI',
+        ]);
+
+        $response->assertRedirect();
+
+        // Check that public pages reflect the new email, address, and phone
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('sekretariat@pwiba.or.id');
+        $homeResponse->assertSee('Jalan PWI Terintegrasi No. 99, Pangkalan Balai');
+        $homeResponse->assertSee('0812-9999-8888');
     }
 }

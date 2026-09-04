@@ -802,7 +802,7 @@ INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
 (2, 'alamat_kantor', 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)', '2026-09-03 06:23:39', '2026-09-03 11:48:35'),
 (3, 'kota', 'Pangkalan Balai', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
 (4, 'no_telp', '0853-7799-1976', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
-(5, 'email', 'sekretariat@pwibanyuasin.or.id', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
+(5, 'email', 'sekretariat@pwiba.or.id', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
 (6, 'ketua_nama', 'Wardoyo, S.I.Kom', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
 (7, 'ketua_sambutan', 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),
 (8, 'visi', 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.', '2026-09-03 06:23:39', '2026-09-03 06:23:39'),

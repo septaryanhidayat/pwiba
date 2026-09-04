@@ -13,8 +13,8 @@
     <meta name="theme-color" content="#0B132B">
 
     <!-- Favicon Resmi PWI Banyuasin -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/pwi-logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/pwi-logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -22,19 +22,19 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
     <meta property="og:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, galeri kegiatan, dan layanan keabsahan surat digital.')">
-    <meta property="og:image" content="{{ asset('assets/images/pwi-logo.png') }}">
-    <meta property="og:image:secure_url" content="{{ asset('assets/images/pwi-logo.png') }}">
+    <meta property="og:image" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
+    <meta property="og:image:secure_url" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="670">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:site_name" content="PWI Banyuasin">
+    <meta property="og:site_name" content="{{ $settings['nama_pwi'] ?? 'PWI Banyuasin' }}">
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
     <meta name="twitter:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, dan layanan pers.')">
-    <meta name="twitter:image" content="{{ asset('assets/images/pwi-logo.png') }}">
+    <meta name="twitter:image" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
 
     <!-- Preload LCP Hero Image -->
     <link rel="preload" as="image" href="{{ asset('assets/images/wardoyo-ketua.webp') }}" type="image/webp" fetchpriority="high">
@@ -47,7 +47,7 @@
         'name' => 'Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin',
         'alternateName' => 'PWI Banyuasin',
         'url' => url('/'),
-        'logo' => asset('assets/images/pwi-logo.png'),
+        'logo' => $settings['logo_url'] ?? asset('assets/images/pwi-logo.png'),
         'description' => 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Masa Bhakti 2025–2028.',
         'address' => [
             '@type' => 'PostalAddress',
@@ -270,7 +270,7 @@
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
-                        <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                        <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
@@ -339,13 +339,16 @@
                 <div class="flex items-center gap-2 lg:hidden">
                     <button @click="toggleTheme()" 
                             type="button" 
-                            class="p-2 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-amber-400 transition-colors"
+                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-amber-400 transition-all shadow-xs flex items-center justify-center cursor-pointer"
                             aria-label="Toggle Theme Mobile">
                         <i class="fa-solid fa-sun text-sm text-amber-400" x-show="isDark" x-cloak></i>
-                        <i class="fa-solid fa-moon text-sm text-slate-700" x-show="!isDark"></i>
+                        <i class="fa-solid fa-moon text-sm text-slate-700 dark:text-slate-200" x-show="!isDark"></i>
                     </button>
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="p-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors" aria-label="Toggle menu">
-                        <i class="fa-solid text-xl" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                            type="button" 
+                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-all shadow-xs flex items-center justify-center cursor-pointer" 
+                            aria-label="Toggle menu">
+                        <i class="fa-solid text-base" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
                     </button>
                 </div>
             </div>
@@ -393,10 +396,10 @@
                 <div class="lg:col-span-2 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="flex flex-col sm:flex-row items-center gap-3">
                         <div class="w-12 h-12 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center shadow-md">
-                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain">
                         </div>
                         <div class="text-center sm:text-left">
-                            <h4 class="text-lg font-bold text-white leading-tight">PWI Kabupaten Banyuasin</h4>
+                            <h4 class="text-lg font-bold text-white leading-tight">{{ $settings['nama_pwi'] ?? 'PWI Kabupaten Banyuasin' }}</h4>
                             <p class="text-xs text-amber-400 font-medium">Persatuan Wartawan Indonesia</p>
                         </div>
                     </div>
@@ -413,7 +416,7 @@
                         <a href="#" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="YouTube">
                             <i class="fa-brands fa-youtube text-sm"></i>
                         </a>
-                        <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="WhatsApp">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['no_telp'] ?? '6285377991976') }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="WhatsApp">
                             <i class="fa-brands fa-whatsapp text-sm"></i>
                         </a>
                     </div>
@@ -452,15 +455,15 @@
                     <div class="space-y-3 text-xs text-slate-400 flex flex-col items-center md:items-start">
                         <div class="flex flex-col sm:flex-row items-center md:items-start gap-2 text-center md:text-left">
                             <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
-                            <span class="max-w-xs md:max-w-none">Jl. Merdeka No. 3 RT 02 RW 02 Kel. Mulya Agung, Kec. Banyuasin III, Kab. Banyuasin - Sumsel (30914)</span>
+                            <span class="max-w-xs md:max-w-none">{{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-phone text-amber-400"></i>
-                            <span>0853-7799-1976</span>
+                            <span>{{ $settings['no_telp'] ?? '0853-7799-1976' }}</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-envelope text-amber-400"></i>
-                            <span>sekretariat@pwibanyuasin.or.id</span>
+                            <span>{{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}</span>
                         </div>
                     </div>
                 </div>

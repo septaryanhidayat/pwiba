@@ -69,7 +69,7 @@
                                     <span>•</span>
                                     <span>{{ $p->published_at ? $p->published_at->translatedFormat('d M Y') : '-' }}</span>
                                     <span>•</span>
-                                    <span>{{ $p->views_count }} views</span>
+                                    <span>{{ number_format($p->views_count) }} kali dibaca</span>
                                 </div>
                             </td>
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-slate-200">{{ $p->penulis }}</td>

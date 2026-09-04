@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
             'alamat_kantor' => 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)',
             'kota' => 'Pangkalan Balai',
             'no_telp' => '0853-7799-1976',
-            'email' => 'sekretariat@pwibanyuasin.or.id',
+            'email' => 'sekretariat@pwiba.or.id',
             'ketua_nama' => 'Wardoyo, S.I.Kom',
             'ketua_sambutan' => 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.',
             'visi' => 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.',

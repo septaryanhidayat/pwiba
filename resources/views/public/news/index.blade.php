@@ -68,7 +68,7 @@
                             <div class="flex items-center gap-3 text-xs text-slate-400 mb-3">
                                 <span><i class="fa-regular fa-calendar me-1"></i> {{ $p->published_at ? $p->published_at->translatedFormat('d M Y') : '-' }}</span>
                                 <span>•</span>
-                                <span><i class="fa-regular fa-eye me-1"></i> {{ $p->views_count }} views</span>
+                                <span><i class="fa-regular fa-eye me-1"></i> {{ number_format($p->views_count) }} kali dibaca</span>
                             </div>
 
                             <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">

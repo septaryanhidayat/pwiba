@@ -200,7 +200,7 @@
     <!-- Kop Surat Resmi PWI Banyuasin -->
     <div class="kop-header">
         <div class="kop-box">
-            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="kop-logo">
+            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="kop-logo">
             <div style="margin-left: 65px; margin-right: 15px;">
                 <div class="kop-title-1">PERSATUAN WARTAWAN INDONESIA</div>
                 <div class="kop-title-2">PENGURUS KABUPATEN BANYUASIN</div>
@@ -209,7 +209,7 @@
             </div>
         </div>
         <div class="kop-address">
-            Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)
+            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
         </div>
         <div class="kop-divider"></div>
     </div>

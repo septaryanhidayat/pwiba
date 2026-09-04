@@ -12,9 +12,9 @@
             <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Direktori Media Pers Mitra</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Daftar media massa, portal berita online, cetak, dan elektronik yang terafiliasi dengan PWI Banyuasin</p>
         </div>
-        <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
+        <button @click="modalTambah = true" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
             <i class="fa-solid fa-plus"></i>
-            <span>+ Tambah Media</span>
+            <span>Tambah Media</span>
         </button>
     </div>
 

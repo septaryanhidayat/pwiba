@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -28,13 +29,45 @@ class SettingController extends Controller
             'ketua_nama' => 'nullable|string|max:255',
             'ketua_sambutan' => 'nullable|string',
             'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:png,jpg,jpeg,webp,svg|max:3072',
+            'remove_logo' => 'nullable|in:0,1',
         ]);
 
-        foreach ($validated as $key => $value) {
-            Setting::set($key, $value);
+        $currentLogo = Setting::get('logo');
+
+        if ($request->boolean('remove_logo')) {
+            if ($currentLogo && Storage::disk('public')->exists($currentLogo)) {
+                Storage::disk('public')->delete($currentLogo);
+            }
+            Setting::set('logo', null);
+        } elseif ($request->hasFile('logo')) {
+            if ($currentLogo && Storage::disk('public')->exists($currentLogo)) {
+                Storage::disk('public')->delete($currentLogo);
+            }
+            $logoPath = $request->file('logo')->store('settings', 'public');
+            Setting::set('logo', $logoPath);
         }
 
-        return redirect()->back()->with('success', 'Data kantor PWI berhasil diperbarui.');
+        $textKeys = [
+            'nama_pwi',
+            'alamat_kantor',
+            'kota',
+            'no_telp',
+            'email',
+            'ketua_nama',
+            'ketua_sambutan',
+            'visi',
+            'misi',
+        ];
+
+        foreach ($textKeys as $key) {
+            if ($request->has($key)) {
+                Setting::set($key, $request->input($key));
+            }
+        }
+
+        return redirect()->back()->with('success', 'Data kantor dan logo PWI berhasil diperbarui. Seluruh halaman web telah disinkronkan.');
     }
 
     public function password()

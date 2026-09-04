@@ -10,6 +10,7 @@ use App\Models\Media;
 use App\Models\Member;
 use App\Models\OrganizationStructure;
 use App\Models\Post;
+use App\Models\PostView;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -98,10 +99,10 @@ class PublicController extends Controller
         return view('public.news.index', compact('posts', 'categories', 'recentPosts'));
     }
 
-    public function newsDetail($slug)
+    public function newsDetail(Request $request, string $slug)
     {
         $post = Post::where('slug', $slug)->where('status', 'published')->firstOrFail();
-        $post->increment('views_count');
+        $this->recordPostView($post, $request);
 
         $relatedPosts = Post::where('status', 'published')
             ->where('id', '!=', $post->id)
@@ -120,6 +121,85 @@ class PublicController extends Controller
         $recentPosts = Post::where('status', 'published')->latest('published_at')->take(5)->get();
 
         return view('public.news.show', compact('post', 'relatedPosts', 'recentPosts'));
+    }
+
+    /**
+     * Catat kunjungan pembaca autentik (anti-bot & deduplikasi sesi/IP).
+     */
+    protected function recordPostView(Post $post, Request $request): void
+    {
+        $userAgent = $request->userAgent() ?? '';
+
+        // Abaikan web crawler, spider, dan bot pencari
+        if ($this->isCrawler($userAgent)) {
+            return;
+        }
+
+        $sessionKey = 'viewed_post_'.$post->id;
+
+        // Jika sesi pengunjung sudah pernah membaca berita ini, jangan hitung ganda
+        if ($request->session()->has($sessionKey)) {
+            return;
+        }
+
+        $ip = $request->ip();
+
+        // Cek apakah ada view dari IP yang sama dalam 3 jam terakhir
+        $recentView = PostView::where('post_id', $post->id)
+            ->where('ip_address', $ip)
+            ->where('created_at', '>=', now()->subHours(3))
+            ->exists();
+
+        if (! $recentView) {
+            PostView::create([
+                'post_id' => $post->id,
+                'ip_address' => $ip,
+                'user_agent' => substr($userAgent, 0, 500),
+                'session_id' => $request->session()->getId(),
+            ]);
+
+            $post->increment('views_count');
+        }
+
+        $request->session()->put($sessionKey, now()->timestamp);
+    }
+
+    /**
+     * Deteksi apakah User-Agent adalah crawler / search engine bot.
+     */
+    protected function isCrawler(string $userAgent): bool
+    {
+        if (empty($userAgent)) {
+            return false;
+        }
+
+        $crawlers = [
+            'googlebot',
+            'bingbot',
+            'slurp',
+            'duckduckbot',
+            'baiduspider',
+            'yandexbot',
+            'sogou',
+            'exabot',
+            'facebot',
+            'ia_archiver',
+            'ahrefsbot',
+            'semrushbot',
+            'petalbot',
+            'mj12bot',
+            'dotbot',
+            'headlesschrome',
+            'lighthouse',
+            'curl',
+            'wget',
+            'python-requests',
+            'scrapy',
+        ];
+
+        $pattern = '/('.implode('|', $crawlers).')/i';
+
+        return (bool) preg_match($pattern, $userAgent);
     }
 
     public function organization()

@@ -98,7 +98,7 @@
             <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
             <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
             <div class="kop-address">
-                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }} - Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwibanyuasin.or.id' }}
+                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }} - Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}
             </div>
         </div>
         <div style="width: 80px;"></div>

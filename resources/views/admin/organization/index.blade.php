@@ -62,28 +62,28 @@
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Susunan 32 pejabat pengurus harian dan kepala seksi bidang Masa Bhakti 2025–2028</p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2.5">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 w-full sm:w-auto">
             <!-- Tab Switcher (Tabel vs Bagan) -->
-            <div class="inline-flex items-center p-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 shadow-sm">
+            <div class="grid grid-cols-2 sm:inline-flex items-center p-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 shadow-sm">
                 <button type="button" 
                         @click="tab = 'table'" 
                         :class="tab === 'table' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                        class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
                     <i class="fa-solid fa-table-list"></i>
                     <span>Tabel Data</span>
                 </button>
                 <button type="button" 
                         @click="tab = 'chart'" 
                         :class="tab === 'chart' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                        class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">
                     <i class="fa-solid fa-sitemap"></i>
                     <span>Visualisasi Bagan</span>
                 </button>
             </div>
 
-            <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
+            <button @click="modalTambah = true" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
                 <i class="fa-solid fa-plus"></i>
-                <span>+ Tambah Pengurus</span>
+                <span>Tambah Pengurus</span>
             </button>
         </div>
     </div>

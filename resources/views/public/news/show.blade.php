@@ -42,7 +42,7 @@
                         </div>
                         <div class="flex items-center gap-4">
                             <span><i class="fa-regular fa-calendar me-1"></i> {{ $post->published_at ? $post->published_at->translatedFormat('d F Y, H:i') : '-' }} WIB</span>
-                            <span><i class="fa-regular fa-eye me-1"></i> {{ $post->views_count }} views</span>
+                            <span><i class="fa-regular fa-eye me-1"></i> {{ number_format($post->views_count) }} kali dibaca</span>
                         </div>
                     </div>
 
@@ -142,7 +142,7 @@
                 <div class="bg-gradient-to-br from-slate-900 to-[#1C2541] rounded-3xl p-6 text-white shadow-lg">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-white/10 p-2 ring-1 ring-white/20 flex items-center justify-center aspect-square">
-                            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo" width="40" height="40" class="w-full h-full object-contain">
+                            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo" width="40" height="40" class="w-full h-full object-contain">
                         </div>
                         <div>
                             <h4 class="text-sm font-bold text-white">Sekretariat PWI Banyuasin</h4>

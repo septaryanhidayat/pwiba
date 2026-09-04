@@ -74,7 +74,7 @@
                     <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
                         <!-- Top Official Tag -->
                         <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
-                            <img src="{{ asset('assets/images/pwi-logo.webp') }}" alt="PWI Logo" width="16" height="16" class="w-4 h-4 object-contain" onerror="this.src='{{ asset('assets/images/pwi-logo.png') }}'">
+                            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" width="16" height="16" class="w-4 h-4 object-contain">
                             <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
@@ -410,7 +410,7 @@
                             <div class="flex items-center gap-3 text-xs text-slate-400 mb-3">
                                 <span><i class="fa-regular fa-calendar me-1"></i> {{ $p->published_at ? $p->published_at->translatedFormat('d M Y') : '-' }}</span>
                                 <span>•</span>
-                                <span><i class="fa-regular fa-eye me-1"></i> {{ $p->views_count }} views</span>
+                                <span><i class="fa-regular fa-eye me-1"></i> {{ number_format($p->views_count) }} kali dibaca</span>
                             </div>
 
                             <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
@@ -536,19 +536,19 @@
                                 <div class="w-7 h-7 rounded-lg bg-white/10 text-amber-400 flex items-center justify-center flex-shrink-0">
                                     <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                                <span class="max-w-xs lg:max-w-none">Jl. Merdeka No. 3 RT 02 RW 02, Kel. Mulya Agung, Kec. Banyuasin III</span>
+                                <span class="max-w-xs lg:max-w-none">{{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-7 h-7 rounded-lg bg-white/10 text-amber-400 flex items-center justify-center flex-shrink-0">
                                     <i class="fa-solid fa-phone"></i>
                                 </div>
-                                <span>0853-7799-1976 (Sekretariat)</span>
+                                <span>{{ $settings['no_telp'] ?? '0853-7799-1976' }} (Sekretariat)</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-7 h-7 rounded-lg bg-white/10 text-amber-400 flex items-center justify-center flex-shrink-0">
                                     <i class="fa-solid fa-envelope"></i>
                                 </div>
-                                <span>sekretariat@pwibanyuasin.or.id</span>
+                                <span>{{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}</span>
                             </div>
                         </div>
                     </div>
@@ -633,7 +633,7 @@
         <!-- Modal Header -->
         <div class="p-6 bg-gradient-to-r from-[#0B132B] to-[#1C2541] text-white flex items-center justify-between border-b border-white/10">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="36" height="36" loading="lazy" decoding="async" class="w-9 h-9 object-contain">
+                <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="36" height="36" loading="lazy" decoding="async" class="w-9 h-9 object-contain">
                 <div>
                     <h3 class="text-base font-bold text-white">Naskah Sambutan Resmi Pelantikan</h3>
                     <p class="text-xs text-amber-400 font-medium">Ketua PWI Kabupaten Banyuasin Masa Bakti 2025–2028</p>

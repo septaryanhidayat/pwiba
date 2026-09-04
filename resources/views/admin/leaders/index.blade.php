@@ -58,14 +58,14 @@
             <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Ketua PWI Banyuasin Dari Masa ke Masa</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Kelola foto pimpinan resmi, nama, jabatan, periode tahun kepengurusan, dan status kepemimpinan</p>
         </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('leaders.public') }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 shadow-sm transition-all">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
+            <a href="{{ route('leaders.public') }}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 shadow-sm transition-all">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 <span>Lihat Halaman Publik</span>
             </a>
-            <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
+            <button @click="modalTambah = true" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
                 <i class="fa-solid fa-plus"></i>
-                <span>+ Tambah Ketua</span>
+                <span>Tambah Ketua</span>
             </button>
         </div>
     </div>
