@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <title>Laporan Rekapitulasi Anggota PWI Banyuasin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style id="dynamic-paper-style">
         @page {
             size: A4 portrait;
-            margin: 15mm 15mm 15mm 15mm;
+            margin: 0.5cm 15mm 15mm 15mm;
         }
+    </style>
+    <style>
         body {
             font-family: 'Times New Roman', Times, serif;
             color: #000;
             background: #fff;
-            padding: 20px;
+            padding: 0.5cm 15mm 15mm 15mm;
             font-size: 10.5pt;
+            transition: width 0.2s;
         }
         .kop-surat {
             border-bottom: 3px double #000;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding-bottom: 8px;
+            margin-bottom: 18px;
         }
         .kop-title-main {
             font-size: 16pt;
@@ -35,9 +39,11 @@
             line-height: 1.2;
         }
         .kop-address {
-            font-size: 9pt;
-            margin: 4px 0 0 0;
-            line-height: 1.3;
+            font-size: 8pt;
+            margin: 3px 0 0 0;
+            line-height: 1.2;
+            white-space: nowrap;
+            letter-spacing: -0.15px;
         }
         .table-custom {
             width: 100%;
@@ -56,21 +62,32 @@
 </head>
 <body>
 
-<div class="no-print mb-4 d-flex justify-content-between align-items-center bg-light p-3 border rounded">
+<div class="no-print mb-4 d-flex justify-content-between align-items-center bg-light p-3 border rounded-3 shadow-sm">
     <div>
         <strong>Laporan Rekapitulasi Data Anggota Wartawan PWI Banyuasin</strong>
     </div>
-    <div class="d-flex gap-2">
-        <button onclick="window.print()" class="btn btn-primary btn-sm">
-            <i class="fa-solid fa-print"></i> Cetak / PDF
+    <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-1 bg-white px-2 py-1 rounded border">
+            <span class="text-muted fw-bold" style="font-size: 11px; text-transform: uppercase;">Kertas:</span>
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" id="btn-paper-a4" onclick="setPaperSize('a4')" class="btn btn-primary btn-sm px-2.5 py-0 fw-bold" style="font-size: 11px;">
+                    A4
+                </button>
+                <button type="button" id="btn-paper-legal" onclick="setPaperSize('legal')" class="btn btn-outline-secondary btn-sm px-2.5 py-0 fw-bold" style="font-size: 11px;">
+                    Legal (F4)
+                </button>
+            </div>
+        </div>
+        <button onclick="window.print()" class="btn btn-primary btn-sm px-3 fw-bold">
+            <i class="fa-solid fa-print me-1"></i> Cetak / PDF
         </button>
-        <button onclick="window.close()" class="btn btn-secondary btn-sm">
+        <button onclick="window.close()" class="btn btn-outline-secondary btn-sm px-3">
             Tutup
         </button>
     </div>
 </div>
 
-<div class="container-fluid px-0">
+<div class="container-fluid px-0" id="printReportContainer">
     
     <!-- Kop Surat PWI -->
     <div class="kop-surat d-flex align-items-center">
@@ -81,8 +98,7 @@
             <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
             <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
             <div class="kop-address">
-                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }}<br>
-                Telepon: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwibanyuasin.or.id' }}
+                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }} - Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwibanyuasin.or.id' }}
             </div>
         </div>
         <div style="width: 80px;"></div>
@@ -140,5 +156,25 @@
 
 </div>
 
+<script>
+    function setPaperSize(size) {
+        const container = document.getElementById('printReportContainer');
+        const btnA4 = document.getElementById('btn-paper-a4');
+        const btnLegal = document.getElementById('btn-paper-legal');
+        const dynamicStyle = document.getElementById('dynamic-paper-style');
+
+        if (size === 'legal') {
+            document.body.style.width = '216mm';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-0 fw-bold';
+            btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-0 fw-bold';
+        } else {
+            document.body.style.width = '210mm';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            btnA4.className = 'btn btn-primary btn-sm px-2.5 py-0 fw-bold';
+            btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-0 fw-bold';
+        }
+    }
+</script>
 </body>
 </html>

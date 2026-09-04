@@ -586,4 +586,95 @@ class PwiWebTest extends TestCase
         $response->assertSee('function memberManager()', false);
         $response->assertSee('x-data="memberManager()"', false);
     }
+
+    public function test_admin_forms_include_wordpress_style_rich_editor(): void
+    {
+        $admin = User::first();
+
+        // 1. Post Create Form
+        $postCreate = $this->actingAs($admin)->get(route('admin.posts.create'));
+        $postCreate->assertStatus(200);
+        $postCreate->assertSee('rich-editor', false);
+        $postCreate->assertSee('initWordPressEditor', false);
+        $postCreate->assertSee('tinymce.init', false);
+
+        // 2. Meeting Create Form
+        $meetingCreate = $this->actingAs($admin)->get(route('admin.meetings.create'));
+        $meetingCreate->assertStatus(200);
+        $meetingCreate->assertSee('rich-editor', false);
+        $meetingCreate->assertSee('pembahasan', false);
+        $meetingCreate->assertSee('kesimpulan', false);
+
+        // 3. Letter Create Form
+        $letterCreate = $this->actingAs($admin)->get(route('admin.letters.create'));
+        $letterCreate->assertStatus(200);
+        $letterCreate->assertSee('rich-editor', false);
+        $letterCreate->assertSee('isi_surat', false);
+    }
+
+    public function test_admin_letter_and_meeting_print_views_have_kop_revision_and_paper_switcher(): void
+    {
+        $admin = User::first();
+
+        // Check Letter Print View
+        $letter = Letter::first();
+        $letterPrint = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
+        $letterPrint->assertStatus(200);
+        $letterPrint->assertSee('margin: 0.5cm', false);
+        $letterPrint->assertSee('padding: 0.5cm', false);
+        $letterPrint->assertSee('Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', false);
+        $letterPrint->assertDontSee('Sumatera Selatan<br>', false);
+        $letterPrint->assertSee('btn-paper-a4', false);
+        $letterPrint->assertSee('btn-paper-legal', false);
+        $letterPrint->assertSee('setPaperSize', false);
+
+        // Check Meeting Print View
+        $meeting = MeetingMinute::first();
+        if ($meeting) {
+            $meetingPrint = $this->actingAs($admin)->get(route('admin.meetings.print', $meeting->id));
+            $meetingPrint->assertStatus(200);
+            $meetingPrint->assertSee('margin: 0.5cm', false);
+            $meetingPrint->assertSee('padding: 0.5cm', false);
+            $meetingPrint->assertSee('btn-paper-a4', false);
+            $meetingPrint->assertSee('btn-paper-legal', false);
+            $meetingPrint->assertSee('setPaperSize', false);
+        }
+
+        // Check Members Print Report View
+        $reportPrint = $this->actingAs($admin)->get(route('admin.members.print-report'));
+        $reportPrint->assertStatus(200);
+        $reportPrint->assertSee('margin: 0.5cm', false);
+        $reportPrint->assertSee('padding: 0.5cm', false);
+        $reportPrint->assertSee('btn-paper-a4', false);
+        $reportPrint->assertSee('btn-paper-legal', false);
+    }
+
+    public function test_post_with_wordpress_rich_html_formats_renders_correctly_on_public_page(): void
+    {
+        $admin = User::first();
+
+        $richContent = '<p style="text-align: justify;"><span style="color: #0b2b68; font-size: 16pt;"><strong>Rapat Koordinasi Bersejarah PWI Banyuasin</strong></span></p><p style="text-align: justify;"><em>Pangkalan Balai</em> - Berita acara pembahasan <strong>resmi</strong> dengan perataan penuh (justify) dan warna khas organisasi.</p>';
+
+        $response = $this->actingAs($admin)->post(route('admin.posts.store'), [
+            'judul' => 'Uji Coba Toolbar WordPress CMS PWI',
+            'ringkasan' => 'Ringkasan singkat uji coba fitur toolbar.',
+            'konten' => $richContent,
+            'penulis' => 'Wardoyo, S.I.Kom',
+            'kategori' => 'Organisasi',
+            'status' => 'published',
+        ]);
+
+        $response->assertRedirect(route('admin.posts.publish'));
+
+        $post = Post::where('judul', 'Uji Coba Toolbar WordPress CMS PWI')->first();
+        $this->assertNotNull($post);
+        $this->assertEquals($richContent, $post->konten);
+
+        // Verify public detail view renders the HTML
+        $publicDetail = $this->get(route('news.show', $post->slug));
+        $publicDetail->assertStatus(200);
+        $publicDetail->assertSee('text-align: justify;', false);
+        $publicDetail->assertSee('color: #0b2b68;', false);
+        $publicDetail->assertSee('Rapat Koordinasi Bersejarah PWI Banyuasin', false);
+    }
 }

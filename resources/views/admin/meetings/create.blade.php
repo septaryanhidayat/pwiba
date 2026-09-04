@@ -70,17 +70,17 @@
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
                         <span>Jalannya Pembahasan Rapat *</span>
-                        <span class="text-[11px] font-normal text-slate-500 lowercase">(dapat diperlebar / ditarik ke bawah jika uraian panjang)</span>
+                        <span class="text-[11px] font-normal text-slate-500 lowercase">(gunakan toolbar untuk poin, huruf tebal, atau perataan)</span>
                     </label>
-                    <textarea name="pembahasan" rows="12" required class="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[240px] resize-y" placeholder="Uraikan secara lengkap dan rinci poin-poin diskusi, pandangan anggota pengurus, pembahasan topik, serta dinamika rapat...">{{ old('pembahasan') }}</textarea>
+                    <textarea name="pembahasan" id="pembahasan" rows="12" required class="rich-editor w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[240px]" placeholder="Uraikan secara lengkap dan rinci poin-poin diskusi, pandangan anggota pengurus, pembahasan topik, serta dinamika rapat...">{{ old('pembahasan') }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
                         <span>Kesimpulan / Hasil Keputusan Rapat *</span>
-                        <span class="text-[11px] font-normal text-slate-500 lowercase">(dapat diperlebar / ditarik ke bawah)</span>
+                        <span class="text-[11px] font-normal text-slate-500 lowercase">(format hasil rapat, pembagian tugas, dan target)</span>
                     </label>
-                    <textarea name="kesimpulan" rows="8" required class="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[160px] resize-y" placeholder="Tuliskan butir-butir keputusan bulat rapat, instruksi pimpinan, pembagian tugas, target batas waktu, dan tindak lanjut program...">{{ old('kesimpulan') }}</textarea>
+                    <textarea name="kesimpulan" id="kesimpulan" rows="8" required class="rich-editor w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm min-h-[160px]" placeholder="Tuliskan butir-butir keputusan bulat rapat, instruksi pimpinan, pembagian tugas, target batas waktu, dan tindak lanjut program...">{{ old('kesimpulan') }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
@@ -173,4 +173,8 @@ function setAllAttendance(status) {
     document.querySelectorAll(`input.att-radio[value="${status}"]`).forEach(el => el.checked = true);
 }
 </script>
+
+@push('scripts')
+    @include('partials.rich-editor')
+@endpush
 @endsection

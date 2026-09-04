@@ -58,7 +58,7 @@
 
                 <div class="md:col-span-3">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Konten Lengkap Berita *</label>
-                    <textarea name="konten" rows="12" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm font-sans">{{ old('konten', $post->konten) }}</textarea>
+                    <textarea name="konten" id="konten" rows="12" required class="rich-editor w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm font-sans">{{ old('konten', $post->konten) }}</textarea>
                 </div>
             </div>
 
@@ -77,3 +77,7 @@
 
 </div>
 @endsection
+
+@push('scripts')
+    @include('partials.rich-editor')
+@endpush

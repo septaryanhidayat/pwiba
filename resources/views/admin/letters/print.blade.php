@@ -6,11 +6,13 @@
     <title>Surat Resmi - {{ $letter->nomor_surat }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
+    <style id="dynamic-paper-style">
         @page {
             size: A4 portrait;
-            margin: 15mm 20mm 15mm 20mm;
+            margin: 0.5cm 15mm 15mm 15mm;
         }
+    </style>
+    <style>
         * {
             box-sizing: border-box;
         }
@@ -19,7 +21,7 @@
             color: #000;
             background: #f1f5f9;
             margin: 0;
-            padding: 20px 0;
+            padding: 15px 0 40px 0;
             font-size: 11pt;
             line-height: 1.5;
             -webkit-print-color-adjust: exact !important;
@@ -30,9 +32,10 @@
             min-height: 297mm;
             margin: 0 auto;
             background: #fff;
-            padding: 15mm 20mm 20mm 20mm;
+            padding: 0.5cm 20mm 20mm 20mm;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             position: relative;
+            transition: width 0.2s, min-height 0.2s;
         }
         .kop-box {
             background-color: #0B2B68 !important;
@@ -81,12 +84,14 @@
             text-transform: uppercase;
         }
         .kop-address {
-            font-size: 8.5pt;
+            font-size: 8pt;
             text-align: center;
             font-weight: 600;
-            line-height: 1.35;
-            margin-top: 5px;
+            line-height: 1.2;
+            margin-top: 4px;
             color: #000;
+            white-space: nowrap;
+            letter-spacing: -0.15px;
         }
         .kop-divider {
             border-top: 2.5px solid #000;
@@ -161,22 +166,36 @@
 <body>
 
 <!-- Control Bar (Hidden when printed) -->
-<div class="no-print" style="max-width: 210mm; margin: 0 auto 15px auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 12px 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-family: system-ui, -apple-system, sans-serif;">
-    <div style="font-size: 13px; color: #1e293b;">
-        <strong>Dokumen Cetak Resmi:</strong> <span style="color: #2563eb; font-weight: 600;">{{ $letter->nomor_surat }}</span>
+<div class="no-print" style="max-width: 210mm; margin: 0 auto 15px auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 18px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-family: system-ui, -apple-system, sans-serif;">
+    <div style="font-size: 13px; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 700;">Dokumen Resmi:</span> 
+        <span style="color: #2563eb; font-weight: 600;">{{ $letter->nomor_surat }}</span>
     </div>
-    <div style="display: flex; gap: 8px;">
-        <button onclick="window.print()" class="btn btn-primary btn-sm px-3" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 6px; background: #f8fafc; padding: 4px 8px; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <span style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase;">Kertas:</span>
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" id="btn-paper-a4" onclick="setPaperSize('a4')" class="btn btn-primary btn-sm px-2.5 py-1" style="font-size: 11px; font-weight: 700;">
+                    A4
+                </button>
+                <button type="button" id="btn-paper-legal" onclick="setPaperSize('legal')" class="btn btn-outline-secondary btn-sm px-2.5 py-1" style="font-size: 11px; font-weight: 700;">
+                    Legal (F4)
+                </button>
+            </div>
+        </div>
+
+        <button onclick="window.print()" class="btn btn-primary btn-sm px-3 py-1.5" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px;">
             <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
         </button>
-        <button onclick="window.close()" class="btn btn-outline-secondary btn-sm px-3" style="font-size: 12px;">
+        <button onclick="window.close()" class="btn btn-outline-secondary btn-sm px-3 py-1.5" style="font-size: 12px;">
             Tutup
         </button>
     </div>
 </div>
 
-<!-- Lembar Kertas A4 Resmi -->
-<div class="page-sheet">
+<!-- Lembar Kertas Resmi -->
+<div class="page-sheet" id="printSheet">
 
     <!-- Kop Surat Resmi PWI Banyuasin -->
     <div class="kop-header">
@@ -190,8 +209,7 @@
             </div>
         </div>
         <div class="kop-address">
-            Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan<br>
-            (30914)
+            Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)
         </div>
         <div class="kop-divider"></div>
     </div>
@@ -296,7 +314,7 @@
             <div style="margin-bottom: 12px;">Dengan hormat,</div>
             
             @if($letter->isi_surat)
-                {!! nl2br(e($letter->isi_surat)) !!}
+                {!! \Illuminate\Support\Str::contains($letter->isi_surat, '<') ? $letter->isi_surat : nl2br(e($letter->isi_surat)) !!}
             @else
                 <p>
                     Sehubungan dengan agenda PWI Kabupaten Banyuasin, bersama ini kami sampaikan maksud {{ $letter->keperluan }}. Besar harapan kami terjalin koordinasi dan kerja sama yang baik.
@@ -340,5 +358,27 @@
 
 </div>
 
+<script>
+    function setPaperSize(size) {
+        const sheet = document.getElementById('printSheet');
+        const btnA4 = document.getElementById('btn-paper-a4');
+        const btnLegal = document.getElementById('btn-paper-legal');
+        const dynamicStyle = document.getElementById('dynamic-paper-style');
+
+        if (size === 'legal') {
+            sheet.style.width = '216mm';
+            sheet.style.minHeight = '356mm';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-1';
+            btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1';
+        } else {
+            sheet.style.width = '210mm';
+            sheet.style.minHeight = '297mm';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            btnA4.className = 'btn btn-primary btn-sm px-2.5 py-1';
+            btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1';
+        }
+    }
+</script>
 </body>
 </html>

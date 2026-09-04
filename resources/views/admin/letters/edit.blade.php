@@ -70,7 +70,7 @@
 
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Lengkap Surat</label>
-                    <textarea name="isi_surat" rows="5" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('isi_surat', $letter->isi_surat) }}</textarea>
+                    <textarea name="isi_surat" id="isi_surat" rows="8" class="rich-editor w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('isi_surat', $letter->isi_surat) }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
@@ -94,3 +94,7 @@
 
 </div>
 @endsection
+
+@push('scripts')
+    @include('partials.rich-editor')
+@endpush
