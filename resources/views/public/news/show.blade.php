@@ -60,31 +60,16 @@
                     <div class="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-center sm:text-left">Bagikan Berita Ini:</span>
                         
-                        <!-- 1 Baris Horizontal Ikon Bulat -->
-                        <div class="flex items-center justify-center sm:justify-end gap-2 overflow-x-auto py-0.5 no-scrollbar max-w-full">
+                        <!-- 4 Ikon Bulat (WhatsApp, Instagram, Threads, Salin Tautan) -->
+                        <div class="flex items-center justify-center sm:justify-end gap-2.5 py-0.5 max-w-full">
                             <!-- WhatsApp -->
                             <a href="https://api.whatsapp.com/send?text={{ urlencode($post->judul . ' ' . url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white dark:bg-emerald-950/60 dark:text-emerald-400 dark:hover:bg-emerald-500 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke WhatsApp" aria-label="Bagikan ke WhatsApp">
                                 <i class="fa-brands fa-whatsapp text-sm sm:text-base"></i>
                             </a>
 
-                            <!-- Facebook -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white dark:bg-blue-950/60 dark:text-blue-400 dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Facebook" aria-label="Bagikan ke Facebook">
-                                <i class="fa-brands fa-facebook-f text-xs sm:text-sm"></i>
-                            </a>
-
                             <!-- Instagram -->
                             <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" onclick="copyNewsLink(event, 'Tautan disalin! Buka Instagram untuk membagikan.')" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-pink-50 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 text-pink-600 hover:text-white dark:bg-pink-950/60 dark:text-pink-400 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Instagram" aria-label="Bagikan ke Instagram">
                                 <i class="fa-brands fa-instagram text-sm sm:text-base"></i>
-                            </a>
-
-                            <!-- X (Twitter) -->
-                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->judul) }}&url={{ urlencode(url()->current()) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-slate-100 hover:bg-black text-slate-800 hover:text-white dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-white dark:hover:text-black transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke X" aria-label="Bagikan ke X">
-                                <i class="fa-brands fa-x-twitter text-xs sm:text-sm"></i>
-                            </a>
-
-                            <!-- Telegram -->
-                            <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->judul) }}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-full flex items-center justify-center bg-sky-50 hover:bg-sky-500 text-sky-500 hover:text-white dark:bg-sky-950/60 dark:text-sky-400 dark:hover:bg-sky-500 dark:hover:text-white transition-all duration-200 shadow-sm hover:scale-105" title="Bagikan ke Telegram" aria-label="Bagikan ke Telegram">
-                                <i class="fa-brands fa-telegram text-sm sm:text-base"></i>
                             </a>
 
                             <!-- Threads -->

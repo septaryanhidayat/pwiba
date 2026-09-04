@@ -678,7 +678,7 @@ class PwiWebTest extends TestCase
         $publicDetail->assertSee('Rapat Koordinasi Bersejarah PWI Banyuasin', false);
     }
 
-    public function test_news_detail_renders_all_seven_circular_share_buttons(): void
+    public function test_news_detail_renders_four_circular_share_buttons(): void
     {
         $post = Post::where('status', 'published')->first();
         $this->assertNotNull($post);
@@ -687,15 +687,17 @@ class PwiWebTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Bagikan Berita Ini:', false);
 
-        // Assert 7 round share icons exist
+        // Assert only 4 round share icons exist: WA, IG, Threads, Salin Tautan
         $response->assertSee('fa-whatsapp', false);
-        $response->assertSee('fa-facebook-f', false);
         $response->assertSee('fa-instagram', false);
-        $response->assertSee('fa-x-twitter', false);
-        $response->assertSee('fa-telegram', false);
         $response->assertSee('fa-threads', false);
         $response->assertSee('copyShareIcon', false);
         $response->assertSee('rounded-full', false);
         $response->assertSee('copyNewsLink', false);
+
+        // Assert other share platforms are not present in share section
+        $response->assertDontSee('facebook.com/sharer/sharer.php', false);
+        $response->assertDontSee('twitter.com/intent/tweet', false);
+        $response->assertDontSee('t.me/share/url', false);
     }
 }
