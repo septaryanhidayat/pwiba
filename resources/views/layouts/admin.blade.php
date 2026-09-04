@@ -425,19 +425,15 @@
         </main>
 
         <!-- Footer -->
-        <footer class="min-h-14 py-3 px-4 sm:px-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-[#0B132B] transition-colors duration-200">
-            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 text-center sm:text-left">
-                <span>&copy; {{ date('Y') }} <strong class="text-slate-700 dark:text-slate-200">PWI Kabupaten Banyuasin</strong>.</span>
-                <span class="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
-                <a href="https://berandadigital.net" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="text-[11px] text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" 
-                   title="Beranda Teknologi Digital">
-                    Beranda Teknologi Digital
-                </a>
-            </div>
-            <span class="text-[11px] text-slate-400 dark:text-slate-500">Versi MIS 2.0 (Integrated)</span>
+        <footer class="h-14 px-4 sm:px-8 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-[#0B132B] transition-colors duration-200">
+            <span>&copy; {{ date('Y') }} <strong class="text-slate-700 dark:text-slate-200">PWI Kabupaten Banyuasin</strong>.</span>
+            <a href="https://berandadigital.net" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="text-[11px] text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors inline-flex items-center gap-1" 
+               title="Beranda Teknologi Digital">
+                <span>Beranda Teknologi Digital</span>
+            </a>
         </footer>
 
     </div>

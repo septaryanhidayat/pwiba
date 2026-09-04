@@ -472,18 +472,14 @@
 
             <!-- Bottom Bar -->
             <div class="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
-                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1">
-                    <p>&copy; {{ date('Y') }} <strong>Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin</strong>. All rights reserved.</p>
-                    <span class="hidden sm:inline text-slate-700">•</span>
-                    <a href="https://berandadigital.net" 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       class="text-[11px] text-slate-500 hover:text-slate-300 transition-colors" 
-                       title="Beranda Teknologi Digital">
-                        Beranda Teknologi Digital
-                    </a>
-                </div>
-                <p class="text-slate-500">Sistem Informasi Manajemen & Portal Jurnalistik v2.0</p>
+                <p>&copy; {{ date('Y') }} <strong>Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin</strong>. All rights reserved.</p>
+                <a href="https://berandadigital.net" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="text-slate-500 hover:text-slate-300 transition-colors text-xs inline-flex items-center gap-1" 
+                   title="Beranda Teknologi Digital">
+                    <span>Beranda Teknologi Digital</span>
+                </a>
             </div>
         </div>
     </footer>
