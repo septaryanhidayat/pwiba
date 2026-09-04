@@ -12,11 +12,19 @@ use App\Models\Member;
 use App\Models\Post;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        if (! Schema::hasTable('post_views')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+            } catch (\Throwable) {
+            }
+        }
         $countBelumUkw = Member::where('status', 'aktif')->where('tingkat_ukw', 'Belum UKW')->count();
         $countMuda = Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Muda')->count();
         $countMadya = Member::where('status', 'aktif')->where('tingkat_ukw', 'Wartawan Madya')->count();

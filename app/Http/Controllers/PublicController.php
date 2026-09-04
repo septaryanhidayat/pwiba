@@ -22,7 +22,7 @@ class PublicController extends Controller
 {
     protected function ensureTablesExist(): void
     {
-        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures')) {
+        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views')) {
             try {
                 Artisan::call('migrate', ['--force' => true]);
                 if (Schema::hasTable('posts') && Post::count() === 0) {
@@ -101,14 +101,23 @@ class PublicController extends Controller
 
     public function newsDetail(Request $request, string $slug)
     {
-        $post = Post::where('slug', $slug)->where('status', 'published')->firstOrFail();
+        $this->ensureTablesExist();
+
+        $query = Post::where('slug', $slug);
+
+        // Izinkan admin yang sudah login untuk mempratinjau draf berita
+        if (! auth()->check()) {
+            $query->where('status', 'published');
+        }
+
+        $post = $query->firstOrFail();
         $this->recordPostView($post, $request);
 
-        $relatedPosts = Post::where('status', 'published')
+        $relatedQuery = Post::where('status', 'published')
             ->where('id', '!=', $post->id)
-            ->where('kategori', $post->kategori)
-            ->take(3)
-            ->get();
+            ->where('kategori', $post->kategori);
+
+        $relatedPosts = $relatedQuery->take(3)->get();
 
         if ($relatedPosts->isEmpty()) {
             $relatedPosts = Post::where('status', 'published')
@@ -128,6 +137,11 @@ class PublicController extends Controller
      */
     protected function recordPostView(Post $post, Request $request): void
     {
+        // Jangan hitung kunjungan dari admin / editor yang sedang login saat meninjau berita
+        if (auth()->check() || $post->status !== 'published') {
+            return;
+        }
+
         $userAgent = $request->userAgent() ?? '';
 
         // Abaikan web crawler, spider, dan bot pencari
@@ -144,21 +158,56 @@ class PublicController extends Controller
 
         $ip = $request->ip();
 
-        // Cek apakah ada view dari IP yang sama dalam 3 jam terakhir
-        $recentView = PostView::where('post_id', $post->id)
-            ->where('ip_address', $ip)
-            ->where('created_at', '>=', now()->subHours(3))
-            ->exists();
+        try {
+            // Pastikan tabel post_views tersedia
+            if (! Schema::hasTable('post_views')) {
+                try {
+                    Artisan::call('migrate', ['--force' => true]);
+                } catch (\Throwable) {
+                    try {
+                        Schema::create('post_views', function ($table) {
+                            $table->id();
+                            $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
+                            $table->string('ip_address', 45)->nullable();
+                            $table->text('user_agent')->nullable();
+                            $table->string('session_id', 100)->nullable();
+                            $table->timestamps();
 
-        if (! $recentView) {
-            PostView::create([
-                'post_id' => $post->id,
-                'ip_address' => $ip,
-                'user_agent' => substr($userAgent, 0, 500),
-                'session_id' => $request->session()->getId(),
-            ]);
+                            $table->index(['post_id', 'created_at']);
+                            $table->index(['post_id', 'ip_address']);
+                        });
+                    } catch (\Throwable) {
+                        // Jika tetap tidak bisa membuat tabel di DB hosting, lakukan increment standar
+                        $post->increment('views_count');
+                        $request->session()->put($sessionKey, now()->timestamp);
 
-            $post->increment('views_count');
+                        return;
+                    }
+                }
+            }
+
+            // Cek apakah ada view dari IP yang sama dalam 3 jam terakhir
+            $recentView = PostView::where('post_id', $post->id)
+                ->where('ip_address', $ip)
+                ->where('created_at', '>=', now()->subHours(3))
+                ->exists();
+
+            if (! $recentView) {
+                PostView::create([
+                    'post_id' => $post->id,
+                    'ip_address' => $ip,
+                    'user_agent' => substr($userAgent, 0, 500),
+                    'session_id' => $request->session()->getId(),
+                ]);
+
+                $post->increment('views_count');
+            }
+        } catch (\Throwable) {
+            // Fallback tangguh jika query database mengalami kendala
+            try {
+                $post->increment('views_count');
+            } catch (\Throwable) {
+            }
         }
 
         $request->session()->put($sessionKey, now()->timestamp);

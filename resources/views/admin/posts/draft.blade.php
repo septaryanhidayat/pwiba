@@ -53,7 +53,9 @@
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
                             <td class="py-4 px-6 text-center font-bold text-slate-500 dark:text-slate-400">{{ $posts->firstItem() + $index }}</td>
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-white text-sm">
-                                {{ $p->judul }}
+                                <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="hover:text-blue-600 dark:hover:text-amber-400 transition-colors line-clamp-1" title="Tinjau Draf">
+                                    {{ $p->judul }}
+                                </a>
                                 <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-medium">
                                     <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700 font-bold">Draf</span>
                                     • Diperbarui: {{ $p->updated_at ? $p->updated_at->diffForHumans() : '-' }}
@@ -62,6 +64,9 @@
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-slate-200">{{ $p->penulis }}</td>
                             <td class="py-4 px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
+                                    <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-all" title="Tinjau Draf">
+                                        Tinjau
+                                    </a>
                                     <form action="{{ route('admin.posts.toggle', $p->id) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition-all" title="Publish Sekarang">

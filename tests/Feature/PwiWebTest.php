@@ -891,4 +891,39 @@ class PwiWebTest extends TestCase
         $adminResponse->assertSee('Beranda Teknologi Digital');
         $adminResponse->assertSee('https://berandadigital.net');
     }
+
+    public function test_admin_can_preview_draft_post_while_guests_receive_404(): void
+    {
+        $draftPost = Post::create([
+            'judul' => 'Berita Draf Uji Pratinjau',
+            'slug' => 'berita-draf-uji-pratinjau',
+            'ringkasan' => 'Ringkasan draf',
+            'konten' => '<p>Konten draf yang belum terbit</p>',
+            'penulis' => 'Redaksi PWI',
+            'kategori' => 'Internal',
+            'status' => 'draft',
+        ]);
+
+        // Tamu biasa mendapatkan status 404
+        $this->get(route('news.show', $draftPost->slug))->assertStatus(404);
+
+        // Admin yang terautentikasi dapat meninjau draf dengan aman
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get(route('news.show', $draftPost->slug));
+        $response->assertStatus(200);
+        $response->assertSee('Mode Pratinjau: Artikel ini berstatus');
+        $response->assertSee('Berita Draf Uji Pratinjau');
+    }
+
+    public function test_admin_views_do_not_increment_views_count(): void
+    {
+        $post = Post::where('status', 'published')->first();
+        $initialViews = $post->views_count;
+
+        $admin = User::first();
+        $this->actingAs($admin)->get(route('news.show', $post->slug))->assertStatus(200);
+
+        $post->refresh();
+        $this->assertEquals($initialViews, $post->views_count);
+    }
 }

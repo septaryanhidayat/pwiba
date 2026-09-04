@@ -21,6 +21,18 @@
             <div class="lg:col-span-8">
                 <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
                     
+                    @if($post->status === 'draft')
+                        <div class="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3 text-xs font-semibold">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-eye text-amber-500 text-sm"></i>
+                                <span>Mode Pratinjau: Artikel ini berstatus <strong>Draf</strong> (belum dipublikasikan ke pembaca umum).</span>
+                            </div>
+                            <a href="{{ route('admin.posts.edit', $post->id) }}" class="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition-colors">
+                                Edit Draf
+                            </a>
+                        </div>
+                    @endif
+
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-bold bg-amber-50 dark:bg-amber-400/10 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-400/30 mb-4">
                         <i class="fa-solid fa-tag"></i>
                         <span>{{ $post->kategori }}</span>

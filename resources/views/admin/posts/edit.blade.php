@@ -11,9 +11,15 @@
             <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Edit Artikel Berita</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium truncate max-w-lg">{{ $post->judul }}</p>
         </div>
-        <a href="{{ $post->status === 'published' ? route('admin.posts.publish') : route('admin.posts.draft') }}" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm transition-all">
-            <i class="fa-solid fa-arrow-left me-1"></i> Kembali
-        </a>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('news.show', $post->slug) }}" target="_blank" class="px-4 py-2 rounded-xl text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 shadow-sm transition-all flex items-center gap-1.5" title="Buka dan Pratinjau Berita">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Tinjau Berita</span>
+            </a>
+            <a href="{{ $post->status === 'published' ? route('admin.posts.publish') : route('admin.posts.draft') }}" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm transition-all">
+                <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+            </a>
+        </div>
     </div>
 
     <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
