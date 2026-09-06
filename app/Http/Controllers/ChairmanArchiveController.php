@@ -65,6 +65,7 @@ class ChairmanArchiveController extends Controller
         return [
             'name' => 'Wardoyo, S.I.Kom.',
             'title' => 'Ketua PWI Kabupaten Banyuasin (Periode 2025–2028)',
+            'foto_url' => asset('assets/images/pengurus/pengurus_inti_1_wardoyo.webp'),
             'sk_resmi' => 'SK PWI Pusat Nomor: 033/PP-PWI/XI/2025',
             'ttl' => 'Sragen (Jawa Tengah), 17 Februari 1976',
             'agama' => 'Islam',

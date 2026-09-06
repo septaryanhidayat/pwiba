@@ -300,6 +300,20 @@
                     </div>
                 </div>
 
+                <!-- 6.1 Arsip Karya Ketua (Wardoyo) -->
+                <a href="{{ route('admin.chairman_posts.index') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.chairman_posts.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-feather-pointed text-sm w-4 text-amber-400"></i>
+                        <span>Arsip Karya Ketua</span>
+                    </div>
+                    @php $chairmanPostsCount = \Illuminate\Support\Facades\Schema::hasTable('chairman_posts') ? \App\Models\ChairmanPost::count() : 0; @endphp
+                    @if($chairmanPostsCount > 0)
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ request()->routeIs('admin.chairman_posts.*') ? 'bg-amber-400 text-slate-950' : 'bg-blue-900/60 text-blue-200 border border-blue-700/50' }}">
+                            {{ $chairmanPostsCount }}
+                        </span>
+                    @endif
+                </a>
+
                 <!-- 7. Galeri PWI -->
                 <a href="{{ route('admin.galleries.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.galleries.index') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-images text-sm w-4 text-sky-400"></i>

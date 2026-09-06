@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ChairmanPostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\InboxController;
@@ -138,6 +139,15 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::put('/berita/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/berita/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/berita/{id}/toggle-publish', [PostController::class, 'togglePublish'])->name('posts.toggle');
+
+    // Modul Arsip Karya Ketua (Wardoyo)
+    Route::get('/arsip-ketua', [ChairmanPostController::class, 'index'])->name('chairman_posts.index');
+    Route::get('/arsip-ketua/tambah', [ChairmanPostController::class, 'create'])->name('chairman_posts.create');
+    Route::get('/arsip-ketua/create', [ChairmanPostController::class, 'create']);
+    Route::post('/arsip-ketua', [ChairmanPostController::class, 'store'])->name('chairman_posts.store');
+    Route::get('/arsip-ketua/{id}/edit', [ChairmanPostController::class, 'edit'])->name('chairman_posts.edit');
+    Route::put('/arsip-ketua/{id}', [ChairmanPostController::class, 'update'])->name('chairman_posts.update');
+    Route::delete('/arsip-ketua/{id}', [ChairmanPostController::class, 'destroy'])->name('chairman_posts.destroy');
 
     // Modul Galeri
     Route::get('/galeri', [GalleryController::class, 'index'])->name('galleries.index');
