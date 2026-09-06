@@ -345,8 +345,8 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nomor WhatsApp Resmi</label>
-                                <input type="text" name="telepon" value="{{ old('telepon', $profile['kontak']['telepon'] ?? '0853-7799-1976') }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-amber-500">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nomor WhatsApp / Kontak (Opsional - Kosongkan demi Privasi)</label>
+                                <input type="text" name="telepon" value="{{ old('telepon', $profile['kontak']['telepon'] ?? '') }}" placeholder="Biarkan kosong demi keamanan & privasi" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-amber-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Resmi</label>

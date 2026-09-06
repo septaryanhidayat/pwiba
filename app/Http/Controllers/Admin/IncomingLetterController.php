@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\IncomingLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IncomingLetterController extends Controller
 {
@@ -75,6 +76,9 @@ class IncomingLetterController extends Controller
         ]);
 
         if ($request->hasFile('file_lampiran')) {
+            if ($letter->file_lampiran && Storage::disk('public')->exists($letter->file_lampiran)) {
+                Storage::disk('public')->delete($letter->file_lampiran);
+            }
             $data['file_lampiran'] = $request->file('file_lampiran')->store('incoming_letters', 'public');
         }
 
@@ -86,6 +90,9 @@ class IncomingLetterController extends Controller
     public function destroy($id)
     {
         $letter = IncomingLetter::findOrFail($id);
+        if ($letter->file_lampiran && Storage::disk('public')->exists($letter->file_lampiran)) {
+            Storage::disk('public')->delete($letter->file_lampiran);
+        }
         $letter->delete();
 
         return redirect()->route('admin.incoming-letters.index')->with('success', 'Surat masuk berhasil dihapus.');

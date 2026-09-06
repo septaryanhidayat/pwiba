@@ -70,6 +70,14 @@ class Leader extends Model
             }
         }
 
-        return asset('assets/images/placeholder-leader.webp');
+        if (file_exists(public_path('assets/images/placeholder-leader.webp'))) {
+            return asset('assets/images/placeholder-leader.webp');
+        }
+
+        if (file_exists(public_path('assets/images/admin.webp'))) {
+            return asset('assets/images/admin.webp');
+        }
+
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->nama).'&background=1e293b&color=f8fafc&size=256&bold=true';
     }
 }

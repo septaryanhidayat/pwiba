@@ -394,7 +394,14 @@
                             <i class="fa-solid fa-envelope-open-text"></i>
                         </div>
                         <div>
-                            <h3 class="text-sm font-black text-slate-900 dark:text-white">Buku Tamu & Aspirasi Publik</h3>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm font-black text-slate-900 dark:text-white">Buku Tamu & Aspirasi Publik</h3>
+                                @if($unreadInboxes > 0)
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500 text-white shadow-sm animate-pulse">
+                                        {{ $unreadInboxes }} Baru
+                                    </span>
+                                @endif
+                            </div>
                             <p class="text-[11px] text-slate-500">Pesan dan aspirasi yang masuk dari masyarakat / instansi</p>
                         </div>
                     </div>
@@ -419,8 +426,8 @@
                                 </h4>
                             </div>
                             <div class="shrink-0">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold {{ $inbox->status === 'belum_dibaca' ? 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' }}">
-                                    {{ $inbox->status === 'belum_dibaca' ? 'Baru' : 'Dibaca' }}
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold {{ in_array($inbox->status, ['baru', 'belum_dibaca']) ? 'bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' }}">
+                                    {{ in_array($inbox->status, ['baru', 'belum_dibaca']) ? 'Baru' : 'Dibaca' }}
                                 </span>
                             </div>
                         </div>
@@ -431,7 +438,7 @@
             </div>
 
             <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 flex items-center justify-between text-xs">
-                <span class="text-slate-500">Total: <strong>{{ $totalInboxes }}</strong> Pesan Masuk</span>
+                <span class="text-slate-500">Total: <strong>{{ $totalInboxes }}</strong> Pesan (<strong>{{ $unreadInboxes }}</strong> Baru)</span>
                 <a href="{{ route('admin.inbox.index') }}" class="font-bold text-purple-600 dark:text-purple-400 hover:underline">
                     Buka Kotak Masuk
                 </a>

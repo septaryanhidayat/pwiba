@@ -83,7 +83,7 @@ class ChairmanArchiveController extends Controller
             'subjudul_bawah_foto' => 'Masa Bakti 2025 – 2028',
 
             'kontak' => [
-                'telepon' => '0853-7799-1976',
+                'telepon' => null,
                 'email' => 'wardianstp@gmail.com',
                 'instagram' => 'https://www.instagram.com/wardianstp/',
                 'facebook' => 'https://www.facebook.com/ward.wardoyo',

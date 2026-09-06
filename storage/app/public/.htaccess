@@ -1,0 +1,22 @@
+# Disable PHP execution in public storage / user uploads
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+# Strip script handlers for FastCGI / PHP-FPM / LiteSpeed
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar .inc .pl .py .cgi .sh .bash .exe
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar .inc .pl .py .cgi .sh .bash .exe
+
+# Block direct web access to executable extensions
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|php8|phps|phar|inc|pl|py|cgi|sh|bash|exe|asp|aspx|jsp)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+Options -Indexes -ExecCGI

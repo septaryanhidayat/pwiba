@@ -6,8 +6,22 @@
 </IfModule>
 # php -- END cPanel-generated handler
 
+<IfModule mod_negotiation.c>
+    Options -MultiViews -Indexes
+</IfModule>
+
+# Block Direct Access to Hidden & Sensitive Files (.env, .git, .sql, .json, .log, etc.)
+<FilesMatch "(^\.|\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist|env|lock|yml|yaml)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Deny direct access to sensitive framework directories
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)(/.*)?$ - [F,L,NC]
+
     RewriteRule ^$ public/ [L]
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]

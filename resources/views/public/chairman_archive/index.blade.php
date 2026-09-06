@@ -95,13 +95,15 @@
                         </div>
                     </div>
 
-                    <!-- Call To Actions (WhatsApp, Portfolio, Copy Link) -->
+                    <!-- Call To Actions (Email, Portfolio, Copy Link) -->
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-3 max-w-lg mx-auto lg:mx-0">
-                        <!-- Direct WhatsApp -->
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon'] ?? '085377991976') }}?text={{ urlencode('Halo Pak ' . ($profile['name'] ?? 'Wardoyo') . ', saya ingin bersilaturahmi dan berdiskusi terkait kemitraan / informasi.') }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-center">
-                            <i class="fa-brands fa-whatsapp text-base text-emerald-950"></i>
-                            <span>Hubungi WhatsApp Resmi</span>
+                        @if(!empty($profile['kontak']['email']))
+                        <!-- Direct Email -->
+                        <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-center">
+                            <i class="fa-solid fa-envelope text-base text-slate-950"></i>
+                            <span>Kirim Pesan / Surel</span>
                         </a>
+                        @endif
 
                         <!-- Scroll to Writings -->
                         <a href="#karya-arsip" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all flex items-center justify-center gap-2 text-center">
@@ -241,12 +243,7 @@
                             <span>{{ $profile['kontak']['email'] }}</span>
                         </a>
                         @endif
-                        @if(!empty($profile['kontak']['telepon']))
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon']) }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
-                            <i class="fa-solid fa-phone text-blue-500"></i>
-                            <span>{{ $profile['kontak']['telepon'] }}</span>
-                        </a>
-                        @endif
+
                         @if(!empty($profile['kontak']['instagram']))
                         <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-brands fa-instagram text-pink-500 text-sm"></i>
@@ -621,12 +618,7 @@
                         </p>
 
                         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 pt-2 text-xs">
-                            @if(!empty($profile['kontak']['telepon']))
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon']) }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
-                                <i class="fa-brands fa-whatsapp text-sm"></i>
-                                <span>{{ $profile['kontak']['telepon'] }}</span>
-                            </a>
-                            @endif
+
                             @if(!empty($profile['kontak']['instagram']))
                             <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-instagram text-sm"></i>

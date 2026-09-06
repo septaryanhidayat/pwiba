@@ -51,7 +51,7 @@ class DashboardController extends Controller
         $latestMeetings = MeetingMinute::withCount('attendances')->latest('tanggal')->take(4)->get();
 
         $totalInboxes = Inbox::count();
-        $unreadInboxes = Inbox::where('status', 'belum_dibaca')->count();
+        $unreadInboxes = Inbox::whereIn('status', ['baru', 'belum_dibaca'])->count();
         $latestInboxes = Inbox::latest('tanggal')->take(4)->get();
 
         $totalGalleries = Gallery::count();

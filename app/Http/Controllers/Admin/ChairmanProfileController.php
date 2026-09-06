@@ -204,7 +204,7 @@ class ChairmanProfileController extends Controller
 
             // Kontak
             'kontak' => [
-                'telepon' => $validated['telepon'] ?? '0853-7799-1976',
+                'telepon' => $validated['telepon'] ?? null,
                 'email' => $validated['email'] ?? 'wardianstp@gmail.com',
                 'instagram' => $validated['instagram'] ?? 'https://www.instagram.com/wardianstp/',
                 'facebook' => $validated['facebook'] ?? 'https://www.facebook.com/ward.wardoyo',

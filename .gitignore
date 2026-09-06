@@ -23,6 +23,7 @@ cookies.txt
 /storage/pail
 /storage/app/public/**/*
 !/storage/app/public/.gitignore
+!/storage/app/public/.htaccess
 /public/leaders
 .agents/
 /vendor

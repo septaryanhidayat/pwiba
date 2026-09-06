@@ -8,6 +8,7 @@ use App\Models\MeetingMinute;
 use App\Models\Member;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MeetingMinuteController extends Controller
 {
@@ -117,6 +118,9 @@ class MeetingMinuteController extends Controller
         ]);
 
         if ($request->hasFile('file_lampiran')) {
+            if ($meeting->file_lampiran && Storage::disk('public')->exists($meeting->file_lampiran)) {
+                Storage::disk('public')->delete($meeting->file_lampiran);
+            }
             $data['file_lampiran'] = $request->file('file_lampiran')->store('meetings', 'public');
         }
 
@@ -144,6 +148,9 @@ class MeetingMinuteController extends Controller
     public function destroy($id)
     {
         $meeting = MeetingMinute::findOrFail($id);
+        if ($meeting->file_lampiran && Storage::disk('public')->exists($meeting->file_lampiran)) {
+            Storage::disk('public')->delete($meeting->file_lampiran);
+        }
         $meeting->delete();
 
         return redirect()->route('admin.meetings.index')->with('success', 'Notulen rapat berhasil dihapus.');

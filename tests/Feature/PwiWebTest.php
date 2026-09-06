@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Gallery;
+use App\Models\Inbox;
+use App\Models\IncomingLetter;
 use App\Models\Leader;
 use App\Models\Letter;
 use App\Models\Media;
@@ -988,5 +990,123 @@ class PwiWebTest extends TestCase
 
         $post->refresh();
         $this->assertEquals('2026-05-10 09:45:00', $post->published_at->format('Y-m-d H:i:s'));
+    }
+
+    public function test_security_headers_are_applied(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Frame-Options', 'SAMEORIGIN');
+        $response->assertHeader('X-Content-Type-Options', 'nosniff');
+        $response->assertHeader('X-XSS-Protection', '1; mode=block');
+        $response->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    }
+
+    public function test_dashboard_displays_accurate_unread_inbox_count(): void
+    {
+        $admin = User::first();
+        $initialUnread = Inbox::whereIn('status', ['baru', 'belum_dibaca'])->count();
+
+        Inbox::create([
+            'tanggal' => now(),
+            'nama' => 'Masyarakat Pengadu',
+            'instansi' => 'Warga Banyuasin',
+            'keperluan' => 'Permohonan Liputan',
+            'pesan' => 'Mohon liput kegiatan gotong royong.',
+            'status' => 'baru',
+        ]);
+
+        $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+
+        $response->assertStatus(200);
+        $expectedUnread = $initialUnread + 1;
+        $response->assertSee("{$expectedUnread} Baru");
+    }
+
+    public function test_letter_file_cleanup_on_update_and_destroy(): void
+    {
+        Storage::fake('public');
+        $admin = User::first();
+
+        $file1 = UploadedFile::fake()->create('surat1.pdf', 100, 'application/pdf');
+        $stored1 = $file1->store('letters', 'public');
+
+        $letter = Letter::create([
+            'nomor_surat' => '001/PWI-BA/TEST/2026',
+            'tanggal' => now(),
+            'jenis_surat' => 'SURAT BIASA',
+            'tujuan' => 'Bupati Banyuasin',
+            'perihal' => 'Uji Coba Surat',
+            'keperluan' => 'Uji Coba Keperluan Surat',
+            'file_dokumen' => $stored1,
+        ]);
+
+        Storage::disk('public')->assertExists($stored1);
+
+        $file2 = UploadedFile::fake()->create('surat2.pdf', 100, 'application/pdf');
+        $this->actingAs($admin)->put(route('admin.letters.update', $letter->id), [
+            'nomor_surat' => '001/PWI-BA/TEST/2026',
+            'tanggal' => now()->format('Y-m-d'),
+            'jenis_surat' => 'SURAT BIASA',
+            'keperluan' => 'Uji Coba Keperluan Surat',
+            'file_dokumen' => $file2,
+        ]);
+
+        Storage::disk('public')->assertMissing($stored1);
+
+        $letter->refresh();
+        $this->actingAs($admin)->delete(route('admin.letters.destroy', $letter->id));
+        Storage::disk('public')->assertMissing($letter->file_dokumen);
+    }
+
+    public function test_incoming_letter_file_cleanup_on_update_and_destroy(): void
+    {
+        Storage::fake('public');
+        $admin = User::first();
+
+        $file1 = UploadedFile::fake()->create('masuk1.pdf', 100, 'application/pdf');
+        $stored1 = $file1->store('incoming_letters', 'public');
+
+        $incoming = IncomingLetter::create([
+            'nomor_surat' => '100/IN/2026',
+            'tanggal_surat' => now(),
+            'tanggal_diterima' => now(),
+            'pengirim' => 'Diskominfo',
+            'perihal' => 'Undangan Kemitraan',
+            'file_lampiran' => $stored1,
+        ]);
+
+        Storage::disk('public')->assertExists($stored1);
+
+        $file2 = UploadedFile::fake()->create('masuk2.pdf', 100, 'application/pdf');
+        $this->actingAs($admin)->put(route('admin.incoming-letters.update', $incoming->id), [
+            'nomor_surat' => '100/IN/2026',
+            'tanggal_surat' => now()->format('Y-m-d'),
+            'tanggal_diterima' => now()->format('Y-m-d'),
+            'pengirim' => 'Diskominfo Banyuasin',
+            'perihal' => 'Undangan Kemitraan Revisi',
+            'file_lampiran' => $file2,
+        ]);
+
+        Storage::disk('public')->assertMissing($stored1);
+
+        $incoming->refresh();
+        $this->actingAs($admin)->delete(route('admin.incoming-letters.destroy', $incoming->id));
+        Storage::disk('public')->assertMissing($incoming->file_lampiran);
+    }
+
+    public function test_leader_model_has_resilient_photo_fallback(): void
+    {
+        $leader = new Leader([
+            'nama' => 'Ketua Tanpa Foto',
+            'jabatan' => 'Ketua Periode Awal',
+            'periode' => '2005-2008',
+            'foto' => null,
+        ]);
+
+        $url = $leader->foto_url;
+        $this->assertNotEmpty($url);
+        $this->assertTrue(str_contains($url, 'placeholder-leader.webp') || str_contains($url, 'admin.webp') || str_contains($url, 'ui-avatars.com'));
     }
 }

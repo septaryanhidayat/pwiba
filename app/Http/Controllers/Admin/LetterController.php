@@ -7,6 +7,7 @@ use App\Models\Letter;
 use App\Models\Member;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LetterController extends Controller
 {
@@ -122,6 +123,9 @@ class LetterController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('file_dokumen')) {
+            if ($letter->file_dokumen && Storage::disk('public')->exists($letter->file_dokumen)) {
+                Storage::disk('public')->delete($letter->file_dokumen);
+            }
             $data['file_dokumen'] = $request->file('file_dokumen')->store('letters', 'public');
         }
 
@@ -133,6 +137,9 @@ class LetterController extends Controller
     public function destroy($id)
     {
         $letter = Letter::findOrFail($id);
+        if ($letter->file_dokumen && Storage::disk('public')->exists($letter->file_dokumen)) {
+            Storage::disk('public')->delete($letter->file_dokumen);
+        }
         $letter->delete();
 
         return redirect()->route('admin.letters.index')->with('success', 'Surat berhasil dihapus.');

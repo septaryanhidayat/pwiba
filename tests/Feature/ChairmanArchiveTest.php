@@ -363,7 +363,7 @@ class ChairmanArchiveTest extends TestCase
         $publicResponse->assertSee('Integritas Mengabdi Tanpa Henti');
         $publicResponse->assertSee('Kemerdekaan Pers Digital');
         $publicResponse->assertSee('wardoyo.ketua@pwiba.or.id');
-        $publicResponse->assertSee('0812-3456-7890');
+        $publicResponse->assertDontSee('0812-3456-7890');
         $publicResponse->assertSee('https://www.instagram.com/wardoyo_official/');
         $publicResponse->assertSee('Kolaborasi Bersama PWI Banyuasin');
     }
