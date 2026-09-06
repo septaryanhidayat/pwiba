@@ -27,12 +27,17 @@ class ImportWardianstArchive extends Command
      */
     public function handle(): int
     {
-        $filePath = $this->option('file') ?: 'C:/Users/RYAN/.gemini/antigravity-ide/brain/c2beda88-3ffc-4214-9997-4b2d9232dfef/scratch/raw_wp_posts.json';
+        $filePath = $this->option('file') ?: database_path('data/wardianst_posts.json');
 
         if (! file_exists($filePath)) {
-            $this->error("File arsip tidak ditemukan di: {$filePath}");
+            $scratchPath = 'C:/Users/RYAN/.gemini/antigravity-ide/brain/c2beda88-3ffc-4214-9997-4b2d9232dfef/scratch/raw_wp_posts.json';
+            if (file_exists($scratchPath)) {
+                $filePath = $scratchPath;
+            } else {
+                $this->error("File arsip tidak ditemukan di: {$filePath}");
 
-            return self::FAILURE;
+                return self::FAILURE;
+            }
         }
 
         $rawContent = file_get_contents($filePath);
@@ -44,13 +49,35 @@ class ImportWardianstArchive extends Command
             return self::FAILURE;
         }
 
-        $this->info('Memulai import dan sanitasi '.count($posts).' tulisan blog Wardiansyah...');
+        $this->info('Memproses '.count($posts).' arsip tulisan...');
         $bar = $this->output->createProgressBar(count($posts));
         $bar->start();
 
         $imported = 0;
 
         foreach ($posts as $p) {
+            // Cek apakah data sudah dalam format tersanitasi
+            if (isset($p['title']) && is_string($p['title']) && isset($p['slug']) && isset($p['content'])) {
+                ChairmanPost::updateOrCreate(
+                    ['slug' => $p['slug']],
+                    [
+                        'wp_id' => $p['wp_id'] ?? null,
+                        'title' => $p['title'],
+                        'category' => $p['category'] ?? 'Opini & Catatan',
+                        'excerpt' => $p['excerpt'] ?? null,
+                        'content' => $p['content'],
+                        'reading_time' => $p['reading_time'] ?? 3,
+                        'published_at' => $p['published_at'] ?? now(),
+                        'original_url' => $p['original_url'] ?? null,
+                    ]
+                );
+                $imported++;
+                $bar->advance();
+
+                continue;
+            }
+
+            // Format raw WordPress
             $wpId = $p['id'] ?? null;
             $rawTitle = $p['title']['rendered'] ?? 'Tanpa Judul';
             $rawContent = $p['content']['rendered'] ?? '';

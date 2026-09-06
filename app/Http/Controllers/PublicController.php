@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChairmanPost;
 use App\Models\Gallery;
 use App\Models\Inbox;
 use App\Models\Leader;
@@ -22,11 +23,22 @@ class PublicController extends Controller
 {
     protected function ensureTablesExist(): void
     {
-        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views')) {
+        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views') || ! Schema::hasTable('chairman_posts')) {
             try {
                 Artisan::call('migrate', ['--force' => true]);
                 if (Schema::hasTable('posts') && Post::count() === 0) {
                     Artisan::call('db:seed', ['--force' => true]);
+                }
+                if (Schema::hasTable('chairman_posts') && ChairmanPost::count() === 0) {
+                    $jsonFile = database_path('data/wardianst_posts.json');
+                    if (file_exists($jsonFile)) {
+                        $posts = json_decode(file_get_contents($jsonFile), true);
+                        if (is_array($posts) && count($posts) > 0) {
+                            foreach (array_chunk($posts, 50) as $chunk) {
+                                ChairmanPost::insert($chunk);
+                            }
+                        }
+                    }
                 }
             } catch (\Throwable $e) {
                 // Silently ignore if artisan migrate cannot run on hosting

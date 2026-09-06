@@ -5,12 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\ChairmanPost;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class ChairmanArchiveController extends Controller
 {
+    /**
+     * Pastikan tabel dan data dasar chairman_posts tersedia
+     * Aman untuk hosting cPanel / shared hosting tanpa akses terminal SSH
+     */
+    protected function ensureTableExists(): void
+    {
+        if (! Schema::hasTable('chairman_posts')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+            } catch (\Throwable $e) {
+                // Abaikan jika migrasi gagal
+            }
+        }
+
+        if (Schema::hasTable('chairman_posts')) {
+            try {
+                if (ChairmanPost::count() === 0) {
+                    $jsonFile = database_path('data/wardianst_posts.json');
+                    if (file_exists($jsonFile)) {
+                        $posts = json_decode(file_get_contents($jsonFile), true);
+                        if (is_array($posts) && count($posts) > 0) {
+                            foreach (array_chunk($posts, 50) as $chunk) {
+                                ChairmanPost::insert($chunk);
+                            }
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Abaikan jika seeding otomatis belum berjalan
+            }
+        }
+    }
+
     /**
      * Profil lengkap dan rekam jejak resmi Wardoyo, S.I.Kom.
      */
@@ -110,6 +145,26 @@ class ChairmanArchiveController extends Controller
      */
     public function index(Request $request): View
     {
+        $this->ensureTableExists();
+
+        if (! Schema::hasTable('chairman_posts')) {
+            $articles = new LengthAwarePaginator([], 0, 12);
+            $categories = collect();
+            $years = collect();
+            $profile = $this->getChairmanProfile();
+            $totalArticles = 0;
+            $settings = Schema::hasTable('settings') ? Setting::pluck('value', 'key')->all() : [];
+
+            return view('public.chairman_archive.index', compact(
+                'articles',
+                'categories',
+                'years',
+                'profile',
+                'totalArticles',
+                'settings'
+            ));
+        }
+
         $query = ChairmanPost::query();
 
         // 1. Search Query
@@ -136,8 +191,10 @@ class ChairmanArchiveController extends Controller
             ->orderBy('total', 'desc')
             ->get();
 
-        // 6. Available years
-        $years = ChairmanPost::selectRaw("strftime('%Y', published_at) as year, count(*) as total")
+        // 6. Available years (Compatible with both MySQL and SQLite)
+        $isSqlite = DB::connection()->getDriverName() === 'sqlite';
+        $yearSql = $isSqlite ? "strftime('%Y', published_at)" : 'YEAR(published_at)';
+        $years = ChairmanPost::selectRaw("{$yearSql} as year, count(*) as total")
             ->groupBy('year')
             ->orderBy('year', 'desc')
             ->get();
@@ -161,6 +218,12 @@ class ChairmanArchiveController extends Controller
      */
     public function show(string $slug): View
     {
+        $this->ensureTableExists();
+
+        if (! Schema::hasTable('chairman_posts')) {
+            abort(404);
+        }
+
         $article = ChairmanPost::where('slug', $slug)->firstOrFail();
         $article->increment('views_count');
 
