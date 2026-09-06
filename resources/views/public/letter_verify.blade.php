@@ -42,7 +42,7 @@
                             Surat Resmi Terdaftar di Buku Registrasi PWI Banyuasin
                         </h3>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                            Data di bawah ini dicocokkan langsung secara *real-time* dengan basis data arsip surat resmi untuk mencegah pemalsuan dan penyalahgunaan dokumen.
+                            Data di bawah ini dicocokkan langsung secara real-time dengan basis data arsip surat resmi untuk mencegah pemalsuan dan penyalahgunaan dokumen.
                         </p>
                     </div>
                 </div>

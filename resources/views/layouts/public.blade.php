@@ -367,8 +367,7 @@
                     @auth
                         <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200 shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-gauge-high"></i>
-                            <span class="hidden md:inline">Dashboard MIS</span>
-                            <span class="md:hidden">MIS</span>
+                            <span>Panel Admin</span>
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-500/20 transition-all duration-200 shrink-0 whitespace-nowrap">
@@ -423,11 +422,11 @@
             <div class="pt-4 border-t border-slate-200 dark:border-white/10 space-y-2">
                 @auth
                     <a href="{{ route('admin.dashboard') }}" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-bold text-white bg-blue-600 shadow-md">
-                        <i class="fa-solid fa-gauge-high me-1.5"></i> Dashboard MIS Admin
+                        <i class="fa-solid fa-gauge-high me-1.5"></i> Panel Admin
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-extrabold text-slate-950 bg-amber-400 shadow-md">
-                        <i class="fa-solid fa-lock text-xs me-1.5"></i> Login Administrator
+                        <i class="fa-solid fa-lock text-xs me-1.5"></i> Login Admin
                     </a>
                 @endauth
             </div>

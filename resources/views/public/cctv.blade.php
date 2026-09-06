@@ -26,7 +26,7 @@
                 </h1>
 
                 <p class="text-slate-300 text-xs sm:text-base mt-3 leading-relaxed max-w-2xl">
-                    Informasi dan tautan akses resmi pantauan arus lalu lintas di sepanjang Jalur Lintas Timur (Jalintim) Palembang–Betung dan titik strategis lainnya secara langsung (*real-time*).
+                    Informasi dan tautan akses resmi pantauan arus lalu lintas di sepanjang Jalur Lintas Timur (Jalintim) Palembang–Betung dan titik strategis lainnya secara langsung (real-time).
                 </p>
 
                 <!-- Primary CTA Launch Buttons -->
@@ -571,7 +571,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Ketentuan Rekaman CCTV</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Layanan CCTV ini disediakan secara terbuka khusus untuk <strong>pemantauan langsung (*live stream*)</strong>. Rekaman arsip (*playback*) tidak dapat diunduh langsung dan hanya dapat diajukan secara resmi melalui Dinas Komunikasi, Informatika, Statistik dan Persandian (Diskominfo) Kab. Banyuasin untuk keperluan penegakan hukum atau investigasi resmi kepolisian.
+                    Layanan CCTV ini disediakan secara terbuka khusus untuk <strong>pemantauan langsung (live stream)</strong>. Rekaman arsip (playback) tidak dapat diunduh langsung dan hanya dapat diajukan secara resmi melalui Dinas Komunikasi, Informatika, Statistik dan Persandian (Diskominfo) Kab. Banyuasin untuk keperluan penegakan hukum atau investigasi resmi kepolisian.
                 </p>
             </div>
 
@@ -582,7 +582,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Tips Pemudik Jalintim</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Sebelum melintasi Jalan Lintas Timur Palembang–Betung, periksa kondisi titik rawan antrean seperti KM 14–16 Sukajadi dan Simpang Tugu Betung. Patuhi rambu lalu lintas, hindari menyalip pada marka jalan tidak putus, dan istirahatlah di *rest area* atau SPBU terdekat jika lelah berkendara.
+                    Sebelum melintasi Jalan Lintas Timur Palembang–Betung, periksa kondisi titik rawan antrean seperti KM 14–16 Sukajadi dan Simpang Tugu Betung. Patuhi rambu lalu lintas, hindari menyalip pada marka jalan tidak putus, dan istirahatlah di rest area atau SPBU terdekat jika lelah berkendara.
                 </p>
             </div>
 

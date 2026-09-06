@@ -180,7 +180,7 @@
 
                         <div>
                             <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-                                Login Sistem MIS
+                                Login Administrator
                             </h1>
                             <p class="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mt-1">
                                 Pengurus PWI Kabupaten Banyuasin

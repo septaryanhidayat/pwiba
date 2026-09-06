@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>@yield('title', 'Dashboard MIS') - PWI Banyuasin</title>
+    <title>@yield('title', 'Dashboard') - PWI Banyuasin</title>
 
     <!-- Favicon Resmi PWI Banyuasin -->
     <link rel="icon" type="image/png" href="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
@@ -158,7 +158,7 @@
                         <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <div class="text-[10px] font-bold text-amber-400 tracking-wider uppercase">Sistem Informasi MIS</div>
+                        <div class="text-[10px] font-bold text-amber-400 tracking-wider uppercase">Panel Admin</div>
                         <div class="text-sm font-black text-white tracking-wide leading-tight">PWI BANYUASIN</div>
                     </div>
                 </a>
@@ -191,7 +191,7 @@
                 <!-- Dashboard -->
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-chart-pie text-sm w-4 {{ request()->routeIs('admin.dashboard') ? 'text-amber-400' : 'text-amber-500' }}"></i>
-                    <span>Dashboard MIS</span>
+                    <span>Dashboard</span>
                 </a>
 
                 <!-- 1. Modul Anggota & Media (Group) -->

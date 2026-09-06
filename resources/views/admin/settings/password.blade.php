@@ -9,7 +9,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Ganti Kata Sandi Administrator</h2>
-            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Perbarui password akun untuk menjaga keamanan akses ke dashboard MIS</p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Perbarui password akun untuk menjaga keamanan akses ke panel admin</p>
         </div>
     </div>
 
