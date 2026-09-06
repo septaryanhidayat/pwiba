@@ -29,7 +29,6 @@ Route::get('/ketua-dari-masa-ke-masa', [PublicController::class, 'leaders'])->na
 Route::get('/anggota', [PublicController::class, 'members'])->name('members.public');
 Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.public');
 Route::get('/cctv', [PublicController::class, 'cctv'])->name('cctv.public');
-Route::get('/cctv/live-bridge', [PublicController::class, 'cctvLiveBridge'])->name('cctv.live-bridge');
 Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store')->middleware('throttle:10,1');
 Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter'])->name('letter.verify');
 

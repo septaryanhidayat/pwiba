@@ -339,40 +339,6 @@ class PublicController extends Controller
         return view('public.cctv', compact('settings'));
     }
 
-    /**
-     * Bridge live stream proxy ke server origin CCTV Diskominfo Kab. Banyuasin.
-     * Meniadakan restriksi X-Frame-Options sehingga tampilan dapat diintegrasikan langsung di web.
-     */
-    public function cctvLiveBridge(Request $request)
-    {
-        $originHost = '103.75.150.75';
-        $ch = curl_init("http://{$originHost}/");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Host: cctv.banyuasinkab.go.id',
-            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        ]);
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE) ?: 'text/html; charset=UTF-8';
-        curl_close($ch);
-
-        if ($httpCode >= 200 && $httpCode < 400 && ! empty($response)) {
-            // Bersihkan meta tag pemblokir frame jika ada
-            $cleaned = preg_replace('/<meta[^>]*http-equiv=["\'](Content-Security-Policy|X-Frame-Options)["\'][^>]*>/i', '', $response);
-
-            return response($cleaned, 200)
-                ->header('Content-Type', $contentType)
-                ->header('X-Frame-Options', 'ALLOWALL');
-        }
-
-        return response()->view('public.cctv_bridge_status', [], 200)
-            ->header('Content-Type', 'text/html; charset=UTF-8');
-    }
-
     public function storeInbox(Request $request)
     {
         $throttleKey = 'inbox|'.$request->ip();

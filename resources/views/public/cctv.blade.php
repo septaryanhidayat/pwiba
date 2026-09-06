@@ -1,48 +1,11 @@
 @extends('layouts.public')
 
 @section('title', 'Pantauan CCTV Banyuasin Real-Time - Layanan Publik')
-@section('meta_description', 'Siaran langsung video kamera pemantau CCTV arus lalu lintas dan titik strategis di Kabupaten Banyuasin secara real-time bekerja sama dengan Diskominfo Banyuasin.')
-
-@push('styles')
-<style>
-    /* CCTV Surveillance Authentic Scanlines & Overlays */
-    .cctv-scanlines {
-        background: linear-gradient(
-            rgba(18, 16, 16, 0) 50%, 
-            rgba(0, 0, 0, 0.22) 50%
-        ), linear-gradient(
-            90deg,
-            rgba(255, 0, 0, 0.03),
-            rgba(0, 255, 0, 0.01),
-            rgba(0, 0, 255, 0.03)
-        );
-        background-size: 100% 4px, 6px 100%;
-        pointer-events: none;
-    }
-    
-    .cctv-reticle {
-        background-image: 
-            radial-gradient(circle at center, transparent 96%, rgba(255, 255, 255, 0.15) 97%, transparent 98%),
-            linear-gradient(to right, transparent 48%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 52%),
-            linear-gradient(to bottom, transparent 48%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 52%);
-        pointer-events: none;
-    }
-
-    .cctv-night-vision {
-        filter: brightness(1.2) contrast(1.3) hue-rotate(85deg) saturate(2) !important;
-    }
-
-    .cam-card-active {
-        border-color: #f59e0b !important;
-        background-color: rgba(245, 158, 11, 0.12) !important;
-        box-shadow: 0 0 15px rgba(245, 158, 11, 0.25) !important;
-    }
-</style>
-@endpush
+@section('meta_description', 'Pantau kondisi arus lalu lintas dan titik strategis di Kabupaten Banyuasin secara langsung (live streaming) 24 jam melalui portal CCTV resmi Diskominfo Banyuasin.')
 
 @section('content')
 <!-- Header Banner Section -->
-<div class="gradient-mesh text-white py-12 sm:py-16 relative overflow-hidden">
+<div class="gradient-mesh text-white py-14 sm:py-16 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
             
@@ -53,7 +16,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
                     </span>
-                    <span>SIARAN LIVE VIDEO 24 JAM</span>
+                    <span>LIVE STREAMING 24 JAM</span>
                     <span class="text-white/40">•</span>
                     <span class="text-amber-400 font-semibold">DISKOMINFO BANYUASIN</span>
                 </div>
@@ -63,19 +26,19 @@
                 </h1>
 
                 <p class="text-slate-300 text-xs sm:text-base mt-3 leading-relaxed max-w-2xl">
-                    Siaran langsung video kamera pemantau arus lalu lintas di sepanjang Jalur Lintas Timur (Jalintim) Palembang–Betung dan titik strategis lainnya secara langsung (*real-time video feed*) bekerja sama dengan Pemerintah Kabupaten Banyuasin.
+                    Informasi dan tautan akses resmi pantauan arus lalu lintas di sepanjang Jalur Lintas Timur (Jalintim) Palembang–Betung dan titik strategis lainnya secara langsung (*real-time*).
                 </p>
 
-                <!-- Primary Action Buttons (In-Page Navigation, NO New Tab) -->
+                <!-- Primary CTA Launch Buttons -->
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-6">
-                    <a href="#cctv-monitor-station" class="px-6 py-3.5 rounded-xl font-black text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/30 transition-all flex items-center gap-2.5 transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-circle-play text-slate-950 text-base"></i>
-                        <span>Lihat Siaran Live Video</span>
-                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl font-black text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/30 transition-all flex items-center gap-2.5 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-tower-broadcast text-slate-950"></i>
+                        <span>Buka Siaran Langsung CCTV (Tab Baru)</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                     </a>
                     <a href="#titik-pantau" class="px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all flex items-center gap-2">
                         <i class="fa-solid fa-location-dot text-amber-400"></i>
-                        <span>Pilih Dari 8 Titik Kamera</span>
+                        <span>Lihat 8 Titik Kamera</span>
                     </a>
                 </div>
             </div>
@@ -83,16 +46,16 @@
             <!-- Header Quick Info Stats -->
             <div class="w-full lg:w-auto flex-shrink-0 grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-                    <div class="text-2xl sm:text-3xl font-black text-amber-400">8 Titik</div>
-                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Kamera Pengawas</div>
+                    <div class="text-2xl sm:text-3xl font-black text-amber-400">8+</div>
+                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Lokasi Pantau</div>
                 </div>
                 <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-                    <div class="text-2xl sm:text-3xl font-black text-emerald-400">Live Video</div>
-                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Siaga 24 Jam</div>
+                    <div class="text-2xl sm:text-3xl font-black text-emerald-400">24/7</div>
+                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Aktif Non-Stop</div>
                 </div>
                 <div class="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-                    <div class="text-2xl sm:text-3xl font-black text-sky-400">Full HD</div>
-                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Kualitas Siaran</div>
+                    <div class="text-2xl sm:text-3xl font-black text-sky-400">HD</div>
+                    <div class="text-[11px] font-semibold text-slate-300 mt-0.5">Kualitas Visual</div>
                 </div>
             </div>
 
@@ -101,312 +64,239 @@
 </div>
 
 <!-- Main Content Area -->
-<div class="py-10 bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
+<div class="py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-        <!-- ========================================================================= -->
-        <!-- CCTV LIVE VIDEO MONITOR STATION (EMBEDDED DIRECTLY IN PAGE)               -->
-        <!-- ========================================================================= -->
-        <section id="cctv-monitor-station" class="scroll-mt-24">
-            
-            <div class="bg-slate-950 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden text-white">
-                
-                <!-- Monitor Top Telemetry & Control Bar -->
-                <div class="bg-slate-900/90 border-b border-slate-800 px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
-                    
-                    <!-- Left: REC Status & Active Camera Title -->
-                    <div class="flex items-center gap-3">
-                        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-red-950/80 border border-red-500/40 text-red-400 font-mono text-xs font-bold">
-                            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-                            <span>● LIVE STREAM</span>
-                        </div>
-                        <div>
-                            <span id="active-cam-badge" class="font-extrabold text-xs sm:text-sm text-amber-400 font-mono tracking-wide">
-                                CAM-01
-                            </span>
-                            <span class="text-white/40 mx-1.5">•</span>
-                            <span id="active-cam-title" class="font-bold text-xs sm:text-sm text-white">
-                                Gerbang KM 12 - Talang Kelapa
-                            </span>
-                            <span id="active-cam-road" class="hidden md:inline text-xs text-slate-400 font-mono ms-2">
-                                [Jalintim KM 12 - Perbatasan]
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Right: Live Timestamp & Technical Telemetry -->
-                    <div class="flex items-center gap-2 sm:gap-3">
-                        <!-- Digital Clock -->
-                        <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-emerald-400 font-mono text-xs font-bold tracking-wider">
-                            <i class="fa-solid fa-clock text-[10px] text-emerald-500"></i>
-                            <span id="live-cctv-clock">00:00:00 WIB</span>
-                        </div>
-
-                        <!-- Video Stream Indicator -->
-                        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-950/50 border border-sky-500/30 text-sky-300 font-mono text-xs font-semibold">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span>LIVE 1080p • 30 FPS</span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Video Viewport Container -->
-                <div id="cctv-viewport-container" class="relative w-full bg-black flex items-center justify-center overflow-hidden min-h-[340px] sm:min-h-[480px] lg:min-h-[580px] select-none">
-                    
-                    <!-- REAL HTML5 CCTV VIDEO PLAYER -->
-                    <video id="cctv-player" 
-                           autoplay 
-                           loop 
-                           muted 
-                           playsinline 
-                           preload="auto"
-                           class="w-full h-full object-cover transition-all duration-300 filter" 
-                           style="max-height: 580px;">
-                        <source id="cctv-video-source" src="{{ asset('images/cctv/traffic_highway.mp4') }}" type="video/mp4">
-                        Peramban Anda tidak mendukung pemutar video siaran langsung.
-                    </video>
-
-                    <!-- Authentic CCTV Surveillance Scanlines & Center Reticle -->
-                    <div class="cctv-scanlines absolute inset-0"></div>
-                    <div class="cctv-reticle absolute inset-0 opacity-40"></div>
-
-                    <!-- Top-Left Telemetry HUD Overlay -->
-                    <div class="absolute top-4 left-4 z-20 pointer-events-none">
-                        <div class="bg-black/70 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15 text-white font-mono text-[11px] sm:text-xs shadow-lg space-y-0.5">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                                <span id="hud-cam-id" class="text-amber-400 font-bold tracking-wider">CAM 01 // KM 12</span>
-                            </div>
-                            <div id="hud-location-name" class="text-slate-200 font-semibold text-[10px] sm:text-xs">
-                                GERBANG PERBATASAN TALANG KELAPA
-                            </div>
-                            <div id="hud-coordinates" class="text-slate-400 text-[9px] sm:text-[10px]">
-                                KOORDINAT: -2.9381° S, 104.6812° E
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Top-Right Timestamp & Bitrate Overlay -->
-                    <div class="absolute top-4 right-4 z-20 pointer-events-none text-right">
-                        <div class="bg-black/70 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15 text-white font-mono text-[11px] sm:text-xs shadow-lg space-y-0.5">
-                            <div id="hud-timestamp" class="text-emerald-400 font-bold tracking-wider">
-                                2026-09-07 00:00:00 WIB
-                            </div>
-                            <div class="text-slate-300 text-[10px] flex items-center justify-end gap-1.5">
-                                <span class="text-sky-400 font-semibold">29.97 FPS</span>
-                                <span class="text-white/30">•</span>
-                                <span class="text-amber-300">4.8 Mbps H.264</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom-Left Traffic Condition Telemetry Pill -->
-                    <div class="absolute bottom-4 left-4 z-20 pointer-events-none">
-                        <div class="bg-black/75 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/15 text-white font-mono text-xs shadow-lg flex items-center gap-3">
-                            <div class="flex items-center gap-2">
-                                <span id="telemetry-status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span id="telemetry-status-text" class="text-emerald-400 font-bold text-xs">ARUS LANCAR TERKENDALI</span>
-                            </div>
-                            <span class="text-white/30 hidden sm:inline">•</span>
-                            <div id="telemetry-speed" class="text-slate-300 text-[11px] hidden sm:inline">
-                                Kecepatan: ~45-60 km/j
-                            </div>
-                            <span class="text-white/30 hidden md:inline">•</span>
-                            <div id="telemetry-weather" class="text-amber-300 text-[11px] hidden md:inline">
-                                Cuaca: Cerah / Kering
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom-Right Watermark -->
-                    <div class="absolute bottom-4 right-4 z-20 pointer-events-none hidden sm:block">
-                        <div class="bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10 text-white/70 font-mono text-[10px] tracking-wide">
-                            DISKOMINFO BANYUASIN &bull; PWI MONITOR
-                        </div>
-                    </div>
-
-                    <!-- Interactive Floating Quick Controls (Center-Bottom) -->
-                    <div class="absolute bottom-16 sm:bottom-4 z-30 flex items-center gap-2 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-3 py-1.5 rounded-2xl shadow-2xl">
-                        <!-- Play/Pause Video Toggle -->
-                        <button onclick="togglePlayPause()" id="btn-play-pause" title="Jeda / Putar Video" class="p-2 rounded-xl text-slate-300 hover:text-amber-400 hover:bg-slate-800 transition-colors text-xs font-bold flex items-center gap-1.5">
-                            <i id="play-pause-icon" class="fa-solid fa-pause"></i>
-                            <span id="play-pause-label" class="hidden md:inline">Pause</span>
-                        </button>
-
-                        <div class="w-px h-4 bg-slate-700"></div>
-
-                        <!-- Toggle Night Vision IR -->
-                        <button onclick="toggleNightVision()" id="btn-night-vision" title="Mode Malam / Infra Red" class="p-2 rounded-xl text-slate-300 hover:text-emerald-400 hover:bg-slate-800 transition-colors text-xs font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-moon"></i>
-                            <span class="hidden md:inline">IR Vision</span>
-                        </button>
-
-                        <div class="w-px h-4 bg-slate-700"></div>
-
-                        <!-- Toggle Zoom -->
-                        <button onclick="toggleZoom()" id="btn-zoom" title="Perbesar / Zoom" class="p-2 rounded-xl text-slate-300 hover:text-amber-400 hover:bg-slate-800 transition-colors text-xs font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-magnifying-glass-plus"></i>
-                            <span id="zoom-label" class="hidden md:inline">1.0x</span>
-                        </button>
-
-                        <div class="w-px h-4 bg-slate-700"></div>
-
-                        <!-- Refresh Video Stream -->
-                        <button onclick="restartVideo()" title="Putar Ulang Siaran" class="p-2 rounded-xl text-slate-300 hover:text-sky-400 hover:bg-slate-800 transition-colors text-xs font-bold flex items-center gap-1">
-                            <i id="refresh-icon" class="fa-solid fa-rotate-right"></i>
-                            <span class="hidden md:inline">Replay</span>
-                        </button>
-
-                        <div class="w-px h-4 bg-slate-700"></div>
-
-                        <!-- Fullscreen -->
-                        <button onclick="toggleFullscreen()" title="Layar Penuh" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-colors text-xs font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-expand"></i>
-                            <span class="hidden md:inline">Fullscreen</span>
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Camera Quick Selection Dock (8 Strategic Live Cameras) -->
-                <div class="bg-slate-900/95 border-t border-slate-800 p-4 sm:p-5">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-video text-amber-400 text-xs"></i>
-                            <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Pilih Kamera Siaran Live (8 Titik Jalintim)</span>
-                        </div>
-                        <span class="text-[11px] text-slate-400 font-mono">Klik kamera untuk beralih siaran video</span>
-                    </div>
-
-                    <!-- Horizontal Grid of 8 Cameras -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
-                        
-                        <!-- CAM 01 -->
-                        <button onclick="switchCamera(0)" id="cam-selector-0" class="cam-card cam-card-active p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-amber-400">CAM 01</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">KM 12</div>
-                            <div class="text-[10px] text-slate-400 truncate">Gerbang Utama</div>
-                        </button>
-
-                        <!-- CAM 02 -->
-                        <button onclick="switchCamera(1)" id="cam-selector-1" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 02</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">KM 15</div>
-                            <div class="text-[10px] text-slate-400 truncate">Simpang Y Sukajadi</div>
-                        </button>
-
-                        <!-- CAM 03 -->
-                        <button onclick="switchCamera(2)" id="cam-selector-2" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 03</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">Air Batu</div>
-                            <div class="text-[10px] text-slate-400 truncate">Tanjung Api-Api</div>
-                        </button>
-
-                        <!-- CAM 04 -->
-                        <button onclick="switchCamera(3)" id="cam-selector-3" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 04</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">KM 29</div>
-                            <div class="text-[10px] text-slate-400 truncate">Sembawa</div>
-                        </button>
-
-                        <!-- CAM 05 -->
-                        <button onclick="switchCamera(4)" id="cam-selector-4" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 05</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">Pangkalan Balai</div>
-                            <div class="text-[10px] text-slate-400 truncate">Pasar & Kota</div>
-                        </button>
-
-                        <!-- CAM 06 -->
-                        <button onclick="switchCamera(5)" id="cam-selector-5" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 06</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">Betung</div>
-                            <div class="text-[10px] text-slate-400 truncate">Simpang Tugu</div>
-                        </button>
-
-                        <!-- CAM 07 -->
-                        <button onclick="switchCamera(6)" id="cam-selector-6" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 07</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">Gasing</div>
-                            <div class="text-[10px] text-slate-400 truncate">Kawasan Industri</div>
-                        </button>
-
-                        <!-- CAM 08 -->
-                        <button onclick="switchCamera(7)" id="cam-selector-7" class="cam-card p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800 text-left transition-all duration-200 group">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="font-mono text-[10px] font-extrabold text-slate-300 group-hover:text-amber-400">CAM 08</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            </div>
-                            <div class="font-bold text-xs text-white group-hover:text-amber-300 truncate">Sungai Pinang</div>
-                            <div class="text-[10px] text-slate-400 truncate">Rambutan</div>
-                        </button>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- Official Streaming Portal Info Card -->
-        <section class="bg-gradient-to-r from-blue-950 via-slate-900 to-[#0B132B] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-blue-900/60 relative overflow-hidden">
-            <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-                
+        <!-- Direct Access Notice & Fast Gateway Card -->
+        <section class="bg-gradient-to-r from-blue-900 to-[#0B132B] text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-blue-800/80 relative overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-start gap-4">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-2xl shrink-0 shadow-lg shadow-amber-400/20">
-                        <i class="fa-solid fa-video"></i>
+                    <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xl shrink-0 shadow-md">
+                        <i class="fa-solid fa-satellite-dish"></i>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2 flex-wrap mb-1.5">
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                SIARAN RESMI AKTIF
-                            </span>
-                            <span class="text-xs text-slate-400 font-mono">https://cctv.banyuasinkab.go.id</span>
+                        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            SERVER RESMI AKTIF & ONLINE
                         </div>
-                        <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                            Portal Resmi CCTV Diskominfo Kab. Banyuasin
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-3xl leading-relaxed">
-                            Siaran langsung video kamera pemantau lalu lintas dikelola dan ditransmisikan secara terpusat oleh Dinas Komunikasi, Informatika, Statistik dan Persandian (Diskominfo) Pemerintah Kabupaten Banyuasin. Siaran video ditampilkan langsung di monitor website PWI Banyuasin.
+                        <h2 class="text-lg sm:text-2xl font-black text-white">Portal Layanan CCTV Diskominfo Kab. Banyuasin</h2>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                            Akses langsung ke server resmi <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold underline">https://cctv.banyuasinkab.go.id</a> untuk memantau streaming video lancar tanpa pembatasan keamanan browser.
                         </p>
                     </div>
                 </div>
-
-                <div class="shrink-0 w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3">
-                    <a href="#cctv-monitor-station" class="w-full sm:w-auto px-7 py-4 rounded-xl font-black text-xs sm:text-sm text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-xl shadow-amber-400/30 transition-all flex items-center justify-center gap-2.5 transform hover:-translate-y-0.5">
+                <div class="shrink-0 w-full md:w-auto flex flex-col sm:flex-row items-center gap-3">
+                    <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-black text-xs sm:text-sm text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-lg shadow-amber-400/20 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-play"></i>
-                        <span>Putar Siaran di Monitor</span>
+                        <span>Buka Live Stream Sekarang</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive CCTV Console & Location Selector Section -->
+        <section id="cctv-viewer" class="scroll-mt-28" x-data="{
+            selectedLocation: 'km12',
+            locations: {
+                'km12': {
+                    name: 'Gerbang KM 12 (Batas Kota)',
+                    kecamatan: 'Kecamatan Talang Kelapa',
+                    kamera: '2 Unit Kamera HD',
+                    jalur: 'Jalintim Palembang - Betung KM 12',
+                    arah: 'Arah Palembang & Arah Betung',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Pintu gerbang utama perbatasan Palembang – Banyuasin. Memantau kepadatan kendaraan keluar masuk wilayah metropolitan.'
+                },
+                'km15': {
+                    name: 'Simpang Y KM 15 (Sukajadi)',
+                    kecamatan: 'Kecamatan Talang Kelapa',
+                    kamera: '2 Unit Kamera HD',
+                    jalur: 'Jalintim Simpang Y KM 15',
+                    arah: 'Arah Sukajadi & Arah Pangkalan Balai',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Titik rawan antrean kendaraan di simpang Y Tanah Mas / Sukajadi menuju arah pusat pemerintahan.'
+                },
+                'airbatu': {
+                    name: 'Simpang Air Batu',
+                    kecamatan: 'Kecamatan Talang Kelapa',
+                    kamera: '2 Unit Kamera HD',
+                    jalur: 'Jalintim Simpang Air Batu',
+                    arah: 'Arah Lintas Timur & Arah Pelabuhan TAA',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Simpang vital perlintasan angkutan logistik industri dan jalur penghubung menuju Pelabuhan Penyeberangan Tanjung Api-Api.'
+                },
+                'sembawa': {
+                    name: 'Kawasan Sembawa',
+                    kecamatan: 'Kecamatan Sembawa',
+                    kamera: '1 Unit Kamera HD',
+                    jalur: 'Jalintim Sembawa KM 29',
+                    arah: 'Dua Arah (Palembang - Betung)',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Area pusat balai penelitian pertanian dan kawasan pemukiman padat jalur lintas timur Sumatera.'
+                },
+                'pangkalanbalai': {
+                    name: 'Pasar Pangkalan Balai',
+                    kecamatan: 'Kecamatan Banyuasin III',
+                    kamera: '2 Unit Kamera HD',
+                    jalur: 'Pusat Kota Pangkalan Balai',
+                    arah: 'Kawasan Pasar & Kompleks Perkantoran Pemkab',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Pusat denyut ekonomi ibukota Kabupaten Banyuasin, menghubungkan kawasan pasar tradisional dengan kantor pemerintahan.'
+                },
+                'betung': {
+                    name: 'Simpang Tugu Betung',
+                    kecamatan: 'Kecamatan Betung',
+                    kamera: '2 Unit Kamera HD',
+                    jalur: 'Simpang Lintas Sumatera',
+                    arah: 'Arah Jambi (Jalintim) & Arah Sekayu/Muba',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Percabangan segitiga emas lalu lintas Pulau Sumatera: jalur menuju Provinsi Jambi dan jalur tengah ke Musi Banyuasin.'
+                },
+                'gasing': {
+                    name: 'Desa Gasing',
+                    kecamatan: 'Kecamatan Talang Kelapa',
+                    kamera: '1 Unit Kamera HD',
+                    jalur: 'Kawasan Industri Gasing',
+                    arah: 'Area Pergudangan & Dermaga Logistik',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Pusat kawasan industri manufaktur, pergudangan, dan dermaga sungai perairan Banyuasin.'
+                },
+                'sungaipinang': {
+                    name: 'Simpang Tiga Sungai Pinang',
+                    kecamatan: 'Kecamatan Rambutan',
+                    kamera: '1 Unit Kamera HD',
+                    jalur: 'Jalur Rambutan - OPI Jakabaring',
+                    arah: 'Arah Rambutan & Arah Palembang Selatan',
+                    status: 'Live Aktif 24 Jam',
+                    deskripsi: 'Akses perlintasan strategis komuter wilayah barat Banyuasin yang berbatasan dengan kawasan Jakabaring.'
+                }
+            }
+        }">
+            
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+                
+                <!-- Console Header -->
+                <div class="p-5 sm:p-6 bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base border border-rose-500/30">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm sm:text-base font-extrabold text-white">Konsol Pemantauan Kamera Lalu Lintas</h3>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">ONLINE</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400">Pilih titik kamera di bawah untuk melihat rincian dan membuka siaran langsung.</p>
+                        </div>
+                    </div>
+
+                    <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all flex items-center gap-2 shadow-sm shrink-0">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span>Buka Server Resmi</span>
                     </a>
                 </div>
 
+                <!-- Location Selector Badges Bar -->
+                <div class="p-3 sm:p-4 bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 overflow-x-auto custom-scrollbar">
+                    <template x-for="(loc, key) in locations" :key="key">
+                        <button type="button" 
+                                @click="selectedLocation = key" 
+                                :class="selectedLocation === key ? 'bg-blue-600 text-white shadow-md font-bold' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'"
+                                class="px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-video text-[10px]" :class="selectedLocation === key ? 'text-amber-400' : 'text-slate-400'"></i>
+                            <span x-text="loc.name"></span>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Active Camera Console Viewport -->
+                <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-slate-900">
+                    
+                    <!-- Monitor Screen Simulation Card (7 Cols) -->
+                    <div class="lg:col-span-7 bg-slate-950 rounded-2xl border border-slate-800 p-4 sm:p-6 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[320px] sm:min-h-[380px]">
+                        
+                        <!-- Screen Overlay Badges -->
+                        <div class="flex items-center justify-between text-xs relative z-10">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-md bg-rose-600 text-white font-black text-[10px] tracking-wider animate-pulse flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                    LIVE FEED
+                                </span>
+                                <span class="text-emerald-400 font-mono text-[11px] font-bold" x-text="locations[selectedLocation].status"></span>
+                            </div>
+                            <div class="text-slate-400 font-mono text-[11px]" id="live-timer">
+                                {{ date('d-m-Y') }} <span id="clock-display">00:00:00</span> WIB
+                            </div>
+                        </div>
+
+                        <!-- Center Camera Graphic & Direct Link -->
+                        <div class="my-8 text-center space-y-3 relative z-10">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/5 border border-white/10 mx-auto flex items-center justify-center text-amber-400 text-2xl sm:text-3xl shadow-inner">
+                                <i class="fa-solid fa-camera-rotate animate-pulse"></i>
+                            </div>
+                            <h4 class="text-base sm:text-xl font-black text-white" x-text="locations[selectedLocation].name"></h4>
+                            <p class="text-xs text-slate-400 max-w-md mx-auto" x-text="locations[selectedLocation].jalur"></p>
+                            
+                            <div class="pt-2">
+                                <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-lg shadow-amber-400/20 transition-all transform hover:scale-105">
+                                    <i class="fa-solid fa-play"></i>
+                                    <span>Buka Siaran Langsung di Portal CCTV</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Monitor Bottom Meta -->
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-3 relative z-10 font-mono">
+                            <span x-text="'Kamera: ' + locations[selectedLocation].kamera"></span>
+                            <span>Protokol: RTSP/HLS Real-Time</span>
+                        </div>
+
+                        <!-- Monitor Background Grid Texture -->
+                        <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none"></div>
+                    </div>
+
+                    <!-- Location Details Info (5 Cols) -->
+                    <div class="lg:col-span-5 space-y-5">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800" x-text="locations[selectedLocation].kecamatan"></span>
+                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-2" x-text="locations[selectedLocation].name"></h3>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed" x-text="locations[selectedLocation].deskripsi"></p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
+                            <div class="flex items-center justify-between py-1 border-b border-slate-200 dark:border-slate-700/60">
+                                <span class="text-slate-500 dark:text-slate-400">Jumlah Kamera:</span>
+                                <span class="font-bold text-slate-900 dark:text-white" x-text="locations[selectedLocation].kamera"></span>
+                            </div>
+                            <div class="flex items-center justify-between py-1 border-b border-slate-200 dark:border-slate-700/60">
+                                <span class="text-slate-500 dark:text-slate-400">Arah Pantauan:</span>
+                                <span class="font-bold text-slate-900 dark:text-white" x-text="locations[selectedLocation].arah"></span>
+                            </div>
+                            <div class="flex items-center justify-between py-1 border-b border-slate-200 dark:border-slate-700/60">
+                                <span class="text-slate-500 dark:text-slate-400">Jalur Jalan:</span>
+                                <span class="font-bold text-slate-900 dark:text-white" x-text="locations[selectedLocation].jalur"></span>
+                            </div>
+                            <div class="flex items-center justify-between py-1">
+                                <span class="text-slate-500 dark:text-slate-400">Penyedia Layanan:</span>
+                                <span class="font-bold text-amber-600 dark:text-amber-400">Diskominfo Banyuasin</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                                <span>Akses Tampilan Penuh di cctv.banyuasinkab.go.id</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            
-            <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
         </section>
 
-        <!-- 8 Strategic Locations Directory Cards Section -->
+        <!-- Strategis Locations Directory Cards Section -->
         <section id="titik-pantau" class="scroll-mt-28 space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
@@ -414,10 +304,10 @@
                         Titik Pengawasan
                     </span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
-                        Daftar 8 Titik CCTV Strategis Banyuasin
+                        Daftar Titik CCTV Strategis Banyuasin
                     </h2>
                     <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1">
-                        Sebaran kamera pemantau arus lalu lintas di titik rawan kepadatan dan gerbang perbatasan Jalintim
+                        Titik pantauan kamera tersebar di simpul kepadatan lalu lintas dan gerbang perbatasan utama
                     </p>
                 </div>
                 <div class="flex items-center gap-2">
@@ -428,16 +318,16 @@
             <!-- Locations Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <!-- Titik 1: KM 12 -->
+                <!-- Titik 1 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-01
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                2 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -447,27 +337,27 @@
                             Kecamatan Talang Kelapa
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Pintu gerbang utama perbatasan Palembang – Banyuasin. Memantau arus kendaraan keluar masuk wilayah metropolitan.
+                            Pintu gerbang perbatasan Palembang – Banyuasin. Memantau arus keluar masuk kendaraan kedua arah.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
                         <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Jalintim KM 12</span>
-                        <button onclick="switchCamera(0)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 2: KM 15 -->
+                <!-- Titik 2 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-02
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                2 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -477,27 +367,27 @@
                             Kecamatan Talang Kelapa
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Simpang pertemuan arus Sukajadi dan Tanah Mas, titik vital pengawasan antrean kendaraan Jalur Lintas Timur.
+                            Titik percabangan padat kendaraan di Sukajadi / Tanah Mas menuju arah pusat Pangkalan Balai.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Simpang Sukajadi</span>
-                        <button onclick="switchCamera(1)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Jalintim KM 15</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 3: Simpang Air Batu -->
+                <!-- Titik 3 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-03
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                2 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -507,27 +397,27 @@
                             Kecamatan Talang Kelapa
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Simpang perlintasan angkutan logistik industri dan jalur alternatif menuju Pelabuhan Tanjung Api-Api.
+                            Akses strategis pertigaan menuju Pelabuhan Tanjung Api-Api dan jalur perlintasan logistik barang.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Simpang Air Batu</span>
-                        <button onclick="switchCamera(2)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Jalintim Air Batu</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 4: Sembawa -->
+                <!-- Titik 4 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-04
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                1 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -537,27 +427,27 @@
                             Kecamatan Sembawa
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Kawasan pusat penelitian pertanian dan pemukiman dengan kepadatan lalu lintas lintas timur Sumatera.
+                            Kawasan pusat penelitian dan pemukiman jalur lintas timur KM 29 menuju arah Pangkalan Balai.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
                         <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Jalintim KM 29</span>
-                        <button onclick="switchCamera(3)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 5: Pasar Pangkalan Balai -->
+                <!-- Titik 5 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-05
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                2 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -567,27 +457,27 @@
                             Kecamatan Banyuasin III
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Jantung pusat pemerintahan dan perekonomian ibukota Kabupaten Banyuasin, kawasan pasar dan perkantoran.
+                            Jantung pusat ibukota Kabupaten Banyuasin. Memantau kawasan perniagaan dan sentra perkantoran.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Kota Pangkalan Balai</span>
-                        <button onclick="switchCamera(4)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Pusat Kota</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 6: Tugu Betung -->
+                <!-- Titik 6 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-06
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                2 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -597,27 +487,27 @@
                             Kecamatan Betung
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Simpang segitiga perlintasan utama Sumatera: jalur menuju Provinsi Jambi dan jalur tengah ke Musi Banyuasin.
+                            Simpul pertemuan jalur utama Sumatera arah Provinsi Jambi dan arah Musi Banyuasin (Sekayu).
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Simpang Betung</span>
-                        <button onclick="switchCamera(5)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-road me-1 text-amber-500"></i> Simpang Tiga Betung</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 7: Desa Gasing -->
+                <!-- Titik 7 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-07
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                1 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
@@ -627,44 +517,44 @@
                             Kecamatan Talang Kelapa
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Pusat pergudangan dan aktivitas industri manufaktur di sepanjang kawasan perairan sungai Banyuasin.
+                            Kawasan industri dan pelabuhan bongkar muat sungai perbatasan wilayah pesisir perairan Banyuasin.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-industry me-1 text-amber-500"></i> Kawasan Industri</span>
-                        <button onclick="switchCamera(6)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-industry me-1 text-amber-500"></i> Area Industri</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Titik 8: Sungai Pinang -->
+                <!-- Titik 8 -->
                 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">
-                                CAM-08
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                1 UNIT CCTV
                             </span>
                             <span class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Live 24 Jam
+                                Live
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors">
-                            Simpang 3 Sungai Pinang
+                            Simpang Sungai Pinang
                         </h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
                             Kecamatan Rambutan
                         </p>
                         <p class="text-xs text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
-                            Simpang perlintasan menuju wilayah Rambutan dan perbatasan kawasan OPI Mall / Jakabaring Palembang Selatan.
+                            Simpang tiga perlintasan menuju wilayah Rambutan dan perbatasan Jakabaring Palembang Selatan.
                         </p>
                     </div>
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-signs-post me-1 text-amber-500"></i> Jalur Rambutan</span>
-                        <button onclick="switchCamera(7)" class="text-blue-600 dark:text-amber-400 font-bold hover:underline flex items-center gap-1">
-                            Tonton Siaran Live <i class="fa-solid fa-play text-[9px]"></i>
-                        </button>
+                        <span class="text-slate-500 dark:text-slate-400 font-semibold"><i class="fa-solid fa-signs-post me-1 text-amber-500"></i> Rambutan Area</span>
+                        <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-amber-400 font-bold hover:underline">
+                            Pantau <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -681,7 +571,7 @@
                 </div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Ketentuan Rekaman CCTV</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Layanan CCTV ini disediakan secara terbuka khusus untuk <strong>pemantauan langsung (*live video stream*)</strong>. Rekaman arsip (*playback*) tidak dapat diunduh langsung dan hanya dapat diajukan secara resmi melalui Dinas Komunikasi, Informatika, Statistik dan Persandian (Diskominfo) Kab. Banyuasin untuk keperluan penegakan hukum atau investigasi resmi kepolisian.
+                    Layanan CCTV ini disediakan secara terbuka khusus untuk <strong>pemantauan langsung (*live stream*)</strong>. Rekaman arsip (*playback*) tidak dapat diunduh langsung dan hanya dapat diajukan secara resmi melalui Dinas Komunikasi, Informatika, Statistik dan Persandian (Diskominfo) Kab. Banyuasin untuk keperluan penegakan hukum atau investigasi resmi kepolisian.
                 </p>
             </div>
 
@@ -732,280 +622,18 @@
     </div>
 </div>
 
-@push('scripts')
 <script>
-    // 8 Strategic Live Cameras with Real Surveillance Video Streams
-    const cameras = [
-        {
-            id: 'CAM 01',
-            badge: 'CAM-01',
-            title: 'Gerbang KM 12 - Talang Kelapa',
-            road: '[Jalintim KM 12 - Perbatasan]',
-            hudId: 'CAM 01 // KM 12',
-            hudLocation: 'GERBANG PERBATASAN TALANG KELAPA',
-            coordinates: 'KOORDINAT: -2.9381° S, 104.6812° E',
-            status: 'ARUS LANCAR TERKENDALI',
-            speed: 'Kecepatan: ~45-60 km/j',
-            weather: 'Cuaca: Cerah / Kering',
-            video: "{{ asset('images/cctv/traffic_highway.mp4') }}"
-        },
-        {
-            id: 'CAM 02',
-            badge: 'CAM-02',
-            title: 'Simpang Y KM 15 - Sukajadi',
-            road: '[Jalintim KM 15 - Simpang Sukajadi]',
-            hudId: 'CAM 02 // KM 15',
-            hudLocation: 'SIMPANG Y SUKAJADI - TANAH MAS',
-            coordinates: 'KOORDINAT: -2.9124° S, 104.6531° E',
-            status: 'RAMAI LANCAR TERATUR',
-            speed: 'Kecepatan: ~35-50 km/j',
-            weather: 'Cuaca: Cerah Berawan',
-            video: "{{ asset('images/cctv/traffic_junction.mp4') }}"
-        },
-        {
-            id: 'CAM 03',
-            badge: 'CAM-03',
-            title: 'Simpang Air Batu - Logistik',
-            road: '[Akses Jalintim - Tj. Api-Api]',
-            hudId: 'CAM 03 // AIR BATU',
-            hudLocation: 'SIMPANG PERLINTASAN ANGKUTAN LOGISTIK',
-            coordinates: 'KOORDINAT: -2.8710° S, 104.5982° E',
-            status: 'ARUS LOGISTIK TERKENDALI',
-            speed: 'Kecepatan: ~40-55 km/j',
-            weather: 'Cuaca: Cerah Terik',
-            video: "{{ asset('images/cctv/traffic_live.mp4') }}"
-        },
-        {
-            id: 'CAM 04',
-            badge: 'CAM-04',
-            title: 'Kawasan Sembawa - KM 29',
-            road: '[Jalintim KM 29 - Sembawa]',
-            hudId: 'CAM 04 // SEMBAWA KM 29',
-            hudLocation: 'KAWASAN BALAI PENELITIAN SEMBAWA',
-            coordinates: 'KOORDINAT: -2.8345° S, 104.5420° E',
-            status: 'LALU LINTAS TERBUKA & LANCAR',
-            speed: 'Kecepatan: ~50-70 km/j',
-            weather: 'Cuaca: Cerah / Kering',
-            video: "{{ asset('images/cctv/traffic_highway.mp4') }}"
-        },
-        {
-            id: 'CAM 05',
-            badge: 'CAM-05',
-            title: 'Pasar Pangkalan Balai - Kota',
-            road: '[Pusat Ibukota Banyuasin III]',
-            hudId: 'CAM 05 // PANGKALAN BALAI',
-            hudLocation: 'JANTUNG PERKOTAAN & PASAR UTAMA',
-            coordinates: 'KOORDINAT: -2.7842° S, 104.4756° E',
-            status: 'AKTIVITAS KOTA RAMAI TERATUR',
-            speed: 'Kecepatan: ~25-40 km/j',
-            weather: 'Cuaca: Berawan',
-            video: "{{ asset('images/cctv/traffic_junction.mp4') }}"
-        },
-        {
-            id: 'CAM 06',
-            badge: 'CAM-06',
-            title: 'Simpang Tugu Betung - Persimpangan',
-            road: '[Jalintim Segitiga Jambi - Sekayu]',
-            hudId: 'CAM 06 // TUGU BETUNG',
-            hudLocation: 'SIMPANG PERSIMPANGAN UTAMA SUMATERA',
-            coordinates: 'KOORDINAT: -2.7150° S, 104.3810° E',
-            status: 'KENDARAAN BERAT LANCAR',
-            speed: 'Kecepatan: ~30-45 km/j',
-            weather: 'Cuaca: Cerah Berangin',
-            video: "{{ asset('images/cctv/traffic_junction.mp4') }}"
-        },
-        {
-            id: 'CAM 07',
-            badge: 'CAM-07',
-            title: 'Desa Gasing - Kawasan Industri',
-            road: '[Jalur Industri Talang Kelapa]',
-            hudId: 'CAM 07 // GASING INDUSTRI',
-            hudLocation: 'PERGUDANGAN & PERAIRAN SUNGAI BANYUASIN',
-            coordinates: 'KOORDINAT: -2.8872° S, 104.7215° E',
-            status: 'ARUS ANGKUTAN INDUSTRI NORMAL',
-            speed: 'Kecepatan: ~35-50 km/j',
-            weather: 'Cuaca: Cerah',
-            video: "{{ asset('images/cctv/traffic_live.mp4') }}"
-        },
-        {
-            id: 'CAM 08',
-            badge: 'CAM-08',
-            title: 'Simpang 3 Sungai Pinang - Rambutan',
-            road: '[Perbatasan OPI Mall Jakabaring]',
-            hudId: 'CAM 08 // SG. PINANG',
-            hudLocation: 'SIMPANG RAMBUTAN - JAKABARING SELATAN',
-            coordinates: 'KOORDINAT: -3.0315° S, 104.7890° E',
-            status: 'LALU LINTAS SUBURBAN LANCAR',
-            speed: 'Kecepatan: ~40-55 km/j',
-            weather: 'Cuaca: Cerah Lembab',
-            video: "{{ asset('images/cctv/traffic_highway.mp4') }}"
-        }
-    ];
-
-    let activeCamIndex = 0;
-    let isNightVision = false;
-    let zoomLevel = 1.0;
-
-    // Real-time Digital Clock in WIB
     function updateClock() {
         const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        
-        const timeStr = `${hh}:${mm}:${ss} WIB`;
-        const fullStamp = `${y}-${m}-${d} ${timeStr}`;
-
-        const clockEl = document.getElementById('live-cctv-clock');
-        const hudStampEl = document.getElementById('hud-timestamp');
-        if (clockEl) clockEl.textContent = timeStr;
-        if (hudStampEl) hudStampEl.textContent = fullStamp;
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const display = document.getElementById('clock-display');
+        if (display) {
+            display.textContent = hours + ':' + minutes + ':' + seconds;
+        }
     }
     setInterval(updateClock, 1000);
     updateClock();
-
-    // Switch active camera stream
-    function switchCamera(index) {
-        if (index < 0 || index >= cameras.length) return;
-        activeCamIndex = index;
-        const cam = cameras[index];
-
-        const player = document.getElementById('cctv-player');
-        const source = document.getElementById('cctv-video-source');
-        
-        if (player && source) {
-            player.style.opacity = '0.3';
-            source.src = cam.video;
-            player.load();
-            player.play().catch(err => {
-                console.log('Autoplay policy caught:', err);
-            });
-            setTimeout(() => {
-                player.style.opacity = '1';
-            }, 200);
-        }
-
-        // Update top bar labels
-        document.getElementById('active-cam-badge').textContent = cam.badge;
-        document.getElementById('active-cam-title').textContent = cam.title;
-        document.getElementById('active-cam-road').textContent = cam.road;
-
-        // Update HUD overlays
-        document.getElementById('hud-cam-id').textContent = cam.hudId;
-        document.getElementById('hud-location-name').textContent = cam.hudLocation;
-        document.getElementById('hud-coordinates').textContent = cam.coordinates;
-        document.getElementById('telemetry-status-text').textContent = cam.status;
-        document.getElementById('telemetry-speed').textContent = cam.speed;
-        document.getElementById('telemetry-weather').textContent = cam.weather;
-
-        // Update active class on selector cards
-        document.querySelectorAll('.cam-card').forEach((el, i) => {
-            if (i === index) {
-                el.classList.add('cam-card-active');
-                el.querySelector('.font-extrabold').classList.remove('text-slate-300');
-                el.querySelector('.font-extrabold').classList.add('text-amber-400');
-            } else {
-                el.classList.remove('cam-card-active');
-                el.querySelector('.font-extrabold').classList.add('text-slate-300');
-                el.querySelector('.font-extrabold').classList.remove('text-amber-400');
-            }
-        });
-
-        // Smooth scroll to monitor station
-        const monitor = document.getElementById('cctv-monitor-station');
-        if (monitor) {
-            monitor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    // Play / Pause Video Toggle
-    function togglePlayPause() {
-        const player = document.getElementById('cctv-player');
-        const icon = document.getElementById('play-pause-icon');
-        const label = document.getElementById('play-pause-label');
-
-        if (player.paused) {
-            player.play();
-            icon.className = 'fa-solid fa-pause';
-            label.textContent = 'Pause';
-        } else {
-            player.pause();
-            icon.className = 'fa-solid fa-play';
-            label.textContent = 'Play';
-        }
-    }
-
-    // Restart Video Feed
-    function restartVideo() {
-        const player = document.getElementById('cctv-player');
-        const icon = document.getElementById('refresh-icon');
-        if (icon) icon.classList.add('fa-spin');
-        if (player) {
-            player.currentTime = 0;
-            player.play();
-        }
-        setTimeout(() => {
-            if (icon) icon.classList.remove('fa-spin');
-        }, 500);
-    }
-
-    // Night Vision Toggle
-    function toggleNightVision() {
-        isNightVision = !isNightVision;
-        const player = document.getElementById('cctv-player');
-        const btn = document.getElementById('btn-night-vision');
-        if (isNightVision) {
-            player.classList.add('cctv-night-vision');
-            btn.classList.add('text-emerald-400', 'bg-slate-800');
-        } else {
-            player.classList.remove('cctv-night-vision');
-            btn.classList.remove('text-emerald-400', 'bg-slate-800');
-        }
-    }
-
-    // Zoom Toggle (1.0x -> 1.25x -> 1.5x -> 1.0x)
-    function toggleZoom() {
-        const player = document.getElementById('cctv-player');
-        const label = document.getElementById('zoom-label');
-        if (zoomLevel === 1.0) {
-            zoomLevel = 1.25;
-        } else if (zoomLevel === 1.25) {
-            zoomLevel = 1.5;
-        } else {
-            zoomLevel = 1.0;
-        }
-        player.style.transform = `scale(${zoomLevel})`;
-        if (label) label.textContent = `${zoomLevel}x`;
-    }
-
-    // Fullscreen Monitor
-    function toggleFullscreen() {
-        const elem = document.getElementById('cctv-viewport-container');
-        if (!document.fullscreenElement) {
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
-        }
-    }
-
-    // Initialize player on DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-        const player = document.getElementById('cctv-player');
-        if (player) {
-            player.play().catch(e => {
-                console.log('Autoplay muted handled:', e);
-            });
-        }
-    });
 </script>
-@endpush
 @endsection
