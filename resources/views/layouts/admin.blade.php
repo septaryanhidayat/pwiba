@@ -306,15 +306,6 @@
                     <span>Galeri Dokumentasi</span>
                 </a>
 
-                <!-- 7.1 CCTV Banyuasin (Live Pantauan) -->
-                <a href="{{ route('cctv.public') }}" target="_blank" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white transition-all group">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-video text-sm w-4 text-rose-400"></i>
-                        <span>CCTV Banyuasin</span>
-                    </div>
-                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 group-hover:bg-rose-500 group-hover:text-white transition-colors">LIVE</span>
-                </a>
-
                 <!-- 8. Pengaturan (Group) -->
                 <div x-data="{ open: {{ request()->is('admin/pengaturan*') ? 'true' : 'false' }} }">
                     <button @click="open = !open" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white transition-all">

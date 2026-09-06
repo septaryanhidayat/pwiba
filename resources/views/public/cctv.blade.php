@@ -81,7 +81,7 @@
                         </div>
                         <h2 class="text-lg sm:text-2xl font-black text-white">Portal Layanan CCTV Diskominfo Kab. Banyuasin</h2>
                         <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                            Akses langsung ke server resmi <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold underline">https://cctv.banyuasinkab.go.id</a> untuk memantau streaming video lancar tanpa pembatasan keamanan browser.
+                            Pusat pemantauan visual arus lalu lintas terpadu yang dikelola dan ditransmisikan secara langsung selama 24 jam oleh Dinas Komunikasi, Informatika, Statistik dan Persandian Pemerintah Kabupaten Banyuasin.
                         </p>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
                         <div class="pt-2">
                             <a href="https://cctv.banyuasinkab.go.id" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-satellite-dish"></i>
-                                <span>Akses Tampilan Penuh di cctv.banyuasinkab.go.id</span>
+                                <span>Akses Siaran Langsung di Portal Resmi</span>
                             </a>
                         </div>
                     </div>
