@@ -62,6 +62,8 @@ class ChairmanArchiveTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee(e($post->title), false);
+        $response->assertDontSee('Lihat Postingan Asli');
+        $response->assertDontSee('wardianst.wordpress.com');
     }
 
     public function test_wardoyo_archive_detail_returns_404_for_invalid_slug(): void

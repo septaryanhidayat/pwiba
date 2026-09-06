@@ -66,20 +66,6 @@
                         </div>
                     </div>
 
-                    <!-- Original Source Notice Banner -->
-                    <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 text-xs text-amber-900 dark:text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                        <div class="flex items-center gap-2.5">
-                            <i class="fa-brands fa-wordpress text-lg text-amber-600 dark:text-amber-400 shrink-0"></i>
-                            <span>Dokumentasi tulisan arsip resmi dari portal <strong>wardianst.wordpress.com</strong></span>
-                        </div>
-                        @if($article->original_url)
-                            <a href="{{ $article->original_url }}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-sm transition-all flex items-center gap-1.5 shrink-0">
-                                <span>Lihat Postingan Asli</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        @endif
-                    </div>
-
                     <!-- Article Sanitized Rich Content -->
                     <div class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed space-y-4 pt-2">
                         {!! $article->content !!}
@@ -207,18 +193,18 @@
                     </div>
                 @endif
 
-                <!-- Original Blog Reference Card -->
+                <!-- Executive Author Profile Card -->
                 <div class="p-5 rounded-3xl bg-gradient-to-br from-[#0B132B] to-[#1C2541] text-white border border-blue-900/60 shadow-xl space-y-3">
                     <div class="flex items-center gap-2.5 text-amber-400">
-                        <i class="fa-brands fa-wordpress text-xl"></i>
-                        <span class="text-xs font-black uppercase tracking-wider">Arsip Blog Wardiansyah</span>
+                        <i class="fa-solid fa-user-tie text-xl"></i>
+                        <span class="text-xs font-black uppercase tracking-wider">Profil Penulis</span>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Blog pribadi <strong>wardianst.wordpress.com</strong> merupakan wadah arsip digital catatan pribadi, pemikiran, dan rilis sejak tahun 2007.
+                        <strong>{{ $profile['name'] }}</strong> adalah Wartawan Tingkat Utama Dewan Pers dan Ketua PWI Banyuasin Periode 2025–2028. Seluruh tulisan ini merupakan arsip pemikiran dan dedikasi profesional.
                     </p>
-                    <a href="https://wardianst.wordpress.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-extrabold text-amber-300 hover:text-amber-200 underline pt-1">
-                        <span>Buka Tautan Blog Asli</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    <a href="{{ route('chairman.archive.index') }}" class="inline-flex items-center gap-2 text-xs font-extrabold text-amber-300 hover:text-amber-200 underline pt-1">
+                        <span>Lihat Portofolio &amp; Rekam Jejak</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>
 

@@ -508,16 +508,15 @@
                         Katalog Tulisan & Koleksi 320 Karya Pemikiran
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Dokumentasi karya tulisan, esai teori komunikasi politik, analisis berita, dan liputan jurnalistik dari blog pribadi [wardianst.wordpress.com](https://wardianst.wordpress.com/) yang telah disanitasi ke dalam format modern.
+                        Dokumentasi karya tulisan, esai teori komunikasi politik, analisis berita, dan liputan jurnalistik resmi yang telah disanitasi dan diarsipkan ke dalam format modern.
                     </p>
                 </div>
 
                 <div class="flex items-center gap-2 shrink-0">
-                    <a href="https://wardianst.wordpress.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 transition-all flex items-center gap-2 shadow-xs">
-                        <i class="fa-brands fa-wordpress text-base"></i>
-                        <span>Blog Sumber Asli</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
+                    <button @click="shareUrl()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xs cursor-pointer">
+                        <i class="fa-solid" :class="copied ? 'fa-check text-emerald-500' : 'fa-share-nodes text-amber-500'"></i>
+                        <span x-text="copied ? 'Tautan Tersalin!' : 'Bagikan Katalog'"></span>
+                    </button>
                 </div>
             </div>
 
