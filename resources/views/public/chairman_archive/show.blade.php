@@ -51,11 +51,11 @@
                     <!-- Author & Attribution Bar -->
                     <div class="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-100 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-[#0B132B] text-amber-400 flex items-center justify-center font-bold text-sm shadow-md ring-1 ring-amber-400/30">
-                                <i class="fa-solid fa-user-tie"></i>
+                            <div class="w-11 h-11 rounded-2xl overflow-hidden border-2 border-amber-400/80 shadow-md ring-1 ring-amber-400/30 shrink-0 bg-slate-200 aspect-square">
+                                <img src="{{ $profile['foto_url'] }}" alt="{{ $profile['name'] }}" class="w-full h-full object-cover object-top">
                             </div>
                             <div>
-                                <span class="block font-black text-slate-900 dark:text-white">{{ $profile['name'] }}</span>
+                                <span class="block font-black text-slate-900 dark:text-white text-sm">{{ $profile['name'] }}</span>
                                 <span class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">{{ $profile['title'] }}</span>
                             </div>
                         </div>
@@ -131,14 +131,14 @@
 
             </div>
 
-            <!-- Sidebar Area (4 Cols) -->
+            <!-- Sidebar Information (4 Cols) -->
             <div class="lg:col-span-4 space-y-6">
                 
                 <!-- Author Profile Card -->
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
                     <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-800">
-                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-700 to-slate-900 text-amber-400 flex items-center justify-center font-bold text-lg shadow-md shrink-0 ring-1 ring-amber-400/40">
-                            <i class="fa-solid fa-user-shield"></i>
+                        <div class="w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md shrink-0 bg-slate-200 aspect-square">
+                            <img src="{{ $profile['foto_url'] }}" alt="{{ $profile['name'] }}" class="w-full h-full object-cover object-top">
                         </div>
                         <div>
                             <h3 class="text-sm font-black text-slate-900 dark:text-white">{{ $profile['name'] }}</h3>
@@ -148,7 +148,7 @@
                     </div>
 
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Wartawan Utama Dewan Pers, Magister Ilmu Komunikasi Politik STISIPOL Candradimuka, dan pegiat advokasi jurnalisme di Kabupaten Banyuasin, Sumatera Selatan.
+                        Wartawan Utama Dewan Pers, Anggota DKP PWI Sumsel, dan pegiat advokasi jurnalisme di Kabupaten Banyuasin, Sumatera Selatan.
                     </p>
 
                     <div class="space-y-2 text-xs">
@@ -157,8 +157,8 @@
                             <span class="font-extrabold text-emerald-600 dark:text-emerald-400">UKW Utama Dewan Pers</span>
                         </div>
                         <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60">
-                            <span class="text-slate-500 dark:text-slate-400">Alumni SJI:</span>
-                            <span class="font-bold text-slate-900 dark:text-white">Angkatan III Palembang (2011)</span>
+                            <span class="text-slate-500 dark:text-slate-400">Dewan Kehormatan:</span>
+                            <span class="font-bold text-slate-900 dark:text-white">DKP PWI Sumatera Selatan</span>
                         </div>
                     </div>
 

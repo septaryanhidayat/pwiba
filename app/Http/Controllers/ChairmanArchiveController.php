@@ -86,12 +86,12 @@ class ChairmanArchiveController extends Controller
                 'blog_asli' => 'https://wardianst.wordpress.com/',
             ],
             'pendidikan' => [
-                ['tingkat' => 'S2 (Magister)', 'instansi' => 'STISIPOL Candradimuka Palembang', 'prodi' => 'Magister Ilmu Komunikasi (Konsentrasi Komunikasi Politik)'],
-                ['tingkat' => 'S1 (Sarjana)', 'instansi' => 'STISIPOL Candradimuka Palembang', 'prodi' => 'Ilmu Komunikasi (Program Studi Ilmu Jurnalistik)'],
-                ['tingkat' => 'Diploma', 'instansi' => 'Universitas Bina Darma Palembang', 'prodi' => 'Teknik Komputer'],
-                ['tingkat' => 'SMA', 'instansi' => 'SMA YP Mantra Mariana Banyuasin', 'prodi' => 'Jurusan Biologi (A2)'],
-                ['tingkat' => 'SMP', 'instansi' => 'SMP Negeri 3 Banyuasin', 'prodi' => 'Pendidikan Dasar'],
-                ['tingkat' => 'SD', 'instansi' => 'SD Negeri 1 Sumber Rejo', 'prodi' => 'Kecamatan Pulau Rimau'],
+                ['tingkat' => 'Pascasarjana (S2)', 'instansi' => 'STISIPOL Candradimuka Palembang', 'prodi' => 'Program Studi Ilmu Komunikasi', 'status' => 'Sedang Ditempuh', 'is_completed' => false],
+                ['tingkat' => 'S1 (Sarjana)', 'instansi' => 'STISIPOL Candradimuka Palembang', 'prodi' => 'Ilmu Komunikasi (Program Studi Ilmu Jurnalistik)', 'is_completed' => true],
+                ['tingkat' => 'Diploma', 'instansi' => 'Universitas Bina Darma Palembang', 'prodi' => 'Teknik Komputer', 'is_completed' => true],
+                ['tingkat' => 'SMA', 'instansi' => 'SMA YP Mantra Mariana Banyuasin', 'prodi' => 'Jurusan Biologi (A2)', 'is_completed' => true],
+                ['tingkat' => 'SMP', 'instansi' => 'SMP Negeri 3 Banyuasin', 'prodi' => 'Pendidikan Dasar', 'is_completed' => true],
+                ['tingkat' => 'SD', 'instansi' => 'SD Negeri 1 Sumber Rejo', 'prodi' => 'Kecamatan Pulau Rimau', 'is_completed' => true],
             ],
             'sertifikasi' => [
                 [
@@ -100,12 +100,6 @@ class ChairmanArchiveController extends Controller
                     'nomor' => '1231-PWI/WU/DP/XII/2018/17/02/76',
                     'penguji' => 'Aat Surya Safaat (Mantan Kepala Biro LKBN ANTARA di New York, Direktur UKW PWI Pusat)',
                     'tahun' => 'Lulus 2018',
-                ],
-                [
-                    'bidang' => 'Sekolah Jurnalisme Indonesia (SJI)',
-                    'penerbit' => 'Dewan Pers - PWI Angkatan III Palembang',
-                    'tahun' => '2011',
-                    'keterangan' => 'Sertifikasi kompetensi standar industri media',
                 ],
                 [
                     'bidang' => 'Pelatihan Peliputan Investigasi',

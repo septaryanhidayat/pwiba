@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Portofolio Eksekutif & Arsip Karya Wardoyo, S.I.Kom. - Ketua PWI Banyuasin')
-@section('meta_description', 'Portofolio resmi dan rekam jejak kepemimpinan Wardoyo, S.I.Kom. - Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Periode 2025–2028, Wartawan Utama Dewan Pers, dan praktisi komunikasi politik.')
+@section('meta_description', 'Portofolio resmi dan rekam jejak kepemimpinan Wardoyo, S.I.Kom. - Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Periode 2025–2028, Wartawan Utama Dewan Pers, dan praktisi pers.')
 
 @section('content')
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-200" x-data="{ 
@@ -50,7 +50,7 @@
                             <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                                 <i class="fa-solid fa-check-double me-1"></i> Wartawan Utama Dewan Pers
                             </span>
-                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">Magister Komunikasi Politik</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">Anggota DKP PWI Sumsel</span>
                         </div>
                     </div>
 
@@ -148,8 +148,8 @@
                                     <span class="font-mono text-slate-300 font-bold text-[11px]">1231-PWI/WU/DP/XII/2018/17/02/76</span>
                                 </div>
                                 <div class="flex items-center justify-between text-xs">
-                                    <span class="text-slate-400 font-semibold">Alumni SJI:</span>
-                                    <span class="font-bold text-amber-300">Sekolah Jurnalisme Indonesia (2011)</span>
+                                    <span class="text-slate-400 font-semibold">Dewan Kehormatan:</span>
+                                    <span class="font-bold text-amber-300">Anggota DKP PWI Sumsel</span>
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@
                             <strong>Wardoyo, S.I.Kom.</strong> adalah tokoh pers dan praktisi komunikasi yang telah mendedikasikan lebih dari 18 tahun kariernya di dunia jurnalistik Sumatera Selatan. Memulai langkah dari wartawan lapangan, peliput investigasi, hingga memimpin media siber nasional sebagai Pemimpin Redaksi, beliau memiliki pemahaman mendalam tentang ekosistem pers dan dinamika publik.
                         </p>
                         <p>
-                            Menyelesaikan studi Sarjana (S1) Ilmu Jurnalistik dan Magister (S2) Ilmu Komunikasi Politik di STISIPOL Candradimuka Palembang, Wardoyo memadukan kecakapan teknis jurnalistik dengan landasan teoritis yang kokoh. Beliau mengantongi predikat <strong>Wartawan Tingkat Utama Dewan Pers</strong> yang diuji langsung oleh tokoh pers nasional mantan Kepala Biro LKBN ANTARA New York, Bapak Aat Surya Safaat.
+                            Menyelesaikan studi Sarjana (S1) Ilmu Komunikasi bidang Jurnalistik serta menempuh studi lanjutan pascasarjana di STISIPOL Candradimuka Palembang, Wardoyo memadukan kecakapan teknis jurnalistik dengan landasan intelektual yang kokoh. Beliau mengantongi predikat <strong>Wartawan Tingkat Utama Dewan Pers</strong> yang diuji langsung oleh tokoh pers nasional mantan Kepala Biro LKBN ANTARA New York, Bapak Aat Surya Safaat.
                         </p>
                         <p>
                             Terpilih sebagai <strong>Ketua PWI Kabupaten Banyuasin Periode 2025–2028</strong> berdasarkan SK PWI Pusat Nomor 033/PP-PWI/XI/2025, Wardoyo membawa visi transformasi organisasi pers yang berdaya saing, independen, menjunjung tinggi Kode Etik Jurnalistik (KEJ), serta menjadi mitra kritis dan solutif bagi kemajuan daerah.
@@ -436,15 +436,30 @@
                         @foreach($profile['pendidikan'] as $edu)
                             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60 shadow-xs flex items-center justify-between gap-4">
                                 <div>
-                                    <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">
-                                        {{ $edu['tingkat'] }}
-                                    </span>
-                                    <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1">{{ $edu['instansi'] }}</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider {{ ($edu['is_completed'] ?? true) ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300 border border-amber-300/60 dark:border-amber-700/60' }}">
+                                            {{ $edu['tingkat'] }}
+                                        </span>
+                                        @if(isset($edu['is_completed']) && ! $edu['is_completed'])
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/80">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                                <span>{{ $edu['status'] ?? 'Sedang Ditempuh' }}</span>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1.5">{{ $edu['instansi'] }}</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{{ $edu['prodi'] }}</p>
                                 </div>
-                                <div class="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs shrink-0">
-                                    <i class="fa-solid fa-check"></i>
-                                </div>
+                                
+                                @if(isset($edu['is_completed']) && ! $edu['is_completed'])
+                                    <div class="w-8 h-8 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800/80 flex items-center justify-center text-xs shrink-0" title="Studi Berjalan (Sedang Ditempuh)">
+                                        <i class="fa-solid fa-hourglass-half"></i>
+                                    </div>
+                                @else
+                                    <div class="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs shrink-0" title="Lulus">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -666,7 +681,7 @@
                             Terhubung Langsung dengan Wardoyo, S.I.Kom.
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Terbuka untuk ruang diskusi, kemitraan strategis kelembagaan, audiensi pers, narasumber komunikasi politik, maupun silaturahmi pembangunan daerah Kabupaten Banyuasin.
+                            Terbuka untuk ruang diskusi, kemitraan strategis kelembagaan, audiensi pers, narasumber media &amp; jurnalisme, maupun silaturahmi pembangunan daerah Kabupaten Banyuasin.
                         </p>
 
                         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 text-xs">

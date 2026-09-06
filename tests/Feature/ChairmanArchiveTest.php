@@ -42,6 +42,8 @@ class ChairmanArchiveTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Wardoyo, S.I.Kom.');
         $response->assertSee('Katalog Tulisan');
+        $response->assertDontSee('Magister Komunikasi Politik');
+        $response->assertDontSee('Alumni SJI');
     }
 
     public function test_wardoyo_archive_search_and_filter_works(): void
@@ -64,6 +66,9 @@ class ChairmanArchiveTest extends TestCase
         $response->assertSee(e($post->title), false);
         $response->assertDontSee('Lihat Postingan Asli');
         $response->assertDontSee('wardianst.wordpress.com');
+        $response->assertDontSee('Magister Komunikasi Politik');
+        $response->assertDontSee('Alumni SJI');
+        $response->assertSee('pengurus_inti_1_wardoyo.webp');
     }
 
     public function test_wardoyo_archive_detail_returns_404_for_invalid_slug(): void
