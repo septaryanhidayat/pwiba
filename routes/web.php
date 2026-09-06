@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChairmanArchiveController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.publi
 Route::get('/cctv', [PublicController::class, 'cctv'])->name('cctv.public');
 Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store')->middleware('throttle:10,1');
 Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter'])->name('letter.verify');
+
+// Halaman Khusus: Arsip Karya Tulisan & Profil Ketua (Akses Langsung: /wardoyo)
+Route::get('/wardoyo', [ChairmanArchiveController::class, 'index'])->name('chairman.archive.index');
+Route::get('/wardoyo/{slug}', [ChairmanArchiveController::class, 'show'])->name('chairman.archive.show');
 
 /*
 |--------------------------------------------------------------------------
