@@ -35,7 +35,18 @@ class ChairmanArchiveController extends Controller
                         $posts = json_decode(file_get_contents($jsonFile), true);
                         if (is_array($posts) && count($posts) > 0) {
                             foreach (array_chunk($posts, 50) as $chunk) {
-                                ChairmanPost::insert($chunk);
+                                $cleanChunk = array_map(function ($item) {
+                                    unset($item['id']);
+                                    $item['published_at'] = isset($item['published_at']) ? date('Y-m-d H:i:s', strtotime($item['published_at'])) : date('Y-m-d H:i:s');
+                                    $item['created_at'] = isset($item['created_at']) ? date('Y-m-d H:i:s', strtotime($item['created_at'])) : date('Y-m-d H:i:s');
+                                    $item['updated_at'] = isset($item['updated_at']) ? date('Y-m-d H:i:s', strtotime($item['updated_at'])) : date('Y-m-d H:i:s');
+                                    $item['reading_time'] = (int) ($item['reading_time'] ?? 3);
+                                    $item['views_count'] = (int) ($item['views_count'] ?? 0);
+
+                                    return $item;
+                                }, $chunk);
+
+                                ChairmanPost::insert($cleanChunk);
                             }
                         }
                     }
