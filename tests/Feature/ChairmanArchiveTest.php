@@ -85,9 +85,13 @@ class ChairmanArchiveTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee(route('chairman.archive.index'), false);
         $response->assertSee('Profil Ketua PWI');
+
+        // On homepage, the social media preview is the official PWI logo, NOT Wardoyo's personal photo
+        $response->assertSee('pwi-logo');
+        $response->assertDontSee('wardoyo-share.jpg');
     }
 
-    public function test_wardoyo_page_has_custom_social_preview_photo_and_instagram(): void
+    public function test_wardoyo_page_has_custom_social_preview_photo_and_icons(): void
     {
         $response = $this->get('/wardoyo');
 
@@ -97,9 +101,10 @@ class ChairmanArchiveTest extends TestCase
         $response->assertSee('property="og:image"', false);
         $response->assertSee('name="twitter:image"', false);
 
-        // Instagram Link
+        // Social Media & Email icon links
         $response->assertSee('https://www.instagram.com/wardianstp/');
-        $response->assertSee('@wardianstp');
+        $response->assertSee('https://www.facebook.com/ward.wardoyo');
+        $response->assertSee('wardianstp@gmail.com');
 
         // Card under photo shows "Ketua PWI Banyuasin"
         $response->assertSee('Ketua PWI Banyuasin');

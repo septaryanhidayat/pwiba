@@ -85,21 +85,21 @@
                     </div>
 
                     <!-- Call To Actions (WhatsApp, Portfolio, Copy Link) -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-3 max-w-lg mx-auto lg:mx-0">
                         <!-- Direct WhatsApp -->
-                        <a href="https://wa.me/6285377991976?text={{ urlencode('Halo Pak Wardoyo, S.I.Kom. (Ketua PWI Banyuasin), saya ingin bersilaturahmi dan berdiskusi terkait kemitraan / informasi.') }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <a href="https://wa.me/6285377991976?text={{ urlencode('Halo Pak Wardoyo, S.I.Kom. (Ketua PWI Banyuasin), saya ingin bersilaturahmi dan berdiskusi terkait kemitraan / informasi.') }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-center">
                             <i class="fa-brands fa-whatsapp text-base text-emerald-950"></i>
                             <span>Hubungi WhatsApp Resmi</span>
                         </a>
 
                         <!-- Scroll to Writings -->
-                        <a href="#karya-arsip" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all flex items-center gap-2">
+                        <a href="#karya-arsip" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all flex items-center justify-center gap-2 text-center">
                             <i class="fa-solid fa-book-bookmark text-amber-400"></i>
                             <span>Koleksi 320 Karya Tulis</span>
                         </a>
 
                         <!-- Share / Copy Link -->
-                        <button @click="shareUrl()" type="button" class="px-4 py-3 rounded-xl text-xs font-bold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 transition-all flex items-center gap-2 cursor-pointer">
+                        <button @click="shareUrl()" type="button" class="px-4 py-3 rounded-xl text-xs font-bold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 transition-all flex items-center justify-center gap-2 cursor-pointer text-center">
                             <i class="fa-solid" :class="copied ? 'fa-check text-emerald-400' : 'fa-share-nodes'"></i>
                             <span x-text="copied ? 'Tautan Tersalin!' : 'Bagikan Profil'"></span>
                         </button>
@@ -140,25 +140,42 @@
                             </div>
 
                             <!-- Bottom Identity Summary Card (Ketua PWI Banyuasin Saja) -->
-                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2">
+                            <div class="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2.5 backdrop-blur-xs">
                                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
                                     <i class="fa-solid fa-award text-[10px]"></i>
-                                    <span>PWI Kabupaten Banyuasin</span>
+                                    <span>PWI KABUPATEN BANYUASIN</span>
                                 </div>
-                                <h3 class="text-base sm:text-lg font-black text-white tracking-wide">
+                                <h3 class="text-lg sm:text-xl font-black text-white tracking-wide">
                                     Ketua PWI Banyuasin
                                 </h3>
                                 <p class="text-xs text-slate-300 font-medium">
                                     Masa Bakti 2025 – 2028
                                 </p>
-                                @if(!empty($profile['kontak']['instagram']))
-                                <div class="pt-1.5 flex justify-center">
-                                    <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-xs font-bold shadow-md hover:opacity-95 transition-opacity">
-                                        <i class="fa-brands fa-instagram text-sm"></i>
-                                        <span>@wardianstp</span>
+                                
+                                <!-- Social & Email Icons (Cukup Icon Saja: IG, FB, Email - Rata Tengah & Tidak Bertumpuk) -->
+                                <div class="pt-2 flex items-center justify-center gap-3.5">
+                                    @if(!empty($profile['kontak']['instagram']))
+                                    <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" 
+                                       class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 hover:scale-105 active:scale-95 text-white flex items-center justify-center text-lg shadow-md transition-all shrink-0" 
+                                       title="Instagram @wardianstp" aria-label="Instagram">
+                                        <i class="fa-brands fa-instagram"></i>
                                     </a>
+                                    @endif
+
+                                    <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" 
+                                       class="w-10 h-10 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] hover:scale-105 active:scale-95 text-white flex items-center justify-center text-base shadow-md transition-all shrink-0" 
+                                       title="Facebook Wardoyo" aria-label="Facebook">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+
+                                    @if(!empty($profile['kontak']['email']))
+                                    <a href="mailto:{{ $profile['kontak']['email'] }}" 
+                                       class="w-10 h-10 rounded-xl bg-amber-400 hover:bg-amber-300 hover:scale-105 active:scale-95 text-slate-950 flex items-center justify-center text-base shadow-md transition-all shrink-0" 
+                                       title="Email {{ $profile['kontak']['email'] }}" aria-label="Email">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </a>
+                                    @endif
                                 </div>
-                                @endif
                             </div>
 
                         </div>
@@ -203,25 +220,29 @@
                         </p>
                     </div>
 
-                    <!-- Fast Contact Pills -->
-                    <div class="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                        <div class="flex items-center gap-2">
+                    <!-- Fast Contact Pills (Rata Tengah di Mobile, Rata Kiri di Desktop, Rapi & Tidak Bertumpuk) -->
+                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                        <a href="mailto:{{ $profile['kontak']['email'] }}" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-solid fa-envelope text-amber-500"></i>
                             <span>{{ $profile['kontak']['email'] }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
+                        </a>
+                        <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-solid fa-phone text-blue-500"></i>
                             <span>{{ $profile['kontak']['telepon'] }}</span>
-                        </div>
+                        </a>
                         @if(!empty($profile['kontak']['instagram']))
-                        <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-pink-600 dark:hover:text-pink-400 transition-colors">
+                        <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-brands fa-instagram text-pink-500 text-sm"></i>
                             <span>@wardianstp</span>
                         </a>
                         @endif
-                        <div class="flex items-center gap-2">
+                        <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
+                            <i class="fa-brands fa-facebook-f text-blue-600 text-xs"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 shadow-2xs">
                             <i class="fa-solid fa-location-dot text-rose-500"></i>
-                            <span>Talang Kelapa, Kabupaten Banyuasin</span>
+                            <span>Talang Kelapa, Banyuasin</span>
                         </div>
                     </div>
                 </div>
@@ -698,24 +719,24 @@
                             Terbuka untuk ruang diskusi, kemitraan strategis kelembagaan, audiensi pers, narasumber media &amp; jurnalisme, maupun silaturahmi pembangunan daerah Kabupaten Banyuasin.
                         </p>
 
-                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 text-xs">
-                            <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-2 shadow-lg transition-all">
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 pt-2 text-xs">
+                            <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-whatsapp text-sm"></i>
                                 <span>0853-7799-1976</span>
                             </a>
                             @if(!empty($profile['kontak']['instagram']))
-                            <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 text-white font-bold flex items-center gap-2 shadow-lg transition-all">
+                            <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-instagram text-sm"></i>
                                 <span>Instagram @wardianstp</span>
                             </a>
                             @endif
-                            <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold border border-white/20 flex items-center gap-2 transition-all">
+                            <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
+                                <i class="fa-brands fa-facebook-f text-sm"></i>
+                                <span>Facebook Resmi</span>
+                            </a>
+                            <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold border border-white/20 flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
                                 <i class="fa-solid fa-envelope text-amber-400"></i>
                                 <span>{{ $profile['kontak']['email'] }}</span>
-                            </a>
-                            <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold flex items-center gap-2 transition-all">
-                                <i class="fa-brands fa-facebook-f"></i>
-                                <span>Facebook Resmi</span>
                             </a>
                         </div>
                     </div>
