@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -63,13 +64,18 @@ class PostController extends Controller
             'penulis' => 'required|string|max:100',
             'kategori' => 'required|string|max:100',
             'status' => 'required|in:draft,published',
+            'published_at' => 'nullable|date',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
         $validated['slug'] = Str::slug($validated['judul']).'-'.Str::random(5);
 
-        if ($validated['status'] === 'published') {
+        if ($request->filled('published_at')) {
+            $validated['published_at'] = Carbon::parse($request->published_at);
+        } elseif ($validated['status'] === 'published') {
             $validated['published_at'] = now();
+        } else {
+            $validated['published_at'] = null;
         }
 
         if ($request->hasFile('gambar')) {
@@ -102,11 +108,16 @@ class PostController extends Controller
             'penulis' => 'required|string|max:100',
             'kategori' => 'required|string|max:100',
             'status' => 'required|in:draft,published',
+            'published_at' => 'nullable|date',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
-        if ($post->status === 'draft' && $validated['status'] === 'published' && empty($post->published_at)) {
+        if ($request->filled('published_at')) {
+            $validated['published_at'] = Carbon::parse($request->published_at);
+        } elseif ($validated['status'] === 'published' && empty($post->published_at)) {
             $validated['published_at'] = now();
+        } elseif ($request->has('published_at') && empty($request->published_at) && $validated['status'] === 'draft') {
+            $validated['published_at'] = null;
         }
 
         if ($request->hasFile('gambar')) {

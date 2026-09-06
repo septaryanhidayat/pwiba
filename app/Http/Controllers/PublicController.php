@@ -332,6 +332,13 @@ class PublicController extends Controller
         return view('public.gallery', compact('galleries'));
     }
 
+    public function cctv()
+    {
+        $settings = Schema::hasTable('settings') ? Setting::pluck('value', 'key')->all() : [];
+
+        return view('public.cctv', compact('settings'));
+    }
+
     public function storeInbox(Request $request)
     {
         $throttleKey = 'inbox|'.$request->ip();

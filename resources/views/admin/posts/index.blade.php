@@ -64,12 +64,12 @@
                                 <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-amber-400 transition-colors text-sm line-clamp-1">
                                     {{ $p->judul }}
                                 </a>
-                                <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2">
+                                <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2 flex-wrap">
                                     <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-700 font-bold">{{ $p->kategori }}</span>
                                     <span>•</span>
-                                    <span>{{ $p->published_at ? $p->published_at->translatedFormat('d M Y') : '-' }}</span>
+                                    <span title="Waktu Terbit"><i class="fa-regular fa-clock text-amber-500 me-1"></i>{{ $p->published_at ? $p->published_at->translatedFormat('d M Y, H:i') . ' WIB' : '-' }}</span>
                                     <span>•</span>
-                                    <span>{{ number_format($p->views_count) }} kali dibaca</span>
+                                    <span><i class="fa-regular fa-eye me-1"></i>{{ number_format($p->views_count) }} dibaca</span>
                                 </div>
                             </td>
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-slate-200">{{ $p->penulis }}</td>

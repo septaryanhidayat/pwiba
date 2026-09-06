@@ -38,6 +38,13 @@ class PwiWebTest extends TestCase
         $response->assertSee('Kabupaten Banyuasin');
     }
 
+    public function test_login_page_renders_successfully(): void
+    {
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+        $response->assertSee('Login', false);
+    }
+
     public function test_public_news_page_and_detail_render(): void
     {
         $response = $this->get('/berita');
@@ -925,5 +932,61 @@ class PwiWebTest extends TestCase
 
         $post->refresh();
         $this->assertEquals($initialViews, $post->views_count);
+    }
+
+    public function test_public_cctv_page_renders_successfully(): void
+    {
+        $response = $this->get(route('cctv.public'));
+        $response->assertStatus(200);
+        $response->assertSee('Pantauan CCTV');
+        $response->assertSee('https://cctv.banyuasinkab.go.id');
+        $response->assertSee('Gerbang KM 12');
+        $response->assertSee('Simpang Tugu Betung');
+    }
+
+    public function test_admin_can_create_post_with_custom_published_date_and_time(): void
+    {
+        $admin = User::first();
+        $customTime = '2026-08-15 14:30:00';
+
+        $response = $this->actingAs($admin)->post(route('admin.posts.store'), [
+            'judul' => 'Uji Waktu Terbit Kustom Berita',
+            'penulis' => 'Wartawan Banyuasin',
+            'kategori' => 'Kemitraan',
+            'status' => 'published',
+            'published_at' => $customTime,
+            'ringkasan' => 'Ringkasan uji waktu terbit',
+            'konten' => '<p>Konten artikel berita dengan waktu terbit yang disesuaikan.</p>',
+        ]);
+
+        $response->assertRedirect(route('admin.posts.publish'));
+
+        $post = Post::where('judul', 'Uji Waktu Terbit Kustom Berita')->first();
+        $this->assertNotNull($post);
+        $this->assertEquals('2026-08-15 14:30:00', $post->published_at->format('Y-m-d H:i:s'));
+    }
+
+    public function test_admin_can_update_post_published_date_and_time(): void
+    {
+        $admin = User::first();
+        $post = Post::where('status', 'published')->first();
+        $this->assertNotNull($post);
+
+        $newCustomTime = '2026-05-10 09:45:00';
+
+        $response = $this->actingAs($admin)->put(route('admin.posts.update', $post->id), [
+            'judul' => $post->judul,
+            'penulis' => $post->penulis,
+            'kategori' => $post->kategori,
+            'status' => 'published',
+            'published_at' => $newCustomTime,
+            'ringkasan' => $post->ringkasan,
+            'konten' => $post->konten,
+        ]);
+
+        $response->assertRedirect(route('admin.posts.publish'));
+
+        $post->refresh();
+        $this->assertEquals('2026-05-10 09:45:00', $post->published_at->format('Y-m-d H:i:s'));
     }
 }

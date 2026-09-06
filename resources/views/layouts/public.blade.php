@@ -262,119 +262,164 @@
           }
       }">
 
-    <!-- Sticky Modern Glassmorphism Navbar -->
-    <header class="sticky top-0 z-50 bg-white/90 dark:bg-[#0B132B]/90 glass-nav border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
+    <!-- Sticky Modern Glassmorphism Navbar (Non-crowded, perfectly responsive & accessible) -->
+    <header class="sticky top-0 z-50 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-20 gap-3 sm:gap-6">
                 
-                <!-- Brand Logo & Identity -->
-                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-md">
-                        <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="48" height="48" class="w-full h-full object-contain">
+                <!-- Brand Logo & Identity (Shrink-0, Never Stacks or Wraps) -->
+                <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0 group">
+                    <div class="relative flex items-center justify-center w-11 h-11 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-sm shrink-0">
+                        <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="44" height="44" class="w-full h-full object-contain">
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">Portal Resmi</span>
-                        <span class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">PWI BANYUASIN</span>
-                        <span class="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">Sumatera Selatan</span>
+                    <div class="flex flex-col shrink-0 leading-tight">
+                        <span class="text-[10px] font-black tracking-widest text-amber-600 dark:text-amber-400 uppercase leading-none whitespace-nowrap">PORTAL RESMI</span>
+                        <span class="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug whitespace-nowrap">PWI BANYUASIN</span>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block leading-none whitespace-nowrap">Sumatera Selatan</span>
                     </div>
                 </a>
 
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden lg:flex items-center gap-1">
-                    <a href="{{ route('home') }}#beranda" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
+                <!-- Desktop Navigation Links (Clean, Compact & Categorized to Avoid Crowding) -->
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+                    <a href="{{ route('home') }}#beranda" class="px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-xl transition-colors whitespace-nowrap">
                         Beranda
                     </a>
-                    <a href="{{ route('home') }}#profil" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
-                        Profil & Visi
-                    </a>
-                    <a href="{{ route('organization.public') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
-                        Kepengurusan
-                    </a>
-                    <a href="{{ route('leaders.public') }}" class="px-3 py-2 text-sm font-medium {{ request()->routeIs('leaders.public') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10' }} rounded-lg transition-colors">
-                        Sejarah
-                    </a>
-                    <a href="{{ route('news.index') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
+
+                    <!-- Dropdown Tentang PWI -->
+                    <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                        <button @click="open = !open" class="px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-xl transition-colors inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                            <span>Tentang PWI</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" :class="open ? 'rotate-180 text-amber-500' : 'text-slate-400'"></i>
+                        </button>
+                        <div x-show="open" 
+                             x-cloak 
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 translate-y-1"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-1"
+                             class="absolute left-0 top-full mt-1 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+                            <a href="{{ route('home') }}#profil" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400 transition-colors">
+                                <i class="fa-solid fa-landmark text-amber-500 w-4"></i>
+                                <span>Profil & Visi Misi</span>
+                            </a>
+                            <a href="{{ route('organization.public') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400 transition-colors">
+                                <i class="fa-solid fa-sitemap text-cyan-500 w-4"></i>
+                                <span>Susunan Pengurus</span>
+                            </a>
+                            <a href="{{ route('leaders.public') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400 transition-colors">
+                                <i class="fa-solid fa-award text-amber-500 w-4"></i>
+                                <span>Ketua Dari Masa ke Masa</span>
+                            </a>
+                            @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
+                            <a href="{{ route('members.public') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400 transition-colors">
+                                <i class="fa-solid fa-users text-blue-500 w-4"></i>
+                                <span>Direktori Wartawan</span>
+                            </a>
+                            @endif
+                        </div>
+                    </div>
+
+                    <a href="{{ route('news.index') }}" class="px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-xl transition-colors whitespace-nowrap">
                         Berita
                     </a>
-                    <a href="{{ route('gallery.public') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
+
+                    <a href="{{ route('gallery.public') }}" class="px-3 py-2 text-xs xl:text-sm font-semibold {{ request()->routeIs('gallery.public') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10' }} rounded-xl transition-colors whitespace-nowrap">
                         Galeri
                     </a>
-                    @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
-                    <a href="{{ route('members.public') }}" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 rounded-lg transition-colors">
-                        Anggota
+
+                    <!-- CCTV Banyuasin Nav Link (Clean Live Indicator) -->
+                    <a href="{{ route('cctv.public') }}" class="px-3 py-2 text-xs xl:text-sm font-bold {{ request()->routeIs('cctv.public') ? 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 ring-1 ring-rose-300 dark:ring-rose-800' : 'text-slate-700 dark:text-slate-200 hover:text-rose-600 hover:bg-rose-50/80 dark:hover:bg-rose-950/30' }} rounded-xl transition-all inline-flex items-center gap-2 whitespace-nowrap shadow-xs" title="Pantauan CCTV Banyuasin Live">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                        </span>
+                        <span>CCTV Banyuasin</span>
                     </a>
-                    @endif
-                    <a href="{{ route('home') }}#bukutamu" class="px-3 py-2 text-sm font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-colors">
+
+                    <a href="{{ route('home') }}#bukutamu" class="px-3 py-2 text-xs xl:text-sm font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10 rounded-xl transition-colors whitespace-nowrap">
                         Buku Tamu
                     </a>
                 </nav>
 
-                <!-- Action Button, Theme Toggle & Login -->
-                <div class="hidden md:flex items-center gap-2.5">
+                <!-- Action Button, Theme Toggle & Login (Always Visible & Accessible) -->
+                <div class="flex items-center gap-2 shrink-0">
                     
                     <!-- Dark / Light Mode Toggle Button -->
                     <button @click="toggleTheme()" 
                             type="button" 
-                            class="p-2.5 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-amber-400 transition-all shadow-sm flex items-center justify-center cursor-pointer"
+                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-700 dark:text-amber-400 transition-all shadow-sm flex items-center justify-center cursor-pointer shrink-0"
                             :title="isDark ? 'Ganti ke Mode Terang (Light Mode)' : 'Ganti ke Mode Gelap (Dark Mode)'"
                             aria-label="Toggle Theme">
-                        <i class="fa-solid fa-sun text-base text-amber-400" x-show="isDark" x-cloak></i>
-                        <i class="fa-solid fa-moon text-base text-slate-700" x-show="!isDark"></i>
+                        <i class="fa-solid fa-sun text-sm sm:text-base text-amber-400" x-show="isDark" x-cloak></i>
+                        <i class="fa-solid fa-moon text-sm sm:text-base text-slate-700" x-show="!isDark"></i>
                     </button>
 
                     @auth
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200">
+                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200 shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-gauge-high"></i>
-                            <span>Dashboard MIS</span>
+                            <span class="hidden md:inline">Dashboard MIS</span>
+                            <span class="md:hidden">MIS</span>
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 dark:text-slate-200 dark:hover:text-white dark:bg-white/10 dark:hover:bg-white/15 dark:border-white/20 transition-all duration-200">
-                            <i class="fa-solid fa-lock text-xs text-amber-500 dark:text-amber-400"></i>
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-500/20 transition-all duration-200 shrink-0 whitespace-nowrap">
+                            <i class="fa-solid fa-lock text-xs"></i>
                             <span>Login Admin</span>
                         </a>
                     @endauth
-                </div>
 
-                <!-- Mobile menu button & Mobile Theme Toggle -->
-                <div class="flex items-center gap-2 lg:hidden">
-                    <button @click="toggleTheme()" 
-                            type="button" 
-                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-amber-400 transition-all shadow-xs flex items-center justify-center cursor-pointer"
-                            aria-label="Toggle Theme Mobile">
-                        <i class="fa-solid fa-sun text-sm text-amber-400" x-show="isDark" x-cloak></i>
-                        <i class="fa-solid fa-moon text-sm text-slate-700 dark:text-slate-200" x-show="!isDark"></i>
-                    </button>
+                    <!-- Mobile menu toggle button -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen" 
                             type="button" 
-                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-all shadow-xs flex items-center justify-center cursor-pointer" 
+                            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-all shadow-xs flex items-center justify-center cursor-pointer lg:hidden shrink-0" 
                             aria-label="Toggle menu">
                         <i class="fa-solid text-base" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
                     </button>
                 </div>
+
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="lg:hidden bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-white/10 px-4 pt-2 pb-6 space-y-2 shadow-xl">
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Beranda</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Profil & Visi</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#kepengurusan" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Kepengurusan</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
+        <!-- Mobile Navigation Menu Drawer -->
+        <div x-show="mobileMenuOpen" 
+             x-cloak
+             x-transition:enter="transition ease-out duration-200" 
+             x-transition:enter-start="opacity-0 -translate-y-2" 
+             x-transition:enter-end="opacity-100 translate-y-0" 
+             x-transition:leave="transition ease-in duration-150" 
+             x-transition:leave-start="opacity-100 translate-y-0" 
+             x-transition:leave-end="opacity-0 -translate-y-2" 
+             class="lg:hidden bg-white/98 dark:bg-[#0B132B]/98 border-b border-slate-200 dark:border-white/10 px-4 pt-3 pb-6 space-y-2 shadow-2xl">
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Beranda</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Profil & Visi</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('organization.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Susunan Pengurus</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah (Ketua)</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
+            
+            <!-- Mobile CCTV Link -->
+            <a @click="mobileMenuOpen = false" href="{{ route('cctv.public') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold {{ request()->routeIs('cctv.public') ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/10' }}">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-video text-rose-500"></i>
+                    <span>CCTV Banyuasin</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-500 border border-rose-500/30">LIVE 24 JAM</span>
+            </a>
+
             @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
-            <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Direktori Anggota</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('members.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Direktori Anggota</a>
             @endif
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#bukutamu" class="block px-3 py-2 rounded-lg text-base font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10">Buku Tamu Publik</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}#bukutamu" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10">Buku Tamu Publik</a>
             
             <div class="pt-4 border-t border-slate-200 dark:border-white/10 space-y-2">
                 @auth
-                    <a href="{{ route('admin.dashboard') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 shadow-md">
-                        <i class="fa-solid fa-gauge-high me-1"></i> Dashboard MIS
+                    <a href="{{ route('admin.dashboard') }}" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-bold text-white bg-blue-600 shadow-md">
+                        <i class="fa-solid fa-gauge-high me-1.5"></i> Dashboard MIS Admin
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-white/10 border border-slate-300 dark:border-white/20">
-                        <i class="fa-solid fa-lock text-xs text-amber-500 dark:text-amber-400 me-1"></i> Login Admin
+                    <a href="{{ route('login') }}" class="block w-full text-center px-4 py-3 rounded-xl text-sm font-extrabold text-slate-950 bg-amber-400 shadow-md">
+                        <i class="fa-solid fa-lock text-xs me-1.5"></i> Login Administrator
                     </a>
                 @endauth
             </div>
@@ -434,6 +479,7 @@
                         <li><a href="{{ route('members.public') }}" class="hover:text-amber-400 transition-colors">Direktori Wartawan</a></li>
                         @endif
                         <li><a href="{{ route('gallery.public') }}" class="hover:text-amber-400 transition-colors">Galeri Dokumentasi</a></li>
+                        <li><a href="{{ route('cctv.public') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> CCTV Banyuasin (Live)</a></li>
                     </ul>
                 </div>
 

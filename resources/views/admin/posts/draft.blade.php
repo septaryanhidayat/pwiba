@@ -56,9 +56,14 @@
                                 <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="hover:text-blue-600 dark:hover:text-amber-400 transition-colors line-clamp-1" title="Tinjau Draf">
                                     {{ $p->judul }}
                                 </a>
-                                <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-medium">
+                                <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-medium flex items-center gap-2 flex-wrap">
                                     <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700 font-bold">Draf</span>
-                                    • Diperbarui: {{ $p->updated_at ? $p->updated_at->diffForHumans() : '-' }}
+                                    <span>•</span>
+                                    <span>Diperbarui: {{ $p->updated_at ? $p->updated_at->diffForHumans() : '-' }}</span>
+                                    @if($p->published_at)
+                                        <span>•</span>
+                                        <span class="text-blue-600 dark:text-blue-400 font-semibold" title="Jadwal Waktu Terbit"><i class="fa-regular fa-clock me-1 text-amber-500"></i>{{ $p->published_at->translatedFormat('d M Y, H:i') }} WIB</span>
+                                    @endif
                                 </div>
                             </td>
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-slate-200">{{ $p->penulis }}</td>

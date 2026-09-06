@@ -46,6 +46,21 @@
                 </div>
 
                 <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <i class="fa-regular fa-clock text-amber-500 me-1"></i> Waktu Terbit (Hari & Jam)
+                        </label>
+                        <button type="button" onclick="document.getElementById('published_at').value = '{{ now()->format('Y-m-d\TH:i') }}'" class="text-[10px] font-bold text-blue-600 dark:text-amber-400 hover:underline cursor-pointer" title="Set ke waktu saat ini">
+                            Waktu Sekarang
+                        </button>
+                    </div>
+                    <input type="datetime-local" id="published_at" name="published_at" value="{{ old('published_at', now()->format('Y-m-d\TH:i')) }}" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                        Bisa disesuaikan ke tanggal lampau (*backdate*) atau saat ini ala CMS WordPress.
+                    </p>
+                </div>
+
+                <div class="md:col-span-3">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Foto / Thumbnail Utama</label>
                     <input type="file" name="gambar" class="w-full px-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
                 </div>

@@ -53,8 +53,34 @@
                 </div>
 
                 <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <i class="fa-regular fa-clock text-amber-500 me-1"></i> Waktu Terbit (Hari & Jam)
+                        </label>
+                        <button type="button" onclick="document.getElementById('published_at').value = '{{ now()->format('Y-m-d\TH:i') }}'" class="text-[10px] font-bold text-blue-600 dark:text-amber-400 hover:underline cursor-pointer" title="Setel ke jam & tanggal sekarang">
+                            Set Sekarang
+                        </button>
+                    </div>
+                    <input type="datetime-local" id="published_at" name="published_at" value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                        @if($post->published_at)
+                            Terbit: <strong class="text-slate-700 dark:text-slate-300">{{ $post->published_at->translatedFormat('l, d F Y - H:i') }} WIB</strong>
+                        @else
+                            Status draf (belum diterbitkan).
+                        @endif
+                    </p>
+                </div>
+
+                <div class="md:col-span-3">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Ganti Thumbnail (Opsional)</label>
-                    <input type="file" name="gambar" class="w-full px-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        @if($post->gambar)
+                            <div class="w-20 h-14 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 flex-shrink-0">
+                                <img src="{{ $post->gambar_url }}" alt="{{ $post->judul }}" class="w-full h-full object-cover">
+                            </div>
+                        @endif
+                        <input type="file" name="gambar" class="w-full px-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
+                    </div>
                 </div>
 
                 <div class="md:col-span-3">
