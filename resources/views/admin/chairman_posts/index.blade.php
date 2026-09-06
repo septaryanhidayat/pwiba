@@ -30,6 +30,18 @@
         </div>
     </div>
 
+    <!-- Quick Nav Switcher (Arsip Tulisan vs Profil Ketua) -->
+    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+        <a href="{{ route('admin.chairman_posts.index') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs">
+            <i class="fa-solid fa-newspaper text-amber-400 dark:text-slate-950"></i>
+            <span>Katalog Tulisan & Karya</span>
+        </a>
+        <a href="{{ route('admin.chairman_profile.edit') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <i class="fa-solid fa-id-card-clip text-emerald-500"></i>
+            <span>Edit Profil & Portofolio Ketua</span>
+        </a>
+    </div>
+
     <!-- Alert Notifikasi -->
     @if(session('success'))
         <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-200 text-xs font-semibold flex items-center justify-between shadow-xs">

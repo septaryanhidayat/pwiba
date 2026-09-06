@@ -235,4 +235,136 @@ class ChairmanArchiveTest extends TestCase
             'id' => $post->id,
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Chairman Profile & Portfolio Management Tests (/admin/profil-ketua)
+    |--------------------------------------------------------------------------
+    */
+
+    public function test_guest_cannot_access_admin_chairman_profile_edit(): void
+    {
+        $response = $this->get(route('admin.chairman_profile.edit'));
+        $response->assertRedirect('/login');
+
+        $postResponse = $this->post(route('admin.chairman_profile.update'), []);
+        $postResponse->assertRedirect('/login');
+    }
+
+    public function test_authenticated_admin_can_view_chairman_profile_edit_form(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('admin.chairman_profile.edit'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Edit Profil &amp; Portofolio Ketua', false);
+        $response->assertSee('name="name"', false);
+        $response->assertSee('name="title"', false);
+        $response->assertSee('name="foto"', false);
+        $response->assertSee('1. Identitas &amp; Foto Utama', false);
+    }
+
+    public function test_authenticated_admin_can_update_chairman_profile_and_reflects_publicly(): void
+    {
+        $user = User::factory()->create();
+
+        $payload = [
+            'name' => 'Wardoyo, S.I.Kom., M.I.Kom.',
+            'title' => 'Ketua Terpilih PWI Kabupaten Banyuasin',
+            'sk_resmi' => 'SK PWI Pusat Nomor: 999/PP-PWI/XII/2025',
+            'badge_top' => 'Profil Resmi Pemimpin Redaksi & Tokoh Pers',
+            'tag_status_pers' => 'Wartawan Tingkat Utama Nasional',
+            'tag_organisasi_provinsi' => 'Dewan Penasihat PWI Sumsel',
+            'motto' => 'Membangun jurnalisme berkarakter demi kemajuan Bumi Sedulang Setudung.',
+            'ttl' => 'Sragen, 17 Februari 1976',
+            'agama' => 'Islam',
+            'lokasi_singkat' => 'Pangkalan Balai, Banyuasin',
+            'alamat' => 'Jl. Lintas Timur KM 42, Pangkalan Balai',
+
+            'badge_bawah_foto' => 'LEMBAGA PERS RESMI',
+            'judul_bawah_foto' => 'Ketua PWI Banyuasin',
+            'subjudul_bawah_foto' => 'Periode 2025 – 2028',
+
+            'telepon' => '0812-3456-7890',
+            'email' => 'wardoyo.ketua@pwiba.or.id',
+            'instagram' => 'https://www.instagram.com/wardoyo_official/',
+            'facebook' => 'https://www.facebook.com/wardoyo.official',
+
+            'stat_karya' => '500+',
+            'stat_karya_label' => 'Arsip Karya',
+            'stat_kiprah' => '20+ Th',
+            'stat_kiprah_label' => 'Dedikasi Pers',
+            'stat_lisensi' => 'Utama Dewan Pers',
+            'stat_lisensi_label' => 'Lisensi Kompetensi',
+            'stat_pendidikan' => 'M.I.Kom.',
+            'stat_pendidikan_label' => 'Magister Komunikasi',
+
+            'narasi_subjudul' => 'Dedikasi Dua Dekade',
+            'narasi_judul' => 'Integritas Mengabdi Tanpa Henti',
+            'narasi_paragraf_1' => 'Paragraf pertama biografi kepemimpinan yang diperbarui oleh admin.',
+            'narasi_paragraf_2' => 'Paragraf kedua perjalanan akademik dan profesional.',
+            'narasi_paragraf_3' => 'Paragraf ketiga komitmen visi masa depan PWI.',
+
+            'pilar_nilai' => [
+                [
+                    'icon' => 'fa-solid fa-feather',
+                    'title' => 'Kemerdekaan Pers Digital',
+                    'desc' => 'Menjaga marwah jurnalisme di era teknologi informasi.',
+                ],
+            ],
+
+            'organisasi' => [
+                [
+                    'posisi' => 'Ketua PWI Kabupaten Banyuasin',
+                    'masa' => '2025 – 2028',
+                    'ket' => 'SK PWI Pusat Nomor 999',
+                ],
+            ],
+
+            'pendidikan' => [
+                [
+                    'tingkat' => 'S1 (Sarjana)',
+                    'instansi' => 'STISIPOL Candradimuka',
+                    'prodi' => 'Ilmu Jurnalistik',
+                    'status' => 'Lulus',
+                ],
+            ],
+
+            'sertifikasi' => [
+                [
+                    'bidang' => 'Wartawan Utama Dewan Pers',
+                    'penerbit' => 'Dewan Pers RI',
+                    'nomor' => '999/DP/2025',
+                    'tahun' => '2025',
+                    'keterangan' => 'Predikat Terbaik',
+                ],
+            ],
+
+            'footer_badge' => 'Kemitraan Terpercaya',
+            'footer_title' => 'Kolaborasi Bersama PWI Banyuasin',
+            'footer_desc' => 'Membuka pintu sinergi pembangunan daerah yang berkelanjutan.',
+        ];
+
+        $response = $this->actingAs($user)->post(route('admin.chairman_profile.update'), $payload);
+
+        $response->assertRedirect(route('admin.chairman_profile.edit'));
+        $response->assertSessionHas('success');
+
+        // Pastikan perubahan langsung terefleksi di halaman publik /wardoyo
+        $publicResponse = $this->get('/wardoyo');
+        $publicResponse->assertStatus(200);
+        $publicResponse->assertSee('Wardoyo, S.I.Kom., M.I.Kom.');
+        $publicResponse->assertSee('Ketua Terpilih PWI Kabupaten Banyuasin');
+        $publicResponse->assertSee('SK PWI Pusat Nomor: 999/PP-PWI/XII/2025');
+        $publicResponse->assertSee('Membangun jurnalisme berkarakter demi kemajuan Bumi Sedulang Setudung.');
+        $publicResponse->assertSee('500+');
+        $publicResponse->assertSee('Arsip Karya');
+        $publicResponse->assertSee('Integritas Mengabdi Tanpa Henti');
+        $publicResponse->assertSee('Kemerdekaan Pers Digital');
+        $publicResponse->assertSee('wardoyo.ketua@pwiba.or.id');
+        $publicResponse->assertSee('0812-3456-7890');
+        $publicResponse->assertSee('https://www.instagram.com/wardoyo_official/');
+        $publicResponse->assertSee('Kolaborasi Bersama PWI Banyuasin');
+    }
 }

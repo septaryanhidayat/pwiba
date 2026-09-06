@@ -314,6 +314,15 @@
                     @endif
                 </a>
 
+                <!-- 6.2 Profil & Portofolio Ketua -->
+                <a href="{{ route('admin.chairman_profile.edit') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.chairman_profile.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-id-card-clip text-sm w-4 text-emerald-400"></i>
+                        <span>Profil & Portofolio Ketua</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold {{ request()->routeIs('admin.chairman_profile.*') ? 'bg-amber-400 text-slate-950' : 'bg-amber-400/20 text-amber-300 border border-amber-400/30' }}">EDIT</span>
+                </a>
+
                 <!-- 7. Galeri PWI -->
                 <a href="{{ route('admin.galleries.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.galleries.index') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-images text-sm w-4 text-sky-400"></i>

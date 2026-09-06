@@ -39,55 +39,66 @@
                     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         <i class="fa-solid fa-shield-halved text-amber-400"></i>
-                        <span>Profil Eksekutif & Personal Branding Resmi</span>
+                        <span>{{ $profile['badge_top'] ?? 'Profil Eksekutif & Personal Branding Resmi' }}</span>
                     </div>
 
                     <!-- Name & Title -->
                     <div class="space-y-2">
                         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
-                            Wardoyo, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200">S.I.Kom.</span>
+                            @php
+                                $nameParts = explode(',', $profile['name'], 2);
+                                $mainName = $nameParts[0];
+                                $gelar = isset($nameParts[1]) ? ', ' . trim($nameParts[1]) : '';
+                            @endphp
+                            {{ $mainName }}<span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200">{{ $gelar }}</span>
                         </h1>
                         <p class="text-base sm:text-xl font-extrabold text-blue-300 leading-snug">
-                            Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin
+                            {{ $profile['title'] }}
                         </p>
                         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs text-slate-300 font-semibold">
-                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">Periode 2025–2028</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">{{ $profile['subjudul_bawah_foto'] ?? 'Periode 2025–2028' }}</span>
+                            @if(!empty($profile['tag_status_pers']))
                             <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                                <i class="fa-solid fa-check-double me-1"></i> Wartawan Utama Dewan Pers
+                                <i class="fa-solid fa-check-double me-1"></i> {{ $profile['tag_status_pers'] }}
                             </span>
-                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">Anggota DKP PWI Sumsel</span>
+                            @endif
+                            @if(!empty($profile['tag_organisasi_provinsi']))
+                            <span class="px-3 py-1 rounded-lg bg-white/10 border border-white/15">{{ $profile['tag_organisasi_provinsi'] }}</span>
+                            @endif
                         </div>
                     </div>
 
                     <!-- Personal Motto / Vision -->
+                    @if(!empty($profile['motto']))
                     <blockquote class="p-4 rounded-2xl bg-white/5 border-l-4 border-amber-400 text-slate-300 text-xs sm:text-sm leading-relaxed italic backdrop-blur-xs max-w-2xl mx-auto lg:mx-0">
-                        "Menegakkan kemerdekaan pers yang beretika, membangun sinergi kemitraan strategis yang bermartabat, dan memperjuangkan kapasitas serta kesejahteraan wartawan di Kabupaten Banyuasin."
+                        "{{ $profile['motto'] }}"
                     </blockquote>
+                    @endif
 
                     <!-- Key Metrics Grid -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
                         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-2xl font-black text-amber-400">{{ $totalArticles }}+</span>
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Karya Tulis</span>
+                            <span class="block text-2xl font-black text-amber-400">{{ $profile['stat_karya'] ?? ($totalArticles . '+') }}</span>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_karya_label'] ?? 'Karya Tulis' }}</span>
                         </div>
                         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-2xl font-black text-white">18+ Th</span>
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Kiprah Jurnalistik</span>
+                            <span class="block text-2xl font-black text-white">{{ $profile['stat_kiprah'] ?? '18+ Th' }}</span>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_kiprah_label'] ?? 'Kiprah Jurnalistik' }}</span>
                         </div>
                         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-2xl font-black text-emerald-400">Utama</span>
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Lisensi UKW</span>
+                            <span class="block text-2xl font-black text-emerald-400">{{ $profile['stat_lisensi'] ?? 'Utama' }}</span>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_lisensi_label'] ?? 'Lisensi UKW' }}</span>
                         </div>
                         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-2xl font-black text-blue-300">S.I.Kom.</span>
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ilmu Komunikasi</span>
+                            <span class="block text-2xl font-black text-blue-300">{{ $profile['stat_pendidikan'] ?? 'S.I.Kom.' }}</span>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_pendidikan_label'] ?? 'Ilmu Komunikasi' }}</span>
                         </div>
                     </div>
 
                     <!-- Call To Actions (WhatsApp, Portfolio, Copy Link) -->
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-3 max-w-lg mx-auto lg:mx-0">
                         <!-- Direct WhatsApp -->
-                        <a href="https://wa.me/6285377991976?text={{ urlencode('Halo Pak Wardoyo, S.I.Kom. (Ketua PWI Banyuasin), saya ingin bersilaturahmi dan berdiskusi terkait kemitraan / informasi.') }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-center">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon'] ?? '085377991976') }}?text={{ urlencode('Halo Pak ' . ($profile['name'] ?? 'Wardoyo') . ', saya ingin bersilaturahmi dan berdiskusi terkait kemitraan / informasi.') }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-center">
                             <i class="fa-brands fa-whatsapp text-base text-emerald-950"></i>
                             <span>Hubungi WhatsApp Resmi</span>
                         </a>
@@ -120,7 +131,7 @@
                             <!-- Official Photo Frame with Aspect Ratio -->
                             <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-inner group">
                                 <img src="{{ $profile['foto_url'] }}" 
-                                     alt="Wardoyo, S.I.Kom. - Ketua PWI Kabupaten Banyuasin" 
+                                     alt="{{ $profile['name'] }} - {{ $profile['title'] }}" 
                                      class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700"
                                      fetchpriority="high">
                                 
@@ -143,13 +154,13 @@
                             <div class="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2.5 backdrop-blur-xs">
                                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
                                     <i class="fa-solid fa-award text-[10px]"></i>
-                                    <span>PWI KABUPATEN BANYUASIN</span>
+                                    <span>{{ $profile['badge_bawah_foto'] ?? 'PWI KABUPATEN BANYUASIN' }}</span>
                                 </div>
                                 <h3 class="text-lg sm:text-xl font-black text-white tracking-wide">
-                                    Ketua PWI Banyuasin
+                                    {{ $profile['judul_bawah_foto'] ?? 'Ketua PWI Banyuasin' }}
                                 </h3>
                                 <p class="text-xs text-slate-300 font-medium">
-                                    Masa Bakti 2025 – 2028
+                                    {{ $profile['subjudul_bawah_foto'] ?? 'Masa Bakti 2025 – 2028' }}
                                 </p>
                                 
                                 <!-- Social & Email Icons (Cukup Icon Saja: IG, FB, Email - Rata Tengah & Tidak Bertumpuk) -->
@@ -162,11 +173,13 @@
                                     </a>
                                     @endif
 
-                                    <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" 
+                                    @if(!empty($profile['kontak']['facebook']))
+                                    <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" 
                                        class="w-10 h-10 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] hover:scale-105 active:scale-95 text-white flex items-center justify-center text-base shadow-md transition-all shrink-0" 
                                        title="Facebook Wardoyo" aria-label="Facebook">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
+                                    @endif
 
                                     @if(!empty($profile['kontak']['email']))
                                     <a href="mailto:{{ $profile['kontak']['email'] }}" 
@@ -201,101 +214,84 @@
                 <div class="lg:col-span-7 space-y-5">
                     <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                         <i class="fa-solid fa-user-pen"></i>
-                        <span>Tentang Kepemimpinan & Pengabdian</span>
+                        <span>{{ $profile['narasi_subjudul'] ?? 'Tentang Kepemimpinan & Pengabdian' }}</span>
                     </div>
 
                     <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight">
-                        Komitmen Teruji Mengawal Integritas Pers & Pembangunan Banyuasin
+                        {{ $profile['narasi_judul'] ?? 'Komitmen Teruji Mengawal Integritas Pers & Pembangunan Banyuasin' }}
                     </h2>
 
                     <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-3.5">
-                        <p>
-                            <strong>Wardoyo, S.I.Kom.</strong> adalah tokoh pers dan praktisi komunikasi yang telah mendedikasikan lebih dari 18 tahun kariernya di dunia jurnalistik Sumatera Selatan. Memulai langkah dari wartawan lapangan, peliput investigasi, hingga memimpin media siber nasional sebagai Pemimpin Redaksi, beliau memiliki pemahaman mendalam tentang ekosistem pers dan dinamika publik.
-                        </p>
-                        <p>
-                            Menyelesaikan studi Sarjana (S1) Ilmu Komunikasi bidang Jurnalistik serta menempuh studi lanjutan pascasarjana di STISIPOL Candradimuka Palembang, Wardoyo memadukan kecakapan teknis jurnalistik dengan landasan intelektual yang kokoh. Beliau mengantongi predikat <strong>Wartawan Tingkat Utama Dewan Pers</strong> yang diuji langsung oleh tokoh pers nasional mantan Kepala Biro LKBN ANTARA New York, Bapak Aat Surya Safaat.
-                        </p>
-                        <p>
-                            Terpilih sebagai <strong>Ketua PWI Kabupaten Banyuasin Periode 2025–2028</strong> berdasarkan SK PWI Pusat Nomor 033/PP-PWI/XI/2025, Wardoyo membawa visi transformasi organisasi pers yang berdaya saing, independen, menjunjung tinggi Kode Etik Jurnalistik (KEJ), serta menjadi mitra kritis dan solutif bagi kemajuan daerah.
-                        </p>
+                        @if(!empty($profile['narasi_paragraf_1']))
+                            <p>{!! nl2br(e($profile['narasi_paragraf_1'])) !!}</p>
+                        @endif
+                        @if(!empty($profile['narasi_paragraf_2']))
+                            <p>{!! nl2br(e($profile['narasi_paragraf_2'])) !!}</p>
+                        @endif
+                        @if(!empty($profile['narasi_paragraf_3']))
+                            <p>{!! nl2br(e($profile['narasi_paragraf_3'])) !!}</p>
+                        @endif
                     </div>
 
                     <!-- Fast Contact Pills (Rata Tengah di Mobile, Rata Kiri di Desktop, Rapi & Tidak Bertumpuk) -->
                     <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                        @if(!empty($profile['kontak']['email']))
                         <a href="mailto:{{ $profile['kontak']['email'] }}" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-solid fa-envelope text-amber-500"></i>
                             <span>{{ $profile['kontak']['email'] }}</span>
                         </a>
-                        <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
+                        @endif
+                        @if(!empty($profile['kontak']['telepon']))
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon']) }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-solid fa-phone text-blue-500"></i>
                             <span>{{ $profile['kontak']['telepon'] }}</span>
                         </a>
+                        @endif
                         @if(!empty($profile['kontak']['instagram']))
                         <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-brands fa-instagram text-pink-500 text-sm"></i>
-                            <span>@wardianstp</span>
+                            <span>Instagram</span>
                         </a>
                         @endif
-                        <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
+                        @if(!empty($profile['kontak']['facebook']))
+                        <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-2xs">
                             <i class="fa-brands fa-facebook-f text-blue-600 text-xs"></i>
                             <span>Facebook</span>
                         </a>
+                        @endif
+                        @if(!empty($profile['lokasi_singkat']))
                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 shadow-2xs">
                             <i class="fa-solid fa-location-dot text-rose-500"></i>
-                            <span>Talang Kelapa, Banyuasin</span>
+                            <span>{{ $profile['lokasi_singkat'] }}</span>
                         </div>
+                        @endif
                     </div>
                 </div>
 
-                <!-- Right: 4 Strategic Value Pillars (5 cols) -->
+                <!-- Right: Strategic Value Pillars (5 cols) -->
                 <div class="lg:col-span-5 space-y-4">
-                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
-                            <i class="fa-solid fa-scale-balanced"></i>
+                    @php
+                        $pilarColors = [
+                            ['bg' => 'bg-blue-600', 'text' => 'text-white'],
+                            ['bg' => 'bg-amber-500', 'text' => 'text-slate-950'],
+                            ['bg' => 'bg-emerald-600', 'text' => 'text-white'],
+                            ['bg' => 'bg-indigo-600', 'text' => 'text-white'],
+                        ];
+                    @endphp
+                    @foreach($profile['pilar_nilai'] as $idx => $pilar)
+                        @php $color = $pilarColors[$idx % count($pilarColors)]; @endphp
+                        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl {{ $color['bg'] }} {{ $color['text'] }} flex items-center justify-center font-bold shrink-0 shadow-md">
+                                <i class="{{ $pilar['icon'] ?? 'fa-solid fa-award' }}"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900 dark:text-white">{{ $pilar['title'] }}</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                                    {{ $pilar['desc'] }}
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Integritas & Etika Pers</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                Menegakkan kepatuhan terhadap UU Pers No. 40/1999 dan Kode Etik Jurnalistik demi menjaga kepercayaan publik.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold shrink-0 shadow-md">
-                            <i class="fa-solid fa-handshake-angle"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Kemitraan Strategis Daerah</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                Membangun kolaborasi profesional dan konstruktif bersama Forkopimda, Pemkab Banyuasin, dan para pemangku kepentingan.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
-                            <i class="fa-solid fa-certificate"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Standarisasi Kompetensi Wartawan</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                Mendorong sertifikasi UKW berkelanjutan untuk seluruh wartawan anggota PWI Banyuasin agar profesional dan kredibel.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
-                            <i class="fa-solid fa-laptop-code"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Transformasi Digital Media</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                Mengakselerasi pemanfaatan teknologi informasi dan inovasi digital dalam pengelolaan organisasi serta publikasi warta.
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
             </div>
@@ -322,128 +318,33 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Pilar 1: Pers & Media -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group hover:-translate-y-1">
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-4 shadow-inner">
-                            <i class="fa-solid fa-newspaper"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($profile['organisasi'] as $org)
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group hover:-translate-y-1">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80">
+                                    {{ $org['masa'] }}
+                                </span>
+                                <div class="w-8 h-8 rounded-xl bg-amber-400/10 text-amber-500 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white leading-snug">
+                                {{ $org['posisi'] }}
+                            </h3>
+                            @if(!empty($org['ket']))
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    {{ $org['ket'] }}
+                                </p>
+                            @endif
                         </div>
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">Pers & Media Massa</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Penggerak kemerdekaan pers dan ekosistem berita.</p>
-                        
-                        <ul class="mt-4 space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-amber-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Ketua PWI Banyuasin</strong> (2025–2028)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-amber-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Anggota DKP PWI Sumsel</strong> (2024–2029)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-amber-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Pemimpin Redaksi</strong> Buana Indonesia (2015–Sekarang)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-amber-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Komisaris</strong> PT Buana Indonesia Media</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] font-bold text-blue-600 dark:text-amber-400">
-                        Wartawan Tingkat Utama
-                    </div>
-                </div>
-
-                <!-- Pilar 2: Pengawasan Pemilu & Demokrasi -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group hover:-translate-y-1">
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold mb-4 shadow-inner">
-                            <i class="fa-solid fa-check-to-slot"></i>
+                        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] font-bold text-blue-600 dark:text-amber-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-[10px]"></i>
+                            <span>Rekam Jejak Terverifikasi</span>
                         </div>
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">Demokrasi & Pemilu</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Mengawal integritas pesta demokrasi konstitusional.</p>
-                        
-                        <ul class="mt-4 space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-emerald-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Ketua MAPPILU PWI</strong> Banyuasin (2018–2023)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-emerald-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span>Terakreditasi resmi <strong>BAWASLU RI</strong> No: 034/BAWASLU/II/2019</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-emerald-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span>Pemantau independen Pileg, Pilpres, dan Pilkada serentak</span>
-                            </li>
-                        </ul>
                     </div>
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                        Akreditasi Bawaslu RI
-                    </div>
-                </div>
-
-                <!-- Pilar 3: Dunia Usaha & Konstruksi -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group hover:-translate-y-1">
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-4 shadow-inner">
-                            <i class="fa-solid fa-building-shield"></i>
-                        </div>
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">Dunia Usaha & Jasa</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Mendorong iklim usaha dan pertumbuhan ekonomi.</p>
-                        
-                        <ul class="mt-4 space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-blue-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Ketua ASPEKINDO</strong> Banyuasin (2024–2029)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-blue-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span>Asosiasi Pengusaha Konstruksi Indonesia</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-blue-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Wakil Ketua APPSI</strong> Banyuasin (2026–2031) - Asosiasi Pedagang Pasar</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                        Pemberdayaan Ekonomi
-                    </div>
-                </div>
-
-                <!-- Pilar 4: Olahraga & Seni Budaya -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group hover:-translate-y-1">
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold mb-4 shadow-inner">
-                            <i class="fa-solid fa-person-running"></i>
-                        </div>
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">Olahraga & Budaya</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Melestarikan budaya beladiri dan olahraga prestasi.</p>
-                        
-                        <ul class="mt-4 space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-purple-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Ketua HIMSSI</strong> Banyuasin (2022–2026)</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-purple-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span>Himpunan Seni Silat Indonesia</span>
-                            </li>
-                            <li class="flex items-start gap-2 font-medium">
-                                <i class="fa-solid fa-circle-check text-purple-500 text-[11px] mt-0.5 shrink-0"></i>
-                                <span><strong>Sekretaris FHI</strong> Banyuasin (Federasi Hockey Indonesia - Cabang KONI)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] font-bold text-purple-600 dark:text-purple-400">
-                        Pembinaan Generasi Muda
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
         </div>
@@ -710,34 +611,40 @@
                     
                     <div class="lg:col-span-8 space-y-4 text-center lg:text-left">
                         <span class="px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-md inline-block">
-                            Silaturahmi & Kemitraan Strategis
+                            {{ $profile['footer_badge'] ?? 'Silaturahmi & Kemitraan Strategis' }}
                         </span>
                         <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">
-                            Terhubung Langsung dengan Wardoyo, S.I.Kom.
+                            {{ $profile['footer_title'] ?? 'Terhubung Langsung dengan Wardoyo, S.I.Kom.' }}
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Terbuka untuk ruang diskusi, kemitraan strategis kelembagaan, audiensi pers, narasumber media &amp; jurnalisme, maupun silaturahmi pembangunan daerah Kabupaten Banyuasin.
+                            {{ $profile['footer_desc'] ?? 'Terbuka untuk ruang diskusi, kemitraan strategis kelembagaan, audiensi pers, narasumber media & jurnalisme, maupun silaturahmi pembangunan daerah Kabupaten Banyuasin.' }}
                         </p>
 
                         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 pt-2 text-xs">
-                            <a href="https://wa.me/6285377991976" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
+                            @if(!empty($profile['kontak']['telepon']))
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile['kontak']['telepon']) }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-whatsapp text-sm"></i>
-                                <span>0853-7799-1976</span>
+                                <span>{{ $profile['kontak']['telepon'] }}</span>
                             </a>
+                            @endif
                             @if(!empty($profile['kontak']['instagram']))
                             <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-instagram text-sm"></i>
-                                <span>Instagram @wardianstp</span>
+                                <span>Instagram</span>
                             </a>
                             @endif
-                            <a href="https://www.facebook.com/ward.wardoyo" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
+                            @if(!empty($profile['kontak']['facebook']))
+                            <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold flex items-center justify-center gap-2 shadow-lg transition-all w-full sm:w-auto">
                                 <i class="fa-brands fa-facebook-f text-sm"></i>
-                                <span>Facebook Resmi</span>
+                                <span>Facebook</span>
                             </a>
+                            @endif
+                            @if(!empty($profile['kontak']['email']))
                             <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold border border-white/20 flex items-center justify-center gap-2 transition-all w-full sm:w-auto">
                                 <i class="fa-solid fa-envelope text-amber-400"></i>
                                 <span>{{ $profile['kontak']['email'] }}</span>
                             </a>
+                            @endif
                         </div>
                     </div>
 

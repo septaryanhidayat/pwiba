@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ChairmanPostController;
+use App\Http\Controllers\Admin\ChairmanProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\InboxController;
@@ -148,6 +149,10 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/arsip-ketua/{id}/edit', [ChairmanPostController::class, 'edit'])->name('chairman_posts.edit');
     Route::put('/arsip-ketua/{id}', [ChairmanPostController::class, 'update'])->name('chairman_posts.update');
     Route::delete('/arsip-ketua/{id}', [ChairmanPostController::class, 'destroy'])->name('chairman_posts.destroy');
+
+    // Modul Profil & Portofolio Ketua
+    Route::get('/profil-ketua', [ChairmanProfileController::class, 'edit'])->name('chairman_profile.edit');
+    Route::post('/profil-ketua', [ChairmanProfileController::class, 'update'])->name('chairman_profile.update');
 
     // Modul Galeri
     Route::get('/galeri', [GalleryController::class, 'index'])->name('galleries.index');
