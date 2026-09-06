@@ -78,13 +78,31 @@ class ChairmanArchiveTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_wardoyo_archive_link_is_not_exposed_in_public_navbar_yet(): void
+    public function test_wardoyo_archive_link_is_accessible_from_navbar_and_homepage(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertDontSee('href="http://localhost/wardoyo"', false);
-        $response->assertDontSee("href='http://localhost/wardoyo'", false);
+        $response->assertSee(route('chairman.archive.index'), false);
+        $response->assertSee('Profil Ketua PWI');
+    }
+
+    public function test_wardoyo_page_has_custom_social_preview_photo_and_instagram(): void
+    {
+        $response = $this->get('/wardoyo');
+
+        $response->assertStatus(200);
+        // Social Media Preview (OpenGraph & Twitter Image) must be Wardoyo's photo, not PWI logo
+        $response->assertSee('wardoyo-share.jpg');
+        $response->assertSee('property="og:image"', false);
+        $response->assertSee('name="twitter:image"', false);
+
+        // Instagram Link
+        $response->assertSee('https://www.instagram.com/wardianstp/');
+        $response->assertSee('@wardianstp');
+
+        // Card under photo shows "Ketua PWI Banyuasin"
+        $response->assertSee('Ketua PWI Banyuasin');
     }
 
     /*

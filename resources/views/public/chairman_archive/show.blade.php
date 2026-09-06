@@ -2,6 +2,11 @@
 
 @section('title', $article->title . ' - Arsip Wardoyo')
 @section('meta_description', Str::limit(strip_tags($article->excerpt), 150))
+@section('meta_image', asset('assets/images/wardoyo-share.jpg'))
+@section('meta_image_width', '800')
+@section('meta_image_height', '800')
+@section('meta_image_type', 'image/jpeg')
+@section('meta_type', 'article')
 
 @section('content')
 <div class="py-10 sm:py-14 bg-slate-50 dark:bg-slate-950 transition-colors duration-200" x-data="{ copied: false }">

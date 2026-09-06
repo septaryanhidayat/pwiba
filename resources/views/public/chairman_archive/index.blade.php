@@ -2,6 +2,11 @@
 
 @section('title', 'Portofolio Eksekutif & Arsip Karya Wardoyo, S.I.Kom. - Ketua PWI Banyuasin')
 @section('meta_description', 'Portofolio resmi dan rekam jejak kepemimpinan Wardoyo, S.I.Kom. - Ketua Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Periode 2025–2028, Wartawan Utama Dewan Pers, dan praktisi pers.')
+@section('meta_image', asset('assets/images/wardoyo-share.jpg'))
+@section('meta_image_width', '800')
+@section('meta_image_height', '800')
+@section('meta_image_type', 'image/jpeg')
+@section('meta_type', 'profile')
 
 @section('content')
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-200" x-data="{ 
@@ -74,7 +79,7 @@
                             <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Lisensi UKW</span>
                         </div>
                         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-2xl font-black text-blue-300">S2</span>
+                            <span class="block text-2xl font-black text-blue-300">S.I.Kom.</span>
                             <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ilmu Komunikasi</span>
                         </div>
                     </div>
@@ -134,23 +139,26 @@
                                 </div>
                             </div>
 
-                            <!-- Bottom Identity Summary Card -->
-                            <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-slate-400 font-semibold">Dewan Pers RI:</span>
-                                    <span class="font-extrabold text-emerald-400 flex items-center gap-1">
-                                        <i class="fa-solid fa-circle-check text-[11px]"></i>
-                                        <span>Wartawan Utama</span>
-                                    </span>
+                            <!-- Bottom Identity Summary Card (Ketua PWI Banyuasin Saja) -->
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2">
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                    <i class="fa-solid fa-award text-[10px]"></i>
+                                    <span>PWI Kabupaten Banyuasin</span>
                                 </div>
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-slate-400 font-semibold">No. Registrasi UKW:</span>
-                                    <span class="font-mono text-slate-300 font-bold text-[11px]">1231-PWI/WU/DP/XII/2018/17/02/76</span>
+                                <h3 class="text-base sm:text-lg font-black text-white tracking-wide">
+                                    Ketua PWI Banyuasin
+                                </h3>
+                                <p class="text-xs text-slate-300 font-medium">
+                                    Masa Bakti 2025 – 2028
+                                </p>
+                                @if(!empty($profile['kontak']['instagram']))
+                                <div class="pt-1.5 flex justify-center">
+                                    <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-xs font-bold shadow-md hover:opacity-95 transition-opacity">
+                                        <i class="fa-brands fa-instagram text-sm"></i>
+                                        <span>@wardianstp</span>
+                                    </a>
                                 </div>
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-slate-400 font-semibold">Dewan Kehormatan:</span>
-                                    <span class="font-bold text-amber-300">Anggota DKP PWI Sumsel</span>
-                                </div>
+                                @endif
                             </div>
 
                         </div>
@@ -205,6 +213,12 @@
                             <i class="fa-solid fa-phone text-blue-500"></i>
                             <span>{{ $profile['kontak']['telepon'] }}</span>
                         </div>
+                        @if(!empty($profile['kontak']['instagram']))
+                        <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-pink-600 dark:hover:text-pink-400 transition-colors">
+                            <i class="fa-brands fa-instagram text-pink-500 text-sm"></i>
+                            <span>@wardianstp</span>
+                        </a>
+                        @endif
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-location-dot text-rose-500"></i>
                             <span>Talang Kelapa, Kabupaten Banyuasin</span>
@@ -689,6 +703,12 @@
                                 <i class="fa-brands fa-whatsapp text-sm"></i>
                                 <span>0853-7799-1976</span>
                             </a>
+                            @if(!empty($profile['kontak']['instagram']))
+                            <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 text-white font-bold flex items-center gap-2 shadow-lg transition-all">
+                                <i class="fa-brands fa-instagram text-sm"></i>
+                                <span>Instagram @wardianstp</span>
+                            </a>
+                            @endif
                             <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold border border-white/20 flex items-center gap-2 transition-all">
                                 <i class="fa-solid fa-envelope text-amber-400"></i>
                                 <span>{{ $profile['kontak']['email'] }}</span>

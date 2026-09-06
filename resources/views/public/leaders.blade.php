@@ -92,6 +92,15 @@
                                 </p>
                             </div>
                         @endif
+
+                        @if($leader->status_aktif || str_contains($leader->nama, 'Wardoyo'))
+                            <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+                                <a href="{{ route('chairman.archive.index') }}" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold shadow-xs transition-all">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    <span>Profil &amp; Karya Lengkap</span>
+                                </a>
+                            </div>
+                        @endif
                     </div>
 
                 </div>

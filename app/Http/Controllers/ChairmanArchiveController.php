@@ -82,8 +82,8 @@ class ChairmanArchiveController extends Controller
             'kontak' => [
                 'telepon' => '0853-7799-1976',
                 'email' => 'wardianstp@gmail.com',
+                'instagram' => 'https://www.instagram.com/wardianstp/',
                 'facebook' => 'https://www.facebook.com/ward.wardoyo',
-                'blog_asli' => 'https://wardianst.wordpress.com/',
             ],
             'pendidikan' => [
                 ['tingkat' => 'Pascasarjana (S2)', 'instansi' => 'STISIPOL Candradimuka Palembang', 'prodi' => 'Program Studi Ilmu Komunikasi', 'status' => 'Sedang Ditempuh', 'is_completed' => false],

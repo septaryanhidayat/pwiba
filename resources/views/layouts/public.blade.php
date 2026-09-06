@@ -18,23 +18,24 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="@yield('meta_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
     <meta property="og:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, galeri kegiatan, dan layanan keabsahan surat digital.')">
-    <meta property="og:image" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
-    <meta property="og:image:secure_url" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="670">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="@yield('meta_image', $settings['logo_url'] ?? asset('assets/images/pwi-logo.png'))">
+    <meta property="og:image:secure_url" content="@yield('meta_image', $settings['logo_url'] ?? asset('assets/images/pwi-logo.png'))">
+    <meta property="og:image:width" content="@yield('meta_image_width', '600')">
+    <meta property="og:image:height" content="@yield('meta_image_height', '600')">
+    <meta property="og:image:type" content="@yield('meta_image_type', 'image/png')">
     <meta property="og:site_name" content="{{ $settings['nama_pwi'] ?? 'PWI Banyuasin' }}">
+    <meta itemprop="image" content="@yield('meta_image', $settings['logo_url'] ?? asset('assets/images/pwi-logo.png'))">
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia">
     <meta name="twitter:description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin. Informasi berita terkini, direktori insan pers terverifikasi, dan layanan pers.')">
-    <meta name="twitter:image" content="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}">
+    <meta name="twitter:image" content="@yield('meta_image', $settings['logo_url'] ?? asset('assets/images/pwi-logo.png'))">
 
     <!-- Preload LCP Hero Image -->
     <link rel="preload" as="image" href="{{ asset('assets/images/wardoyo-ketua.webp') }}" type="image/webp" fetchpriority="high">
@@ -308,6 +309,10 @@
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-1"
                              class="absolute left-0 top-full mt-1 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+                            <a href="{{ route('chairman.archive.index') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50/60 dark:bg-amber-400/10 hover:bg-amber-100 dark:hover:bg-amber-400/20 transition-colors">
+                                <i class="fa-solid fa-user-tie text-amber-500 w-4"></i>
+                                <span>Profil Ketua PWI</span>
+                            </a>
                             <a href="{{ route('home') }}#profil" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400 transition-colors">
                                 <i class="fa-solid fa-landmark text-amber-500 w-4"></i>
                                 <span>Profil & Visi Misi</span>
@@ -399,6 +404,10 @@
              x-transition:leave-end="opacity-0 -translate-y-2" 
              class="lg:hidden bg-white/98 dark:bg-[#0B132B]/98 border-b border-slate-200 dark:border-white/10 px-4 pt-3 pb-6 space-y-2 shadow-2xl">
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#beranda" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Beranda</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('chairman.archive.index') }}" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-bold text-amber-600 dark:text-amber-400 bg-amber-50/70 dark:bg-amber-400/10 hover:bg-amber-100 dark:hover:bg-amber-400/20">
+                <i class="fa-solid fa-user-tie text-amber-500"></i>
+                <span>Profil Ketua PWI</span>
+            </a>
             <a @click="mobileMenuOpen = false" href="{{ route('home') }}#profil" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Profil & Visi</a>
             <a @click="mobileMenuOpen = false" href="{{ route('organization.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Susunan Pengurus</a>
             <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah (Ketua)</a>
@@ -479,6 +488,7 @@
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Navigasi Cepat</h5>
                     <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
                         <li><a href="{{ route('home') }}#beranda" class="hover:text-amber-400 transition-colors">Beranda Utama</a></li>
+                        <li><a href="{{ route('chairman.archive.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-user-tie text-xs text-amber-400"></i> Profil Ketua PWI</a></li>
                         <li><a href="{{ route('home') }}#profil" class="hover:text-amber-400 transition-colors">Visi & Misi</a></li>
                         <li><a href="{{ route('organization.public') }}" class="hover:text-amber-400 transition-colors">Susunan Pengurus</a></li>
                         <li><a href="{{ route('leaders.public') }}" class="hover:text-amber-400 transition-colors">Sejarah PWI (Ketua)</a></li>

@@ -65,11 +65,24 @@
                     <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center gap-4 mb-4">
-                                <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0 aspect-square">
-                                    <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                                </div>
+                                @if(str_contains(strtolower($s->nama), 'wardoyo'))
+                                    <a href="{{ route('chairman.archive.index') }}" class="w-14 h-14 rounded-2xl bg-amber-500/20 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-2 ring-amber-400 overflow-hidden flex-shrink-0 aspect-square hover:scale-105 transition-transform" title="Lihat Profil Ketua PWI">
+                                        <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                    </a>
+                                @else
+                                    <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-lg shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 overflow-hidden flex-shrink-0 aspect-square">
+                                        <img src="{{ $s->foto_url }}" alt="{{ $s->nama }}" width="56" height="56" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                    </div>
+                                @endif
                                 <div class="min-w-0 flex-grow">
-                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
+                                    @if(str_contains(strtolower($s->nama), 'wardoyo'))
+                                        <a href="{{ route('chairman.archive.index') }}" class="hover:text-amber-500 transition-colors inline-flex items-center gap-1.5">
+                                            <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-amber-500 transition-colors">{{ $s->nama }}</h4>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-amber-500"></i>
+                                        </a>
+                                    @else
+                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ $s->nama }}</h4>
+                                    @endif
                                     <span class="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase truncate">
                                         {{ $s->nomor_kartu ?? 'KTA PWI' }}
                                     </span>

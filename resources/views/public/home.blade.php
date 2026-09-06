@@ -84,8 +84,10 @@
                             </span>
                         </div>
 
-                        <!-- Photo Portrait -->
-                        <div class="relative pt-6 px-4 flex justify-center min-h-[380px] sm:min-h-[460px]">
+                        <!-- Photo Portrait (Clickable to Chairman Profile) -->
+                        <a href="{{ route('chairman.archive.index') }}" 
+                           class="relative pt-6 px-4 flex justify-center min-h-[380px] sm:min-h-[460px] group/photo block cursor-pointer"
+                           title="Klik untuk melihat Profil & Portofolio Lengkap Wardoyo, S.I.Kom.">
                             <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
                                  width="400"
@@ -94,15 +96,26 @@
                                  loading="eager"
                                  decoding="sync"
                                  onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
-                                 class="w-full h-auto max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
-                        </div>
+                                 class="w-full h-auto max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
+                            
+                            <!-- Subtle Click Prompt on Hover -->
+                            <div class="absolute bottom-2 inset-x-6 py-2 px-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
+                                <span class="text-xs font-bold text-amber-300 flex items-center justify-center gap-1.5">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    <span>Lihat Profil &amp; Rekam Jejak Ketua &rarr;</span>
+                                </span>
+                            </div>
+                        </a>
 
-                        <!-- Executive Identity & Sambutan Singkat (Tanpa Status Wartawan) -->
+                        <!-- Executive Identity & Sambutan Singkat -->
                         <div class="p-5 sm:p-6 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20">
                             <div>
-                                <h3 class="text-xl font-black text-white tracking-tight">
-                                    Wardoyo, S.I.Kom
-                                </h3>
+                                <a href="{{ route('chairman.archive.index') }}" class="group/title inline-block">
+                                    <h3 class="text-xl font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors flex items-center gap-2">
+                                        <span>Wardoyo, S.I.Kom</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400/70 group-hover/title:text-amber-300"></i>
+                                    </h3>
+                                </a>
                                 <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
                                     Ketua PWI Kabupaten Banyuasin
                                 </div>
@@ -115,21 +128,29 @@
                                 </p>
                             </div>
 
-                            <!-- Actions: Baca Sambutan Lengkap & Unduh Dokumen PDF -->
-                            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-3">
+                            <!-- Actions: Profil Ketua, Baca Sambutan Lengkap & Unduh Dokumen PDF -->
+                            <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                                 <button @click="modalSambutan = true" 
                                         type="button" 
                                         class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
                                     <i class="fa-solid fa-book-open text-xs"></i>
-                                    <span>Baca Sambutan Lengkap &rarr;</span>
+                                    <span>Baca Sambutan &rarr;</span>
                                 </button>
-                                <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer"
-                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white border border-white/15 transition-all shadow-sm">
-                                    <i class="fa-solid fa-file-pdf text-rose-400"></i>
-                                    <span>Unduh PDF</span>
-                                </a>
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('chairman.archive.index') }}" 
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-[11px] font-black text-slate-950 transition-all shadow-sm">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                        <span>Profil Ketua</span>
+                                    </a>
+                                    <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" 
+                                       target="_blank" 
+                                       rel="noopener noreferrer"
+                                       class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white border border-white/15 transition-all shadow-sm"
+                                       title="Unduh PDF Sambutan Pelantikan">
+                                        <i class="fa-solid fa-file-pdf text-rose-400"></i>
+                                        <span>PDF</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -167,15 +188,20 @@
                     <div>
                         <div class="flex flex-col sm:flex-row items-center gap-4 mb-6 text-center sm:text-left">
                             <div class="relative">
-                                <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden aspect-square">
+                                <a href="{{ route('chairman.archive.index') }}" class="block w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 p-0.5 overflow-hidden aspect-square hover:scale-105 transition-transform cursor-pointer" title="Lihat Profil Lengkap Wardoyo, S.I.Kom.">
                                     <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" alt="Ketua PWI Banyuasin" width="64" height="64" loading="lazy" decoding="async" onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'" class="w-full h-full object-cover rounded-xl">
-                                </div>
+                                </a>
                                 <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[9px]">
                                     <i class="fa-solid fa-check text-white"></i>
                                 </span>
                             </div>
                             <div>
-                                <h4 class="text-lg font-bold text-white leading-tight">{{ $settings['ketua_nama'] ?? 'Wardoyo, S.I.Kom' }}</h4>
+                                <a href="{{ route('chairman.archive.index') }}" class="group/cname inline-block">
+                                    <h4 class="text-lg font-bold text-white leading-tight group-hover/cname:text-amber-400 transition-colors flex items-center gap-1.5">
+                                        <span>{{ $settings['ketua_nama'] ?? 'Wardoyo, S.I.Kom' }}</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400/70"></i>
+                                    </h4>
+                                </a>
                                 <p class="text-xs text-amber-400 font-semibold">Ketua PWI Kabupaten Banyuasin</p>
                                 <span class="text-[10px] text-slate-400">Wartawan Utama • KTA: 06.00.17208.14B</span>
                             </div>
@@ -189,13 +215,17 @@
                         </div>
 
                         <div class="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                            <button @click="modalSambutan = true" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md cursor-pointer">
-                                <i class="fa-solid fa-book-open"></i>
-                                <span>Baca Sambutan Lengkap</span>
+                            <a href="{{ route('chairman.archive.index') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md">
+                                <i class="fa-solid fa-user-tie"></i>
+                                <span>Profil &amp; Karya Ketua</span>
+                            </a>
+                            <button @click="modalSambutan = true" type="button" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all shadow-sm cursor-pointer">
+                                <i class="fa-solid fa-book-open text-amber-400"></i>
+                                <span>Baca Sambutan</span>
                             </button>
-                            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all">
+                            <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
                                 <i class="fa-solid fa-file-pdf text-rose-400"></i>
-                                <span>Unduh PDF</span>
+                                <span>PDF</span>
                             </a>
                         </div>
                     </div>
