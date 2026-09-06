@@ -942,6 +942,10 @@ class PwiWebTest extends TestCase
         $response->assertSee('https://cctv.banyuasinkab.go.id');
         $response->assertSee('Gerbang KM 12');
         $response->assertSee('Simpang Tugu Betung');
+        $response->assertSee('cctv-monitor-station');
+
+        $bridgeResponse = $this->get(route('cctv.live-bridge'));
+        $bridgeResponse->assertStatus(200);
     }
 
     public function test_admin_can_create_post_with_custom_published_date_and_time(): void
