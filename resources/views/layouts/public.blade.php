@@ -193,10 +193,18 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        html, body {
-            overflow-x: hidden !important;
-            max-width: 100vw;
-            width: 100%;
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            overflow-x: clip;
+            min-height: 100vh;
+        }
+        #main-navbar {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 50 !important;
         }
 
         /* Fast, Crisp Fade-Up Keyframe (Vertical only, 0 horizontal shift, GPU accelerated) */
@@ -263,7 +271,7 @@
       }">
 
     <!-- Sticky Modern Glassmorphism Navbar (Non-crowded, perfectly responsive & accessible) -->
-    <header class="sticky top-0 z-50 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
+    <header id="main-navbar" class="sticky top-0 z-50 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-3 sm:gap-6">
                 
@@ -427,7 +435,7 @@
     </header>
 
     <!-- Main Body Content -->
-    <main class="flex-grow">
+    <main class="flex-grow w-full overflow-x-clip">
         @yield('content')
     </main>
 

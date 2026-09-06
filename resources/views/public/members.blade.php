@@ -14,7 +14,7 @@
                 Data Wartawan Terdaftar PWI Banyuasin
             </h1>
             <p class="text-slate-300 text-sm sm:text-base mt-2">
-                Daftar jurnalis profesional terverifikasi dengan jenjang Uji Kompetensi Wartawan (UKW) dan media pers yang terafiliasi.
+                Daftar jurnalis profesional terverifikasi dengan jenjang Uji Kompetensi Wartawan (UKW) dan media yang terafiliasi.
             </p>
         </div>
     </div>
@@ -99,7 +99,7 @@
                                     <span class="font-extrabold text-blue-900 dark:text-blue-300">{{ $m->jabatan ?? 'Wartawan' }}</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-slate-400 text-[10px] uppercase font-bold">Media Pers</span>
+                                    <span class="text-slate-400 text-[10px] uppercase font-bold">Media</span>
                                     <span class="font-semibold text-slate-700 dark:text-slate-300 truncate max-w-[180px]">{{ $m->nama_media ?? 'Media Mitra PWI' }}</span>
                                 </div>
                             </div>

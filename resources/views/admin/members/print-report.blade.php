@@ -120,7 +120,7 @@
                 <th width="110">TINGKAT UKW</th>
                 <th width="90">BERLAKU S/D</th>
                 <th>JABATAN</th>
-                <th>MEDIA PERS</th>
+                <th>MEDIA</th>
             </tr>
         </thead>
         <tbody>

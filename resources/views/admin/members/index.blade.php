@@ -287,7 +287,7 @@
 
                 <!-- Input Media Afiliasi & Edit Nama Media -->
                 <div class="space-y-2 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Afiliasi Media Pers</label>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Afiliasi Media</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Pilih dari Media Terdaftar</label>
