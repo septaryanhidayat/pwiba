@@ -362,8 +362,8 @@
                                 <i class="fa-solid fa-images text-sky-500 w-4 text-center"></i>
                                 <span>Galeri Foto</span>
                             </a>
-                            <a href="{{ route('gallery.videos') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ request()->routeIs('gallery.videos') ? 'text-red-600 dark:text-red-400 font-bold bg-red-50 dark:bg-red-950/30' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-400' }} transition-colors">
-                                <i class="fa-brands fa-youtube text-red-500 w-4 text-center"></i>
+                            <a href="{{ route('gallery.videos') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ request()->routeIs('gallery.videos') ? 'text-amber-600 dark:text-amber-400 font-bold bg-amber-50 dark:bg-amber-950/30' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400' }} transition-colors">
+                                <i class="fa-brands fa-youtube text-amber-500 w-4 text-center"></i>
                                 <span>Galeri Video</span>
                             </a>
                         </div>
@@ -450,7 +450,7 @@
                 <span>Galeri Foto</span>
             </a>
             <a @click="mobileMenuOpen = false" href="{{ route('gallery.videos') }}" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">
-                <i class="fa-brands fa-youtube text-red-500 w-4 text-center"></i>
+                <i class="fa-brands fa-youtube text-amber-500 w-4 text-center"></i>
                 <span>Galeri Video</span>
             </a>
             
@@ -573,7 +573,7 @@
                         </li>
                         <li>
                             <a href="{{ route('gallery.videos') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-brands fa-youtube text-xs text-red-400 group-hover:text-red-400 w-4 text-center transition-colors"></i>
+                                <i class="fa-brands fa-youtube text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
                                 <span>Galeri Video</span>
                             </a>
                         </li>
@@ -587,134 +587,137 @@
                     </ul>
                 </div>
 
-                <!-- Col 3: News & Category -->
-                <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
-                    <h5 class="text-xs font-bold uppercase tracking-wider text-white">Kanal Publikasi</h5>
-                    <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
-                        <li>
-                            <a href="{{ route('news.index') }}?kategori=Kegiatan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-solid fa-newspaper text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>Kegiatan Jurnalistik</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('news.index') }}?kategori=Kemitraan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-solid fa-handshake text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>Kemitraan & Forkopimda</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('news.index') }}?kategori=Organisasi" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-solid fa-building-columns text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>Internal Organisasi</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('news.index') }}?kategori=Olahraga" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-solid fa-medal text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>SIWO & Turnamen</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('news.index') }}?kategori=Hukum" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
-                                <i class="fa-solid fa-scale-balanced text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>Hukum & Advokasi</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Col 4: Contact & Office Info -->
-                <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
-                    <h5 class="text-xs font-bold uppercase tracking-wider text-white">Sekretariat PWI</h5>
-                    <div class="space-y-3 text-xs text-slate-400 flex flex-col items-center md:items-start">
-                        <div class="flex flex-col sm:flex-row items-center md:items-start gap-2 text-center md:text-left">
-                            <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
-                            <span class="max-w-xs md:max-w-none">{{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-phone text-amber-400"></i>
-                            <span>{{ $settings['no_telp'] ?? '0853-7799-1976' }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-envelope text-amber-400"></i>
-                            <span>{{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Real Visitor Counter & Traffic Metrics (Authentic Database Tracking) -->
-            <div class="mt-12 pt-8 border-t border-slate-800/80">
-                <div class="bg-gradient-to-r from-slate-900 via-[#0B132B] to-slate-900 rounded-3xl p-5 sm:p-6 border border-white/10 shadow-2xl relative overflow-hidden">
-                    <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                <!-- Col 3 & 4 Group: Kanal Publikasi, Sekretariat PWI, & Statistik Visitor (lg:col-span-2) -->
+                <div class="lg:col-span-2 flex flex-col justify-between space-y-6">
+                    
+                    <!-- Subgrid: Kanal Publikasi & Sekretariat PWI -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center md:text-left">
                         
-                        <!-- Left: Counter Title & Live Indicator -->
-                        <div class="flex items-center gap-4 text-center sm:text-left">
-                            <div class="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center text-xl shrink-0 shadow-inner">
-                                <i class="fa-solid fa-chart-simple"></i>
+                        <!-- Subcol 1: Kanal Publikasi -->
+                        <div class="space-y-3 flex flex-col items-center md:items-start">
+                            <h5 class="text-xs font-bold uppercase tracking-wider text-white">Kanal Publikasi</h5>
+                            <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
+                                <li>
+                                    <a href="{{ route('news.index') }}?kategori=Kegiatan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                        <i class="fa-solid fa-newspaper text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                        <span>Kegiatan Jurnalistik</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('news.index') }}?kategori=Kemitraan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                        <i class="fa-solid fa-handshake text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                        <span>Kemitraan & Forkopimda</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('news.index') }}?kategori=Organisasi" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                        <i class="fa-solid fa-building-columns text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                        <span>Internal Organisasi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('news.index') }}?kategori=Olahraga" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                        <i class="fa-solid fa-medal text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                        <span>SIWO & Turnamen</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('news.index') }}?kategori=Hukum" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                        <i class="fa-solid fa-scale-balanced text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                        <span>Hukum & Advokasi</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Subcol 2: Sekretariat PWI -->
+                        <div class="space-y-3 flex flex-col items-center md:items-start">
+                            <h5 class="text-xs font-bold uppercase tracking-wider text-white">Sekretariat PWI</h5>
+                            <div class="space-y-2.5 text-xs text-slate-400 flex flex-col items-center md:items-start">
+                                <div class="flex items-start gap-2 text-center md:text-left">
+                                    <i class="fa-solid fa-location-dot text-amber-400 mt-0.5 shrink-0"></i>
+                                    <span>{{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-phone text-amber-400 shrink-0"></i>
+                                    <span>{{ $settings['no_telp'] ?? '0853-7799-1976' }}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-envelope text-amber-400 shrink-0"></i>
+                                    <span>{{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}</span>
+                                </div>
                             </div>
-                            <div>
-                                <div class="flex items-center gap-2 justify-center sm:justify-start">
-                                    <h5 class="text-sm font-black text-white uppercase tracking-wider">Statistik Pengunjung Portal</h5>
-                                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                        <span>Real-Time</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Real Visitor Counter & Traffic Metrics (Tepat Di Bawah Kanal Publikasi & Sekretariat PWI) -->
+                    <div class="pt-5 border-t border-slate-800/80">
+                        <div class="bg-gradient-to-br from-slate-900 via-[#0D1630] to-slate-900 rounded-2xl p-4 border border-white/10 shadow-xl relative overflow-hidden">
+                            <div class="flex items-center justify-between gap-3 mb-3 pb-2.5 border-b border-white/10">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs shrink-0 border border-amber-500/30">
+                                        <i class="fa-solid fa-chart-simple"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h5 class="text-xs font-black text-white uppercase tracking-wider truncate">Statistik Pengunjung</h5>
+                                    </div>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30 shrink-0">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span>Real-Time</span>
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 text-center">
+                                <!-- Hari Ini -->
+                                <div class="bg-white/5 hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-white/5">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 block">Hari Ini</span>
+                                    <span class="text-sm sm:text-base font-black text-amber-400 mt-0.5 block">
+                                        {{ number_format($visitorStats['today'] ?? 0) }}
                                     </span>
                                 </div>
-                                <p class="text-[11px] text-slate-400 mt-0.5">Penghitungan trafik dan tayangan halaman berbasis data riil pengunjung portal PWI Banyuasin</p>
+
+                                <!-- Kemarin -->
+                                <div class="bg-white/5 hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-white/5">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 block">Kemarin</span>
+                                    <span class="text-sm sm:text-base font-black text-slate-200 mt-0.5 block">
+                                        {{ number_format($visitorStats['yesterday'] ?? 0) }}
+                                    </span>
+                                </div>
+
+                                <!-- Bulan Ini -->
+                                <div class="bg-white/5 hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-white/5">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 block">Bulan Ini</span>
+                                    <span class="text-sm sm:text-base font-black text-sky-400 mt-0.5 block">
+                                        {{ number_format($visitorStats['this_month'] ?? 0) }}
+                                    </span>
+                                </div>
+
+                                <!-- Total Tamu -->
+                                <div class="bg-white/5 hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-white/5">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 block">Total Tamu</span>
+                                    <span class="text-sm sm:text-base font-black text-emerald-400 mt-0.5 block">
+                                        {{ number_format($visitorStats['total_visitors'] ?? 0) }}
+                                    </span>
+                                </div>
+
+                                <!-- Online -->
+                                <div class="col-span-3 sm:col-span-1 bg-white/5 hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-white/5">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 block flex items-center justify-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                        <span>Online</span>
+                                    </span>
+                                    <span class="text-sm sm:text-base font-black text-rose-400 mt-0.5 block">
+                                        {{ number_format($visitorStats['online'] ?? 1) }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Right: Real Metric Badges -->
-                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 w-full lg:w-auto">
-                            <!-- Hari Ini -->
-                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Hari Ini</span>
-                                <span class="text-base sm:text-lg font-black text-amber-400 mt-0.5 block">
-                                    {{ number_format($visitorStats['today'] ?? 0) }}
-                                </span>
-                            </div>
-
-                            <!-- Kemarin -->
-                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Kemarin</span>
-                                <span class="text-base sm:text-lg font-black text-slate-200 mt-0.5 block">
-                                    {{ number_format($visitorStats['yesterday'] ?? 0) }}
-                                </span>
-                            </div>
-
-                            <!-- Bulan Ini -->
-                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Bulan Ini</span>
-                                <span class="text-base sm:text-lg font-black text-sky-400 mt-0.5 block">
-                                    {{ number_format($visitorStats['this_month'] ?? 0) }}
-                                </span>
-                            </div>
-
-                            <!-- Total Pengunjung -->
-                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Tamu</span>
-                                <span class="text-base sm:text-lg font-black text-emerald-400 mt-0.5 block">
-                                    {{ number_format($visitorStats['total_visitors'] ?? 0) }}
-                                </span>
-                            </div>
-
-                            <!-- Sedang Online -->
-                            <div class="col-span-2 sm:col-span-1 bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block flex items-center justify-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                                    <span>Online</span>
-                                </span>
-                                <span class="text-base sm:text-lg font-black text-rose-400 mt-0.5 block">
-                                    {{ number_format($visitorStats['online'] ?? 1) }}
-                                </span>
-                            </div>
-                        </div>
-
                     </div>
+
                 </div>
+
             </div>
 
             <!-- Bottom Bar -->

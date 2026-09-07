@@ -20,7 +20,6 @@ class VisitorTrackerService
 
         $path = $request->path();
         if (
-            $request->is('admin*') ||
             $request->is('storage*') ||
             $request->is('up') ||
             $request->is('livewire*') ||
@@ -46,22 +45,13 @@ class VisitorTrackerService
         $sessionId = $request->hasSession() ? $request->session()->getId() : null;
         $url = '/'.ltrim($path, '/');
 
-        // 3. Debounce: prevent inflating hits when user rapidly refreshes the exact same page within 5 minutes
-        $query = VisitorLog::where('url', $url)->where('created_at', '>=', now()->subMinutes(5));
-        if ($sessionId && $ip) {
-            $query->where(function ($q) use ($sessionId, $ip, $userAgent) {
-                $q->where('session_id', $sessionId)
-                    ->orWhere(function ($sub) use ($ip, $userAgent) {
-                        $sub->where('ip_address', $ip)->where('user_agent', substr($userAgent, 0, 500));
-                    });
-            });
-        } elseif ($sessionId) {
-            $query->where('session_id', $sessionId);
-        } elseif ($ip) {
-            $query->where('ip_address', $ip);
-        }
+        // Debounce 1 second only to prevent duplicate requests from prefetch/browser double-hit
+        $alreadyLogged = VisitorLog::where('url', $url)
+            ->where('ip_address', $ip)
+            ->where('created_at', '>=', now()->subSecond())
+            ->exists();
 
-        if ($query->exists()) {
+        if ($alreadyLogged) {
             return;
         }
 
@@ -214,12 +204,12 @@ class VisitorTrackerService
             ];
         }
 
-        $today = VisitorLog::whereDate('created_at', today())->distinct('session_id')->count('session_id');
-        $yesterday = VisitorLog::whereDate('created_at', today()->subDay())->distinct('session_id')->count('session_id');
-        $thisMonth = VisitorLog::whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->distinct('session_id')->count('session_id');
-        $totalVisitors = VisitorLog::distinct('session_id')->count('session_id');
-        $totalHits = VisitorLog::count();
-        $online = VisitorLog::where('created_at', '>=', now()->subMinutes(15))->distinct('session_id')->count('session_id');
+        $today = VisitorLog::whereDate('created_at', today())->count();
+        $yesterday = VisitorLog::whereDate('created_at', today()->subDay())->count();
+        $thisMonth = VisitorLog::whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $totalVisitors = VisitorLog::count();
+        $totalHits = $totalVisitors;
+        $online = VisitorLog::where('created_at', '>=', now()->subMinutes(15))->count();
 
         return [
             'today' => max($today, 1),

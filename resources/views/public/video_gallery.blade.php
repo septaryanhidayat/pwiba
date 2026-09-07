@@ -38,7 +38,7 @@
         <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
             <div>
                 <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
-                    <i class="fa-brands fa-youtube text-red-600 text-2xl"></i>
+                    <i class="fa-brands fa-youtube text-amber-500 text-2xl"></i>
                     <span>Daftar Video Liputan Terkini</span>
                 </h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Klik salah satu video untuk memutar langsung di website</p>
@@ -60,14 +60,14 @@
                         <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/50 transition-colors"></div>
                         
                         <!-- Badges -->
-                        <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-md">
+                        <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-md">
                             <i class="fa-brands fa-youtube"></i>
                             <span>YouTube Video</span>
                         </div>
 
                         <!-- Large Play Button Overlay -->
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-115 group-hover:bg-red-600 transition-all duration-300 ring-4 ring-white/20">
+                            <div class="w-16 h-16 rounded-full bg-amber-500/90 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-115 group-hover:bg-amber-400 transition-all duration-300 ring-4 ring-white/20">
                                 <i class="fa-solid fa-play text-xl ml-1"></i>
                             </div>
                         </div>
@@ -80,10 +80,10 @@
                     <!-- Video Meta & Title -->
                     <div class="p-6 flex flex-col justify-between flex-grow">
                         <div>
-                            <span class="text-[11px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider block mb-2">
+                            <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block mb-2">
                                 <i class="fa-regular fa-calendar me-1"></i> {{ $v->tanggal ? $v->tanggal->translatedFormat('d F Y') : '-' }}
                             </span>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                                 {{ $v->judul }}
                             </h3>
                             @if($v->deskripsi)
@@ -92,7 +92,7 @@
                                 </p>
                             @endif
                         </div>
-                        <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-red-600 dark:text-red-400">
+                        <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-amber-600 dark:text-amber-400">
                             <span class="inline-flex items-center gap-1.5">
                                 <i class="fa-solid fa-circle-play"></i> Tonton Sekarang
                             </span>
@@ -125,7 +125,7 @@
                  @click.stop>
                 <div class="p-4 sm:p-5 flex items-center justify-between border-b border-white/10 bg-slate-950/80">
                     <div class="flex items-center gap-2.5 text-white font-bold text-sm truncate pr-4">
-                        <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
+                        <i class="fa-brands fa-youtube text-amber-400 text-lg"></i>
                         <span x-text="selectedVideo ? selectedVideo.title : 'Video Liputan'"></span>
                     </div>
                     <button type="button" @click="selectedVideo = null" class="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors shrink-0" title="Tutup Video">
@@ -149,7 +149,7 @@
                         <p class="text-xs text-slate-300 mt-1 line-clamp-2" x-text="selectedVideo ? selectedVideo.desc : ''"></p>
                     </div>
                     <div class="shrink-0 flex items-center gap-2">
-                        <a :href="selectedVideo ? selectedVideo.url : '#'" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors">
+                        <a :href="selectedVideo ? selectedVideo.url : '#'" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-colors">
                             <i class="fa-brands fa-youtube"></i>
                             <span>Buka di YouTube</span>
                         </a>

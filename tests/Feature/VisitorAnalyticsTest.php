@@ -67,7 +67,7 @@ class VisitorAnalyticsTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Statistik Pengunjung Portal', false);
+        $response->assertSee('Statistik Pengunjung', false);
         $response->assertSee('Hari Ini', false);
         $response->assertSee('Kemarin', false);
         $response->assertSee('Bulan Ini', false);

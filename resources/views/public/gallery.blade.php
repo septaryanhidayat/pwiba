@@ -20,7 +20,7 @@
             </div>
             <div class="shrink-0">
                 <a href="{{ route('gallery.videos') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all shadow-md hover-lift">
-                    <i class="fa-brands fa-youtube text-red-500 text-sm"></i>
+                    <i class="fa-brands fa-youtube text-amber-400 text-sm"></i>
                     <span>Beralih ke Galeri Video</span>
                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
