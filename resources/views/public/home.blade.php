@@ -86,7 +86,7 @@
 
                         <!-- Photo Portrait (Clickable to Chairman Profile) with Balanced Proportions -->
                         <a href="{{ route('chairman.archive.index') }}" 
-                           class="relative pt-4 px-3 sm:px-4 flex justify-center h-64 sm:h-76 lg:h-[345px] overflow-hidden group/photo block cursor-pointer"
+                           class="relative pt-4 px-3 sm:px-4 flex justify-center h-72 sm:h-80 lg:h-[395px] overflow-hidden group/photo block cursor-pointer"
                            title="Klik untuk melihat Profil & Rekam Jejak Lengkap Wardoyo, S.I.Kom.">
                             <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
@@ -96,7 +96,7 @@
                                  loading="eager"
                                  decoding="sync"
                                  onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
-                                 class="w-full h-full object-cover object-[center_16%] drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
+                                 class="w-full h-full object-cover object-[center_14%] drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
                             
                             <!-- Subtle Click Prompt on Hover -->
                             <div class="absolute bottom-2 inset-x-4 py-1.5 px-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
