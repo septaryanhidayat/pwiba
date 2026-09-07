@@ -6,16 +6,16 @@
 <div x-data="{ modalSambutan: false }">
 
 <!-- 1. Hero Section -->
-<section id="beranda" class="relative gradient-mesh text-white pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-16 overflow-hidden">
+<section id="beranda" class="relative gradient-mesh text-white py-14 sm:py-16 lg:py-20 overflow-hidden">
     <!-- Ambient Glow Background Circles (Smooth Animated Floating Mesh) -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none animate-orb-glow"></div>
     <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-amber-500/15 rounded-full blur-2xl pointer-events-none animate-orb-glow-delayed"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
             <!-- Left Hero Content -->
-            <div class="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 
                 <!-- Badge Indicator -->
                 <div class="hero-badge-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
@@ -24,53 +24,69 @@
                 </div>
 
                 <!-- Main Headline -->
-                <h1 class="hero-title-anim text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                <h1 class="hero-title-anim text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                     Sinergi Pers Bermartabat <br class="hidden sm:inline">
                     <span class="text-gradient-gold text-shimmer">Banyuasin Bangkit & Sejahtera</span>
                 </h1>
 
                 <!-- Subtitle -->
-                <p class="hero-desc-anim text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                <p class="hero-desc-anim text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
                     Wadah terdepan jurnalis profesional di Kabupaten Banyuasin, Sumatera Selatan. Menjaga kemerdekaan pers, meningkatkan kompetensi kewartawanan, dan mengawal pembangunan daerah dengan informasi akurat dan kredibel.
                 </p>
 
                 <!-- Dual CTA Buttons -->
-                <div class="hero-cta-anim flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
-                    <a href="#berita" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-slate-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-0.5">
+                <div class="hero-cta-anim flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-1">
+                    <a href="#berita" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-0.5">
                         <i class="fa-solid fa-newspaper text-sm"></i>
                         <span>Baca Berita Terkini</span>
                     </a>
-                    <a href="#bukutamu" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 transform hover:-translate-y-0.5">
+                    <a href="#bukutamu" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 transform hover:-translate-y-0.5">
                         <i class="fa-solid fa-feather-pointed text-amber-400"></i>
                         <span>Isi Buku Tamu</span>
                     </a>
+                </div>
+
+                <!-- Quick Stats Pill List (Tata letak semula di kolom kiri di bawah tombol) -->
+                <div class="hero-stats-anim grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white">{{ $ukwStats['total_aktif'] ?? 48 }}</div>
+                        <div class="text-xs text-slate-400">Wartawan Aktif</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">{{ $mediaCount ?? 41 }}</div>
+                        <div class="text-xs text-slate-400">Media Mitra</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
+                        <div class="text-xs text-slate-400">Terverifikasi PWI</div>
+                    </div>
                 </div>
 
             </div>
 
             <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
             <div class="hero-card-anim lg:col-span-5 relative flex justify-center items-center">
-                <div class="relative w-full max-w-[320px] sm:max-w-[340px] mx-auto group animate-float-slow">
+                <div class="relative w-full max-w-[350px] sm:max-w-[375px] lg:max-w-[385px] mx-auto group animate-float-slow">
                     <!-- Glow Backdrop -->
                     <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
                     <!-- Main Frame -->
                     <div class="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-slate-900/80 via-slate-900/90 to-slate-950 shadow-2xl">
                         <!-- Top Official Tag -->
-                        <div class="absolute top-3.5 left-3.5 z-20 flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
-                            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" width="14" height="14" class="w-3.5 h-3.5 object-contain">
-                            <span class="text-[10px] font-bold tracking-wide">PWI BANYUASIN</span>
+                        <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/15 text-white shadow-lg">
+                            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="PWI Logo" width="16" height="16" class="w-4 h-4 object-contain">
+                            <span class="text-[11px] font-bold tracking-wide">PWI BANYUASIN</span>
                         </div>
 
-                        <div class="absolute top-3.5 right-3.5 z-20">
-                            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-500 text-slate-950 shadow-md">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 shadow-md">
                                 Periode 2025–2028
                             </span>
                         </div>
 
                         <!-- Photo Portrait (Clickable to Chairman Profile) with Balanced Proportions -->
                         <a href="{{ route('chairman.archive.index') }}" 
-                           class="relative pt-3 px-3 flex justify-center h-52 sm:h-56 overflow-hidden group/photo block cursor-pointer"
+                           class="relative pt-4 px-3 sm:px-4 flex justify-center h-64 sm:h-76 lg:h-[345px] overflow-hidden group/photo block cursor-pointer"
                            title="Klik untuk melihat Profil & Rekam Jejak Lengkap Wardoyo, S.I.Kom.">
                             <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
@@ -80,11 +96,11 @@
                                  loading="eager"
                                  decoding="sync"
                                  onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
-                                 class="w-full h-full object-cover object-[center_18%] drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
+                                 class="w-full h-full object-cover object-[center_16%] drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
                             
                             <!-- Subtle Click Prompt on Hover -->
-                            <div class="absolute bottom-2 inset-x-3 py-1 px-2 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
-                                <span class="text-[11px] font-bold text-amber-300 flex items-center justify-center gap-1.5">
+                            <div class="absolute bottom-2 inset-x-4 py-1.5 px-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
+                                <span class="text-xs font-bold text-amber-300 flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-user-tie"></i>
                                     <span>Lihat Profil Ketua &rarr;</span>
                                 </span>
@@ -92,44 +108,44 @@
                         </a>
 
                         <!-- Executive Identity & Sambutan Singkat -->
-                        <div class="p-3.5 sm:p-4 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20 text-center sm:text-left">
+                        <div class="p-4 sm:p-5 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20 text-center sm:text-left">
                             <div class="flex flex-col items-center sm:items-start">
                                 <a href="{{ route('chairman.archive.index') }}" class="group/title inline-flex items-center justify-center sm:justify-start gap-1.5">
-                                    <h3 class="text-base sm:text-lg font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors inline-flex items-center gap-1.5">
+                                    <h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors inline-flex items-center gap-1.5">
                                         <span>Wardoyo, S.I.Kom</span>
                                         <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400/70 group-hover/title:text-amber-300"></i>
                                     </h3>
                                 </a>
-                                <div class="text-[10px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">
+                                <div class="text-[11px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
                                     Ketua PWI Kabupaten Banyuasin
                                 </div>
                             </div>
 
                             <!-- Sambutan Singkat Resmi Pelantikan -->
-                            <div class="mt-2 pt-2 border-t border-white/10">
-                                <p class="text-[11px] leading-relaxed text-slate-200 line-clamp-2 italic text-center sm:text-left">
-                                    "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi insan pers Banyuasin untuk menjaga marwah profesi."
+                            <div class="mt-2.5 pt-2.5 border-t border-white/10">
+                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-2 italic text-center sm:text-left">
+                                    "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi."
                                 </p>
                             </div>
 
                             <!-- Actions: Profil Ketua, Baca Sambutan Lengkap & Unduh Dokumen PDF -->
-                            <div class="mt-2.5 pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2">
+                            <div class="mt-3.5 pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2.5 sm:gap-2">
                                 <button @click="modalSambutan = true" 
                                         type="button" 
-                                        class="inline-flex items-center justify-center gap-1 text-[11px] font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
+                                        class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
                                     <i class="fa-solid fa-book-open text-xs"></i>
                                     <span>Baca Sambutan &rarr;</span>
                                 </button>
-                                <div class="flex items-center justify-center gap-1.5">
+                                <div class="flex items-center justify-center gap-2">
                                     <a href="{{ route('chairman.archive.index') }}" 
-                                       class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[10px] font-black text-slate-950 transition-all shadow-sm">
+                                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-[11px] font-black text-slate-950 transition-all shadow-sm">
                                         <i class="fa-solid fa-user-tie"></i>
                                         <span>Profil Ketua</span>
                                     </a>
                                     <a href="{{ asset('assets/dokumen/sambutan-ketua.pdf') }}" 
                                        target="_blank" 
                                        rel="noopener noreferrer"
-                                       class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-bold text-white border border-white/15 transition-all shadow-sm"
+                                       class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white border border-white/15 transition-all shadow-sm"
                                        title="Unduh PDF Sambutan Pelantikan">
                                         <i class="fa-solid fa-file-pdf text-rose-400"></i>
                                         <span>PDF</span>
@@ -142,24 +158,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <!-- Quick Stats Grounding Bar (Below both columns) -->
-        <div class="hero-stats-anim mt-10 lg:mt-12 pt-6 border-t border-white/10">
-            <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-3xl mx-auto text-center">
-                <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-                    <div class="text-xl sm:text-3xl font-extrabold text-white">{{ $ukwStats['total_aktif'] ?? 48 }}</div>
-                    <div class="text-[10px] sm:text-xs text-slate-300 font-semibold tracking-wider uppercase mt-0.5">Wartawan Aktif</div>
-                </div>
-                <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-                    <div class="text-xl sm:text-3xl font-extrabold text-amber-400">{{ $mediaCount ?? 41 }}</div>
-                    <div class="text-[10px] sm:text-xs text-slate-300 font-semibold tracking-wider uppercase mt-0.5">Media Mitra</div>
-                </div>
-                <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-                    <div class="text-xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
-                    <div class="text-[10px] sm:text-xs text-slate-300 font-semibold tracking-wider uppercase mt-0.5">Terverifikasi PWI</div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

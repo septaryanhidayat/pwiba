@@ -22,7 +22,7 @@
     <!-- ========================================================================= -->
     <!-- 1. HERO SECTION: COMPANY PROFILE / PORTOFOLIO RESMI UTAMA                 -->
     <!-- ========================================================================= -->
-    <section class="relative bg-gradient-to-b from-[#070D1E] via-[#0B132B] to-[#142042] text-white pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-16 overflow-hidden border-b border-white/10">
+    <section class="relative bg-gradient-to-b from-[#070D1E] via-[#0B132B] to-[#142042] text-white py-14 sm:py-16 lg:py-20 overflow-hidden border-b border-white/10">
         
         <!-- Ambient Decorative Glows -->
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
