@@ -71,7 +71,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
+            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200 min-w-[700px]">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-4 text-center w-12 font-bold whitespace-nowrap">NO</th>
@@ -132,14 +132,11 @@
             </table>
         </div>
 
-        <div class="p-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 dark:text-slate-400 gap-4 bg-slate-50/50 dark:bg-slate-900/50">
-            <div>
-                Menampilkan {{ $letters->firstItem() ?? 0 }} s/d {{ $letters->lastItem() ?? 0 }} dari {{ $letters->total() }} surat
-            </div>
-            <div>
+        @if($letters->hasPages())
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
                 {{ $letters->withQueryString()->links() }}
             </div>
-        </div>
+        @endif
 
     </div>
 

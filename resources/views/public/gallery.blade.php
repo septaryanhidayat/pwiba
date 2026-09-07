@@ -77,7 +77,7 @@
         </div>
 
         <!-- Pagination -->
-        <div class="mt-12 flex justify-center">
+        <div class="mt-12 w-full">
             {{ $galleries->links() }}
         </div>
 

@@ -47,7 +47,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+            <table class="w-full text-left text-xs min-w-[600px] sm:min-w-full">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-6 text-center w-16 font-bold">NO</th>
@@ -61,7 +61,7 @@
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
                             <td class="py-4 px-6 text-center font-bold text-slate-500 dark:text-slate-400">{{ $posts->firstItem() + $index }}</td>
                             <td class="py-4 px-6">
-                                <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-amber-400 transition-colors text-sm line-clamp-1">
+                                <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-amber-400 transition-colors text-sm line-clamp-2">
                                     {{ $p->judul }}
                                 </a>
                                 <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-2 flex-wrap">
@@ -102,14 +102,11 @@
             </table>
         </div>
 
-        <div class="p-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 dark:text-slate-400 gap-4 bg-slate-50/50 dark:bg-slate-900/50">
-            <div>
-                Menampilkan {{ $posts->firstItem() ?? 0 }} s/d {{ $posts->lastItem() ?? 0 }} dari {{ $posts->total() }} berita
-            </div>
-            <div>
+        @if($posts->hasPages())
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
                 {{ $posts->withQueryString()->links() }}
             </div>
-        </div>
+        @endif
 
     </div>
 

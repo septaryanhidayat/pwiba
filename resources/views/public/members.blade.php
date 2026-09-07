@@ -134,7 +134,7 @@
             </div>
 
             <!-- Pagination -->
-            <div class="mt-12 flex justify-center">
+            <div class="mt-12 w-full">
                 {{ $members->withQueryString()->links() }}
             </div>
         @endif

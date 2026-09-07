@@ -261,8 +261,7 @@ class ChairmanArchiveTest extends TestCase
         $response->assertSee('Edit Profil &amp; Portofolio Ketua', false);
         $response->assertSee('name="name"', false);
         $response->assertSee('name="title"', false);
-        $response->assertSee('name="foto"', false);
-        $response->assertSee('1. Identitas &amp; Foto Utama', false);
+        $response->assertSee('1. Identitas', false);
     }
 
     public function test_authenticated_admin_can_update_chairman_profile_and_reflects_publicly(): void

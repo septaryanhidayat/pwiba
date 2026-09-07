@@ -107,9 +107,9 @@
                 <span>Cetak Laporan</span>
             </a>
 
-            <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer">
+            <button @click="modalTambah = true" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all cursor-pointer whitespace-nowrap">
                 <i class="fa-solid fa-user-plus"></i>
-                <span>+ Data Wartawan Banyuasin</span>
+                <span>+ Tambah Anggota</span>
             </button>
         </div>
     </div>
@@ -143,7 +143,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
+            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200 min-w-[760px]">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-6 text-center w-16 font-bold">NO</th>
@@ -217,12 +217,11 @@
         </div>
 
         <!-- Pagination -->
-        <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-            <span class="text-xs text-slate-500 dark:text-slate-400">
-                Menampilkan {{ $members->firstItem() ?? 0 }} sampai {{ $members->lastItem() ?? 0 }} dari {{ $members->total() }} anggota
-            </span>
-            {{ $members->withQueryString()->links() }}
-        </div>
+        @if($members->hasPages())
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                {{ $members->withQueryString()->links() }}
+            </div>
+        @endif
 
     </div>
 

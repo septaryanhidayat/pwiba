@@ -185,14 +185,14 @@
 
         <!-- Table Data -->
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+            <table class="w-full text-left text-xs min-w-[560px] sm:min-w-full">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-4 text-center w-12 font-bold">NO</th>
-                        <th class="py-3.5 px-6 font-bold">JUDUL TULISAN & INFORMASI ARSIP</th>
+                        <th class="py-3.5 px-4 sm:px-6 font-bold">JUDUL TULISAN & INFORMASI ARSIP</th>
                         <th class="py-3.5 px-6 font-bold hidden md:table-cell w-1/3">CUPLIKAN KONTEN</th>
                         <th class="py-3.5 px-4 text-center font-bold hidden sm:table-cell w-28">SUMBER ASLI</th>
-                        <th class="py-3.5 px-6 text-center w-36 font-bold">AKSI</th>
+                        <th class="py-3.5 px-4 sm:px-6 text-center w-36 font-bold">AKSI</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -204,8 +204,8 @@
                             </td>
 
                             <!-- Judul & Info -->
-                            <td class="py-4 px-6">
-                                <a href="{{ route('chairman.archive.show', $p->slug) }}" target="_blank" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-amber-400 transition-colors text-sm line-clamp-1">
+                            <td class="py-4 px-4 sm:px-6">
+                                <a href="{{ route('chairman.archive.show', $p->slug) }}" target="_blank" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-amber-400 transition-colors text-sm line-clamp-2">
                                     {{ $p->title }}
                                 </a>
                                 <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1.5 flex items-center gap-2 flex-wrap">
@@ -241,7 +241,7 @@
                             </td>
 
                             <!-- Aksi -->
-                            <td class="py-4 px-6 text-center">
+                            <td class="py-4 px-4 sm:px-6 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
                                     <!-- Tinjau Halaman Publik -->
                                     <a href="{{ route('chairman.archive.show', $p->slug) }}" target="_blank" class="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 hover:bg-blue-600 hover:text-white border border-blue-200 dark:border-blue-800 transition-all font-bold shadow-xs" title="Tinjau di Halaman Publik /wardoyo">
@@ -289,13 +289,8 @@
 
         <!-- Pagination -->
         @if($posts->hasPages())
-            <div class="p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-xs text-slate-600 dark:text-slate-400 font-medium">
-                    Menampilkan <span class="font-bold text-slate-900 dark:text-white">{{ $posts->firstItem() }}</span> sampai <span class="font-bold text-slate-900 dark:text-white">{{ $posts->lastItem() }}</span> dari <span class="font-bold text-slate-900 dark:text-white">{{ $posts->total() }}</span> arsip karya tulis
-                </div>
-                <div>
-                    {{ $posts->links() }}
-                </div>
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                {{ $posts->withQueryString()->links() }}
             </div>
         @endif
 

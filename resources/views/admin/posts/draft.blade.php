@@ -39,7 +39,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
+            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200 min-w-[600px] sm:min-w-full">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-6 text-center w-16 font-bold">NO</th>
@@ -53,7 +53,7 @@
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
                             <td class="py-4 px-6 text-center font-bold text-slate-500 dark:text-slate-400">{{ $posts->firstItem() + $index }}</td>
                             <td class="py-4 px-6 font-bold text-slate-900 dark:text-white text-sm">
-                                <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="hover:text-blue-600 dark:hover:text-amber-400 transition-colors line-clamp-1" title="Tinjau Draf">
+                                <a href="{{ route('news.show', $p->slug) }}" target="_blank" class="hover:text-blue-600 dark:hover:text-amber-400 transition-colors line-clamp-2" title="Tinjau Draf">
                                     {{ $p->judul }}
                                 </a>
                                 <div class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-medium flex items-center gap-2 flex-wrap">
@@ -102,9 +102,11 @@
             </table>
         </div>
 
-        <div class="p-6 border-t border-slate-200 dark:border-slate-800 flex justify-end bg-slate-50/50 dark:bg-slate-900/50">
-            {{ $posts->withQueryString()->links() }}
-        </div>
+        @if($posts->hasPages())
+            <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                {{ $posts->withQueryString()->links() }}
+            </div>
+        @endif
 
     </div>
 
