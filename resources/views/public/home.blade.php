@@ -6,12 +6,12 @@
 <div x-data="{ modalSambutan: false }">
 
 <!-- 1. Hero Section -->
-<section id="beranda" class="relative gradient-mesh text-white py-14 sm:py-16 lg:py-20 overflow-hidden">
+<section id="beranda" class="relative min-h-[calc(100vh-68px)] flex flex-col justify-center gradient-mesh text-white py-12 sm:py-16 lg:py-20 overflow-hidden">
     <!-- Ambient Glow Background Circles (Smooth Animated Floating Mesh) -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none animate-orb-glow"></div>
     <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-amber-500/15 rounded-full blur-2xl pointer-events-none animate-orb-glow-delayed"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
             <!-- Left Hero Content -->
