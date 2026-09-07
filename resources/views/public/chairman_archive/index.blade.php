@@ -208,31 +208,38 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
                 
-                <!-- Left: Narrative Story (7 cols) -->
-                <div class="lg:col-span-7 space-y-5" data-aos="fade-up">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-400/30 text-amber-700 dark:text-amber-300 text-xs font-black uppercase tracking-wider shadow-xs">
-                        <i class="fa-solid fa-user-pen text-amber-500"></i>
-                        <span>{{ $profile['narasi_subjudul'] ?? 'Tentang Kepemimpinan & Pengabdian' }}</span>
-                    </div>
+                <!-- Left: Narrative Story (Equal 50% Width) -->
+                <div class="flex flex-col justify-between space-y-5" data-aos="fade-up">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-400/30 text-amber-700 dark:text-amber-300 text-xs font-black uppercase tracking-wider shadow-xs">
+                            <i class="fa-solid fa-user-pen text-amber-500"></i>
+                            <span>{{ $profile['narasi_subjudul'] ?? 'Tentang Kepemimpinan & Pengabdian' }}</span>
+                        </div>
 
-                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight">
-                        {{ $profile['narasi_judul'] ?? 'Komitmen Teruji Mengawal Integritas Pers & Pembangunan Banyuasin' }}
-                    </h2>
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+                            {{ $profile['narasi_judul'] ?? 'Komitmen Teruji Mengawal Integritas Pers & Pembangunan Banyuasin' }}
+                        </h2>
 
-                    <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3.5">
-                        @if(!empty($profile['narasi_paragraf_1']))
-                            <p class="bg-white/70 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200/70 dark:border-slate-700/60 shadow-2xs backdrop-blur-xs">
-                                {!! nl2br(e($profile['narasi_paragraf_1'])) !!}
-                            </p>
-                        @endif
-                        @if(!empty($profile['narasi_paragraf_2']))
-                            <p>{!! nl2br(e($profile['narasi_paragraf_2'])) !!}</p>
-                        @endif
-                        @if(!empty($profile['narasi_paragraf_3']))
-                            <p>{!! nl2br(e($profile['narasi_paragraf_3'])) !!}</p>
-                        @endif
+                        <!-- Unified Narrative Card -->
+                        <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            @if(!empty($profile['narasi_paragraf_1']))
+                                <p class="font-medium text-slate-800 dark:text-slate-200">
+                                    {!! nl2br(e($profile['narasi_paragraf_1'])) !!}
+                                </p>
+                            @endif
+                            @if(!empty($profile['narasi_paragraf_2']))
+                                <p class="border-t border-slate-100 dark:border-slate-700/60 pt-3.5">
+                                    {!! nl2br(e($profile['narasi_paragraf_2'])) !!}
+                                </p>
+                            @endif
+                            @if(!empty($profile['narasi_paragraf_3']))
+                                <p class="border-t border-slate-100 dark:border-slate-700/60 pt-3.5">
+                                    {!! nl2br(e($profile['narasi_paragraf_3'])) !!}
+                                </p>
+                            @endif
+                        </div>
                     </div>
 
                     <!-- Fast Contact Pills (Rata Tengah di Mobile, Rata Kiri di Desktop, Rapi, Berwarna & Menarik) -->
@@ -265,65 +272,77 @@
                     </div>
                 </div>
 
-                <!-- Right: Strategic Value Pillars (5 cols) -->
-                <div class="lg:col-span-5 space-y-3.5">
-                    @php
-                        $pilarThemes = [
-                            [
-                                'border' => 'border-blue-200/90 hover:border-blue-400 dark:border-blue-800/70',
-                                'bg' => 'bg-gradient-to-br from-blue-50/90 via-white to-blue-50/30 dark:from-blue-950/30 dark:via-slate-900 dark:to-slate-900',
-                                'icon' => 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-blue-500/25',
-                                'title' => 'group-hover:text-blue-600 dark:group-hover:text-blue-400',
-                                'tag' => 'bg-blue-100/80 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
-                                'num' => '01',
-                            ],
-                            [
-                                'border' => 'border-amber-200/90 hover:border-amber-400 dark:border-amber-800/70',
-                                'bg' => 'bg-gradient-to-br from-amber-50/90 via-white to-amber-50/30 dark:from-amber-950/30 dark:via-slate-900 dark:to-slate-900',
-                                'icon' => 'bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-amber-500/25',
-                                'title' => 'group-hover:text-amber-600 dark:group-hover:text-amber-400',
-                                'tag' => 'bg-amber-100/80 text-amber-900 dark:bg-amber-900/60 dark:text-amber-300',
-                                'num' => '02',
-                            ],
-                            [
-                                'border' => 'border-emerald-200/90 hover:border-emerald-400 dark:border-emerald-800/70',
-                                'bg' => 'bg-gradient-to-br from-emerald-50/90 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-slate-900',
-                                'icon' => 'bg-gradient-to-tr from-emerald-600 to-teal-600 text-white shadow-emerald-500/25',
-                                'title' => 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
-                                'tag' => 'bg-emerald-100/80 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
-                                'num' => '03',
-                            ],
-                            [
-                                'border' => 'border-purple-200/90 hover:border-purple-400 dark:border-purple-800/70',
-                                'bg' => 'bg-gradient-to-br from-purple-50/90 via-white to-purple-50/30 dark:from-purple-950/30 dark:via-slate-900 dark:to-slate-900',
-                                'icon' => 'bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-purple-500/25',
-                                'title' => 'group-hover:text-purple-600 dark:group-hover:text-purple-400',
-                                'tag' => 'bg-purple-100/80 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
-                                'num' => '04',
-                            ],
-                        ];
-                    @endphp
-                    @foreach($profile['pilar_nilai'] as $idx => $pilar)
-                        @php $theme = $pilarThemes[$idx % count($pilarThemes)]; @endphp
-                        <div class="p-4.5 rounded-2xl {{ $theme['bg'] }} border {{ $theme['border'] }} shadow-xs flex items-start gap-4 transition-all duration-300 group hover:-translate-y-0.5 hover:shadow-md" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration) * 50 }}">
-                            <div class="w-11 h-11 rounded-xl {{ $theme['icon'] }} flex items-center justify-center font-bold shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                                <i class="{{ $pilar['icon'] ?? 'fa-solid fa-award' }} text-sm"></i>
-                            </div>
-                            <div class="space-y-1">
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-sm font-extrabold text-slate-900 dark:text-white {{ $theme['title'] }} transition-colors">
-                                        {{ $pilar['title'] }}
-                                    </h3>
-                                    <span class="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider {{ $theme['tag'] }}">
-                                        Pilar {{ $theme['num'] }}
-                                    </span>
-                                </div>
-                                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    {{ $pilar['desc'] }}
-                                </p>
-                            </div>
+                <!-- Right: Strategic Value Pillars (Equal 50% Width) -->
+                <div class="flex flex-col justify-between space-y-4" data-aos="fade-up" data-aos-delay="40">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-400/15 border border-blue-400/30 text-blue-700 dark:text-blue-300 text-xs font-black uppercase tracking-wider shadow-xs">
+                            <i class="fa-solid fa-compass text-blue-500"></i>
+                            <span>4 Pilar Nilai Kepemimpinan</span>
                         </div>
-                    @endforeach
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+                            Landasan Strategis PWI Banyuasin
+                        </h3>
+                    </div>
+
+                    <div class="space-y-3.5 flex-1 flex flex-col justify-between">
+                        @php
+                            $pilarThemes = [
+                                [
+                                    'border' => 'border-blue-200/90 hover:border-blue-400 dark:border-blue-800/70',
+                                    'bg' => 'bg-gradient-to-br from-blue-50/90 via-white to-blue-50/30 dark:from-blue-950/30 dark:via-slate-900 dark:to-slate-900',
+                                    'icon' => 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-blue-500/25',
+                                    'title' => 'group-hover:text-blue-600 dark:group-hover:text-blue-400',
+                                    'tag' => 'bg-blue-100/80 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
+                                    'num' => '01',
+                                ],
+                                [
+                                    'border' => 'border-amber-200/90 hover:border-amber-400 dark:border-amber-800/70',
+                                    'bg' => 'bg-gradient-to-br from-amber-50/90 via-white to-amber-50/30 dark:from-amber-950/30 dark:via-slate-900 dark:to-slate-900',
+                                    'icon' => 'bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-amber-500/25',
+                                    'title' => 'group-hover:text-amber-600 dark:group-hover:text-amber-400',
+                                    'tag' => 'bg-amber-100/80 text-amber-900 dark:bg-amber-900/60 dark:text-amber-300',
+                                    'num' => '02',
+                                ],
+                                [
+                                    'border' => 'border-emerald-200/90 hover:border-emerald-400 dark:border-emerald-800/70',
+                                    'bg' => 'bg-gradient-to-br from-emerald-50/90 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-slate-900',
+                                    'icon' => 'bg-gradient-to-tr from-emerald-600 to-teal-600 text-white shadow-emerald-500/25',
+                                    'title' => 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
+                                    'tag' => 'bg-emerald-100/80 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
+                                    'num' => '03',
+                                ],
+                                [
+                                    'border' => 'border-purple-200/90 hover:border-purple-400 dark:border-purple-800/70',
+                                    'bg' => 'bg-gradient-to-br from-purple-50/90 via-white to-purple-50/30 dark:from-purple-950/30 dark:via-slate-900 dark:to-slate-900',
+                                    'icon' => 'bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-purple-500/25',
+                                    'title' => 'group-hover:text-purple-600 dark:group-hover:text-purple-400',
+                                    'tag' => 'bg-purple-100/80 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
+                                    'num' => '04',
+                                ],
+                            ];
+                        @endphp
+                        @foreach($profile['pilar_nilai'] as $idx => $pilar)
+                            @php $theme = $pilarThemes[$idx % count($pilarThemes)]; @endphp
+                            <div class="p-4 sm:p-5 rounded-2xl {{ $theme['bg'] }} border {{ $theme['border'] }} shadow-xs flex items-start gap-4 transition-all duration-300 group hover:-translate-y-0.5 hover:shadow-md" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration) * 50 }}">
+                                <div class="w-11 h-11 rounded-xl {{ $theme['icon'] }} flex items-center justify-center font-bold shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                                    <i class="{{ $pilar['icon'] ?? 'fa-solid fa-award' }} text-sm"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2">
+                                        <h3 class="text-sm font-extrabold text-slate-900 dark:text-white {{ $theme['title'] }} transition-colors">
+                                            {{ $pilar['title'] }}
+                                        </h3>
+                                        <span class="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider {{ $theme['tag'] }}">
+                                            Pilar {{ $theme['num'] }}
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        {{ $pilar['desc'] }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
             </div>
@@ -477,113 +496,125 @@
     <!-- ========================================================================= -->
     <!-- 4. PENDIDIKAN & SERTIFIKASI KHUSUS                                       -->
     <!-- ========================================================================= -->
-    <section class="py-16 sm:py-20 bg-gradient-to-b from-slate-100/80 via-blue-50/20 to-slate-100/90 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-slate-800">
+    <section class="py-16 sm:py-20 pb-20 sm:pb-24 bg-gradient-to-b from-slate-100/80 via-blue-50/20 to-slate-100/90 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
                 
-                <!-- Riwayat Pendidikan (Sapphire Blue Dossier - 6 cols) -->
-                <div class="lg:col-span-6 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border-2 border-blue-200/80 dark:border-blue-900/60 shadow-lg relative overflow-hidden space-y-6" data-aos="fade-up">
+                <!-- Riwayat Pendidikan (Sapphire Blue Dossier - 50% Width) -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border-2 border-blue-200/90 dark:border-blue-900/60 shadow-lg overflow-hidden flex flex-col" data-aos="fade-up">
                     
                     <!-- Decorative Top Ribbon -->
-                    <div class="h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 -mt-6 sm:-mt-8 -mx-6 sm:-mx-8 mb-6"></div>
+                    <div class="h-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 w-full shrink-0"></div>
 
-                    <div class="space-y-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-300 text-xs font-black uppercase tracking-wider">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            <span>Kualifikasi Akademik</span>
-                        </div>
-                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">
-                            Pendidikan Formal & Keilmuan
-                        </h3>
-                    </div>
-
-                    <div class="space-y-3.5">
-                        @foreach($profile['pendidikan'] as $edu)
-                            @php $isCompleted = $edu['is_completed'] ?? true; @endphp
-                            <div class="p-4.5 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 {{ $isCompleted ? 'border-l-4 border-l-blue-600 bg-gradient-to-r from-blue-50/60 via-white to-blue-50/20 dark:from-blue-950/25 dark:via-slate-800/80 dark:to-slate-800/80 border-blue-100 dark:border-blue-900/40 hover:border-blue-300' : 'border-l-4 border-l-amber-500 bg-gradient-to-r from-amber-50/70 via-white to-amber-50/20 dark:from-amber-950/25 dark:via-slate-800/80 dark:to-slate-800/80 border-amber-200 dark:border-amber-800/60 hover:border-amber-300' }}">
-                                <div>
-                                    <div class="flex flex-wrap items-center gap-2">
-                                        <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider {{ $isCompleted ? 'bg-blue-600 text-white shadow-xs' : 'bg-amber-400 text-slate-950 shadow-xs' }}">
-                                            {{ $edu['tingkat'] }}
-                                        </span>
-                                        @if(! $isCompleted)
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                                                <span>{{ $edu['status'] ?? 'Sedang Ditempuh' }}</span>
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700">
-                                                <i class="fa-solid fa-check text-[9px]"></i>
-                                                <span>{{ $edu['status'] ?? 'Lulus' }}</span>
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mt-1.5">{{ $edu['instansi'] }}</h4>
-                                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">{{ $edu['prodi'] }}</p>
-                                </div>
-                                
-                                @if(! $isCompleted)
-                                    <div class="w-9 h-9 rounded-full bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-300 dark:border-amber-700 flex items-center justify-center text-xs shrink-0 shadow-xs" title="Studi Berjalan (Sedang Ditempuh)">
-                                        <i class="fa-solid fa-hourglass-half"></i>
-                                    </div>
-                                @else
-                                    <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shrink-0 shadow-sm" title="Lulus">
-                                        <i class="fa-solid fa-graduation-cap"></i>
-                                    </div>
-                                @endif
+                    <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-300 text-xs font-black uppercase tracking-wider">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>Kualifikasi Akademik</span>
                             </div>
-                        @endforeach
+                            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+                                Pendidikan Formal & Keilmuan
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3.5 flex-1">
+                            @foreach($profile['pendidikan'] as $edu)
+                                @php $isCompleted = $edu['is_completed'] ?? true; @endphp
+                                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50/90 dark:bg-slate-800/70 border border-slate-200/90 dark:border-slate-700/80 hover:border-blue-400 transition-all duration-300 flex items-center justify-between gap-4 relative overflow-hidden shadow-xs">
+                                    <!-- Left Colored Accent Strip -->
+                                    <div class="absolute left-0 top-0 bottom-0 w-1.5 {{ $isCompleted ? 'bg-blue-600' : 'bg-amber-500' }}"></div>
+
+                                    <div class="pl-2.5 space-y-1">
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider {{ $isCompleted ? 'bg-blue-600 text-white shadow-xs' : 'bg-amber-400 text-slate-950 shadow-xs' }}">
+                                                {{ $edu['tingkat'] }}
+                                            </span>
+                                            @if(! $isCompleted)
+                                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                                    <span>{{ $edu['status'] ?? 'Sedang Ditempuh' }}</span>
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700">
+                                                    <i class="fa-solid fa-check text-[9px]"></i>
+                                                    <span>{{ $edu['status'] ?? 'Lulus' }}</span>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white mt-1">{{ $edu['instansi'] }}</h4>
+                                        <p class="text-xs text-slate-600 dark:text-slate-400 font-medium">{{ $edu['prodi'] }}</p>
+                                    </div>
+                                    
+                                    @if(! $isCompleted)
+                                        <div class="w-9 h-9 rounded-full bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-300 dark:border-amber-700 flex items-center justify-center text-xs shrink-0 shadow-xs" title="Studi Berjalan (Sedang Ditempuh)">
+                                            <i class="fa-solid fa-hourglass-half"></i>
+                                        </div>
+                                    @else
+                                        <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shrink-0 shadow-sm" title="Lulus">
+                                            <i class="fa-solid fa-graduation-cap"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
-                <!-- Sertifikasi & Pelatihan Khusus (Royal Gold Dossier - 6 cols) -->
-                <div class="lg:col-span-6 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border-2 border-amber-200/80 dark:border-amber-900/60 shadow-lg relative overflow-hidden space-y-6" data-aos="fade-up" data-aos-delay="60">
+                <!-- Sertifikasi & Pelatihan Khusus (Royal Gold Dossier - 50% Width) -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border-2 border-amber-200/90 dark:border-amber-900/60 shadow-lg overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="40">
                     
                     <!-- Decorative Top Ribbon -->
-                    <div class="h-2 bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500 -mt-6 sm:-mt-8 -mx-6 sm:-mx-8 mb-6"></div>
+                    <div class="h-2.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500 w-full shrink-0"></div>
 
-                    <div class="space-y-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 text-xs font-black uppercase tracking-wider">
-                            <i class="fa-solid fa-certificate"></i>
-                            <span>Standarisasi Profesi</span>
-                        </div>
-                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">
-                            Sertifikasi & Pelatihan Jurnalistik
-                        </h3>
-                    </div>
-
-                    <div class="space-y-3.5">
-                        @foreach($profile['sertifikasi'] as $cert)
-                            @php $isUtama = str_contains(strtolower($cert['bidang']), 'utama'); @endphp
-                            <div class="p-4.5 rounded-2xl border transition-all duration-300 space-y-1.5 {{ $isUtama ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/90 via-yellow-50/40 to-white dark:from-amber-950/30 dark:via-slate-800/90 dark:to-slate-800/90 shadow-sm' : 'border border-slate-200/80 dark:border-slate-700/60 bg-slate-50/80 dark:bg-slate-800/70 hover:border-amber-300' }}">
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="flex items-center gap-2">
-                                        @if($isUtama)
-                                            <span class="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center text-xs shadow-xs">
-                                                <i class="fa-solid fa-medal"></i>
-                                            </span>
-                                        @endif
-                                        <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">{{ $cert['bidang'] }}</h4>
-                                    </div>
-                                    @if(isset($cert['tahun']))
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-2xs">
-                                            {{ $cert['tahun'] }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <p class="text-xs font-bold text-blue-700 dark:text-amber-400">{{ $cert['penerbit'] }}</p>
-                                @if(isset($cert['nomor']))
-                                    <p class="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">No: {{ $cert['nomor'] }}</p>
-                                @endif
-                                @if(isset($cert['penguji']))
-                                    <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">Penguji: {{ $cert['penguji'] }}</p>
-                                @endif
-                                @if(isset($cert['keterangan']))
-                                    <p class="text-xs text-slate-700 dark:text-slate-300 font-medium">{{ $cert['keterangan'] }}</p>
-                                @endif
+                    <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 text-xs font-black uppercase tracking-wider">
+                                <i class="fa-solid fa-certificate"></i>
+                                <span>Standarisasi Profesi</span>
                             </div>
-                        @endforeach
+                            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+                                Sertifikasi & Pelatihan Jurnalistik
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3.5 flex-1">
+                            @foreach($profile['sertifikasi'] as $cert)
+                                @php $isUtama = str_contains(strtolower($cert['bidang']), 'utama'); @endphp
+                                <div class="p-4 sm:p-5 rounded-2xl border transition-all duration-300 space-y-1.5 relative overflow-hidden shadow-xs {{ $isUtama ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/90 via-yellow-50/40 to-white dark:from-amber-950/30 dark:via-slate-800/90 dark:to-slate-800/90' : 'border border-slate-200/90 dark:border-slate-700/80 bg-slate-50/90 dark:bg-slate-800/70 hover:border-amber-400' }}">
+                                    <!-- Left Colored Accent Strip -->
+                                    <div class="absolute left-0 top-0 bottom-0 w-1.5 {{ $isUtama ? 'bg-amber-500' : 'bg-amber-400/60' }}"></div>
+
+                                    <div class="pl-2.5 space-y-1.5">
+                                        <div class="flex items-start justify-between gap-2">
+                                            <div class="flex items-center gap-2">
+                                                @if($isUtama)
+                                                    <span class="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center text-xs shadow-xs shrink-0">
+                                                        <i class="fa-solid fa-medal"></i>
+                                                    </span>
+                                                @endif
+                                                <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white leading-snug">{{ $cert['bidang'] }}</h4>
+                                            </div>
+                                            @if(!empty($cert['tahun']))
+                                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 border border-amber-300/80 dark:border-amber-700/80 shrink-0">
+                                                    {{ $cert['tahun'] }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <p class="text-xs font-bold text-blue-700 dark:text-amber-400">{{ $cert['penerbit'] }}</p>
+                                        @if(!empty($cert['nomor']) && trim($cert['nomor']) !== '-')
+                                            <p class="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">No: {{ $cert['nomor'] }}</p>
+                                        @endif
+                                        @if(!empty($cert['penguji']) && trim($cert['penguji']) !== '-')
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">Penguji: {{ $cert['penguji'] }}</p>
+                                        @endif
+                                        @if(!empty($cert['keterangan']) && trim($cert['keterangan']) !== '-')
+                                            <p class="text-xs text-slate-700 dark:text-slate-300 font-medium">{{ $cert['keterangan'] }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
@@ -599,13 +630,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             
             <!-- Section Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800" data-aos="fade-up">
-                <div class="space-y-2 max-w-2xl">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800" data-aos="fade-up">
+                <div class="space-y-2 max-w-4xl">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-800 dark:text-amber-300 text-xs font-black uppercase tracking-wider">
                         <i class="fa-solid fa-feather-pointed text-amber-500"></i>
                         <span>Arsip Digital Komprehensif</span>
                     </div>
-                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-black text-slate-900 dark:text-white whitespace-normal lg:whitespace-nowrap tracking-tight leading-snug">
                         Katalog Tulisan & Koleksi <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-amber-300 dark:to-yellow-400 bg-clip-text text-transparent">320 Karya Pemikiran</span>
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
