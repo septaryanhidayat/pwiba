@@ -22,92 +22,92 @@
     <!-- ========================================================================= -->
     <!-- 1. HERO SECTION: COMPANY PROFILE / PORTOFOLIO RESMI UTAMA                 -->
     <!-- ========================================================================= -->
-    <section class="relative bg-gradient-to-b from-[#070D1E] via-[#0B132B] to-[#142042] text-white py-14 sm:py-16 lg:py-20 overflow-hidden border-b border-white/10">
+    <section class="relative min-h-[calc(100vh-68px)] flex flex-col justify-center bg-gradient-to-b from-[#070D1E] via-[#0B132B] to-[#142042] text-white py-12 sm:py-16 lg:py-20 overflow-hidden border-b border-white/10">
         
         <!-- Ambient Decorative Glows -->
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute top-1/3 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
                 
                 <!-- Left Column: Biography & Headline (7 Cols) -->
-                <div class="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
+                <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
                     
                     <!-- Verified Figure Pill -->
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs sm:text-sm font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <i class="fa-solid fa-shield-halved text-amber-400"></i>
                         <span>{{ str_ireplace('Personal Branding', 'Portofolio', $profile['badge_top'] ?? 'Profil Eksekutif & Portofolio Resmi') }}</span>
                     </div>
 
                     <!-- Name & Title -->
-                    <div class="space-y-1 sm:space-y-1.5">
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+                    <div class="space-y-2">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
                             @php
                                 $nameParts = explode(',', $profile['name'], 2);
                                 $mainName = $nameParts[0];
                                 $degree = isset($nameParts[1]) ? ', ' . trim($nameParts[1]) : '';
                             @endphp
-                            <span>{{ $mainName }}</span><span class="text-amber-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl">{{ $degree }}</span>
+                            <span>{{ $mainName }}</span><span class="text-amber-400 font-extrabold text-3xl sm:text-4xl lg:text-5xl">{{ $degree }}</span>
                         </h1>
-                        <p class="text-xs sm:text-sm text-slate-300 font-semibold flex items-center justify-center lg:justify-start gap-2">
+                        <p class="text-sm sm:text-base text-slate-300 font-semibold flex items-center justify-center lg:justify-start gap-2">
                             <span class="text-amber-400">●</span>
                             <span>{{ $profile['title'] }}</span>
                         </p>
-                        <p class="text-[11px] text-slate-400 font-mono">
+                        <p class="text-xs sm:text-sm text-slate-400 font-mono">
                             {{ $profile['sk_resmi'] }}
                         </p>
                     </div>
 
                     <!-- Motto / Visi Kepemimpinan -->
-                    <div class="p-3.5 sm:p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative">
-                        <div class="text-amber-400 text-2xl font-serif absolute -top-2.5 left-4 select-none opacity-50">“</div>
-                        <p class="text-xs sm:text-[13px] text-slate-200 italic leading-relaxed pt-0.5 font-medium">
+                    <div class="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative">
+                        <div class="text-amber-400 text-3xl font-serif absolute -top-3 left-4 select-none opacity-50">“</div>
+                        <p class="text-sm sm:text-[15px] text-slate-200 italic leading-relaxed pt-1 font-medium">
                             {{ $profile['motto'] }}
                         </p>
                     </div>
 
                     <!-- Key Metrics Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 pt-1">
-                        <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-xl sm:text-2xl font-black text-amber-400">{{ $profile['stat_karya'] ?? ($totalArticles . '+') }}</span>
-                            <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_karya_label'] ?? 'Karya Tulis' }}</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 pt-1">
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                            <span class="block text-2xl sm:text-3xl font-black text-amber-400">{{ $profile['stat_karya'] ?? ($totalArticles . '+') }}</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_karya_label'] ?? 'Karya Tulis' }}</span>
                         </div>
-                        <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-xl sm:text-2xl font-black text-white">{{ $profile['stat_kiprah'] ?? '18+ Th' }}</span>
-                            <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_kiprah_label'] ?? 'Kiprah Jurnalistik' }}</span>
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                            <span class="block text-2xl sm:text-3xl font-black text-white">{{ $profile['stat_kiprah'] ?? '18+ Th' }}</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_kiprah_label'] ?? 'Kiprah Jurnalistik' }}</span>
                         </div>
-                        <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-xl sm:text-2xl font-black text-emerald-400">{{ $profile['stat_lisensi'] ?? 'Utama' }}</span>
-                            <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_lisensi_label'] ?? 'Lisensi UKW' }}</span>
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                            <span class="block text-2xl sm:text-3xl font-black text-emerald-400">{{ $profile['stat_lisensi'] ?? 'Utama' }}</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_lisensi_label'] ?? 'Lisensi UKW' }}</span>
                         </div>
-                        <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
-                            <span class="block text-xl sm:text-2xl font-black text-blue-300">{{ $profile['stat_pendidikan'] ?? 'S.I.Kom.' }}</span>
-                            <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_pendidikan_label'] ?? 'Ilmu Komunikasi' }}</span>
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                            <span class="block text-2xl sm:text-3xl font-black text-blue-300">{{ $profile['stat_pendidikan'] ?? 'S.I.Kom.' }}</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_pendidikan_label'] ?? 'Ilmu Komunikasi' }}</span>
                         </div>
                     </div>
 
                     <!-- Call To Actions (Email, Portfolio, Copy Link) -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 max-w-lg mx-auto lg:mx-0">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
                         @if(!empty($profile['kontak']['email']))
                         <!-- Direct Email -->
-                        <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-3.5 py-2 rounded-xl text-xs font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-md shadow-amber-500/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-1.5 text-center whitespace-nowrap">
-                            <i class="fa-solid fa-envelope text-xs text-slate-950"></i>
+                        <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-md shadow-amber-500/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 text-center whitespace-nowrap">
+                            <i class="fa-solid fa-envelope text-xs sm:text-sm text-slate-950"></i>
                             <span>Kirim Pesan</span>
                         </a>
                         @endif
 
                         <!-- Scroll to Writings -->
-                        <a href="#karya-arsip" class="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all inline-flex items-center justify-center gap-1.5 text-center whitespace-nowrap">
-                            <i class="fa-solid fa-book-bookmark text-amber-400 text-xs"></i>
+                        <a href="#karya-arsip" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all inline-flex items-center justify-center gap-2 text-center whitespace-nowrap">
+                            <i class="fa-solid fa-book-bookmark text-amber-400 text-xs sm:text-sm"></i>
                             <span>Karya Tulis</span>
                         </a>
 
                         <!-- Share / Copy Link -->
-                        <button @click="shareUrl()" type="button" class="px-3 py-2 rounded-xl text-xs font-bold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
-                            <i class="fa-solid text-xs" :class="copied ? 'fa-check text-emerald-400' : 'fa-share-nodes'"></i>
+                        <button @click="shareUrl()" type="button" class="px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 transition-all inline-flex items-center justify-center gap-2 cursor-pointer text-center whitespace-nowrap">
+                            <i class="fa-solid text-xs sm:text-sm" :class="copied ? 'fa-check text-emerald-400' : 'fa-share-nodes'"></i>
                             <span x-text="copied ? 'Tersalin!' : 'Bagikan'"></span>
                         </button>
                     </div>
@@ -115,55 +115,55 @@
                 </div>
 
                 <!-- Right Column: Official Portrait Picture & Identity Badge (5 Cols) -->
-                <div class="lg:col-span-5 flex justify-center items-center">
-                    <div class="relative w-full max-w-[310px] sm:max-w-[330px]">
+                <div class="lg:col-span-5 flex justify-center lg:justify-end items-center">
+                    <div class="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[430px]">
                         
                         <!-- Glow Backdrop Frame -->
-                        <div class="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-amber-500 via-blue-600 to-amber-300 opacity-25 blur-xl"></div>
+                        <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-amber-500 via-blue-600 to-amber-300 opacity-30 blur-2xl"></div>
 
                         <!-- Card Container -->
-                        <div class="relative rounded-3xl bg-gradient-to-b from-[#1C2541] to-[#0B132B] border-2 border-amber-400/40 p-3 sm:p-3.5 shadow-2xl space-y-2.5">
+                        <div class="relative rounded-3xl bg-gradient-to-b from-[#1C2541] to-[#0B132B] border-2 border-amber-400/40 p-4 sm:p-4.5 shadow-2xl space-y-3">
                             
                             <!-- Official Photo Frame with Balanced Height -->
-                            <div class="relative w-full h-52 sm:h-56 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-inner group">
+                            <div class="relative w-full h-64 sm:h-72 lg:h-[340px] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-inner group">
                                 <img src="{{ $profile['foto_url'] }}" 
                                      alt="{{ $profile['name'] }} - {{ $profile['title'] }}" 
-                                     class="w-full h-full object-cover object-[center_18%] transform group-hover:scale-105 transition-transform duration-700"
+                                     class="w-full h-full object-cover object-[center_16%] transform group-hover:scale-105 transition-transform duration-700"
                                      fetchpriority="high">
                                 
                                 <!-- Official Gold Ribbon Corner -->
-                                <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-lg flex items-center gap-1 border border-white/30">
-                                    <i class="fa-solid fa-award"></i>
+                                <div class="absolute top-2.5 right-2.5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-lg flex items-center gap-1.5 border border-white/30">
+                                    <i class="fa-solid fa-award text-xs"></i>
                                     <span>Ketua 2025–2028</span>
                                 </div>
 
                                 <!-- Subtle Gradient Overlay at Bottom of Photo -->
-                                <div class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#0B132B] via-[#0B132B]/75 to-transparent flex items-end p-2.5">
+                                <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#0B132B] via-[#0B132B]/80 to-transparent flex items-end p-3">
                                     <div class="text-white leading-tight">
-                                        <p class="text-[8.5px] font-bold text-amber-400 uppercase tracking-wider">SK PWI Pusat</p>
-                                        <p class="text-[9.5px] font-mono font-bold text-slate-200">{{ $profile['sk_resmi'] }}</p>
+                                        <p class="text-[9px] sm:text-[10px] font-bold text-amber-400 uppercase tracking-wider">SK PWI Pusat</p>
+                                        <p class="text-[10px] sm:text-xs font-mono font-bold text-slate-200">{{ $profile['sk_resmi'] }}</p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Bottom Identity Summary Card -->
-                            <div class="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 text-center space-y-1 backdrop-blur-xs">
-                                <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                                    <i class="fa-solid fa-award text-[8px]"></i>
+                            <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-1.5 backdrop-blur-xs">
+                                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[8.5px] sm:text-[9.5px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                    <i class="fa-solid fa-award text-[9px]"></i>
                                     <span>{{ $profile['badge_bawah_foto'] ?? 'PWI KABUPATEN BANYUASIN' }}</span>
                                 </div>
-                                <h3 class="text-sm sm:text-base font-black text-white tracking-wide">
+                                <h3 class="text-base sm:text-lg font-black text-white tracking-wide">
                                     {{ $profile['judul_bawah_foto'] ?? 'Ketua PWI Banyuasin' }}
                                 </h3>
-                                <p class="text-[10px] text-slate-300 font-medium">
+                                <p class="text-xs text-slate-300 font-medium">
                                     {{ $profile['subjudul_bawah_foto'] ?? 'Masa Bakti 2025 – 2028' }}
                                 </p>
                                 
                                 <!-- Social & Email Icons -->
-                                <div class="pt-1 flex items-center justify-center gap-2">
+                                <div class="pt-1.5 flex items-center justify-center gap-2.5">
                                     @if(!empty($profile['kontak']['instagram']))
                                     <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" 
-                                       class="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 hover:scale-105 active:scale-95 text-white flex items-center justify-center text-xs shadow-sm transition-all shrink-0" 
+                                       class="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 hover:scale-105 active:scale-95 text-white flex items-center justify-center text-xs shadow-sm transition-all shrink-0" 
                                        title="Instagram @wardianstp" aria-label="Instagram">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
@@ -171,7 +171,7 @@
 
                                     @if(!empty($profile['kontak']['facebook']))
                                     <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" 
-                                       class="w-7 h-7 rounded-lg bg-[#1877F2] hover:bg-[#166fe5] hover:scale-105 active:scale-95 text-white flex items-center justify-center text-xs shadow-sm transition-all shrink-0" 
+                                       class="w-8 h-8 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] hover:scale-105 active:scale-95 text-white flex items-center justify-center text-xs shadow-sm transition-all shrink-0" 
                                        title="Facebook Wardoyo" aria-label="Facebook">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
@@ -179,7 +179,7 @@
 
                                     @if(!empty($profile['kontak']['email']))
                                     <a href="mailto:{{ $profile['kontak']['email'] }}" 
-                                       class="w-7 h-7 rounded-lg bg-amber-400 hover:bg-amber-300 hover:scale-105 active:scale-95 text-slate-950 flex items-center justify-center text-[10px] shadow-sm transition-all shrink-0" 
+                                       class="w-8 h-8 rounded-xl bg-amber-400 hover:bg-amber-300 hover:scale-105 active:scale-95 text-slate-950 flex items-center justify-center text-xs shadow-sm transition-all shrink-0" 
                                        title="Email {{ $profile['kontak']['email'] }}" aria-label="Email">
                                         <i class="fa-solid fa-envelope"></i>
                                     </a>
