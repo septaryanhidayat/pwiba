@@ -147,4 +147,42 @@ class VisitorAnalyticsTest extends TestCase
         $this->assertIsInt($stats['today']);
         $this->assertIsInt($stats['total_visitors']);
     }
+
+    public function test_online_visitors_counts_unique_active_visitors_and_does_not_inflate_on_reload(): void
+    {
+        // 1 user visiting multiple pages in the last 2 minutes
+        VisitorLog::create([
+            'ip_address' => '192.168.1.10',
+            'session_id' => 'session_user_1',
+            'url' => '/',
+            'created_at' => now()->subMinutes(2),
+        ]);
+        VisitorLog::create([
+            'ip_address' => '192.168.1.10',
+            'session_id' => 'session_user_1',
+            'url' => '/berita',
+            'created_at' => now()->subMinute(),
+        ]);
+        VisitorLog::create([
+            'ip_address' => '192.168.1.10',
+            'session_id' => 'session_user_1',
+            'url' => '/galeri-video',
+            'created_at' => now(),
+        ]);
+
+        // A second distinct user visiting
+        VisitorLog::create([
+            'ip_address' => '192.168.1.20',
+            'session_id' => 'session_user_2',
+            'url' => '/',
+            'created_at' => now()->subMinutes(3),
+        ]);
+
+        $stats = VisitorTrackerService::getRealVisitorStats();
+
+        // 2 distinct visitors currently online, even though user 1 reloaded/visited 3 times
+        $this->assertEquals(2, $stats['online']);
+        // Total visits/hits reflects all 4 page views
+        $this->assertEquals(4, $stats['total_visitors']);
+    }
 }

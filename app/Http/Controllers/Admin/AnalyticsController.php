@@ -22,7 +22,7 @@ class AnalyticsController extends Controller
         $yesterdayHits = VisitorLog::yesterday()->count();
         $yesterdayVisitors = VisitorLog::yesterday()->distinct('session_id')->count('session_id');
 
-        $onlineVisitors = VisitorLog::online()->distinct('session_id')->count('session_id');
+        $onlineVisitors = VisitorLog::online()->distinct()->count(DB::raw('COALESCE(session_id, ip_address)'));
 
         // 2. Reading & Traffic Trends (Daily timeline for last 14 days)
         $dates = collect();

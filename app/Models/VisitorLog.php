@@ -58,11 +58,11 @@ class VisitorLog extends Model
     }
 
     /**
-     * Scope for online/active visitors within the last 15 minutes.
+     * Scope for online/active visitors within the last 5 minutes.
      */
     public function scopeOnline(Builder $query): Builder
     {
-        return $query->where('created_at', '>=', now()->subMinutes(15));
+        return $query->where('created_at', '>=', now()->subMinutes(5));
     }
 
     /**

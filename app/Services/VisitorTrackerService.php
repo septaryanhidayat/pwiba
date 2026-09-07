@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\VisitorLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class VisitorTrackerService
@@ -209,7 +210,9 @@ class VisitorTrackerService
         $thisMonth = VisitorLog::whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
         $totalVisitors = VisitorLog::count();
         $totalHits = $totalVisitors;
-        $online = VisitorLog::where('created_at', '>=', now()->subMinutes(15))->count();
+        $online = VisitorLog::where('created_at', '>=', now()->subMinutes(5))
+            ->distinct()
+            ->count(DB::raw('COALESCE(session_id, ip_address)'));
 
         return [
             'today' => max($today, 1),
