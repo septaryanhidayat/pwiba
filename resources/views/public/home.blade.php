@@ -65,8 +65,8 @@
             </div>
 
             <!-- Right Hero Section: Foto Resmi Ketua PWI Banyuasin dengan Pose Eksekutif Profesional -->
-            <div class="hero-card-anim lg:col-span-5 relative flex justify-center items-end">
-                <div class="relative w-full max-w-md mx-auto group animate-float-slow">
+            <div class="hero-card-anim lg:col-span-5 relative flex justify-center items-center">
+                <div class="relative w-full max-w-[340px] sm:max-w-[360px] mx-auto group animate-float-slow">
                     <!-- Glow Backdrop -->
                     <div class="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-blue-600/20 to-amber-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
@@ -84,10 +84,10 @@
                             </span>
                         </div>
 
-                        <!-- Photo Portrait (Clickable to Chairman Profile) -->
+                        <!-- Photo Portrait (Clickable to Chairman Profile) with Balanced Proportions -->
                         <a href="{{ route('chairman.archive.index') }}" 
-                           class="relative pt-6 px-4 flex justify-center min-h-[380px] sm:min-h-[460px] group/photo block cursor-pointer"
-                           title="Klik untuk melihat Profil & Portofolio Lengkap Wardoyo, S.I.Kom.">
+                           class="relative pt-4 px-3 sm:px-4 flex justify-center h-64 sm:h-72 lg:h-76 overflow-hidden group/photo block cursor-pointer"
+                           title="Klik untuk melihat Profil & Rekam Jejak Lengkap Wardoyo, S.I.Kom.">
                             <img src="{{ asset('assets/images/wardoyo-ketua.webp') }}" 
                                  alt="Wardoyo, S.I.Kom - Ketua PWI Banyuasin" 
                                  width="400"
@@ -96,47 +96,47 @@
                                  loading="eager"
                                  decoding="sync"
                                  onerror="this.src='{{ asset('assets/images/wardoyo-ketua.png') }}'"
-                                 class="w-full h-auto max-h-[460px] object-cover object-top drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
+                                 class="w-full h-full object-cover object-[center_18%] drop-shadow-2xl rounded-2xl transform group-hover/photo:scale-[1.02] transition-transform duration-500">
                             
                             <!-- Subtle Click Prompt on Hover -->
-                            <div class="absolute bottom-2 inset-x-6 py-2 px-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
+                            <div class="absolute bottom-2 inset-x-4 py-1.5 px-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-amber-400/40 text-center opacity-0 group-hover/photo:opacity-100 transition-all duration-300 shadow-xl">
                                 <span class="text-xs font-bold text-amber-300 flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-user-tie"></i>
-                                    <span>Lihat Profil &amp; Rekam Jejak Ketua &rarr;</span>
+                                    <span>Lihat Profil Ketua &rarr;</span>
                                 </span>
                             </div>
                         </a>
 
                         <!-- Executive Identity & Sambutan Singkat -->
-                        <div class="p-5 sm:p-6 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20">
-                            <div>
-                                <a href="{{ route('chairman.archive.index') }}" class="group/title inline-block">
-                                    <h3 class="text-xl font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors flex items-center gap-2">
+                        <div class="p-4 sm:p-5 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20 text-center sm:text-left">
+                            <div class="flex flex-col items-center sm:items-start">
+                                <a href="{{ route('chairman.archive.index') }}" class="group/title inline-flex items-center justify-center sm:justify-start gap-1.5">
+                                    <h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors inline-flex items-center gap-1.5">
                                         <span>Wardoyo, S.I.Kom</span>
                                         <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400/70 group-hover/title:text-amber-300"></i>
                                     </h3>
                                 </a>
-                                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
+                                <div class="text-[11px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
                                     Ketua PWI Kabupaten Banyuasin
                                 </div>
                             </div>
 
                             <!-- Sambutan Singkat Resmi Pelantikan -->
-                            <div class="mt-3 pt-3 border-t border-white/10">
-                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-3 italic">
+                            <div class="mt-2.5 pt-2.5 border-t border-white/10">
+                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-3 italic text-center sm:text-left">
                                     "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi, memperkuat peran pers yang independen dan terus berkontribusi dalam pembangunan daerah."
                                 </p>
                             </div>
 
                             <!-- Actions: Profil Ketua, Baca Sambutan Lengkap & Unduh Dokumen PDF -->
-                            <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+                            <div class="mt-3.5 pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2.5 sm:gap-2">
                                 <button @click="modalSambutan = true" 
                                         type="button" 
-                                        class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
+                                        class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">
                                     <i class="fa-solid fa-book-open text-xs"></i>
                                     <span>Baca Sambutan &rarr;</span>
                                 </button>
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center justify-center gap-2">
                                     <a href="{{ route('chairman.archive.index') }}" 
                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-[11px] font-black text-slate-950 transition-all shadow-sm">
                                         <i class="fa-solid fa-user-tie"></i>
