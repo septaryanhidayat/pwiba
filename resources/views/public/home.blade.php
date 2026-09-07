@@ -18,7 +18,7 @@
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 
                 <!-- Badge Indicator -->
-                <div class="hero-badge-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm">
+                <div class="hero-badge-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-amber-400 backdrop-blur-md shadow-sm mx-auto lg:mx-0">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span>Portal Resmi Organisasi Pers Terverifikasi</span>
                 </div>
@@ -108,28 +108,28 @@
                         </a>
 
                         <!-- Executive Identity & Sambutan Singkat -->
-                        <div class="p-4 sm:p-5 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20 text-center sm:text-left">
-                            <div class="flex flex-col items-center sm:items-start">
-                                <a href="{{ route('chairman.archive.index') }}" class="group/title inline-flex items-center justify-center sm:justify-start gap-1.5">
+                        <div class="p-4 sm:p-5 bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900 border-t border-white/10 relative z-20 text-center lg:text-left">
+                            <div class="flex flex-col items-center lg:items-start">
+                                <a href="{{ route('chairman.archive.index') }}" class="group/title inline-flex items-center justify-center lg:justify-start gap-1.5">
                                     <h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover/title:text-amber-400 transition-colors inline-flex items-center gap-1.5">
                                         <span>Wardoyo, S.I.Kom</span>
                                         <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400/70 group-hover/title:text-amber-300"></i>
                                     </h3>
                                 </a>
-                                <div class="text-[11px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5">
+                                <div class="text-[11px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider mt-0.5 text-center lg:text-left">
                                     Ketua PWI Kabupaten Banyuasin
                                 </div>
                             </div>
 
                             <!-- Sambutan Singkat Resmi Pelantikan -->
                             <div class="mt-2.5 pt-2.5 border-t border-white/10">
-                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-2 italic text-center sm:text-left">
+                                <p class="text-xs leading-relaxed text-slate-200 line-clamp-2 italic text-center lg:text-left">
                                     "Pelantikan ini bukan sekadar seremonial, melainkan sebuah amanah dan tanggung jawab moral bagi kami para insan pers di Kabupaten Banyuasin untuk menjaga marwah profesi."
                                 </p>
                             </div>
 
                             <!-- Actions: Profil Ketua, Baca Sambutan Lengkap & Unduh Dokumen PDF -->
-                            <div class="mt-3.5 pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2.5 sm:gap-2">
+                            <div class="mt-3.5 pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center lg:justify-between gap-2.5 sm:gap-2">
                                 <button @click="modalSambutan = true" 
                                         type="button" 
                                         class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer">

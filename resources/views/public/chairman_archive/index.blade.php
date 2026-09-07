@@ -36,7 +36,7 @@
                 <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
                     
                     <!-- Verified Figure Pill -->
-                    <div class="hero-badge-anim inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs sm:text-sm font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
+                    <div class="hero-badge-anim inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs sm:text-sm font-black uppercase tracking-wider backdrop-blur-md shadow-sm mx-auto lg:mx-0">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <i class="fa-solid fa-shield-halved text-amber-400"></i>
                         <span>{{ str_ireplace('Personal Branding', 'Portofolio', $profile['badge_top'] ?? 'Profil Eksekutif & Portofolio Resmi') }}</span>
@@ -208,22 +208,27 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-x-10 gap-y-6 lg:gap-y-6 items-start">
                 
-                <!-- Left: Narrative Story (Equal 50% Width) -->
-                <div class="flex flex-col justify-between space-y-5" data-aos="fade-up">
-                    <div class="space-y-4">
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-400/30 text-amber-700 dark:text-amber-300 text-xs font-black uppercase tracking-wider shadow-xs">
+                <!-- Left Wrapper (Mobile: flex col, Desktop: lg:contents) -->
+                <div class="flex flex-col space-y-5 lg:contents">
+                    
+                    <!-- Left Header (Col 1, Row 1 on desktop) -->
+                    <div class="lg:col-start-1 lg:row-start-1 flex flex-col justify-between space-y-3.5 text-center lg:text-left" data-aos="fade-up">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-400/15 border border-amber-400/30 text-amber-700 dark:text-amber-300 text-xs font-black uppercase tracking-wider shadow-xs mx-auto lg:mx-0">
                             <i class="fa-solid fa-user-pen text-amber-500"></i>
                             <span>{{ $profile['narasi_subjudul'] ?? 'Tentang Kepemimpinan & Pengabdian' }}</span>
                         </div>
 
-                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+                        <h2 class="text-xl sm:text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white leading-snug">
                             {{ $profile['narasi_judul'] ?? 'Komitmen Teruji Mengawal Integritas Pers & Pembangunan Banyuasin' }}
                         </h2>
+                    </div>
 
-                        <!-- Unified Narrative Card -->
-                        <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <!-- Left Content: Kotak Kalimat & 1-Line Social Pills (Col 1, Row 2 on desktop) -->
+                    <div class="lg:col-start-1 lg:row-start-2 flex flex-col justify-between space-y-4 h-full" data-aos="fade-up" data-aos-delay="40">
+                        <!-- Unified Narrative Card (Kotak Kalimat) -->
+                        <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-left">
                             @if(!empty($profile['narasi_paragraf_1']))
                                 <p class="font-medium text-slate-800 dark:text-slate-200">
                                     {!! nl2br(e($profile['narasi_paragraf_1'])) !!}
@@ -240,51 +245,59 @@
                                 </p>
                             @endif
                         </div>
-                    </div>
 
-                    <!-- Fast Contact Pills (Rata Tengah di Mobile, Rata Kiri di Desktop, Rapi, Berwarna & Menarik) -->
-                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 text-xs font-bold">
-                        @if(!empty($profile['kontak']['email']))
-                        <a href="mailto:{{ $profile['kontak']['email'] }}" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group">
-                            <i class="fa-solid fa-envelope text-amber-500 group-hover:scale-110 transition-transform"></i>
-                            <span>{{ $profile['kontak']['email'] }}</span>
-                        </a>
-                        @endif
+                        <!-- Fast Contact Pills (Strictly 1 Single Line, Never Wrapped, Centered on Mobile) -->
+                        <div class="w-full flex items-center justify-center lg:justify-start overflow-hidden pt-1">
+                            <div class="flex items-center flex-nowrap overflow-x-auto no-scrollbar gap-2 text-[11px] sm:text-xs font-bold py-1 w-full justify-center lg:justify-start">
+                                @if(!empty($profile['kontak']['email']))
+                                <a href="mailto:{{ $profile['kontak']['email'] }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
+                                    <i class="fa-solid fa-envelope text-amber-500 group-hover:scale-110 transition-transform text-xs"></i>
+                                    <span>{{ $profile['kontak']['email'] }}</span>
+                                </a>
+                                @endif
 
-                        @if(!empty($profile['kontak']['instagram']))
-                        <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group">
-                            <i class="fa-brands fa-instagram text-pink-500 group-hover:scale-110 transition-transform text-sm"></i>
-                            <span>Instagram</span>
-                        </a>
-                        @endif
-                        @if(!empty($profile['kontak']['facebook']))
-                        <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group">
-                            <i class="fa-brands fa-facebook-f text-blue-600 group-hover:scale-110 transition-transform text-xs"></i>
-                            <span>Facebook</span>
-                        </a>
-                        @endif
-                        @if(!empty($profile['lokasi_singkat']))
-                        <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs">
-                            <i class="fa-solid fa-location-dot text-emerald-600"></i>
-                            <span>{{ $profile['lokasi_singkat'] }}</span>
+                                @if(!empty($profile['kontak']['instagram']))
+                                <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
+                                    <i class="fa-brands fa-instagram text-pink-500 group-hover:scale-110 transition-transform text-xs"></i>
+                                    <span>Instagram</span>
+                                </a>
+                                @endif
+
+                                @if(!empty($profile['kontak']['facebook']))
+                                <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
+                                    <i class="fa-brands fa-facebook-f text-blue-600 group-hover:scale-110 transition-transform text-xs"></i>
+                                    <span>Facebook</span>
+                                </a>
+                                @endif
+
+                                @if(!empty($profile['lokasi_singkat']))
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs shrink-0 whitespace-nowrap">
+                                    <i class="fa-solid fa-location-dot text-emerald-600 text-xs"></i>
+                                    <span>{{ $profile['lokasi_singkat'] }}</span>
+                                </div>
+                                @endif
+                            </div>
                         </div>
-                        @endif
                     </div>
                 </div>
 
-                <!-- Right: Strategic Value Pillars (Equal 50% Width) -->
-                <div class="flex flex-col justify-between space-y-4" data-aos="fade-up" data-aos-delay="40">
-                    <div class="space-y-4">
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-400/15 border border-blue-400/30 text-blue-700 dark:text-blue-300 text-xs font-black uppercase tracking-wider shadow-xs">
+                <!-- Right Wrapper (Mobile: flex col, Desktop: lg:contents) -->
+                <div class="flex flex-col space-y-4 lg:contents">
+                    
+                    <!-- Right Header (Col 2, Row 1 on desktop) -->
+                    <div class="lg:col-start-2 lg:row-start-1 flex flex-col justify-between space-y-3.5 text-center lg:text-left mt-8 lg:mt-0" data-aos="fade-up" data-aos-delay="40">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-400/15 border border-blue-400/30 text-blue-700 dark:text-blue-300 text-xs font-black uppercase tracking-wider shadow-xs mx-auto lg:mx-0">
                             <i class="fa-solid fa-compass text-blue-500"></i>
                             <span>4 Pilar Nilai Kepemimpinan</span>
                         </div>
-                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+
+                        <h3 class="text-xl sm:text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white leading-snug">
                             Landasan Strategis PWI Banyuasin
                         </h3>
                     </div>
 
-                    <div class="space-y-3.5 flex-1 flex flex-col justify-between">
+                    <!-- Right Content: Kotak Integritas (Pilar 01) & 4 Pilar Cards (Col 2, Row 2 on desktop) -->
+                    <div class="lg:col-start-2 lg:row-start-2 space-y-3.5 flex flex-col justify-between h-full" data-aos="fade-up" data-aos-delay="60">
                         @php
                             $pilarThemes = [
                                 [
@@ -327,7 +340,7 @@
                                 <div class="w-11 h-11 rounded-xl {{ $theme['icon'] }} flex items-center justify-center font-bold shrink-0 shadow-md group-hover:scale-105 transition-transform">
                                     <i class="{{ $pilar['icon'] ?? 'fa-solid fa-award' }} text-sm"></i>
                                 </div>
-                                <div class="space-y-1">
+                                <div class="space-y-1 text-left">
                                     <div class="flex items-center gap-2">
                                         <h3 class="text-sm font-extrabold text-slate-900 dark:text-white {{ $theme['title'] }} transition-colors">
                                             {{ $pilar['title'] }}
@@ -508,12 +521,12 @@
                     <div class="h-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 w-full shrink-0"></div>
 
                     <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-300 text-xs font-black uppercase tracking-wider">
+                        <div class="space-y-2 text-center sm:text-left">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-300 text-xs font-black uppercase tracking-wider mx-auto sm:mx-0">
                                 <i class="fa-solid fa-graduation-cap"></i>
                                 <span>Kualifikasi Akademik</span>
                             </div>
-                            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                                 Pendidikan Formal & Keilmuan
                             </h3>
                         </div>
@@ -568,12 +581,12 @@
                     <div class="h-2.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500 w-full shrink-0"></div>
 
                     <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 text-xs font-black uppercase tracking-wider">
+                        <div class="space-y-2 text-center sm:text-left">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 text-xs font-black uppercase tracking-wider mx-auto sm:mx-0">
                                 <i class="fa-solid fa-certificate"></i>
                                 <span>Standarisasi Profesi</span>
                             </div>
-                            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                                 Sertifikasi & Pelatihan Jurnalistik
                             </h3>
                         </div>
@@ -630,21 +643,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             
             <!-- Section Header -->
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800" data-aos="fade-up">
-                <div class="space-y-2 max-w-4xl">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-800 dark:text-amber-300 text-xs font-black uppercase tracking-wider">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800 text-center lg:text-left" data-aos="fade-up">
+                <div class="space-y-2 max-w-4xl mx-auto lg:mx-0">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-800 dark:text-amber-300 text-xs font-black uppercase tracking-wider mx-auto lg:mx-0">
                         <i class="fa-solid fa-feather-pointed text-amber-500"></i>
                         <span>Arsip Digital Komprehensif</span>
                     </div>
-                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-black text-slate-900 dark:text-white whitespace-normal lg:whitespace-nowrap tracking-tight leading-snug">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-black text-slate-900 dark:text-white whitespace-normal lg:whitespace-nowrap tracking-tight leading-snug text-center lg:text-left">
                         Katalog Tulisan & Koleksi <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-amber-300 dark:to-yellow-400 bg-clip-text text-transparent">320 Karya Pemikiran</span>
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
                         Dokumentasi karya tulisan, esai teori komunikasi politik, analisis berita, dan liputan jurnalistik resmi yang telah disanitasi dan diarsipkan ke dalam format modern.
                     </p>
                 </div>
 
-                <div class="flex items-center gap-2 shrink-0">
+                <div class="flex items-center justify-center lg:justify-end gap-2 shrink-0 mx-auto lg:mx-0">
                     <button @click="shareUrl()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xs cursor-pointer">
                         <i class="fa-solid" :class="copied ? 'fa-check text-emerald-500' : 'fa-share-nodes text-amber-500'"></i>
                         <span x-text="copied ? 'Tautan Tersalin!' : 'Bagikan Katalog'"></span>
@@ -682,7 +695,7 @@
                     </form>
 
                     <!-- Filter Year Dropdown -->
-                    <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                    <div class="flex items-center gap-3 w-full md:w-auto justify-center md:justify-end">
                         <span class="text-xs font-bold text-slate-600 dark:text-slate-400">Filter Tahun:</span>
                         <div class="flex items-center gap-2">
                             <select onchange="location = this.value;" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer">
@@ -704,8 +717,8 @@
                     </div>
                 </div>
 
-                <!-- Category Pills (Color & Variety) -->
-                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2">
+                <!-- Category Pills (Color & Variety, Centered on Mobile) -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-center lg:justify-start gap-2">
                     <a href="{{ route('chairman.archive.index', request()->except('kategori')) }}#karya-arsip" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all {{ !request('kategori') ? 'bg-gradient-to-r from-blue-700 to-indigo-700 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700' }}">
                         Semua Kategori ({{ $totalArticles }})
                     </a>
@@ -716,6 +729,7 @@
                     @endforeach
                 </div>
             </div>
+
 
             <!-- Articles Grid (Dynamic Vibrant Top Accents) -->
             @if($articles->count() > 0)
@@ -845,7 +859,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     
                     <div class="lg:col-span-8 space-y-4 text-center lg:text-left">
-                        <span class="px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-md inline-block">
+                        <span class="px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-md inline-block mx-auto lg:mx-0">
                             {{ $profile['footer_badge'] ?? 'Silaturahmi & Kemitraan Strategis' }}
                         </span>
                         <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">
