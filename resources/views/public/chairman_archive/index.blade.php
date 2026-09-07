@@ -25,8 +25,8 @@
     <section class="relative min-h-[calc(100vh-68px)] flex flex-col justify-center bg-gradient-to-b from-[#070D1E] via-[#0B132B] to-[#142042] text-white py-12 sm:py-16 lg:py-20 overflow-hidden border-b border-white/10">
         
         <!-- Ambient Decorative Glows -->
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/3 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none animate-orb-glow"></div>
+        <div class="absolute top-1/3 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-orb-glow-delayed"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             
@@ -36,21 +36,21 @@
                 <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
                     
                     <!-- Verified Figure Pill -->
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs sm:text-sm font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
+                    <div class="hero-badge-anim inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs sm:text-sm font-black uppercase tracking-wider backdrop-blur-md shadow-sm">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <i class="fa-solid fa-shield-halved text-amber-400"></i>
                         <span>{{ str_ireplace('Personal Branding', 'Portofolio', $profile['badge_top'] ?? 'Profil Eksekutif & Portofolio Resmi') }}</span>
                     </div>
 
                     <!-- Name & Title -->
-                    <div class="space-y-2">
+                    <div class="hero-title-anim space-y-2">
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
                             @php
                                 $nameParts = explode(',', $profile['name'], 2);
                                 $mainName = $nameParts[0];
                                 $degree = isset($nameParts[1]) ? ', ' . trim($nameParts[1]) : '';
                             @endphp
-                            <span>{{ $mainName }}</span><span class="text-amber-400 font-extrabold text-3xl sm:text-4xl lg:text-5xl">{{ $degree }}</span>
+                            <span>{{ $mainName }}</span><span class="text-gradient-gold text-shimmer font-extrabold text-3xl sm:text-4xl lg:text-5xl">{{ $degree }}</span>
                         </h1>
                         <p class="text-sm sm:text-base text-slate-300 font-semibold flex items-center justify-center lg:justify-start gap-2">
                             <span class="text-amber-400">●</span>
@@ -62,7 +62,7 @@
                     </div>
 
                     <!-- Motto / Visi Kepemimpinan -->
-                    <div class="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative">
+                    <div class="hero-desc-anim p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative">
                         <div class="text-amber-400 text-3xl font-serif absolute -top-3 left-4 select-none opacity-50">“</div>
                         <p class="text-sm sm:text-[15px] text-slate-200 italic leading-relaxed pt-1 font-medium">
                             {{ $profile['motto'] }}
@@ -70,27 +70,27 @@
                     </div>
 
                     <!-- Key Metrics Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 pt-1">
-                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                    <div class="hero-stats-anim grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 pt-1">
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs hover:border-amber-400/40 transition-colors">
                             <span class="block text-2xl sm:text-3xl font-black text-amber-400">{{ $profile['stat_karya'] ?? ($totalArticles . '+') }}</span>
                             <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_karya_label'] ?? 'Karya Tulis' }}</span>
                         </div>
-                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs hover:border-white/30 transition-colors">
                             <span class="block text-2xl sm:text-3xl font-black text-white">{{ $profile['stat_kiprah'] ?? '18+ Th' }}</span>
                             <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_kiprah_label'] ?? 'Kiprah Jurnalistik' }}</span>
                         </div>
-                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs hover:border-emerald-400/40 transition-colors">
                             <span class="block text-2xl sm:text-3xl font-black text-emerald-400">{{ $profile['stat_lisensi'] ?? 'Utama' }}</span>
                             <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_lisensi_label'] ?? 'Lisensi UKW' }}</span>
                         </div>
-                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs">
+                        <div class="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center backdrop-blur-xs hover:border-blue-400/40 transition-colors">
                             <span class="block text-2xl sm:text-3xl font-black text-blue-300">{{ $profile['stat_pendidikan'] ?? 'S.I.Kom.' }}</span>
                             <span class="text-[10px] sm:text-[11px] uppercase font-bold text-slate-400 tracking-wider">{{ $profile['stat_pendidikan_label'] ?? 'Ilmu Komunikasi' }}</span>
                         </div>
                     </div>
 
                     <!-- Call To Actions (Email, Portfolio, Copy Link) -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
+                    <div class="hero-cta-anim flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
                         @if(!empty($profile['kontak']['email']))
                         <!-- Direct Email -->
                         <a href="mailto:{{ $profile['kontak']['email'] }}" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-md shadow-amber-500/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 text-center whitespace-nowrap">
@@ -115,8 +115,8 @@
                 </div>
 
                 <!-- Right Column: Official Portrait Picture & Identity Badge (5 Cols) -->
-                <div class="lg:col-span-5 flex justify-center lg:justify-end items-center">
-                    <div class="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[430px]">
+                <div class="hero-card-anim lg:col-span-5 flex justify-center lg:justify-end items-center">
+                    <div class="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[430px] group animate-float-slow">
                         
                         <!-- Glow Backdrop Frame -->
                         <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-amber-500 via-blue-600 to-amber-300 opacity-30 blur-2xl"></div>
@@ -206,7 +206,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 
                 <!-- Left: Narrative Story (7 cols) -->
-                <div class="lg:col-span-7 space-y-5">
+                <div class="lg:col-span-7 space-y-5" data-aos="fade-up">
                     <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                         <i class="fa-solid fa-user-pen"></i>
                         <span>{{ $profile['narasi_subjudul'] ?? 'Tentang Kepemimpinan & Pengabdian' }}</span>
@@ -270,7 +270,7 @@
                     @endphp
                     @foreach($profile['pilar_nilai'] as $idx => $pilar)
                         @php $color = $pilarColors[$idx % count($pilarColors)]; @endphp
-                        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4">
+                        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 shadow-xs flex items-start gap-4 hover:border-amber-400/40 transition-colors" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration) * 50 }}">
                             <div class="w-10 h-10 rounded-xl {{ $color['bg'] }} {{ $color['text'] }} flex items-center justify-center font-bold shrink-0 shadow-md">
                                 <i class="{{ $pilar['icon'] ?? 'fa-solid fa-award' }}"></i>
                             </div>
@@ -295,7 +295,7 @@
     <section class="py-16 bg-slate-100 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             
-            <div class="text-center max-w-3xl mx-auto space-y-3">
+            <div class="text-center max-w-3xl mx-auto space-y-3" data-aos="fade-up">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs font-extrabold uppercase tracking-wider">
                     <i class="fa-solid fa-sitemap"></i>
                     <span>Kepemimpinan Multisektor</span>
@@ -310,7 +310,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($profile['organisasi'] as $org)
-                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group hover:-translate-y-1">
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ min(($loop->iteration - 1) * 50, 200) }}">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between gap-2">
                                 <span class="px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80">
@@ -349,7 +349,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
                 <!-- Riwayat Pendidikan (6 cols) -->
-                <div class="lg:col-span-6 space-y-5">
+                <div class="lg:col-span-6 space-y-5" data-aos="fade-up">
                     <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                         <i class="fa-solid fa-graduation-cap"></i>
                         <span>Kualifikasi Akademik</span>
@@ -392,7 +392,7 @@
                 </div>
 
                 <!-- Sertifikasi & Pelatihan Khusus (6 cols) -->
-                <div class="lg:col-span-6 space-y-5">
+                <div class="lg:col-span-6 space-y-5" data-aos="fade-up" data-aos-delay="60">
                     <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                         <i class="fa-solid fa-certificate"></i>
                         <span>Standarisasi Profesi</span>
@@ -439,7 +439,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             
             <!-- Section Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800" data-aos="fade-up">
                 <div class="space-y-2 max-w-2xl">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-700 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
                         <i class="fa-solid fa-feather-pointed"></i>
@@ -462,7 +462,7 @@
             </div>
 
             <!-- Search, Category & Year Bar -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-5">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-5" data-aos="fade-up" data-aos-delay="40">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     
                     <!-- Search Input -->
@@ -527,7 +527,7 @@
             @if($articles->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
                     @foreach($articles as $post)
-                        <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                        <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ min(($loop->iteration - 1) * 40, 160) }}">
                             <div>
                                 <!-- Top Metadata Pill -->
                                 <div class="flex items-center justify-between gap-2 mb-3.5">
@@ -596,7 +596,7 @@
     <section class="py-16 bg-gradient-to-br from-[#070D1E] via-[#0B132B] to-[#142042] text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="bg-gradient-to-r from-blue-900/40 via-slate-900/60 to-amber-950/30 border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl">
+            <div class="bg-gradient-to-r from-blue-900/40 via-slate-900/60 to-amber-950/30 border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl" data-aos="fade-up">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     
                     <div class="lg:col-span-8 space-y-4 text-center lg:text-left">
