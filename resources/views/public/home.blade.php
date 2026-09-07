@@ -620,9 +620,14 @@
         </div>
 
         <!-- Lightbox Modal for Photo -->
-        <div x-show="selectedPhoto" x-cloak @click.away="selectedPhoto = null" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <button @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center cursor-pointer">
+        <div x-show="selectedPhoto" 
+             x-cloak 
+             @click="selectedPhoto = null"
+             @keydown.escape.window="selectedPhoto = null"
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md cursor-pointer">
+            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl cursor-default" 
+                 @click.stop>
+                <button type="button" @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center cursor-pointer transition-colors">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <img :src="selectedPhoto" :alt="selectedTitle" class="w-full max-h-[65vh] object-contain bg-black">
@@ -635,14 +640,19 @@
         </div>
 
         <!-- Video Player Modal for YouTube -->
-        <div x-show="selectedVideo" x-cloak @click.away="selectedVideo = null" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+        <div x-show="selectedVideo" 
+             x-cloak 
+             @click="selectedVideo = null"
+             @keydown.escape.window="selectedVideo = null"
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md cursor-pointer">
+            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl cursor-default" 
+                 @click.stop>
                 <div class="p-4 sm:p-5 flex items-center justify-between border-b border-white/10 bg-slate-950/80">
                     <div class="flex items-center gap-2.5 text-white font-bold text-sm truncate pr-4">
                         <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
                         <span x-text="selectedVideo ? selectedVideo.title : 'Video Liputan'"></span>
                     </div>
-                    <button @click="selectedVideo = null" class="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors shrink-0">
+                    <button type="button" @click="selectedVideo = null" class="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors shrink-0" title="Tutup Video">
                         <i class="fa-solid fa-xmark text-sm"></i>
                     </button>
                 </div>
@@ -662,11 +672,14 @@
                         <h4 class="text-sm font-bold text-white mt-0.5" x-text="selectedVideo ? selectedVideo.title : ''"></h4>
                         <p class="text-xs text-slate-300 mt-1 line-clamp-2" x-text="selectedVideo ? selectedVideo.desc : ''"></p>
                     </div>
-                    <div class="shrink-0">
+                    <div class="shrink-0 flex items-center gap-2">
                         <a :href="selectedVideo ? selectedVideo.url : '#'" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors">
                             <i class="fa-brands fa-youtube"></i>
                             <span>Buka di YouTube</span>
                         </a>
+                        <button type="button" @click="selectedVideo = null" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors cursor-pointer">
+                            Tutup Video
+                        </button>
                     </div>
                 </div>
             </div>

@@ -199,8 +199,13 @@
     </div>
 
     <!-- Modal Tambah Video Galeri -->
-    <div x-show="modalTambah" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 text-slate-900 dark:text-white" @click.away="modalTambah = false">
+    <div x-show="modalTambah" 
+         x-cloak 
+         @click="modalTambah = false"
+         @keydown.escape.window="modalTambah = false"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm cursor-pointer">
+        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 text-slate-900 dark:text-white cursor-default" 
+             @click.stop>
             
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
@@ -315,8 +320,13 @@
     </div>
 
     <!-- Modal Edit Video Galeri -->
-    <div x-show="editData" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 text-slate-900 dark:text-white" @click.away="editData = null">
+    <div x-show="editData" 
+         x-cloak 
+         @click="editData = null"
+         @keydown.escape.window="editData = null"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm cursor-pointer">
+        <div class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 text-slate-900 dark:text-white cursor-default" 
+             @click.stop>
             
             <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
@@ -402,8 +412,13 @@
     </div>
 
     <!-- Modal Preview Video YouTube Player -->
-    <div x-show="previewVideo" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-        <div class="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl" @click.away="previewVideo = null">
+    <div x-show="previewVideo" 
+         x-cloak 
+         @click="previewVideo = null"
+         @keydown.escape.window="previewVideo = null"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md cursor-pointer">
+        <div class="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl cursor-default" 
+             @click.stop>
             
             <div class="p-4 sm:p-5 flex items-center justify-between border-b border-slate-800 bg-slate-950/60">
                 <div class="flex items-center gap-2 text-white font-bold text-sm truncate pr-4">
@@ -425,7 +440,7 @@
             </div>
 
             <div class="p-4 bg-slate-900 flex justify-end">
-                <button @click="previewVideo = null" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors">
+                <button type="button" @click="previewVideo = null" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors cursor-pointer">
                     Tutup Pemutar
                 </button>
             </div>
