@@ -68,7 +68,7 @@ class ChairmanArchiveController extends Controller
             'title' => 'Ketua PWI Kabupaten Banyuasin (Periode 2025–2028)',
             'foto_url' => asset('assets/images/pengurus/pengurus_inti_1_wardoyo.webp'),
             'sk_resmi' => 'SK PWI Pusat Nomor: 033/PP-PWI/XI/2025',
-            'badge_top' => 'Profil Eksekutif & Personal Branding Resmi',
+            'badge_top' => 'Profil Eksekutif & Portofolio Resmi',
             'tag_status_pers' => 'Wartawan Utama Dewan Pers',
             'tag_organisasi_provinsi' => 'Anggota DKP PWI Sumsel',
             'motto' => 'Menegakkan kemerdekaan pers yang beretika, membangun sinergi kemitraan strategis yang bermartabat, dan memperjuangkan kapasitas serta kesejahteraan wartawan di Kabupaten Banyuasin.',

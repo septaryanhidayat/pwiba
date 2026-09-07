@@ -45,7 +45,7 @@
         <div>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
                 <i class="fa-solid fa-id-card-clip"></i>
-                <span>Pengaturan Profil &amp; Portofolio Eksekutif</span>
+                <span>Profil &amp; Portofolio Ketua</span>
             </div>
             <h2 class="text-xl sm:text-2xl font-black text-[#0B132B] dark:text-white">Edit Profil &amp; Portofolio Ketua</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">
@@ -222,7 +222,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Badge Pill Atas Hero</label>
-                                <input type="text" name="badge_top" value="{{ old('badge_top', $profile['badge_top'] ?? 'Profil Eksekutif & Personal Branding Resmi') }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-amber-500">
+                                <input type="text" name="badge_top" value="{{ old('badge_top', $profile['badge_top'] ?? 'Profil Eksekutif & Portofolio Resmi') }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-amber-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tag Status Dewan Pers</label>

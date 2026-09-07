@@ -31,7 +31,7 @@ class ChairmanArchiveTest extends TestCase
 
     /*
     |--------------------------------------------------------------------------
-    | Public Executive Personal Branding & Archive Tests (/wardoyo)
+    | Public Executive Profile & Archive Tests (/wardoyo)
     |--------------------------------------------------------------------------
     */
 

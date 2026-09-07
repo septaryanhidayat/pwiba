@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @production
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    @endproduction
     <title>@yield('title', 'PWI Kabupaten Banyuasin') - Persatuan Wartawan Indonesia</title>
     
     <meta name="description" content="@yield('meta_description', 'Portal Resmi Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Masa Bhakti 2025–2028. Informasi berita daerah, direktori insan pers terverifikasi, galeri kegiatan, dan layanan keabsahan surat digital.')">

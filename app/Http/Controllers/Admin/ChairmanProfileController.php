@@ -188,7 +188,7 @@ class ChairmanProfileController extends Controller
             'name' => $validated['name'],
             'title' => $validated['title'],
             'sk_resmi' => $validated['sk_resmi'] ?? 'SK PWI Pusat Nomor: 033/PP-PWI/XI/2025',
-            'badge_top' => $validated['badge_top'] ?? 'Profil Eksekutif & Personal Branding Resmi',
+            'badge_top' => $validated['badge_top'] ?? 'Profil Eksekutif & Portofolio Resmi',
             'tag_status_pers' => $validated['tag_status_pers'] ?? 'Wartawan Utama Dewan Pers',
             'tag_organisasi_provinsi' => $validated['tag_organisasi_provinsi'] ?? 'Anggota DKP PWI Sumsel',
             'motto' => $validated['motto'] ?? '',

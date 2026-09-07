@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @production
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    @endproduction
     <title>@yield('title', 'Dashboard') - PWI Banyuasin</title>
 
     <!-- Favicon Resmi PWI Banyuasin -->

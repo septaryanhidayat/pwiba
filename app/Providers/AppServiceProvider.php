@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (app()->environment('production') || request()->isSecure() || str_contains(request()->getHost(), 'pwiba.or.id')) {
+        if (app()->environment('production') && ! str_ends_with(request()->getHost(), '.test') && ! in_array(request()->getHost(), ['localhost', '127.0.0.1'])) {
             URL::forceScheme('https');
         }
 

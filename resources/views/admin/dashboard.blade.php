@@ -157,45 +157,45 @@
     </div>
 
     <!-- Ringkasan Cepat Angka Portal (4 Key Indicators) -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 flex items-center justify-center text-lg">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 flex items-center justify-center text-base sm:text-lg shrink-0">
                 <i class="fa-solid fa-newspaper"></i>
             </div>
-            <div>
-                <div class="text-lg font-black text-slate-900 dark:text-white">{{ $totalNews }} Berita</div>
-                <div class="text-[11px] text-slate-500 font-medium">{{ number_format($totalViews) }} Kali Dibaca</div>
+            <div class="min-w-0">
+                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{{ $totalNews }} Berita</div>
+                <div class="text-[11px] text-slate-500 font-medium truncate">{{ number_format($totalViews) }} Pembaca</div>
             </div>
         </div>
 
-        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400 flex items-center justify-center text-lg">
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400 flex items-center justify-center text-base sm:text-lg shrink-0">
                 <i class="fa-solid fa-paper-plane"></i>
             </div>
-            <div>
-                <div class="text-lg font-black text-slate-900 dark:text-white">{{ $totalLettersOut }} Surat Keluar</div>
-                <div class="text-[11px] text-slate-500 font-medium">{{ $totalLettersIn }} Surat Masuk</div>
+            <div class="min-w-0">
+                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{{ $totalLettersOut }} Keluar</div>
+                <div class="text-[11px] text-slate-500 font-medium truncate">{{ $totalLettersIn }} Masuk</div>
             </div>
         </div>
 
-        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 flex items-center justify-center text-lg">
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 flex items-center justify-center text-base sm:text-lg shrink-0">
                 <i class="fa-solid fa-handshake"></i>
             </div>
-            <div>
-                <div class="text-lg font-black text-slate-900 dark:text-white">{{ $totalMeetings }} Rapat</div>
-                <div class="text-[11px] text-slate-500 font-medium">Notulen & Presensi Sah</div>
+            <div class="min-w-0">
+                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{{ $totalMeetings }} Rapat</div>
+                <div class="text-[11px] text-slate-500 font-medium truncate">Notulen Sah</div>
             </div>
         </div>
 
-        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-400 flex items-center justify-center text-lg">
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-400 flex items-center justify-center text-base sm:text-lg shrink-0">
                 <i class="fa-solid fa-comments"></i>
             </div>
-            <div>
-                <div class="text-lg font-black text-slate-900 dark:text-white">{{ $totalInboxes }} Aspirasi</div>
-                <div class="text-[11px] {{ $unreadInboxes > 0 ? 'text-rose-600 font-bold' : 'text-slate-500 font-medium' }}">
-                    {{ $unreadInboxes }} Belum Dibaca
+            <div class="min-w-0">
+                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{{ $totalInboxes }} Aspirasi</div>
+                <div class="text-[11px] truncate {{ $unreadInboxes > 0 ? 'text-rose-600 font-bold' : 'text-slate-500 font-medium' }}">
+                    {{ $unreadInboxes }} Belum Baca
                 </div>
             </div>
         </div>

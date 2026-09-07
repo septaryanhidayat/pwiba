@@ -15,7 +15,7 @@
             </div>
             <h2 class="text-xl sm:text-2xl font-black text-[#0B132B] dark:text-white">Sunting Tulisan & Esai Pemikiran Ketua</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">
-                Ubah konten, kategori, atau metadata tulisan di dalam arsip digital personal branding Ketua.
+                Ubah konten, kategori, atau metadata tulisan di dalam arsip digital karya tulisan Ketua.
             </p>
         </div>
         <div class="flex items-center gap-2 shrink-0">

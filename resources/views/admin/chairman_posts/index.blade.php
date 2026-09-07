@@ -11,7 +11,7 @@
         <div>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
                 <i class="fa-solid fa-feather-pointed"></i>
-                <span>Arsip Intelektual & Personal Branding Ketua</span>
+                <span>Arsip Karya &amp; Pemikiran Ketua</span>
             </div>
             <h2 class="text-xl sm:text-2xl font-black text-[#0B132B] dark:text-white">Kelola Karya Tulis & Arsip Pemikiran Ketua</h2>
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">
