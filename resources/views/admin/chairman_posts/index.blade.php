@@ -19,26 +19,26 @@
             </p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-            <a href="{{ route('chairman.archive.index') }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xs transition-all">
-                <i class="fa-solid fa-arrow-up-right-from-square text-amber-500"></i>
-                <span>Lihat Web /wardoyo</span>
+            <a href="{{ route('chairman.archive.index') }}" target="_blank" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xs transition-all whitespace-nowrap">
+                <i class="fa-solid fa-arrow-up-right-from-square text-amber-500 text-xs"></i>
+                <span>Lihat Web</span>
             </a>
-            <a href="{{ route('admin.chairman_posts.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all">
-                <i class="fa-solid fa-plus"></i>
-                <span>+ Tulis Artikel Baru</span>
+            <a href="{{ route('admin.chairman_posts.create') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-sm transition-all whitespace-nowrap">
+                <i class="fa-solid fa-plus text-xs"></i>
+                <span>+ Tulis Artikel</span>
             </a>
         </div>
     </div>
 
     <!-- Quick Nav Switcher (Arsip Tulisan vs Profil Ketua) -->
-    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
-        <a href="{{ route('admin.chairman_posts.index') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs">
-            <i class="fa-solid fa-newspaper text-amber-400 dark:text-slate-950"></i>
-            <span>Katalog Tulisan & Karya</span>
+    <div class="flex items-center gap-1.5 sm:gap-2 border-b border-slate-200 dark:border-slate-800 pb-2 overflow-x-auto no-scrollbar">
+        <a href="{{ route('admin.chairman_posts.index') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs shrink-0 whitespace-nowrap">
+            <i class="fa-solid fa-newspaper text-amber-400 dark:text-slate-950 text-xs"></i>
+            <span>Katalog Karya</span>
         </a>
-        <a href="{{ route('admin.chairman_profile.edit') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <i class="fa-solid fa-id-card-clip text-emerald-500"></i>
-            <span>Edit Profil & Portofolio Ketua</span>
+        <a href="{{ route('admin.chairman_profile.edit') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 whitespace-nowrap">
+            <i class="fa-solid fa-id-card-clip text-emerald-500 text-xs"></i>
+            <span>Profil Ketua</span>
         </a>
     </div>
 

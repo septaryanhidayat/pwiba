@@ -53,26 +53,26 @@
             </p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-            <a href="{{ route('chairman.archive.index') }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xs transition-all">
-                <i class="fa-solid fa-arrow-up-right-from-square text-amber-500"></i>
-                <span>Lihat Web /wardoyo</span>
+            <a href="{{ route('chairman.archive.index') }}" target="_blank" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xs transition-all whitespace-nowrap">
+                <i class="fa-solid fa-arrow-up-right-from-square text-amber-500 text-xs"></i>
+                <span>Lihat Web</span>
             </a>
-            <button type="submit" form="profileForm" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-md transition-all cursor-pointer">
-                <i class="fa-solid fa-floppy-disk"></i>
-                <span>Simpan Perubahan</span>
+            <button type="submit" form="profileForm" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-amber-400 dark:hover:bg-amber-300 dark:text-slate-950 shadow-md transition-all cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-floppy-disk text-xs"></i>
+                <span>Simpan</span>
             </button>
         </div>
     </div>
 
     <!-- Quick Switcher Tabs -->
-    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
-        <a href="{{ route('admin.chairman_posts.index') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+    <div class="flex items-center gap-1.5 sm:gap-2 border-b border-slate-200 dark:border-slate-800 pb-2 overflow-x-auto no-scrollbar">
+        <a href="{{ route('admin.chairman_posts.index') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 whitespace-nowrap">
             <i class="fa-solid fa-newspaper text-amber-500"></i>
-            <span>Katalog Tulisan &amp; Karya</span>
+            <span>Katalog Karya</span>
         </a>
-        <a href="{{ route('admin.chairman_profile.edit') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs">
+        <a href="{{ route('admin.chairman_profile.edit') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs shrink-0 whitespace-nowrap">
             <i class="fa-solid fa-id-card-clip text-emerald-400 dark:text-slate-950"></i>
-            <span>Edit Profil &amp; Portofolio Ketua</span>
+            <span>Profil Ketua</span>
         </a>
     </div>
 
@@ -107,31 +107,31 @@
     <form id="profileForm" action="{{ route('admin.chairman_profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <!-- Navigation Tabs -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-2 shadow-xs flex flex-wrap gap-1.5 mb-6">
-            <button type="button" @click="activeTab = 'identitas'" :class="activeTab === 'identitas' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-user-tie"></i>
-                <span>1. Identitas &amp; Foto Utama</span>
+        <!-- Navigation Tabs (Clean Responsive Grid: 2 cols on mobile, 3 cols on tablet, 6 cols on desktop) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-1.5 sm:p-2 shadow-xs grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 mb-6">
+            <button type="button" @click="activeTab = 'identitas'" :class="activeTab === 'identitas' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-user-tie text-xs"></i>
+                <span>1. Identitas</span>
             </button>
-            <button type="button" @click="activeTab = 'narasi'" :class="activeTab === 'narasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-newspaper"></i>
-                <span>2. Biografi &amp; 4 Pilar Nilai</span>
+            <button type="button" @click="activeTab = 'narasi'" :class="activeTab === 'narasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-newspaper text-xs"></i>
+                <span>2. Biografi</span>
             </button>
-            <button type="button" @click="activeTab = 'organisasi'" :class="activeTab === 'organisasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-sitemap"></i>
-                <span>3. Rekam Jejak Organisasi</span>
+            <button type="button" @click="activeTab = 'organisasi'" :class="activeTab === 'organisasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-sitemap text-xs"></i>
+                <span>3. Organisasi</span>
             </button>
-            <button type="button" @click="activeTab = 'pendidikan'" :class="activeTab === 'pendidikan' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>4. Pendidikan Formal</span>
+            <button type="button" @click="activeTab = 'pendidikan'" :class="activeTab === 'pendidikan' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-graduation-cap text-xs"></i>
+                <span>4. Pendidikan</span>
             </button>
-            <button type="button" @click="activeTab = 'sertifikasi'" :class="activeTab === 'sertifikasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-certificate"></i>
-                <span>5. Sertifikasi &amp; Pelatihan</span>
+            <button type="button" @click="activeTab = 'sertifikasi'" :class="activeTab === 'sertifikasi' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-certificate text-xs"></i>
+                <span>5. Sertifikasi</span>
             </button>
-            <button type="button" @click="activeTab = 'footer'" :class="activeTab === 'footer' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-handshake"></i>
-                <span>6. Banner Kemitraan (Footer)</span>
+            <button type="button" @click="activeTab = 'footer'" :class="activeTab === 'footer' ? 'bg-[#0B132B] text-white dark:bg-amber-400 dark:text-slate-950 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'" class="px-2.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center whitespace-nowrap">
+                <i class="fa-solid fa-handshake text-xs"></i>
+                <span>6. Kemitraan</span>
             </button>
         </div>
 
@@ -638,15 +638,19 @@
         </div>
 
         <!-- Sticky Bottom Save Bar -->
-        <div class="sticky bottom-4 z-20 mt-8 p-4 rounded-2xl bg-[#0B132B] text-white shadow-2xl border border-blue-900/60 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="text-xs font-bold text-slate-200">Perubahan akan langsung terpublikasi di halaman <a href="{{ route('chairman.archive.index') }}" target="_blank" class="text-amber-400 underline">/wardoyo</a></span>
+        <div class="sticky bottom-4 z-20 mt-8 p-3 sm:p-4 rounded-2xl bg-[#0B132B] text-white shadow-2xl border border-blue-900/60 flex items-center justify-between gap-3 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+                <span class="text-[11px] sm:text-xs font-bold text-slate-200 truncate">
+                    <span class="hidden sm:inline">Perubahan langsung terpublikasi di </span>
+                    <span class="sm:hidden">Tayang di </span>
+                    <a href="{{ route('chairman.archive.index') }}" target="_blank" class="text-amber-400 underline">/wardoyo</a>
+                </span>
             </div>
-            <div class="flex items-center gap-2">
-                <button type="submit" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md transition-all cursor-pointer">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Simpan Seluruh Perubahan</span>
+            <div class="flex items-center gap-2 shrink-0">
+                <button type="submit" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md transition-all cursor-pointer whitespace-nowrap">
+                    <i class="fa-solid fa-floppy-disk text-xs"></i>
+                    <span>Simpan<span class="hidden sm:inline"> Seluruh Perubahan</span></span>
                 </button>
             </div>
         </div>

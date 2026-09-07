@@ -196,9 +196,12 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: clip;
+            max-width: 100%;
         }
         body {
             overflow-x: clip;
+            max-width: 100%;
             min-height: 100vh;
         }
         #main-navbar {
@@ -273,17 +276,17 @@
 
     <!-- Sticky Modern Glassmorphism Navbar (Non-crowded, perfectly responsive & accessible) -->
     <header id="main-navbar" class="sticky top-0 z-50 bg-white/95 dark:bg-[#0B132B]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 gap-3 sm:gap-6">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-2 sm:gap-6">
                 
                 <!-- Brand Logo & Identity (Shrink-0, Never Stacks or Wraps) -->
-                <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0 group">
-                    <div class="relative flex items-center justify-center w-11 h-11 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-sm shrink-0">
+                <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 shrink-0 group">
+                    <div class="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-100 dark:bg-white/10 p-1.5 ring-1 ring-slate-200 dark:ring-white/20 group-hover:ring-amber-500/50 transition-all duration-300 shadow-sm shrink-0">
                         <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="44" height="44" class="w-full h-full object-contain">
                     </div>
                     <div class="flex flex-col shrink-0 leading-tight">
-                        <span class="text-[10px] font-black tracking-widest text-amber-600 dark:text-amber-400 uppercase leading-none whitespace-nowrap">PORTAL RESMI</span>
-                        <span class="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug whitespace-nowrap">PWI BANYUASIN</span>
+                        <span class="text-[9px] sm:text-[10px] font-black tracking-widest text-amber-600 dark:text-amber-400 uppercase leading-none whitespace-nowrap">PORTAL RESMI</span>
+                        <span class="text-sm sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-snug whitespace-nowrap">PWI BANYUASIN</span>
                         <span class="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block leading-none whitespace-nowrap">Sumatera Selatan</span>
                     </div>
                 </a>
@@ -357,7 +360,7 @@
                 </nav>
 
                 <!-- Action Button, Theme Toggle & Login (Always Visible & Accessible) -->
-                <div class="flex items-center gap-2 shrink-0">
+                <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
                     
                     <!-- Dark / Light Mode Toggle Button -->
                     <button @click="toggleTheme()" 
@@ -370,14 +373,20 @@
                     </button>
 
                     @auth
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200 shrink-0 whitespace-nowrap">
-                            <i class="fa-solid fa-gauge-high"></i>
-                            <span>Panel Admin</span>
+                        <a href="{{ route('admin.dashboard') }}" 
+                           class="w-9 h-9 sm:w-auto sm:h-10 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all duration-200 shrink-0 whitespace-nowrap inline-flex items-center justify-center gap-2"
+                           title="Panel Admin"
+                           aria-label="Panel Admin">
+                            <i class="fa-solid fa-gauge-high text-sm sm:text-xs"></i>
+                            <span class="hidden sm:inline">Panel Admin</span>
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-500/20 transition-all duration-200 shrink-0 whitespace-nowrap">
-                            <i class="fa-solid fa-lock text-xs"></i>
-                            <span>Login Admin</span>
+                        <a href="{{ route('login') }}" 
+                           class="w-9 h-9 sm:w-auto sm:h-10 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-500/20 transition-all duration-200 shrink-0 whitespace-nowrap inline-flex items-center justify-center gap-2"
+                           title="Login Admin"
+                           aria-label="Login Admin">
+                            <i class="fa-solid fa-lock text-sm sm:text-xs"></i>
+                            <span class="hidden sm:inline">Login Admin</span>
                         </a>
                     @endauth
 

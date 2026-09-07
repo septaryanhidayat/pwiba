@@ -18,22 +18,22 @@
             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Pengarsipan digital dan pembuatan surat tugas, audiensi, surat biasa, dan proposal</p>
         </div>
         
-        <div class="flex flex-wrap items-center gap-2">
-            <button @click="modalTugas = true" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-700 shadow-sm transition-all cursor-pointer">
-                <i class="fa-solid fa-user-tag"></i>
-                <span>+ Buat Surat Tugas</span>
+        <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+            <button @click="modalTugas = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-user-tag text-xs"></i>
+                <span>+ Surat Tugas</span>
             </button>
-            <button @click="modalAudiensi = true" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all cursor-pointer">
-                <i class="fa-solid fa-comments"></i>
-                <span>+ Buat Surat Audensi</span>
+            <button @click="modalAudiensi = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-comments text-xs"></i>
+                <span>+ Audiensi</span>
             </button>
-            <button @click="modalBiasa = true" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all cursor-pointer">
-                <i class="fa-solid fa-envelope"></i>
-                <span>+ Buat Surat Biasa</span>
+            <button @click="modalBiasa = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-envelope text-xs"></i>
+                <span>+ Surat Biasa</span>
             </button>
-            <button @click="modalProposal = true" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 shadow-sm transition-all cursor-pointer">
-                <i class="fa-solid fa-file-contract"></i>
-                <span>+ Buat Surat Proposal</span>
+            <button @click="modalProposal = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-file-contract text-xs"></i>
+                <span>+ Proposal</span>
             </button>
         </div>
     </div>
@@ -42,21 +42,21 @@
     <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
         
         <!-- Table Filter Bar -->
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-900/50">
-            <div class="flex flex-wrap items-center gap-2">
-                <a href="{{ route('admin.letters.index') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ !request('jenis') ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Semua Jenis
+        <div class="p-4 sm:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-900/50">
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                <a href="{{ route('admin.letters.index') }}" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ !request('jenis') ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    Semua
                 </a>
-                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT TUGAS']) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ request('jenis') == 'SURAT TUGAS' ? 'bg-cyan-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Surat Tugas
+                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT TUGAS']) }}" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT TUGAS' ? 'bg-cyan-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    Tugas
                 </a>
-                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT AUDENSI']) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ request('jenis') == 'SURAT AUDENSI' ? 'bg-amber-400 text-slate-950 shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Surat Audiensi
+                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT AUDENSI']) }}" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT AUDENSI' ? 'bg-amber-400 text-slate-950 shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    Audiensi
                 </a>
-                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT BIASA']) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ request('jenis') == 'SURAT BIASA' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Surat Biasa
+                <a href="{{ route('admin.letters.index', ['jenis' => 'SURAT BIASA']) }}" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT BIASA' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    Biasa
                 </a>
-                <a href="{{ route('admin.letters.index', ['jenis' => 'PROPOSAL']) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ request('jenis') == 'PROPOSAL' ? 'bg-slate-800 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
+                <a href="{{ route('admin.letters.index', ['jenis' => 'PROPOSAL']) }}" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'PROPOSAL' ? 'bg-slate-800 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
                     Proposal
                 </a>
             </div>
