@@ -325,10 +325,24 @@
                     <span class="px-1.5 py-0.5 rounded text-[9px] font-bold {{ request()->routeIs('admin.chairman_profile.*') ? 'bg-amber-400 text-slate-950' : 'bg-amber-400/20 text-amber-300 border border-amber-400/30' }}">EDIT</span>
                 </a>
 
-                <!-- 7. Galeri PWI -->
-                <a href="{{ route('admin.galleries.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.galleries.index') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                <!-- 7. Galeri Foto -->
+                <a href="{{ route('admin.galleries.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.galleries.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-images text-sm w-4 text-sky-400"></i>
                     <span>Galeri Dokumentasi</span>
+                </a>
+
+                <!-- 7.1 Galeri Video YouTube -->
+                <a href="{{ route('admin.video_galleries.index') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.video_galleries.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-youtube text-sm w-4 text-red-500"></i>
+                        <span>Galeri Video</span>
+                    </div>
+                    @php $videoCountBadge = \Illuminate\Support\Facades\Schema::hasTable('video_galleries') ? \App\Models\VideoGallery::count() : 0; @endphp
+                    @if($videoCountBadge > 0)
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ request()->routeIs('admin.video_galleries.*') ? 'bg-amber-400 text-slate-950' : 'bg-red-500/20 text-red-400 border border-red-500/30' }}">
+                            {{ $videoCountBadge }}
+                        </span>
+                    @endif
                 </a>
 
                 <!-- 8. Pengaturan (Group) -->

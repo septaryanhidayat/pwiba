@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\VideoGalleryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChairmanArchiveController;
 use App\Http\Controllers\PublicController;
@@ -154,11 +155,18 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/profil-ketua', [ChairmanProfileController::class, 'edit'])->name('chairman_profile.edit');
     Route::post('/profil-ketua', [ChairmanProfileController::class, 'update'])->name('chairman_profile.update');
 
-    // Modul Galeri
+    // Modul Galeri Foto
     Route::get('/galeri', [GalleryController::class, 'index'])->name('galleries.index');
     Route::post('/galeri', [GalleryController::class, 'store'])->name('galleries.store');
     Route::put('/galeri/{id}', [GalleryController::class, 'update'])->name('galleries.update');
     Route::delete('/galeri/{id}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
+
+    // Modul Galeri Video (YouTube)
+    Route::get('/galeri-video', [VideoGalleryController::class, 'index'])->name('video_galleries.index');
+    Route::post('/galeri-video', [VideoGalleryController::class, 'store'])->name('video_galleries.store');
+    Route::put('/galeri-video/{id}', [VideoGalleryController::class, 'update'])->name('video_galleries.update');
+    Route::delete('/galeri-video/{id}', [VideoGalleryController::class, 'destroy'])->name('video_galleries.destroy');
+    Route::get('/galeri-video/fetch-info', [VideoGalleryController::class, 'fetchInfo'])->name('video_galleries.fetch_info');
 
     // Modul Pengaturan
     Route::get('/pengaturan/data-pwi', [SettingController::class, 'office'])->name('settings.office');

@@ -13,6 +13,7 @@ use App\Models\OrganizationStructure;
 use App\Models\Post;
 use App\Models\PostView;
 use App\Models\Setting;
+use App\Models\VideoGallery;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
@@ -23,7 +24,7 @@ class PublicController extends Controller
 {
     protected function ensureTablesExist(): void
     {
-        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views') || ! Schema::hasTable('chairman_posts')) {
+        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views') || ! Schema::hasTable('chairman_posts') || ! Schema::hasTable('video_galleries')) {
             try {
                 Artisan::call('migrate', ['--force' => true]);
                 if (Schema::hasTable('posts') && Post::count() === 0) {
@@ -79,13 +80,15 @@ class PublicController extends Controller
         $mediaCount = Schema::hasTable('media') ? Media::count() : 0;
         $newsCount = Schema::hasTable('posts') ? Post::where('status', 'published')->count() : 0;
         $galleryCount = Schema::hasTable('galleries') ? Gallery::count() : 0;
+        $videos = Schema::hasTable('video_galleries') ? VideoGallery::where('is_active', true)->orderBy('urutan')->orderBy('tanggal', 'desc')->take(6)->get() : collect();
+        $videoCount = Schema::hasTable('video_galleries') ? VideoGallery::where('is_active', true)->count() : 0;
 
         // 3. Featured Members
         $featuredMembers = Schema::hasTable('members') ? Member::where('status', 'aktif')
             ->whereIn('jabatan', ['KETUA', 'SEKRETARIS', 'BENDAHARA', 'WAKIL KETUA I', 'WAKIL KETUA II', 'WAKIL KETUA III'])
             ->get() : collect();
 
-        return view('public.home', compact('posts', 'structures', 'galleries', 'settings', 'ukwStats', 'mediaCount', 'newsCount', 'galleryCount', 'featuredMembers'));
+        return view('public.home', compact('posts', 'structures', 'galleries', 'videos', 'settings', 'ukwStats', 'mediaCount', 'newsCount', 'galleryCount', 'videoCount', 'featuredMembers'));
     }
 
     public function news(Request $request)
@@ -350,9 +353,12 @@ class PublicController extends Controller
 
     public function gallery()
     {
-        $galleries = Gallery::latest('tanggal_kegiatan')->paginate(24);
+        $this->ensureTablesExist();
 
-        return view('public.gallery', compact('galleries'));
+        $galleries = Gallery::latest('tanggal_kegiatan')->paginate(24);
+        $videos = Schema::hasTable('video_galleries') ? VideoGallery::where('is_active', true)->orderBy('urutan')->orderBy('tanggal', 'desc')->get() : collect();
+
+        return view('public.gallery', compact('galleries', 'videos'));
     }
 
     public function cctv()
