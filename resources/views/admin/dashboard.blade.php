@@ -158,15 +158,18 @@
 
     <!-- Ringkasan Cepat Angka Portal (4 Key Indicators) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 flex items-center justify-center text-base sm:text-lg shrink-0">
-                <i class="fa-solid fa-newspaper"></i>
+        <a href="{{ route('admin.analytics.index') }}" class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 flex items-center gap-2.5 sm:gap-3 shadow-xs transition-all group" title="Lihat Statistik Pengunjung & Tren Pembaca">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center text-base sm:text-lg shrink-0 transition-colors">
+                <i class="fa-solid fa-chart-line"></i>
             </div>
             <div class="min-w-0">
-                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate">{{ $totalNews }} Berita</div>
-                <div class="text-[11px] text-slate-500 font-medium truncate">{{ number_format($totalViews) }} Pembaca</div>
+                <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate flex items-center gap-1.5">
+                    <span>{{ $totalNews }} Berita</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-500"></i>
+                </div>
+                <div class="text-[11px] text-blue-600 dark:text-blue-400 font-bold truncate">{{ number_format($totalViews) }} Pembaca (Analitik)</div>
             </div>
-        </div>
+        </a>
 
         <div class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 shadow-xs">
             <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400 flex items-center justify-center text-base sm:text-lg shrink-0">

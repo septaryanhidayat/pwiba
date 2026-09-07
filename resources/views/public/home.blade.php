@@ -473,170 +473,93 @@
         </div>
 
     </div>
-</section>
-
-<!-- 5. Galeri Dokumentasi & Video Interaktif (Lightbox & Video Player Modal) -->
-<section id="galeri" class="py-20 bg-slate-900 text-white relative overflow-hidden" 
+</se<!-- 5A. Galeri Video Liputan Media (Standalone Section - No Tabs) -->
+<section id="galeri-video" class="py-20 bg-slate-900 text-white relative overflow-hidden" 
          x-data="{ 
-             currentTab: 'video', 
-             selectedPhoto: null, 
-             selectedTitle: '', 
-             selectedDate: '', 
-             selectedDesc: '',
              selectedVideo: null 
          }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 text-center sm:text-left items-center sm:items-end" data-aos="fade-up">
             <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/15">
-                    Dokumentasi Visual & Liputan Media
+                <span class="text-xs font-bold uppercase tracking-wider text-red-400 bg-red-500/10 px-3.5 py-1 rounded-full border border-red-500/20 inline-flex items-center gap-1.5">
+                    <i class="fa-brands fa-youtube text-red-500"></i>
+                    <span>Liputan Media & Dokumentasi Video</span>
                 </span>
                 <h2 class="text-3xl font-extrabold text-white mt-2">
-                    Galeri Kegiatan & Video Liputan PWI
+                    Galeri Video Liputan PWI
                 </h2>
-                <p class="text-slate-400 text-sm mt-1">Potret dinamika, kebersamaan insan pers, serta liputan berita video PWI Banyuasin</p>
+                <p class="text-slate-400 text-sm mt-1">Saksikan tayangan liputan berita televisi dan dokumentasi audio-visual PWI Banyuasin</p>
             </div>
             
-            <!-- Tab Switcher (Video & Foto) -->
-            <div class="flex items-center gap-2 p-1.5 bg-slate-800/80 rounded-2xl border border-white/10 shrink-0">
-                <button @click="currentTab = 'video'" 
-                        :class="currentTab === 'video' ? 'bg-red-600 text-white shadow-md font-bold' : 'text-slate-400 hover:text-white font-medium'"
-                        class="px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer flex items-center gap-1.5">
-                    <i class="fa-brands fa-youtube text-sm"></i>
-                    <span>Video Liputan ({{ $videoCount ?? $videos->count() }})</span>
-                </button>
-                <button @click="currentTab = 'foto'" 
-                        :class="currentTab === 'foto' ? 'bg-blue-600 text-white shadow-md font-bold' : 'text-slate-400 hover:text-white font-medium'"
-                        class="px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer flex items-center gap-1.5">
-                    <i class="fa-solid fa-images text-xs"></i>
-                    <span>Foto Kegiatan ({{ $galleryCount ?? 17 }})</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- 1. Video Gallery Tab Content -->
-        <div x-show="currentTab === 'video'" x-cloak>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                @forelse($videos as $v)
-                    <div @click="selectedVideo = { id: '{{ $v->youtube_id }}', title: '{{ addslashes($v->judul) }}', date: '{{ $v->tanggal ? $v->tanggal->translatedFormat('d F Y') : '-' }}', desc: '{{ addslashes($v->deskripsi) }}', url: '{{ $v->youtube_url }}' }" 
-                         class="group relative rounded-3xl overflow-hidden bg-slate-800/90 border border-white/10 cursor-pointer shadow-xl hover-lift flex flex-col"
-                         data-aos="fade-up"
-                         data-aos-delay="{{ $loop->iteration * 80 }}">
-                        
-                        <!-- Video Thumbnail with Play Button -->
-                        <div class="relative aspect-video bg-slate-950 overflow-hidden">
-                            <img src="{{ $v->thumbnail_url }}" alt="{{ $v->judul }}" width="640" height="360" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-70 group-hover:opacity-85 transition-opacity"></div>
-                            
-                            <!-- Badges -->
-                            <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-lg">
-                                <i class="fa-brands fa-youtube"></i>
-                                <span>YouTube Liputan</span>
-                            </div>
-
-                            <!-- Play Overlay -->
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-red-600 transition-all duration-300 ring-4 ring-white/20">
-                                    <i class="fa-solid fa-play text-lg ml-1"></i>
-                                </div>
-                            </div>
-
-                            <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/80 text-white text-[10px] font-bold backdrop-blur-xs">
-                                <i class="fa-solid fa-expand text-[9px] me-1"></i> Tonton Video
-                            </div>
-                        </div>
-
-                        <!-- Card Body -->
-                        <div class="p-6 flex flex-col justify-between flex-1">
-                            <div>
-                                <span class="text-[11px] font-bold text-red-400 uppercase tracking-wider block mb-2">
-                                    <i class="fa-regular fa-calendar me-1"></i> {{ $v->tanggal ? $v->tanggal->translatedFormat('d F Y') : '-' }}
-                                </span>
-                                <h3 class="text-base font-bold text-white line-clamp-2 leading-snug group-hover:text-red-400 transition-colors">
-                                    {{ $v->judul }}
-                                </h3>
-                                @if($v->deskripsi)
-                                    <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
-                                        {{ $v->deskripsi }}
-                                    </p>
-                                @endif
-                            </div>
-                            
-                            <div class="mt-4 pt-3.5 border-t border-white/10 flex items-center justify-between text-xs font-bold text-red-400">
-                                <span class="inline-flex items-center gap-1.5">
-                                    <i class="fa-solid fa-circle-play"></i> Putar Video Lengkap
-                                </span>
-                                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                            </div>
-                        </div>
-
-                    </div>
-                @empty
-                    <div class="col-span-2 text-center py-12 text-slate-500">
-                        Belum ada video galeri.
-                    </div>
-                @endforelse
-            </div>
-        </div>
-
-        <!-- 2. Photo Gallery Tab Content -->
-        <div x-show="currentTab === 'foto'" x-cloak>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                @forelse($galleries->take(6) as $g)
-                    <div @click="selectedPhoto = '{{ $g->foto_url }}'; selectedTitle = '{{ addslashes($g->judul) }}'; selectedDate = '{{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d F Y') : '-' }}'; selectedDesc = '{{ addslashes($g->deskripsi) }}'" 
-                         class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg hover-lift">
-                        <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                        
-                        <div class="absolute bottom-0 inset-x-0 p-5">
-                            <span class="text-[10px] font-semibold text-amber-400 uppercase tracking-wider block mb-1">
-                                {{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d M Y') : 'Dokumentasi' }}
-                            </span>
-                            <h4 class="text-sm font-bold text-white line-clamp-2 leading-snug">
-                                {{ $g->judul }}
-                            </h4>
-                        </div>
-
-                        <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fa-solid fa-expand text-xs"></i>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-span-3 text-center py-10 text-slate-500">
-                        Belum ada dokumentasi foto galeri.
-                    </div>
-                @endforelse
-            </div>
-        </div>
-
-        <!-- Bottom Link to Full Gallery -->
-        <div class="mt-10 text-center">
-            <a href="{{ route('gallery.public') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all shadow-md hover-lift group">
-                <i class="fa-solid fa-photo-film text-amber-400"></i>
-                <span>Jelajahi Seluruh Koleksi Foto & Video Galeri</span>
-                <i class="fa-solid fa-arrow-right text-xs text-amber-400 group-hover:translate-x-1 transition-transform"></i>
+            <a href="{{ route('gallery.videos') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 hover:border-red-500/50 transition-all shadow-md hover-lift group shrink-0">
+                <i class="fa-brands fa-youtube text-red-500 text-sm"></i>
+                <span>Lihat Semua Video ({{ $videoCount ?? $videos->count() }})</span>
+                <i class="fa-solid fa-arrow-right text-[10px] text-red-400 group-hover:translate-x-1 transition-transform"></i>
             </a>
         </div>
 
-        <!-- Lightbox Modal for Photo -->
-        <div x-show="selectedPhoto" 
-             x-cloak 
-             @click="selectedPhoto = null"
-             @keydown.escape.window="selectedPhoto = null"
-             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md cursor-pointer">
-            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl cursor-default" 
-                 @click.stop>
-                <button type="button" @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center cursor-pointer transition-colors">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                <img :src="selectedPhoto" :alt="selectedTitle" class="w-full max-h-[65vh] object-contain bg-black">
-                <div class="p-6 bg-slate-900 text-white">
-                    <div class="text-xs text-amber-400 font-semibold" x-text="selectedDate"></div>
-                    <h3 class="text-lg font-bold text-white mt-1" x-text="selectedTitle"></h3>
-                    <p class="text-xs text-slate-300 mt-2" x-text="selectedDesc"></p>
+        <!-- Video Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @forelse($videos as $v)
+                <div @click="selectedVideo = { id: '{{ $v->youtube_id }}', title: '{{ addslashes($v->judul) }}', date: '{{ $v->tanggal ? $v->tanggal->translatedFormat('d F Y') : '-' }}', desc: '{{ addslashes($v->deskripsi) }}', url: '{{ $v->youtube_url }}' }" 
+                     class="group relative rounded-3xl overflow-hidden bg-slate-800/90 border border-white/10 cursor-pointer shadow-xl hover-lift flex flex-col"
+                     data-aos="fade-up"
+                     data-aos-delay="{{ $loop->iteration * 80 }}">
+                    
+                    <!-- Video Thumbnail with Play Button -->
+                    <div class="relative aspect-video bg-slate-950 overflow-hidden">
+                        <img src="{{ $v->thumbnail_url }}" alt="{{ $v->judul }}" width="640" height="360" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-70 group-hover:opacity-85 transition-opacity"></div>
+                        
+                        <!-- Badges -->
+                        <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-lg">
+                            <i class="fa-brands fa-youtube"></i>
+                            <span>YouTube Liputan</span>
+                        </div>
+
+                        <!-- Play Overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-red-600 transition-all duration-300 ring-4 ring-white/20">
+                                <i class="fa-solid fa-play text-lg ml-1"></i>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/80 text-white text-[10px] font-bold backdrop-blur-xs">
+                            <i class="fa-solid fa-expand text-[9px] me-1"></i> Tonton Video
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex flex-col justify-between flex-1">
+                        <div>
+                            <span class="text-[11px] font-bold text-red-400 uppercase tracking-wider block mb-2">
+                                <i class="fa-regular fa-calendar me-1"></i> {{ $v->tanggal ? $v->tanggal->translatedFormat('d F Y') : '-' }}
+                            </span>
+                            <h3 class="text-base font-bold text-white line-clamp-2 leading-snug group-hover:text-red-400 transition-colors">
+                                {{ $v->judul }}
+                            </h3>
+                            @if($v->deskripsi)
+                                <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                                    {{ $v->deskripsi }}
+                                </p>
+                            @endif
+                        </div>
+                        
+                        <div class="mt-4 pt-3.5 border-t border-white/10 flex items-center justify-between text-xs font-bold text-red-400">
+                            <span class="inline-flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-play"></i> Putar Video Lengkap
+                            </span>
+                            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+            @empty
+                <div class="col-span-2 text-center py-12 text-slate-500 bg-slate-850 rounded-2xl border border-white/5">
+                    Belum ada video galeri yang dipublikasikan.
+                </div>
+            @endforelse
         </div>
 
         <!-- Video Player Modal for YouTube -->
@@ -681,6 +604,88 @@
                             Tutup Video
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- 5B. Galeri Foto Dokumentasi Kegiatan (Standalone Section - No Tabs) -->
+<section id="galeri-foto" class="py-20 bg-[#070D1E] text-white relative overflow-hidden border-t border-white/5" 
+         x-data="{ 
+             selectedPhoto: null, 
+             selectedTitle: '', 
+             selectedDate: '', 
+             selectedDesc: '' 
+         }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 text-center sm:text-left items-center sm:items-end" data-aos="fade-up">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-400 bg-sky-500/10 px-3.5 py-1 rounded-full border border-sky-500/20 inline-flex items-center gap-1.5">
+                    <i class="fa-solid fa-images text-sky-400"></i>
+                    <span>Dokumentasi Visual Jurnalistik</span>
+                </span>
+                <h2 class="text-3xl font-extrabold text-white mt-2">
+                    Galeri Foto Kegiatan PWI
+                </h2>
+                <p class="text-slate-400 text-sm mt-1">Potret dinamika organisasi, kemitraan daerah, dan momentum bersejarah insan pers Banyuasin</p>
+            </div>
+            
+            <a href="{{ route('gallery.public') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/30 hover:border-sky-500/50 transition-all shadow-md hover-lift group shrink-0">
+                <i class="fa-solid fa-images text-sky-400 text-sm"></i>
+                <span>Lihat Semua Foto ({{ $galleryCount ?? 17 }})</span>
+                <i class="fa-solid fa-arrow-right text-[10px] text-sky-400 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- Photo Grid (6 photos) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            @forelse($galleries->take(6) as $g)
+                <div @click="selectedPhoto = '{{ $g->foto_url }}'; selectedTitle = '{{ addslashes($g->judul) }}'; selectedDate = '{{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d F Y') : '-' }}'; selectedDesc = '{{ addslashes($g->deskripsi) }}'" 
+                     class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 cursor-pointer shadow-lg hover-lift"
+                     data-aos="fade-up"
+                     data-aos-delay="{{ $loop->iteration * 60 }}">
+                    <img src="{{ $g->foto_url }}" alt="{{ $g->judul }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    
+                    <div class="absolute bottom-0 inset-x-0 p-5">
+                        <span class="text-[10px] font-semibold text-amber-400 uppercase tracking-wider block mb-1">
+                            {{ $g->tanggal_kegiatan ? $g->tanggal_kegiatan->translatedFormat('d M Y') : 'Dokumentasi' }}
+                        </span>
+                        <h4 class="text-sm font-bold text-white line-clamp-2 leading-snug">
+                            {{ $g->judul }}
+                        </h4>
+                    </div>
+
+                    <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-expand text-xs"></i>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-3 text-center py-10 text-slate-500 bg-slate-900/50 rounded-2xl border border-white/5">
+                    Belum ada dokumentasi foto galeri.
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Lightbox Modal for Photo -->
+        <div x-show="selectedPhoto" 
+             x-cloak 
+             @click="selectedPhoto = null"
+             @keydown.escape.window="selectedPhoto = null"
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md cursor-pointer">
+            <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl cursor-default" 
+                 @click.stop>
+                <button type="button" @click="selectedPhoto = null" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center cursor-pointer transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <img :src="selectedPhoto" :alt="selectedTitle" class="w-full max-h-[65vh] object-contain bg-black">
+                <div class="p-6 bg-slate-900 text-white">
+                    <div class="text-xs text-amber-400 font-semibold" x-text="selectedDate"></div>
+                    <h3 class="text-lg font-bold text-white mt-1" x-text="selectedTitle"></h3>
+                    <p class="text-xs text-slate-300 mt-2" x-text="selectedDesc"></p>
                 </div>
             </div>
         </div>

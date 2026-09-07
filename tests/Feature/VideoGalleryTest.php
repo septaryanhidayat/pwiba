@@ -30,23 +30,33 @@ class VideoGalleryTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Galeri Kegiatan & Video Liputan PWI', false);
+        $response->assertSee('Galeri Video Liputan PWI', false);
         $response->assertSee('ayWoKoy-rDM', false);
         $response->assertSee('lQDMxy9gtkQ', false);
         $response->assertSee('TVRI - Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Mengadakan Perlombaan Mini Soccer', false);
         $response->assertSee('PalTV - ARAEY FC Juarai Open Turnamen Mini Soccer PWI Banyuasin', false);
     }
 
-    public function test_public_gallery_page_renders_video_section_and_photos(): void
+    public function test_public_video_gallery_page_renders_video_list(): void
+    {
+        $response = $this->get('/galeri-video');
+
+        $response->assertStatus(200);
+        $response->assertSee('Galeri Video & Liputan Resmi PWI', false);
+        $response->assertSee('Daftar Video Liputan Terkini', false);
+        $response->assertSee('ayWoKoy-rDM', false);
+        $response->assertSee('lQDMxy9gtkQ', false);
+        $response->assertSee('TVRI - Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Mengadakan Perlombaan Mini Soccer', false);
+    }
+
+    public function test_public_photo_gallery_page_is_separated(): void
     {
         $response = $this->get('/galeri');
 
         $response->assertStatus(200);
         $response->assertSee('Galeri Foto & Dokumentasi Kegiatan PWI', false);
-        $response->assertSee('Galeri Video & Liputan Media', false);
-        $response->assertSee('ayWoKoy-rDM', false);
-        $response->assertSee('lQDMxy9gtkQ', false);
-        $response->assertSee('TVRI - Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin Mengadakan Perlombaan Mini Soccer', false);
+        $response->assertSee('Daftar Foto Dokumentasi Resmi', false);
+        $response->assertSee('Beralih ke Galeri Video', false);
     }
 
     public function test_unauthenticated_user_cannot_access_admin_video_gallery(): void

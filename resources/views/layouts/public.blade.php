@@ -343,9 +343,31 @@
                         Berita
                     </a>
 
-                    <a href="{{ route('gallery.public') }}" class="px-3 py-2 text-xs xl:text-sm font-semibold {{ request()->routeIs('gallery.public') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10' }} rounded-xl transition-colors whitespace-nowrap">
-                        Galeri
-                    </a>
+                    <!-- Dropdown Galeri (Foto & Video Terpisah) -->
+                    <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                        <button @click="open = !open" class="px-3 py-2 text-xs xl:text-sm font-semibold {{ request()->routeIs('gallery.*') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10' }} rounded-xl transition-colors inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                            <span>Galeri</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" :class="open ? 'rotate-180 text-amber-500' : 'text-slate-400'"></i>
+                        </button>
+                        <div x-show="open" 
+                             x-cloak 
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 translate-y-1"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-1"
+                             class="absolute left-0 top-full mt-1 w-52 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+                            <a href="{{ route('gallery.public') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ request()->routeIs('gallery.public') ? 'text-blue-600 dark:text-amber-400 font-bold bg-blue-50 dark:bg-white/10' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-amber-400' }} transition-colors">
+                                <i class="fa-solid fa-images text-sky-500 w-4 text-center"></i>
+                                <span>Galeri Foto</span>
+                            </a>
+                            <a href="{{ route('gallery.videos') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ request()->routeIs('gallery.videos') ? 'text-red-600 dark:text-red-400 font-bold bg-red-50 dark:bg-red-950/30' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-400' }} transition-colors">
+                                <i class="fa-brands fa-youtube text-red-500 w-4 text-center"></i>
+                                <span>Galeri Video</span>
+                            </a>
+                        </div>
+                    </div>
 
                     <!-- CCTV Banyuasin Nav Link (Clean Live Indicator) -->
                     <a href="{{ route('cctv.public') }}" class="px-3 py-2 text-xs xl:text-sm font-bold {{ request()->routeIs('cctv.public') ? 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 ring-1 ring-rose-300 dark:ring-rose-800' : 'text-slate-700 dark:text-slate-200 hover:text-rose-600 hover:bg-rose-50/80 dark:hover:bg-rose-950/30' }} rounded-xl transition-all inline-flex items-center gap-2 whitespace-nowrap shadow-xs" title="Pantauan CCTV Banyuasin Live">
@@ -423,7 +445,14 @@
             <a @click="mobileMenuOpen = false" href="{{ route('organization.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Susunan Pengurus</a>
             <a @click="mobileMenuOpen = false" href="{{ route('leaders.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Sejarah (Ketua)</a>
             <a @click="mobileMenuOpen = false" href="{{ route('news.index') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Berita Terkini</a>
-            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">Galeri Kegiatan</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('gallery.public') }}" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">
+                <i class="fa-solid fa-images text-sky-500 w-4 text-center"></i>
+                <span>Galeri Foto</span>
+            </a>
+            <a @click="mobileMenuOpen = false" href="{{ route('gallery.videos') }}" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white">
+                <i class="fa-brands fa-youtube text-red-500 w-4 text-center"></i>
+                <span>Galeri Video</span>
+            </a>
             
             <!-- Mobile CCTV Link -->
             <a @click="mobileMenuOpen = false" href="{{ route('cctv.public') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold {{ request()->routeIs('cctv.public') ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/10' }}">
@@ -539,7 +568,13 @@
                         <li>
                             <a href="{{ route('gallery.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
                                 <i class="fa-solid fa-images text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
-                                <span>Galeri Dokumentasi</span>
+                                <span>Galeri Foto</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('gallery.videos') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-brands fa-youtube text-xs text-red-400 group-hover:text-red-400 w-4 text-center transition-colors"></i>
+                                <span>Galeri Video</span>
                             </a>
                         </li>
                         <li>
@@ -608,6 +643,78 @@
                     </div>
                 </div>
 
+            </div>
+
+            <!-- Real Visitor Counter & Traffic Metrics (Authentic Database Tracking) -->
+            <div class="mt-12 pt-8 border-t border-slate-800/80">
+                <div class="bg-gradient-to-r from-slate-900 via-[#0B132B] to-slate-900 rounded-3xl p-5 sm:p-6 border border-white/10 shadow-2xl relative overflow-hidden">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                        
+                        <!-- Left: Counter Title & Live Indicator -->
+                        <div class="flex items-center gap-4 text-center sm:text-left">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center text-xl shrink-0 shadow-inner">
+                                <i class="fa-solid fa-chart-simple"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 justify-center sm:justify-start">
+                                    <h5 class="text-sm font-black text-white uppercase tracking-wider">Statistik Pengunjung Portal</h5>
+                                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                        <span>Real-Time</span>
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-0.5">Penghitungan trafik dan tayangan halaman berbasis data riil pengunjung portal PWI Banyuasin</p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Real Metric Badges -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 w-full lg:w-auto">
+                            <!-- Hari Ini -->
+                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Hari Ini</span>
+                                <span class="text-base sm:text-lg font-black text-amber-400 mt-0.5 block">
+                                    {{ number_format($visitorStats['today'] ?? 0) }}
+                                </span>
+                            </div>
+
+                            <!-- Kemarin -->
+                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Kemarin</span>
+                                <span class="text-base sm:text-lg font-black text-slate-200 mt-0.5 block">
+                                    {{ number_format($visitorStats['yesterday'] ?? 0) }}
+                                </span>
+                            </div>
+
+                            <!-- Bulan Ini -->
+                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Bulan Ini</span>
+                                <span class="text-base sm:text-lg font-black text-sky-400 mt-0.5 block">
+                                    {{ number_format($visitorStats['this_month'] ?? 0) }}
+                                </span>
+                            </div>
+
+                            <!-- Total Pengunjung -->
+                            <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Tamu</span>
+                                <span class="text-base sm:text-lg font-black text-emerald-400 mt-0.5 block">
+                                    {{ number_format($visitorStats['total_visitors'] ?? 0) }}
+                                </span>
+                            </div>
+
+                            <!-- Sedang Online -->
+                            <div class="col-span-2 sm:col-span-1 bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-2xl border border-white/10 text-center min-w-[105px]">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block flex items-center justify-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                    <span>Online</span>
+                                </span>
+                                <span class="text-base sm:text-lg font-black text-rose-400 mt-0.5 block">
+                                    {{ number_format($visitorStats['online'] ?? 1) }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
             <!-- Bottom Bar -->

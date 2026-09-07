@@ -196,6 +196,15 @@
                     <span>Dashboard</span>
                 </a>
 
+                <!-- Statistik Pengunjung (Real Traffic & Reader Trends) -->
+                <a href="{{ route('admin.analytics.index') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.analytics.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chart-line text-sm w-4 text-emerald-400"></i>
+                        <span>Statistik Pengunjung</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">REAL</span>
+                </a>
+
                 <!-- 1. Modul Anggota & Media (Group) -->
                 <div x-data="{ open: {{ request()->is('admin/anggota*') || request()->is('admin/media*') ? 'true' : 'false' }} }">
                     <button @click="open = !open" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white transition-all">
@@ -328,7 +337,7 @@
                 <!-- 7. Galeri Foto -->
                 <a href="{{ route('admin.galleries.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all {{ request()->routeIs('admin.galleries.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                     <i class="fa-solid fa-images text-sm w-4 text-sky-400"></i>
-                    <span>Galeri Dokumentasi</span>
+                    <span>Galeri Foto</span>
                 </a>
 
                 <!-- 7.1 Galeri Video YouTube -->

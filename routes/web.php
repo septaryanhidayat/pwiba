@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\ChairmanPostController;
 use App\Http\Controllers\Admin\ChairmanProfileController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -32,6 +33,7 @@ Route::get('/struktur-organisasi', [PublicController::class, 'organization'])->n
 Route::get('/ketua-dari-masa-ke-masa', [PublicController::class, 'leaders'])->name('leaders.public');
 Route::get('/anggota', [PublicController::class, 'members'])->name('members.public');
 Route::get('/galeri', [PublicController::class, 'gallery'])->name('gallery.public');
+Route::get('/galeri-video', [PublicController::class, 'videoGallery'])->name('gallery.videos');
 Route::get('/cctv', [PublicController::class, 'cctv'])->name('cctv.public');
 Route::post('/kontak/kirim', [PublicController::class, 'storeInbox'])->name('inbox.store')->middleware('throttle:10,1');
 Route::get('/verifikasi-surat/{hash}', [PublicController::class, 'verifyLetter'])->name('letter.verify');
@@ -58,6 +60,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Dashboard & Laporan
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/analitik-pengunjung', [AnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/laporan/cetak', [DashboardController::class, 'printReport'])->name('members.print-report');
 
     // Modul Anggota

@@ -24,7 +24,7 @@ class PublicController extends Controller
 {
     protected function ensureTablesExist(): void
     {
-        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views') || ! Schema::hasTable('chairman_posts') || ! Schema::hasTable('video_galleries')) {
+        if (! Schema::hasTable('posts') || ! Schema::hasTable('leaders') || ! Schema::hasTable('organization_structures') || ! Schema::hasTable('post_views') || ! Schema::hasTable('chairman_posts') || ! Schema::hasTable('video_galleries') || ! Schema::hasTable('visitor_logs')) {
             try {
                 Artisan::call('migrate', ['--force' => true]);
                 if (Schema::hasTable('posts') && Post::count() === 0) {
@@ -356,9 +356,19 @@ class PublicController extends Controller
         $this->ensureTablesExist();
 
         $galleries = Gallery::latest('tanggal_kegiatan')->paginate(24);
-        $videos = Schema::hasTable('video_galleries') ? VideoGallery::where('is_active', true)->orderBy('urutan')->orderBy('tanggal', 'desc')->get() : collect();
 
-        return view('public.gallery', compact('galleries', 'videos'));
+        return view('public.gallery', compact('galleries'));
+    }
+
+    public function videoGallery()
+    {
+        $this->ensureTablesExist();
+
+        $videos = Schema::hasTable('video_galleries')
+            ? VideoGallery::where('is_active', true)->orderBy('urutan')->orderBy('tanggal', 'desc')->paginate(12)
+            : collect();
+
+        return view('public.video_gallery', compact('videos'));
     }
 
     public function cctv()
