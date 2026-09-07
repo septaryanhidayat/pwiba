@@ -246,34 +246,34 @@
                             @endif
                         </div>
 
-                        <!-- Fast Contact Bar (No scrollbar, full-width 4 cols, aligned at the bottom) -->
+                        <!-- Fast Contact Bar (No scrollbar, full-width, aligned at the bottom, perfectly sized) -->
                         <div class="w-full pt-1">
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold w-full">
+                            <div class="grid grid-cols-2 sm:grid-cols-12 gap-1.5 sm:gap-2 text-[10.5px] sm:text-[11px] lg:text-xs font-bold w-full">
                                 @if(!empty($profile['kontak']['email']))
-                                <a href="mailto:{{ $profile['kontak']['email'] }}" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group text-center" title="{{ $profile['kontak']['email'] }}">
+                                <a href="mailto:{{ $profile['kontak']['email'] }}" class="col-span-1 sm:col-span-2 flex items-center justify-center gap-1.5 px-2 py-1.5 sm:py-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group text-center" title="{{ $profile['kontak']['email'] }}">
                                     <i class="fa-solid fa-envelope text-amber-500 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
-                                    <span class="truncate">Email</span>
+                                    <span class="whitespace-nowrap">Email</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['kontak']['instagram']))
-                                <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group text-center">
+                                <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="col-span-1 sm:col-span-3 flex items-center justify-center gap-1.5 px-2 py-1.5 sm:py-2 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group text-center">
                                     <i class="fa-brands fa-instagram text-pink-500 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
-                                    <span>Instagram</span>
+                                    <span class="whitespace-nowrap">Instagram</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['kontak']['facebook']))
-                                <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group text-center">
+                                <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="col-span-1 sm:col-span-3 flex items-center justify-center gap-1.5 px-2 py-1.5 sm:py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group text-center">
                                     <i class="fa-brands fa-facebook-f text-blue-600 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
-                                    <span>Facebook</span>
+                                    <span class="whitespace-nowrap">Facebook</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['lokasi_singkat']))
-                                <div class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs text-center" title="{{ $profile['lokasi_singkat'] }}">
+                                <div class="col-span-1 sm:col-span-4 flex items-center justify-center gap-1.5 px-2 py-1.5 sm:py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs text-center" title="{{ $profile['lokasi_singkat'] }}">
                                     <i class="fa-solid fa-location-dot text-emerald-600 text-xs shrink-0"></i>
-                                    <span class="truncate">{{ $profile['lokasi_singkat'] }}</span>
+                                    <span class="whitespace-nowrap">{{ $profile['lokasi_singkat'] }}</span>
                                 </div>
                                 @endif
                             </div>
@@ -691,14 +691,13 @@
                             <button type="submit" class="absolute right-2 top-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-sm transition-all cursor-pointer">
                                 Cari
                             </button>
-                        </div>
-                    </form>
+                                         </form>
 
                     <!-- Filter Year Dropdown -->
                     <div class="flex items-center gap-3 w-full md:w-auto justify-center md:justify-end">
                         <span class="text-xs font-bold text-slate-600 dark:text-slate-400">Filter Tahun:</span>
                         <div class="flex items-center gap-2">
-                            <select onchange="location = this.value;" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer">
+                            <select id="archive-year-select" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer">
                                 <option value="{{ route('chairman.archive.index', request()->except('tahun')) }}#karya-arsip">Semua Tahun</option>
                                 @foreach($years as $y)
                                     <option value="{{ route('chairman.archive.index', array_merge(request()->query(), ['tahun' => $y->year])) }}#karya-arsip" {{ request('tahun') == $y->year ? 'selected' : '' }}>
@@ -708,7 +707,7 @@
                             </select>
 
                             @if(request()->hasAny(['q', 'kategori', 'tahun']))
-                                <a href="{{ route('chairman.archive.index') }}#karya-arsip" class="px-3 py-2 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/60 hover:bg-rose-100 transition-all flex items-center gap-1.5" title="Reset Filter">
+                                <a href="{{ route('chairman.archive.index') }}#karya-arsip" id="archive-reset-link" class="px-3 py-2 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/60 hover:bg-rose-100 transition-all flex items-center gap-1.5" title="Reset Filter">
                                     <i class="fa-solid fa-rotate-left"></i>
                                     <span class="hidden sm:inline">Reset</span>
                                 </a>
@@ -717,171 +716,141 @@
                     </div>
                 </div>
 
-                <!-- Category Bento Hub (Structured, Modern, Symmetrical, Beautiful & Thematic) -->
-                @php
-                    $categoryIcons = [
-                        'politik & pemilu' => ['icon' => 'fa-solid fa-landmark', 'color' => 'text-amber-500'],
-                        'opini & catatan' => ['icon' => 'fa-solid fa-feather-pointed', 'color' => 'text-purple-500'],
-                        'pers & jurnalistik' => ['icon' => 'fa-solid fa-newspaper', 'color' => 'text-emerald-500'],
-                        'hukum & keadilan' => ['icon' => 'fa-solid fa-scale-balanced', 'color' => 'text-indigo-500'],
-                        'daerah & kebijakan' => ['icon' => 'fa-solid fa-building-columns', 'color' => 'text-rose-500'],
-                        'profil & biografi' => ['icon' => 'fa-solid fa-user-tie', 'color' => 'text-cyan-500'],
-                        'teori komunikasi' => ['icon' => 'fa-solid fa-graduation-cap', 'color' => 'text-orange-500'],
-                    ];
-                    $isAllActive = !request('kategori');
-                @endphp
-
-                <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-2.5">
-                        <!-- All Categories Card -->
-                        <a href="{{ route('chairman.archive.index', request()->except('kategori')) }}#karya-arsip" 
-                           class="group/cat flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all duration-300 {{ $isAllActive ? 'bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 text-white border-blue-600 shadow-md shadow-blue-600/25 ring-2 ring-blue-500/30 font-black' : 'bg-slate-50/90 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800 border-slate-200/90 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:shadow-xs' }}">
-                            <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                                <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs shrink-0 {{ $isAllActive ? 'bg-white/20 text-white' : 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60' }}">
-                                    <i class="fa-solid fa-layer-group"></i>
-                                </div>
-                                <span class="text-xs font-bold truncate">Semua Kategori</span>
-                            </div>
-                            <span class="ml-1.5 px-2 py-0.5 rounded-lg text-[10px] font-black shrink-0 {{ $isAllActive ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300' }}">
-                                {{ $totalArticles }}
-                            </span>
+                <!-- Category Filter Bar (Simple, Clean, Neat on Mobile, No Truncation) -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800" id="archive-category-section">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 sm:gap-2" id="archive-category-pills">
+                        <a href="{{ route('chairman.archive.index', request()->except(['kategori', 'page'])) }}#karya-arsip" 
+                           data-kategori="Semua"
+                           class="archive-category-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 {{ !request('kategori') || request('kategori') == 'Semua' ? 'bg-slate-900 text-white dark:bg-amber-400 dark:text-slate-950 shadow-sm font-black' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700/80' }}">
+                            <span>Semua Kategori</span>
+                            <span class="px-1.5 py-0.5 rounded-md text-[10px] font-black {{ !request('kategori') || request('kategori') == 'Semua' ? 'bg-white/20 dark:bg-slate-950/20 text-white dark:text-slate-950' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-400' }}">{{ $totalArticles }}</span>
                         </a>
-
-                        <!-- Specific Category Cards -->
                         @foreach($categories as $cat)
-                            @php
-                                $catKey = strtolower(trim($cat->category));
-                                $catMeta = $categoryIcons[$catKey] ?? ['icon' => 'fa-solid fa-tag', 'color' => 'text-slate-500'];
-                                $isActive = (request('kategori') == $cat->category);
-                            @endphp
-                            <a href="{{ route('chairman.archive.index', array_merge(request()->query(), ['kategori' => $cat->category])) }}#karya-arsip" 
-                               class="group/cat flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all duration-300 {{ $isActive ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 border-amber-400 font-black shadow-md shadow-amber-500/20 ring-2 ring-amber-400/40' : 'bg-slate-50/90 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800 border-slate-200/90 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:shadow-xs' }}">
-                                <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                                    <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs shrink-0 {{ $isActive ? 'bg-black/15 text-slate-950' : 'bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/80 ' . $catMeta['color'] }}">
-                                        <i class="{{ $catMeta['icon'] }}"></i>
-                                    </div>
-                                    <span class="text-xs font-bold truncate group-hover/cat:text-amber-600 dark:group-hover/cat:text-amber-400 transition-colors">{{ $cat->category }}</span>
-                                </div>
-                                <span class="ml-1.5 px-2 py-0.5 rounded-lg text-[10px] font-black shrink-0 {{ $isActive ? 'bg-black/15 text-slate-950' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300' }}">
-                                    {{ $cat->total }}
-                                </span>
+                            @php $isActive = (request('kategori') == $cat->category); @endphp
+                            <a href="{{ route('chairman.archive.index', array_merge(request()->query(), ['kategori' => $cat->category, 'page' => 1])) }}#karya-arsip" 
+                               data-kategori="{{ $cat->category }}"
+                               class="archive-category-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 {{ $isActive ? 'bg-amber-500 text-slate-950 dark:bg-amber-400 dark:text-slate-950 shadow-sm font-black' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700/80' }}">
+                                <span>{{ $cat->category }}</span>
+                                <span class="px-1.5 py-0.5 rounded-md text-[10px] font-black {{ $isActive ? 'bg-black/15 text-slate-950' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-400' }}">{{ $cat->total }}</span>
                             </a>
                         @endforeach
                     </div>
                 </div>
             </div>
 
+            <!-- Articles Results Wrapper (For Instant AJAX Filtering Without Full Page Reload) -->
+            <div id="archive-results-container" class="relative transition-opacity duration-200">
+                <!-- Articles Grid (Dynamic Vibrant Top Accents) -->
+                @if($articles->count() > 0)
+                    @php
+                        $articleAccents = [
+                            [
+                                'border' => 'border-t-4 border-t-blue-600 hover:border-blue-400',
+                                'badge' => 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-800/80',
+                                'title' => 'group-hover:text-blue-600 dark:group-hover:text-blue-400',
+                                'btn' => 'text-blue-600 dark:text-blue-400',
+                                'shadow' => 'hover:shadow-blue-500/10',
+                            ],
+                            [
+                                'border' => 'border-t-4 border-t-amber-500 hover:border-amber-400',
+                                'badge' => 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-800/80',
+                                'title' => 'group-hover:text-amber-600 dark:group-hover:text-amber-400',
+                                'btn' => 'text-amber-600 dark:text-amber-400',
+                                'shadow' => 'hover:shadow-amber-500/10',
+                            ],
+                            [
+                                'border' => 'border-t-4 border-t-purple-600 hover:border-purple-400',
+                                'badge' => 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/40 dark:text-purple-300 dark:border-purple-800/80',
+                                'title' => 'group-hover:text-purple-600 dark:group-hover:text-purple-400',
+                                'btn' => 'text-purple-600 dark:text-purple-400',
+                                'shadow' => 'hover:shadow-purple-500/10',
+                            ],
+                            [
+                                'border' => 'border-t-4 border-t-emerald-600 hover:border-emerald-400',
+                                'badge' => 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-300 dark:border-emerald-800/80',
+                                'title' => 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
+                                'btn' => 'text-emerald-600 dark:text-emerald-400',
+                                'shadow' => 'hover:shadow-emerald-500/10',
+                            ],
+                            [
+                                'border' => 'border-t-4 border-t-rose-600 hover:border-rose-400',
+                                'badge' => 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-900/40 dark:text-rose-300 dark:border-rose-800/80',
+                                'title' => 'group-hover:text-rose-600 dark:group-hover:text-rose-400',
+                                'btn' => 'text-rose-600 dark:text-rose-400',
+                                'shadow' => 'hover:shadow-rose-500/10',
+                            ],
+                            [
+                                'border' => 'border-t-4 border-t-teal-600 hover:border-teal-400',
+                                'badge' => 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-900/40 dark:text-teal-300 dark:border-teal-800/80',
+                                'title' => 'group-hover:text-teal-600 dark:group-hover:text-teal-400',
+                                'btn' => 'text-teal-600 dark:text-teal-400',
+                                'shadow' => 'hover:shadow-teal-500/10',
+                            ],
+                        ];
+                    @endphp
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7" id="archive-grid">
+                        @foreach($articles as $idx => $post)
+                            @php $accent = $articleAccents[$idx % count($articleAccents)]; @endphp
+                            <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 {{ $accent['border'] }} p-6 shadow-sm hover:shadow-xl {{ $accent['shadow'] }} transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ min(($loop->iteration - 1) * 40, 160) }}">
+                                <div>
+                                    <!-- Top Metadata Pill -->
+                                    <div class="flex items-center justify-between gap-2 mb-3.5">
+                                        <span class="px-3 py-1 rounded-lg text-[11px] font-black tracking-wide uppercase border {{ $accent['badge'] }}">
+                                            {{ $post->category }}
+                                        </span>
+                                        <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <span>{{ $post->reading_time }} mnt baca</span>
+                                        </span>
+                                    </div>
 
-            <!-- Articles Grid (Dynamic Vibrant Top Accents) -->
-            @if($articles->count() > 0)
-                @php
-                    $articleAccents = [
-                        [
-                            'border' => 'border-t-4 border-t-blue-600 hover:border-blue-400',
-                            'badge' => 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-800/80',
-                            'title' => 'group-hover:text-blue-600 dark:group-hover:text-blue-400',
-                            'btn' => 'text-blue-600 dark:text-blue-400',
-                            'shadow' => 'hover:shadow-blue-500/10',
-                        ],
-                        [
-                            'border' => 'border-t-4 border-t-amber-500 hover:border-amber-400',
-                            'badge' => 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-800/80',
-                            'title' => 'group-hover:text-amber-600 dark:group-hover:text-amber-400',
-                            'btn' => 'text-amber-600 dark:text-amber-400',
-                            'shadow' => 'hover:shadow-amber-500/10',
-                        ],
-                        [
-                            'border' => 'border-t-4 border-t-purple-600 hover:border-purple-400',
-                            'badge' => 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/40 dark:text-purple-300 dark:border-purple-800/80',
-                            'title' => 'group-hover:text-purple-600 dark:group-hover:text-purple-400',
-                            'btn' => 'text-purple-600 dark:text-purple-400',
-                            'shadow' => 'hover:shadow-purple-500/10',
-                        ],
-                        [
-                            'border' => 'border-t-4 border-t-emerald-600 hover:border-emerald-400',
-                            'badge' => 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-300 dark:border-emerald-800/80',
-                            'title' => 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
-                            'btn' => 'text-emerald-600 dark:text-emerald-400',
-                            'shadow' => 'hover:shadow-emerald-500/10',
-                        ],
-                        [
-                            'border' => 'border-t-4 border-t-rose-600 hover:border-rose-400',
-                            'badge' => 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-900/40 dark:text-rose-300 dark:border-rose-800/80',
-                            'title' => 'group-hover:text-rose-600 dark:group-hover:text-rose-400',
-                            'btn' => 'text-rose-600 dark:text-rose-400',
-                            'shadow' => 'hover:shadow-rose-500/10',
-                        ],
-                        [
-                            'border' => 'border-t-4 border-t-teal-600 hover:border-teal-400',
-                            'badge' => 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-900/40 dark:text-teal-300 dark:border-teal-800/80',
-                            'title' => 'group-hover:text-teal-600 dark:group-hover:text-teal-400',
-                            'btn' => 'text-teal-600 dark:text-teal-400',
-                            'shadow' => 'hover:shadow-teal-500/10',
-                        ],
-                    ];
-                @endphp
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-                    @foreach($articles as $idx => $post)
-                        @php $accent = $articleAccents[$idx % count($articleAccents)]; @endphp
-                        <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 {{ $accent['border'] }} p-6 shadow-sm hover:shadow-xl {{ $accent['shadow'] }} transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ min(($loop->iteration - 1) * 40, 160) }}">
-                            <div>
-                                <!-- Top Metadata Pill -->
-                                <div class="flex items-center justify-between gap-2 mb-3.5">
-                                    <span class="px-3 py-1 rounded-lg text-[11px] font-black tracking-wide uppercase border {{ $accent['badge'] }}">
-                                        {{ $post->category }}
-                                    </span>
-                                    <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
-                                        <i class="fa-regular fa-clock"></i>
-                                        <span>{{ $post->reading_time }} mnt baca</span>
-                                    </span>
+                                    <!-- Title -->
+                                    <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white {{ $accent['title'] }} transition-colors leading-snug line-clamp-2">
+                                        <a href="{{ route('chairman.archive.show', $post->slug) }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </h3>
+
+                                    <!-- Excerpt -->
+                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium mt-3 line-clamp-3 leading-relaxed">
+                                        {{ $post->excerpt }}
+                                    </p>
                                 </div>
 
-                                <!-- Title -->
-                                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white {{ $accent['title'] }} transition-colors leading-snug line-clamp-2">
-                                    <a href="{{ route('chairman.archive.show', $post->slug) }}">
-                                        {{ $post->title }}
+                                <div class="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                                    <span class="text-slate-400 font-semibold flex items-center gap-1.5">
+                                        <i class="fa-regular fa-calendar text-slate-400"></i>
+                                        {{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : '-' }}
+                                    </span>
+
+                                    <a href="{{ route('chairman.archive.show', $post->slug) }}" class="inline-flex items-center gap-1.5 font-black {{ $accent['btn'] }} group-hover:translate-x-1 transition-transform">
+                                        <span>Baca Lengkap</span>
+                                        <i class="fa-solid fa-arrow-right text-[11px]"></i>
                                     </a>
-                                </h3>
-
-                                <!-- Excerpt -->
-                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium mt-3 line-clamp-3 leading-relaxed">
-                                    {{ $post->excerpt }}
-                                </p>
-                            </div>
-
-                            <div class="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                                <span class="text-slate-400 font-semibold flex items-center gap-1.5">
-                                    <i class="fa-regular fa-calendar text-slate-400"></i>
-                                    {{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : '-' }}
-                                </span>
-
-                                <a href="{{ route('chairman.archive.show', $post->slug) }}" class="inline-flex items-center gap-1.5 font-black {{ $accent['btn'] }} group-hover:translate-x-1 transition-transform">
-                                    <span>Baca Lengkap</span>
-                                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
-                                </a>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-
-                <!-- Pagination -->
-                <div class="pt-6">
-                    {{ $articles->links() }}
-                </div>
-            @else
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-12 text-center space-y-4">
-                    <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto text-2xl">
-                        <i class="fa-solid fa-newspaper"></i>
+                                </div>
+                            </article>
+                        @endforeach
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Tidak ada artikel yang cocok</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-                        Coba gunakan kata kunci pencarian lain atau pilih kategori yang berbeda.
-                    </p>
-                    <a href="{{ route('chairman.archive.index') }}#karya-arsip" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md">
-                        Reset Pencarian
-                    </a>
-                </div>
-            @endif
+
+                    <!-- Pagination -->
+                    <div class="pt-6" id="archive-pagination">
+                        {{ $articles->links() }}
+                    </div>
+                @else
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-12 text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto text-2xl">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Tidak ada artikel yang cocok</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+                            Coba gunakan kata kunci pencarian lain atau pilih kategori yang berbeda.
+                        </p>
+                        <a href="{{ route('chairman.archive.index') }}#karya-arsip" id="archive-empty-reset" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all shadow-md">
+                            Reset Pencarian
+                        </a>
+                    </div>
+                @endif
+            </div>
 
         </div>
     </section>
@@ -954,3 +923,146 @@
 
 </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const resultsContainer = document.getElementById('archive-results-container');
+    const categorySection = document.getElementById('archive-category-section');
+    const searchForm = document.getElementById('archive-search-form');
+    const yearSelect = document.getElementById('archive-year-select');
+
+    if (!resultsContainer) return;
+
+    let isArchiveLoading = false;
+
+    async function loadArchiveAjax(url, pushHistory = true) {
+        if (isArchiveLoading) return;
+        isArchiveLoading = true;
+
+        resultsContainer.style.opacity = '0.4';
+        resultsContainer.style.pointerEvents = 'none';
+        if (categorySection) {
+            categorySection.style.opacity = '0.7';
+            categorySection.style.pointerEvents = 'none';
+        }
+
+        try {
+            const res = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            if (!res.ok) {
+                window.location.href = url;
+                return;
+            }
+
+            const html = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            const newResults = doc.getElementById('archive-results-container');
+            const newCategories = doc.getElementById('archive-category-section');
+            const newYearSelect = doc.getElementById('archive-year-select');
+
+            if (newResults && resultsContainer) {
+                resultsContainer.innerHTML = newResults.innerHTML;
+            }
+            if (newCategories && categorySection) {
+                categorySection.innerHTML = newCategories.innerHTML;
+            }
+            if (newYearSelect && yearSelect) {
+                yearSelect.innerHTML = newYearSelect.innerHTML;
+            }
+
+            if (pushHistory) {
+                window.history.pushState({ archiveUrl: url }, '', url);
+            }
+
+            if (typeof AOS !== 'undefined') {
+                AOS.refreshHard();
+            }
+
+            const targetSection = document.getElementById('karya-arsip');
+            if (targetSection) {
+                const rect = targetSection.getBoundingClientRect();
+                if (rect.top < -80) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        } catch (error) {
+            console.error('AJAX archive load error:', error);
+            window.location.href = url;
+        } finally {
+            resultsContainer.style.opacity = '1';
+            resultsContainer.style.pointerEvents = 'auto';
+            if (categorySection) {
+                categorySection.style.opacity = '1';
+                categorySection.style.pointerEvents = 'auto';
+            }
+            isArchiveLoading = false;
+        }
+    }
+
+    // Intercept clicks on category buttons, pagination links, and reset buttons
+    document.addEventListener('click', function (e) {
+        const catBtn = e.target.closest('.archive-category-btn');
+        if (catBtn && catBtn.href) {
+            e.preventDefault();
+            loadArchiveAjax(catBtn.href);
+            return;
+        }
+
+        const pageLink = e.target.closest('#archive-pagination a, #archive-results-container nav a');
+        if (pageLink && pageLink.href) {
+            e.preventDefault();
+            loadArchiveAjax(pageLink.href);
+            return;
+        }
+
+        const resetBtn = e.target.closest('#archive-reset-link, #archive-empty-reset');
+        if (resetBtn && resetBtn.href) {
+            e.preventDefault();
+            loadArchiveAjax(resetBtn.href);
+            return;
+        }
+    });
+
+    // Intercept year select change
+    if (yearSelect) {
+        yearSelect.addEventListener('change', function () {
+            if (this.value) {
+                loadArchiveAjax(this.value);
+            }
+        });
+    }
+
+    // Intercept search form submit
+    if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(searchForm);
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                if (value.trim()) {
+                    params.set(key, value.trim());
+                }
+            }
+            const cleanAction = searchForm.action.split('#')[0];
+            const targetUrl = cleanAction + (params.toString() ? '?' + params.toString() : '') + '#karya-arsip';
+            loadArchiveAjax(targetUrl);
+        });
+    }
+
+    // Handle browser Back / Forward
+    window.addEventListener('popstate', function () {
+        if (window.location.pathname.includes('/wardoyo')) {
+            loadArchiveAjax(window.location.href, false);
+        }
+    });
+});
+</script>
+@endpush
+
