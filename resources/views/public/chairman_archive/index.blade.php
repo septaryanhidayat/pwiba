@@ -208,7 +208,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-x-10 gap-y-6 lg:gap-y-6 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-x-10 gap-y-6 lg:gap-y-6 items-stretch">
                 
                 <!-- Left Wrapper (Mobile: flex col, Desktop: lg:contents) -->
                 <div class="flex flex-col space-y-5 lg:contents">
@@ -226,9 +226,9 @@
                     </div>
 
                     <!-- Left Content: Kotak Kalimat & 1-Line Social Pills (Col 1, Row 2 on desktop) -->
-                    <div class="lg:col-start-1 lg:row-start-2 flex flex-col justify-between space-y-4 h-full" data-aos="fade-up" data-aos-delay="40">
+                    <div class="lg:col-start-1 lg:row-start-2 flex flex-col justify-between h-full space-y-4" data-aos="fade-up" data-aos-delay="40">
                         <!-- Unified Narrative Card (Kotak Kalimat) -->
-                        <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-left">
+                        <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 shadow-sm flex-1 flex flex-col justify-between space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-left">
                             @if(!empty($profile['narasi_paragraf_1']))
                                 <p class="font-medium text-slate-800 dark:text-slate-200">
                                     {!! nl2br(e($profile['narasi_paragraf_1'])) !!}
@@ -246,34 +246,34 @@
                             @endif
                         </div>
 
-                        <!-- Fast Contact Pills (Strictly 1 Single Line, Never Wrapped, Centered on Mobile) -->
-                        <div class="w-full flex items-center justify-center lg:justify-start overflow-hidden pt-1">
-                            <div class="flex items-center flex-nowrap overflow-x-auto no-scrollbar gap-2 text-[11px] sm:text-xs font-bold py-1 w-full justify-center lg:justify-start">
+                        <!-- Fast Contact Bar (No scrollbar, full-width 4 cols, aligned at the bottom) -->
+                        <div class="w-full pt-1">
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold w-full">
                                 @if(!empty($profile['kontak']['email']))
-                                <a href="mailto:{{ $profile['kontak']['email'] }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
-                                    <i class="fa-solid fa-envelope text-amber-500 group-hover:scale-110 transition-transform text-xs"></i>
-                                    <span>{{ $profile['kontak']['email'] }}</span>
+                                <a href="mailto:{{ $profile['kontak']['email'] }}" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all shadow-xs group text-center" title="{{ $profile['kontak']['email'] }}">
+                                    <i class="fa-solid fa-envelope text-amber-500 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
+                                    <span class="truncate">Email</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['kontak']['instagram']))
-                                <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
-                                    <i class="fa-brands fa-instagram text-pink-500 group-hover:scale-110 transition-transform text-xs"></i>
+                                <a href="{{ $profile['kontak']['instagram'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200/90 dark:border-pink-800/70 hover:bg-pink-100 dark:hover:bg-pink-900/60 transition-all shadow-xs group text-center">
+                                    <i class="fa-brands fa-instagram text-pink-500 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
                                     <span>Instagram</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['kontak']['facebook']))
-                                <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group shrink-0 whitespace-nowrap">
-                                    <i class="fa-brands fa-facebook-f text-blue-600 group-hover:scale-110 transition-transform text-xs"></i>
+                                <a href="{{ $profile['kontak']['facebook'] }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all shadow-xs group text-center">
+                                    <i class="fa-brands fa-facebook-f text-blue-600 group-hover:scale-110 transition-transform text-xs shrink-0"></i>
                                     <span>Facebook</span>
                                 </a>
                                 @endif
 
                                 @if(!empty($profile['lokasi_singkat']))
-                                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs shrink-0 whitespace-nowrap">
-                                    <i class="fa-solid fa-location-dot text-emerald-600 text-xs"></i>
-                                    <span>{{ $profile['lokasi_singkat'] }}</span>
+                                <div class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 shadow-xs text-center" title="{{ $profile['lokasi_singkat'] }}">
+                                    <i class="fa-solid fa-location-dot text-emerald-600 text-xs shrink-0"></i>
+                                    <span class="truncate">{{ $profile['lokasi_singkat'] }}</span>
                                 </div>
                                 @endif
                             </div>
@@ -292,7 +292,7 @@
                         </div>
 
                         <h3 class="text-xl sm:text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white leading-snug">
-                            Landasan Strategis PWI Banyuasin
+                            Landasan Strategis PWI Banyuasin <br class="hidden lg:inline">& 4 Pilar Nilai Kepemimpinan
                         </h3>
                     </div>
 
@@ -717,16 +717,57 @@
                     </div>
                 </div>
 
-                <!-- Category Pills (Color & Variety, Centered on Mobile) -->
-                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                    <a href="{{ route('chairman.archive.index', request()->except('kategori')) }}#karya-arsip" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all {{ !request('kategori') ? 'bg-gradient-to-r from-blue-700 to-indigo-700 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700' }}">
-                        Semua Kategori ({{ $totalArticles }})
-                    </a>
-                    @foreach($categories as $cat)
-                        <a href="{{ route('chairman.archive.index', array_merge(request()->query(), ['kategori' => $cat->category])) }}#karya-arsip" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all {{ request('kategori') == $cat->category ? 'bg-amber-400 text-slate-950 shadow-md font-black' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700' }}">
-                            {{ $cat->category }} <span class="opacity-70 text-[10px]">({{ $cat->total }})</span>
+                <!-- Category Bento Hub (Structured, Modern, Symmetrical, Beautiful & Thematic) -->
+                @php
+                    $categoryIcons = [
+                        'politik & pemilu' => ['icon' => 'fa-solid fa-landmark', 'color' => 'text-amber-500'],
+                        'opini & catatan' => ['icon' => 'fa-solid fa-feather-pointed', 'color' => 'text-purple-500'],
+                        'pers & jurnalistik' => ['icon' => 'fa-solid fa-newspaper', 'color' => 'text-emerald-500'],
+                        'hukum & keadilan' => ['icon' => 'fa-solid fa-scale-balanced', 'color' => 'text-indigo-500'],
+                        'daerah & kebijakan' => ['icon' => 'fa-solid fa-building-columns', 'color' => 'text-rose-500'],
+                        'profil & biografi' => ['icon' => 'fa-solid fa-user-tie', 'color' => 'text-cyan-500'],
+                        'teori komunikasi' => ['icon' => 'fa-solid fa-graduation-cap', 'color' => 'text-orange-500'],
+                    ];
+                    $isAllActive = !request('kategori');
+                @endphp
+
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-2.5">
+                        <!-- All Categories Card -->
+                        <a href="{{ route('chairman.archive.index', request()->except('kategori')) }}#karya-arsip" 
+                           class="group/cat flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all duration-300 {{ $isAllActive ? 'bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 text-white border-blue-600 shadow-md shadow-blue-600/25 ring-2 ring-blue-500/30 font-black' : 'bg-slate-50/90 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800 border-slate-200/90 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:shadow-xs' }}">
+                            <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                                <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs shrink-0 {{ $isAllActive ? 'bg-white/20 text-white' : 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60' }}">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                </div>
+                                <span class="text-xs font-bold truncate">Semua Kategori</span>
+                            </div>
+                            <span class="ml-1.5 px-2 py-0.5 rounded-lg text-[10px] font-black shrink-0 {{ $isAllActive ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300' }}">
+                                {{ $totalArticles }}
+                            </span>
                         </a>
-                    @endforeach
+
+                        <!-- Specific Category Cards -->
+                        @foreach($categories as $cat)
+                            @php
+                                $catKey = strtolower(trim($cat->category));
+                                $catMeta = $categoryIcons[$catKey] ?? ['icon' => 'fa-solid fa-tag', 'color' => 'text-slate-500'];
+                                $isActive = (request('kategori') == $cat->category);
+                            @endphp
+                            <a href="{{ route('chairman.archive.index', array_merge(request()->query(), ['kategori' => $cat->category])) }}#karya-arsip" 
+                               class="group/cat flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all duration-300 {{ $isActive ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 border-amber-400 font-black shadow-md shadow-amber-500/20 ring-2 ring-amber-400/40' : 'bg-slate-50/90 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800 border-slate-200/90 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:border-amber-400 hover:shadow-xs' }}">
+                                <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                                    <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs shrink-0 {{ $isActive ? 'bg-black/15 text-slate-950' : 'bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/80 ' . $catMeta['color'] }}">
+                                        <i class="{{ $catMeta['icon'] }}"></i>
+                                    </div>
+                                    <span class="text-xs font-bold truncate group-hover/cat:text-amber-600 dark:group-hover/cat:text-amber-400 transition-colors">{{ $cat->category }}</span>
+                                </div>
+                                <span class="ml-1.5 px-2 py-0.5 rounded-lg text-[10px] font-black shrink-0 {{ $isActive ? 'bg-black/15 text-slate-950' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300' }}">
+                                    {{ $cat->total }}
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
