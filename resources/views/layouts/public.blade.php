@@ -498,16 +498,57 @@
                 <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Navigasi Cepat</h5>
                     <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
-                        <li><a href="{{ route('home') }}#beranda" class="hover:text-amber-400 transition-colors">Beranda Utama</a></li>
-                        <li><a href="{{ route('chairman.archive.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-user-tie text-xs text-amber-400"></i> Profil Ketua PWI</a></li>
-                        <li><a href="{{ route('home') }}#profil" class="hover:text-amber-400 transition-colors">Visi & Misi</a></li>
-                        <li><a href="{{ route('organization.public') }}" class="hover:text-amber-400 transition-colors">Susunan Pengurus</a></li>
-                        <li><a href="{{ route('leaders.public') }}" class="hover:text-amber-400 transition-colors">Sejarah PWI (Ketua)</a></li>
+                        <li>
+                            <a href="{{ route('home') }}#beranda" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-house-chimney text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Beranda Utama</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('chairman.archive.index') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-user-tie text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Profil Ketua PWI</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('home') }}#profil" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Visi & Misi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('organization.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-sitemap text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Susunan Pengurus</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('leaders.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Sejarah PWI (Ketua)</span>
+                            </a>
+                        </li>
                         @if((\App\Models\Setting::where('key', 'show_public_members')->value('value') ?? '0') === '1')
-                        <li><a href="{{ route('members.public') }}" class="hover:text-amber-400 transition-colors">Direktori Wartawan</a></li>
+                        <li>
+                            <a href="{{ route('members.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-id-card text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Direktori Wartawan</span>
+                            </a>
+                        </li>
                         @endif
-                        <li><a href="{{ route('gallery.public') }}" class="hover:text-amber-400 transition-colors">Galeri Dokumentasi</a></li>
-                        <li><a href="{{ route('cctv.public') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> CCTV Banyuasin (Live)</a></li>
+                        <li>
+                            <a href="{{ route('gallery.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-images text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Galeri Dokumentasi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('cctv.public') }}" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-video text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>CCTV Banyuasin</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse ml-0.5"></span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -515,11 +556,36 @@
                 <div class="space-y-3 flex flex-col items-center md:items-start text-center md:text-left">
                     <h5 class="text-xs font-bold uppercase tracking-wider text-white">Kanal Publikasi</h5>
                     <ul class="space-y-2 text-sm text-slate-400 flex flex-col items-center md:items-start">
-                        <li><a href="{{ route('news.index') }}?kategori=Kegiatan" class="hover:text-amber-400 transition-colors">Kegiatan Jurnalistik</a></li>
-                        <li><a href="{{ route('news.index') }}?kategori=Kemitraan" class="hover:text-amber-400 transition-colors">Kemitraan & Forkopimda</a></li>
-                        <li><a href="{{ route('news.index') }}?kategori=Organisasi" class="hover:text-amber-400 transition-colors">Internal Organisasi</a></li>
-                        <li><a href="{{ route('news.index') }}?kategori=Olahraga" class="hover:text-amber-400 transition-colors">SIWO & Turnamen</a></li>
-                        <li><a href="{{ route('news.index') }}?kategori=Hukum" class="hover:text-amber-400 transition-colors">Hukum & Advokasi</a></li>
+                        <li>
+                            <a href="{{ route('news.index') }}?kategori=Kegiatan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-newspaper text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Kegiatan Jurnalistik</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('news.index') }}?kategori=Kemitraan" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-handshake text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Kemitraan & Forkopimda</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('news.index') }}?kategori=Organisasi" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Internal Organisasi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('news.index') }}?kategori=Olahraga" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-medal text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>SIWO & Turnamen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('news.index') }}?kategori=Hukum" class="group hover:text-amber-400 transition-colors inline-flex items-center gap-2">
+                                <i class="fa-solid fa-scale-balanced text-xs text-amber-400/80 group-hover:text-amber-400 w-4 text-center transition-colors"></i>
+                                <span>Hukum & Advokasi</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

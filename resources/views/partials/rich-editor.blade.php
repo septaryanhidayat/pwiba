@@ -50,6 +50,22 @@
             background: #1e293b !important;
             color: #94a3b8 !important;
         }
+        .tox .tox-statusbar__resize-handle {
+            cursor: ns-resize !important;
+            padding: 0 4px !important;
+        }
+        .tox .tox-statusbar__resize-handle svg {
+            fill: #64748b !important;
+            width: 13px !important;
+            height: 13px !important;
+            transition: fill 0.2s ease;
+        }
+        .dark .tox .tox-statusbar__resize-handle svg {
+            fill: #94a3b8 !important;
+        }
+        .tox .tox-statusbar__resize-handle:hover svg {
+            fill: #2563eb !important;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -72,8 +88,9 @@
 
             tinymce.init({
                 selector: '.rich-editor',
-                height: 380,
-                min_height: 280,
+                height: 520,
+                min_height: 350,
+                resize: true,
                 menubar: false,
                 branding: false,
                 promotion: false,
@@ -136,8 +153,24 @@
                         editor.save();
                     });
 
-                    // Validasi form saat submit
+                    // Tambahkan petunjuk visual bahwa lembar kerja bisa ditarik ke bawah
                     editor.on('init', function() {
+                        const container = editor.getContainer();
+                        if (container && !container.nextElementSibling?.classList?.contains('tinymce-paper-guide')) {
+                            const guide = document.createElement('div');
+                            guide.className = 'tinymce-paper-guide flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 mt-2 px-1 select-none';
+                            guide.innerHTML = `
+                                <span class="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-medium">
+                                    <i class="fa-solid fa-arrows-up-down text-xs"></i>
+                                    <span><strong>Petunjuk:</strong> Lembar kerja dapat diperpanjang ke bawah dengan menarik sudut kanan bawah (ikon <strong>⇲</strong>).</span>
+                                </span>
+                                <span class="hidden sm:inline-flex items-center gap-1 text-slate-400 dark:text-slate-500">
+                                    <i class="fa-solid fa-expand text-xs"></i> Mode Layar Penuh di toolbar
+                                </span>
+                            `;
+                            container.parentNode.insertBefore(guide, container.nextSibling);
+                        }
+
                         const targetEl = editor.getElement();
                         if (targetEl && targetEl.form) {
                             const form = targetEl.form;

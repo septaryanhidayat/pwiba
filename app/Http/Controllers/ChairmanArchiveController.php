@@ -227,6 +227,10 @@ class ChairmanArchiveController extends Controller
             // Gunakan fallback default jika database/setting belum siap
         }
 
+        if (! empty($defaults['badge_top'])) {
+            $defaults['badge_top'] = str_ireplace('Personal Branding', 'Portofolio', $defaults['badge_top']);
+        }
+
         return $defaults;
     }
 
