@@ -54,8 +54,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'sekretariat@pwiba.or.id',
             'ketua_nama' => 'Wardoyo, S.I.Kom',
             'ketua_sambutan' => 'Melalui platform digital terintegrasi ini, kami berkomitmen memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak guna mendukung kemajuan pers yang merdeka dan bermartabat di Bumi Sedulang Setudung.',
-            'visi' => 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.',
-            'misi' => "1. Menjadikan PWI Banyuasin sebagai wadah yang lebih solid dan berdaya saing.\n2. Berkontribusi nyata bagi masyarakat serta kemajuan pers nasional.\n3. Meningkatkan kesejahteraan dan solidaritas anggota, dengan mendorong program dukungan bagi jurnalis.\n4. Menjalin kemitraan strategis dengan pemerintah, swasta, dan organisasi masyarakat untuk memperluas ruang gerak jurnalis.",
+            'visi' => 'Memperkuat peran PWI Kabupaten Banyuasin dalam peningkatan integritas dan profesionalitas wartawan/jurnalis melalui pendidikan berkelanjutan, Uji Kompetensi Wartawan (UKW), serta kolaborasi strategis demi kemajuan pers yang merdeka, edukatif, dan bermartabat.',
+            'misi_1_title' => '1. Solid, Berintegritas & Berdaya Saing',
+            'misi_1_desc' => 'Menjadikan PWI Banyuasin sebagai wadah organisasi pers yang solid, berintegritas tinggi, profesional, dan berdaya saing di era transformasi digital.',
+            'misi_2_title' => '2. Edukasi Publik & Kemerdekaan Pers',
+            'misi_2_desc' => 'Berkontribusi tegas mencerdaskan kehidupan masyarakat melalui karya jurnalistik yang berkualitas dan terverifikasi, serta konsisten menjaga kemerdekaan pers.',
+            'misi_3_title' => '3. Kesejahteraan & Perlindungan Profesi',
+            'misi_3_desc' => 'Meningkatkan kesejahteraan, advokasi perlindungan hukum, dan solidaritas sesama insan pers dengan program dukungan nyata bagi wartawan/jurnalis.',
+            'misi_4_title' => '4. Kemitraan Strategis Multipihak',
+            'misi_4_desc' => 'Membangun sinergi kemitraan strategis bersama instansi pemerintah, perusahaan swasta dan negara, serta organisasi masyarakat yang saling memperkuat penyebaran informasi publik secara akurat dan berimbang.',
+            'misi' => "1. Menjadikan PWI Banyuasin sebagai wadah organisasi pers yang solid, berintegritas tinggi, profesional, dan berdaya saing di era transformasi digital.\n2. Berkontribusi tegas mencerdaskan kehidupan masyarakat melalui karya jurnalistik yang berkualitas dan terverifikasi, serta konsisten menjaga kemerdekaan pers.\n3. Meningkatkan kesejahteraan, advokasi perlindungan hukum, dan solidaritas sesama insan pers dengan program dukungan nyata bagi wartawan/jurnalis.\n4. Membangun sinergi kemitraan strategis bersama instansi pemerintah, perusahaan swasta dan negara, serta organisasi masyarakat yang saling memperkuat penyebaran informasi publik secara akurat dan berimbang.",
             'show_public_members' => '1',
         ];
 

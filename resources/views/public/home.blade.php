@@ -249,20 +249,20 @@
                         <h4 class="text-base font-bold text-slate-900 dark:text-white mt-1 sm:mt-0">Visi Organisasi</h4>
                     </div>
                     <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                        {{ $settings['visi'] ?? 'Memperkuat peran PWI Banyuasin dalam peningkatan profesionalisme wartawan melalui pelatihan, Uji Kompetensi dan kolaborasi dengan berbagai pihak.' }}
+                        {{ $settings['visi'] ?? 'Memperkuat peran PWI Kabupaten Banyuasin dalam peningkatan integritas dan profesionalitas wartawan/jurnalis melalui pendidikan berkelanjutan, Uji Kompetensi Wartawan (UKW), serta kolaborasi strategis demi kemajuan pers yang merdeka, edukatif, dan bermartabat.' }}
                     </p>
                 </div>
 
-                <!-- 4 Misi Grid Cards (Asli pwiba.or.id) -->
+                <!-- 4 Misi Grid Cards (Dinamis Terintegrasi Pengaturan PWI) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     
                     <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all text-center sm:text-left flex flex-col items-center sm:items-start hover-lift" data-aos="fade-up" data-aos-delay="40">
                         <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
-                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">1. Solid & Berdaya Saing</h5>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">{{ $settings['misi_1_title'] ?? '1. Solid, Berintegritas & Berdaya Saing' }}</h5>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Menjadikan PWI Banyuasin sebagai wadah yang lebih solid, profesional, dan berdaya saing tinggi.
+                            {{ $settings['misi_1_desc'] ?? 'Menjadikan PWI Banyuasin sebagai wadah organisasi pers yang solid, berintegritas tinggi, profesional, dan berdaya saing di era transformasi digital.' }}
                         </p>
                     </div>
 
@@ -270,9 +270,9 @@
                         <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-newspaper"></i>
                         </div>
-                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">2. Kontribusi Nyata Pers</h5>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">{{ $settings['misi_2_title'] ?? '2. Edukasi Publik & Kemerdekaan Pers' }}</h5>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Berkontribusi nyata bagi masyarakat serta kemajuan kemerdekaan pers nasional.
+                            {{ $settings['misi_2_desc'] ?? 'Berkontribusi tegas mencerdaskan kehidupan masyarakat melalui karya jurnalistik yang berkualitas dan terverifikasi, serta konsisten menjaga kemerdekaan pers.' }}
                         </p>
                     </div>
 
@@ -280,9 +280,9 @@
                         <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-users"></i>
                         </div>
-                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">3. Kesejahteraan & Solidaritas</h5>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">{{ $settings['misi_3_title'] ?? '3. Kesejahteraan & Perlindungan Profesi' }}</h5>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Meningkatkan kesejahteraan dan solidaritas anggota dengan mendorong program dukungan bagi jurnalis.
+                            {{ $settings['misi_3_desc'] ?? 'Meningkatkan kesejahteraan, advokasi perlindungan hukum, dan solidaritas sesama insan pers dengan program dukungan nyata bagi wartawan/jurnalis.' }}
                         </p>
                     </div>
 
@@ -290,9 +290,9 @@
                         <div class="w-8 h-8 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-bold mb-3">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
-                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">4. Kemitraan Strategis</h5>
+                        <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">{{ $settings['misi_4_title'] ?? '4. Kemitraan Strategis Multipihak' }}</h5>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Menjalin kemitraan strategis dengan pemerintah, swasta, dan ormas untuk memperluas ruang gerak jurnalis.
+                            {{ $settings['misi_4_desc'] ?? 'Membangun sinergi kemitraan strategis bersama instansi pemerintah, perusahaan swasta dan negara, serta organisasi masyarakat yang saling memperkuat penyebaran informasi publik secara akurat dan berimbang.' }}
                         </p>
                     </div>
 

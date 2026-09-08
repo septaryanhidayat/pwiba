@@ -862,7 +862,14 @@ class PwiWebTest extends TestCase
     {
         $admin = User::first();
 
-        // Update office settings via admin endpoint
+        // Check admin office page renders Visi & Misi section
+        $adminPageResponse = $this->actingAs($admin)->get(route('admin.settings.office'));
+        $adminPageResponse->assertStatus(200);
+        $adminPageResponse->assertSee('Data Kantor & Visi Misi', false);
+        $adminPageResponse->assertSee('id="visi-misi"', false);
+        $adminPageResponse->assertSee('name="misi_1_title"', false);
+
+        // Update office settings via admin endpoint including Visi and 4 Misi cards
         $response = $this->actingAs($admin)->post(route('admin.settings.office.update'), [
             'nama_pwi' => 'PWI Kabupaten Banyuasin',
             'alamat_kantor' => 'Jalan PWI Terintegrasi No. 99, Pangkalan Balai',
@@ -871,18 +878,33 @@ class PwiWebTest extends TestCase
             'email' => 'sekretariat@pwiba.or.id',
             'ketua_nama' => 'Wardoyo, S.I.Kom',
             'ketua_sambutan' => 'Sambutan resmi PWI',
-            'visi' => 'Visi PWI',
-            'misi' => 'Misi PWI',
+            'visi' => 'Integritas dan profesionalitas wartawan/jurnalis teruji',
+            'misi' => 'Rangkuman Misi PWI',
+            'misi_1_title' => '1. Solid & Berintegritas',
+            'misi_1_desc' => 'Mewujudkan PWI Banyuasin yang solid dan berintegritas tinggi.',
+            'misi_2_title' => '2. Mencerdaskan Masyarakat',
+            'misi_2_desc' => 'Pers berkontribusi mencerdaskan masyarakat melalui karya jurnalistik dan kebebasan pers.',
+            'misi_3_title' => '3. Kesejahteraan Wartawan/Jurnalis',
+            'misi_3_desc' => 'Program dukungan nyata bagi wartawan/jurnalis.',
+            'misi_4_title' => '4. Kemitraan Strategis BUMN & Pemerintah',
+            'misi_4_desc' => 'Kemitraan strategis dengan pemerintah, BUMN, swasta, dan organisasi.',
         ]);
 
         $response->assertRedirect();
 
-        // Check that public pages reflect the new email, address, and phone
+        // Check that public pages reflect the new email, address, phone, visi, and dynamic misi cards
         $homeResponse = $this->get('/');
         $homeResponse->assertStatus(200);
         $homeResponse->assertSee('sekretariat@pwiba.or.id');
         $homeResponse->assertSee('Jalan PWI Terintegrasi No. 99, Pangkalan Balai');
         $homeResponse->assertSee('0812-9999-8888');
+        $homeResponse->assertSee('Integritas dan profesionalitas wartawan/jurnalis teruji');
+        $homeResponse->assertSee('1. Solid &amp; Berintegritas', false);
+        $homeResponse->assertSee('Mewujudkan PWI Banyuasin yang solid dan berintegritas tinggi.');
+        $homeResponse->assertSee('2. Mencerdaskan Masyarakat');
+        $homeResponse->assertSee('Pers berkontribusi mencerdaskan masyarakat melalui karya jurnalistik dan kebebasan pers.');
+        $homeResponse->assertSee('3. Kesejahteraan Wartawan/Jurnalis');
+        $homeResponse->assertSee('4. Kemitraan Strategis BUMN &amp; Pemerintah', false);
     }
 
     public function test_watermark_beranda_teknologi_digital_renders_in_public_and_admin_footers(): void

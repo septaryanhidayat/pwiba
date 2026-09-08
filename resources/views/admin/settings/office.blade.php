@@ -204,19 +204,151 @@
                               class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('ketua_sambutan', $settings['ketua_sambutan'] ?? '') }}</textarea>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Visi Organisasi</label>
-                        <textarea name="visi" 
-                                  rows="3" 
-                                  class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('visi', $settings['visi'] ?? '') }}</textarea>
+            </div>
+
+            <!-- SECTION 3: VISI & 4 PILAR MISI ORGANISASI (Tampil di Beranda Website) -->
+            <div id="visi-misi" class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-20">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-amber-500"></i>
+                        <span>Visi & 4 Butir Misi Strategis Organisasi</span>
+                    </h3>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/40 text-[11px] font-bold">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Tampil Dinamis di Beranda Publik</span>
+                    </span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-700 dark:text-amber-200 text-xs leading-relaxed">
+                    <strong class="font-bold text-slate-900 dark:text-amber-300 flex items-center gap-1.5 mb-1">
+                        <i class="fa-solid fa-circle-info text-amber-500"></i> Panduan Redaksi Visi & Misi:
+                    </strong>
+                    Visi dan 4 kartu misi di bawah ini telah diselaraskan dengan masukan Dewan Pers & Tokoh Pers (menegaskan integritas, profesionalitas wartawan/jurnalis, kontribusi mencerdaskan masyarakat, serta kemitraan multipihak). Anda dapat menyesuaikannya kapan pun melalui formulir ini.
+                </div>
+
+                <!-- Visi Organisasi Card -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-2">
+                    <label class="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                        Visi Organisasi PWI Banyuasin *
+                    </label>
+                    <textarea name="visi" 
+                              rows="3" 
+                              placeholder="Masukkan visi resmi organisasi..."
+                              class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('visi', $settings['visi'] ?? 'Memperkuat peran PWI Kabupaten Banyuasin dalam peningkatan integritas dan profesionalitas wartawan/jurnalis melalui pendidikan berkelanjutan, Uji Kompetensi Wartawan (UKW), serta kolaborasi strategis demi kemajuan pers yang merdeka, edukatif, dan bermartabat.') }}</textarea>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Tampil menonjol pada kartu utama Visi Organisasi di Beranda Website.</p>
+                </div>
+
+                <!-- 4 Butir Kartu Misi -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">
+                        4 Butir Kartu Misi Organisasi (Tampil Sebagai Grid Kartu di Beranda)
+                    </label>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Kartu Misi 1 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs font-bold">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-900 dark:text-white">Kartu Misi 1</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Judul Singkat Misi 1</label>
+                                <input type="text" 
+                                       name="misi_1_title" 
+                                       value="{{ old('misi_1_title', $settings['misi_1_title'] ?? '1. Solid, Berintegritas & Berdaya Saing') }}" 
+                                       class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Uraian / Deskripsi Misi 1</label>
+                                <textarea name="misi_1_desc" 
+                                          rows="3" 
+                                          class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">{{ old('misi_1_desc', $settings['misi_1_desc'] ?? 'Menjadikan PWI Banyuasin sebagai wadah organisasi pers yang solid, berintegritas tinggi, profesional, dan berdaya saing di era transformasi digital.') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Kartu Misi 2 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">
+                                    <i class="fa-solid fa-newspaper"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-900 dark:text-white">Kartu Misi 2</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Judul Singkat Misi 2</label>
+                                <input type="text" 
+                                       name="misi_2_title" 
+                                       value="{{ old('misi_2_title', $settings['misi_2_title'] ?? '2. Edukasi Publik & Kemerdekaan Pers') }}" 
+                                       class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Uraian / Deskripsi Misi 2</label>
+                                <textarea name="misi_2_desc" 
+                                          rows="3" 
+                                          class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">{{ old('misi_2_desc', $settings['misi_2_desc'] ?? 'Berkontribusi tegas mencerdaskan kehidupan masyarakat melalui karya jurnalistik yang berkualitas dan terverifikasi, serta konsisten menjaga kemerdekaan pers.') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Kartu Misi 3 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xs font-bold">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-900 dark:text-white">Kartu Misi 3</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Judul Singkat Misi 3</label>
+                                <input type="text" 
+                                       name="misi_3_title" 
+                                       value="{{ old('misi_3_title', $settings['misi_3_title'] ?? '3. Kesejahteraan & Perlindungan Profesi') }}" 
+                                       class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Uraian / Deskripsi Misi 3</label>
+                                <textarea name="misi_3_desc" 
+                                          rows="3" 
+                                          class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">{{ old('misi_3_desc', $settings['misi_3_desc'] ?? 'Meningkatkan kesejahteraan, advokasi perlindungan hukum, dan solidaritas sesama insan pers dengan program dukungan nyata bagi wartawan/jurnalis.') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Kartu Misi 4 -->
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xs font-bold">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-900 dark:text-white">Kartu Misi 4</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Judul Singkat Misi 4</label>
+                                <input type="text" 
+                                       name="misi_4_title" 
+                                       value="{{ old('misi_4_title', $settings['misi_4_title'] ?? '4. Kemitraan Strategis Multipihak') }}" 
+                                       class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">Uraian / Deskripsi Misi 4</label>
+                                <textarea name="misi_4_desc" 
+                                          rows="3" 
+                                          class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none">{{ old('misi_4_desc', $settings['misi_4_desc'] ?? 'Membangun sinergi kemitraan strategis bersama instansi pemerintah, perusahaan swasta dan negara, serta organisasi masyarakat yang saling memperkuat penyebaran informasi publik secara akurat dan berimbang.') }}</textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Misi Organisasi</label>
-                        <textarea name="misi" 
-                                  rows="3" 
-                                  class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('misi', $settings['misi'] ?? '') }}</textarea>
-                    </div>
+                </div>
+
+                <!-- Teks Lengkap Misi Organisasi (Rangkuman Dokumen Resmi / Cetak) -->
+                <div class="pt-2">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                        Teks Rangkuman Misi Organisasi (Dokumen / Arsip Resmi)
+                    </label>
+                    <textarea name="misi" 
+                              rows="4" 
+                              placeholder="1. Menjadikan PWI Banyuasin...&#10;2. Berkontribusi nyata...&#10;3. Meningkatkan kesejahteraan...&#10;4. Menjalin kemitraan..."
+                              class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium leading-relaxed text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">{{ old('misi', $settings['misi'] ?? '') }}</textarea>
+                    <p class="text-[11px] text-slate-400 mt-1">Dapat dikosongkan agar otomatis dirangkum dari 4 butir kartu misi di atas.</p>
                 </div>
             </div>
 

@@ -365,7 +365,7 @@
                     </button>
                     <div x-show="open" x-cloak class="pl-7 pr-2 py-1 space-y-1">
                         <a href="{{ route('admin.settings.office') }}" class="block px-3 py-2 rounded-lg transition-colors {{ request()->routeIs('admin.settings.office') ? 'text-white bg-blue-700/60 font-bold border-l-2 border-amber-400 shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/10' }}">
-                            • Data Kantor PWI
+                            • Data Kantor & Visi Misi
                         </a>
                         <a href="{{ route('admin.settings.password') }}" class="block px-3 py-2 rounded-lg transition-colors {{ request()->routeIs('admin.settings.password') ? 'text-white bg-blue-700/60 font-bold border-l-2 border-amber-400 shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/10' }}">
                             • Ganti Kata Sandi

@@ -30,6 +30,14 @@ class SettingController extends Controller
             'ketua_sambutan' => 'nullable|string',
             'visi' => 'nullable|string',
             'misi' => 'nullable|string',
+            'misi_1_title' => 'nullable|string|max:255',
+            'misi_1_desc' => 'nullable|string',
+            'misi_2_title' => 'nullable|string|max:255',
+            'misi_2_desc' => 'nullable|string',
+            'misi_3_title' => 'nullable|string|max:255',
+            'misi_3_desc' => 'nullable|string',
+            'misi_4_title' => 'nullable|string|max:255',
+            'misi_4_desc' => 'nullable|string',
             'logo' => 'nullable|image|mimes:png,jpg,jpeg,webp,svg|max:3072',
             'remove_logo' => 'nullable|in:0,1',
         ]);
@@ -59,11 +67,33 @@ class SettingController extends Controller
             'ketua_sambutan',
             'visi',
             'misi',
+            'misi_1_title',
+            'misi_1_desc',
+            'misi_2_title',
+            'misi_2_desc',
+            'misi_3_title',
+            'misi_3_desc',
+            'misi_4_title',
+            'misi_4_desc',
         ];
 
         foreach ($textKeys as $key) {
             if ($request->has($key)) {
                 Setting::set($key, $request->input($key));
+            }
+        }
+
+        // Sinkronisasi otomatis teks rangkuman misi jika butir kartu terisi namun kolom teks misi kosong
+        if (! $request->filled('misi') && ($request->filled('misi_1_desc') || $request->filled('misi_2_desc') || $request->filled('misi_3_desc') || $request->filled('misi_4_desc'))) {
+            $misiItems = [];
+            for ($i = 1; $i <= 4; $i++) {
+                $desc = trim((string) $request->input("misi_{$i}_desc"));
+                if ($desc !== '') {
+                    $misiItems[] = "{$i}. {$desc}";
+                }
+            }
+            if (! empty($misiItems)) {
+                Setting::set('misi', implode("\n", $misiItems));
             }
         }
 
