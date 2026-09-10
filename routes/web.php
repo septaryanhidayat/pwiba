@@ -106,6 +106,9 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/surat-keluar', [LetterController::class, 'index'])->name('letters.index');
     Route::get('/surat-keluar/buat', [LetterController::class, 'create'])->name('letters.create');
     Route::post('/surat-keluar', [LetterController::class, 'store'])->name('letters.store');
+    Route::post('/surat-keluar/konversi', [LetterController::class, 'convertAndStore'])->name('letters.convert');
+    Route::post('/surat-keluar/preview-konversi', [LetterController::class, 'previewConvert'])->name('letters.preview_convert');
+    Route::get('/surat-keluar/{id}/export-docx', [LetterController::class, 'exportDocx'])->name('letters.export_docx');
     Route::get('/surat-keluar/{id}/edit', [LetterController::class, 'edit'])->name('letters.edit');
     Route::put('/surat-keluar/{id}', [LetterController::class, 'update'])->name('letters.update');
     Route::delete('/surat-keluar/{id}', [LetterController::class, 'destroy'])->name('letters.destroy');

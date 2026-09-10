@@ -194,6 +194,10 @@
             </div>
         </div>
 
+        <a href="{{ route('admin.letters.export_docx', $letter->id) }}" class="btn btn-outline-primary btn-sm px-3 py-1.5" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-file-word text-primary"></i> Unduh Word (.docx)
+        </a>
+
         <button onclick="window.print()" class="btn btn-primary btn-sm px-3 py-1.5" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px;">
             <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
         </button>
