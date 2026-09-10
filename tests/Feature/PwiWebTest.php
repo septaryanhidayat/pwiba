@@ -1142,7 +1142,7 @@ class PwiWebTest extends TestCase
             'tanggal' => '2026-09-10',
             'jenis_surat' => 'SURAT BIASA',
             'tujuan' => 'Bupati Banyuasin',
-            'nama_pejabat' => 'H. Lamosin',
+            'nama_pejabat' => 'Dr. H. Askolani, SH., MH',
             'tempat_tujuan' => 'Pangkalan Balai',
             'perihal' => 'Undangan Silaturahmi Pengurus',
             'keperluan' => 'Silaturahmi dan koordinasi program kerja pers',
@@ -1154,7 +1154,7 @@ class PwiWebTest extends TestCase
         $this->assertDatabaseHas('letters', [
             'nomor_surat' => '099/PWI-BA/IX/2026',
             'tujuan' => 'Bupati Banyuasin',
-            'nama_pejabat' => 'H. Lamosin',
+            'nama_pejabat' => 'Dr. H. Askolani, SH., MH',
             'tempat_tujuan' => 'Pangkalan Balai',
             'status' => 'draft',
         ]);
@@ -1168,7 +1168,7 @@ class PwiWebTest extends TestCase
             ->assertStatus(200)
             ->assertSee('099/PWI-BA/IX/2026')
             ->assertSee('Bupati Banyuasin')
-            ->assertSee('u.p. H. Lamosin')
+            ->assertSee('u.p. Dr. H. Askolani, SH., MH')
             ->assertSee('DRAFT');
 
         // 3. Check public verification for draft
@@ -1176,7 +1176,7 @@ class PwiWebTest extends TestCase
             ->assertStatus(200)
             ->assertSee('STATUS: DRAFT KONSEP SURAT')
             ->assertSee('Bupati Banyuasin')
-            ->assertSee('H. Lamosin');
+            ->assertSee('Dr. H. Askolani, SH., MH');
 
         // 4. Toggle status from draft to published
         $this->actingAs($admin)->post("/admin/surat-keluar/{$letter->id}/toggle-status")
@@ -1197,7 +1197,7 @@ class PwiWebTest extends TestCase
             'tanggal' => '2026-09-10',
             'jenis_surat' => 'SURAT BIASA',
             'tujuan' => 'Bupati Banyuasin',
-            'nama_pejabat' => 'H. Lamosin, S.H.',
+            'nama_pejabat' => 'Dr. H. Askolani, SH., MH',
             'tempat_tujuan' => 'Palembang',
             'perihal' => 'Undangan Silaturahmi Pengurus Diperbarui',
             'status' => 'published',
@@ -1205,7 +1205,7 @@ class PwiWebTest extends TestCase
 
         $this->assertDatabaseHas('letters', [
             'id' => $letter->id,
-            'nama_pejabat' => 'H. Lamosin, S.H.',
+            'nama_pejabat' => 'Dr. H. Askolani, SH., MH',
             'tempat_tujuan' => 'Palembang',
         ]);
 
@@ -1213,7 +1213,7 @@ class PwiWebTest extends TestCase
         $this->actingAs($admin)->get("/admin/surat-keluar/{$letter->id}/cetak")
             ->assertStatus(200)
             ->assertSee('Bupati Banyuasin')
-            ->assertSee('H. Lamosin, S.H.')
+            ->assertSee('Dr. H. Askolani, SH., MH')
             ->assertSee('Palembang');
     }
 }
