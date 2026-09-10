@@ -161,6 +161,51 @@
                 box-shadow: none;
             }
         }
+        @media (max-width: 768px) {
+            body {
+                padding: 8px 6px 30px 6px;
+            }
+            .page-sheet {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 12px 10px !important;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            }
+            .kop-title-1 {
+                font-size: 11pt !important;
+            }
+            .kop-title-2 {
+                font-size: 8.5pt !important;
+            }
+            .kop-title-3, .kop-title-4 {
+                font-size: 6.5pt !important;
+            }
+            .kop-logo {
+                width: 44px !important;
+                height: 44px !important;
+                left: 6px !important;
+            }
+            .kop-box div[style*="margin-left"] {
+                margin-left: 45px !important;
+                margin-right: 0 !important;
+            }
+            .kop-address {
+                white-space: normal !important;
+                font-size: 6.5pt !important;
+                line-height: 1.1;
+            }
+            .no-print {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+                padding: 10px !important;
+            }
+            .no-print > div:last-child {
+                flex-wrap: wrap !important;
+                justify-content: flex-start !important;
+                gap: 6px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -285,6 +330,18 @@
             <p>
                 Demikian Surat Tugas ini dibuat dan diberikan untuk dapat dipergunakan sebagaimana mestinya dan dilaksanakan dengan penuh rasa tanggung jawab.
             </p>
+        </div>
+
+    @elseif($letter->jenis_surat === 'PROPOSAL')
+        <!-- Format Khusus Berkas Proposal Resmi -->
+        <div style="text-align: center; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 2px solid #0B2B68;">
+            <div style="font-size: 15pt; font-weight: bold; text-decoration: underline; text-transform: uppercase; color: #0B2B68;">PROPOSAL KEGIATAN</div>
+            <div style="font-size: 12pt; font-weight: bold; margin-top: 6px; color: #1e293b;">{{ $letter->perihal }}</div>
+            <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B2B68;">{{ $letter->nomor_surat }}</span></div>
+        </div>
+
+        <div class="letter-content" style="text-align: justify; line-height: 1.65; font-size: 11pt;">
+            {!! \Illuminate\Support\Str::contains($letter->isi_surat, '<') ? $letter->isi_surat : nl2br(e($letter->isi_surat)) !!}
         </div>
 
     @else

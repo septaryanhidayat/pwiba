@@ -186,4 +186,54 @@ class LetterConversionTest extends TestCase
             ],
         ]);
     }
+
+    public function test_document_converter_distinguishes_surat_biasa_from_proposal(): void
+    {
+        $converter = app(DocumentConverterService::class);
+
+        // Document 1: Surat Keluar Permohonan Sponsorship
+        $suratText = "Nomor : 095/PWI-BA/IX/2026\nLampiran : 1 (satu) Berkas Proposal\nPerihal : Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari\nKepada Yth. Pemimpin Wilayah PT Pegadaian (Persero)\n\nDengan hormat,\nSeiring berkembangnya pemanfaatan kecerdasan buatan, insan pers dituntut beradaptasi. Kami bermaksud mengajukan permohonan kerjasama sponsorship.\n\nDemikian surat permohonan ini kami sampaikan.";
+        $metaSurat = $converter->extractMetadata($suratText, 'surat_sponsorship.docx');
+
+        $this->assertEquals('SURAT BIASA', $metaSurat['jenis_surat']);
+        $this->assertEquals('095/PWI-BA/IX/2026', $metaSurat['nomor_surat']);
+        $this->assertEquals('Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari', $metaSurat['perihal']);
+        $this->assertEquals('1 (satu) Berkas Proposal', $metaSurat['lampiran']);
+
+        // Document 2: Berkas Proposal Kegiatan
+        $proposalText = "PROPOSAL KEGIATAN SEMINAR SEHARI\n\"Jurnalisme Cerdas di Era AI: Optimalisasi Teknologi Digital untuk Produktivitas Wartawan PWI Banyuasin\"\n\nA. Latar Belakang\nPesatnya perkembangan AI telah mengubah lanskap industri media.\n\nB. Tujuan Kegiatan\nMemberikan pemahaman komprehensif.\n\nC. Pelaksanaan Kegiatan\nSeminar Sehari di Pangkalan Balai.\n\nD. Rencana Anggaran Biaya (RAB)\nTotal Anggaran: Rp 20.350.000\n\nE. Susunan Panitia Pelaksana\nKetua: Quata Akda, Narasumber: Septa Ryan Hidayat\n\nF. Penutup\nDemikian proposal ini.";
+        $metaProposal = $converter->extractMetadata($proposalText, 'proposal_seminar.docx');
+
+        $this->assertEquals('PROPOSAL', $metaProposal['jenis_surat']);
+        $this->assertEquals('Proposal Kegiatan Seminar Sehari: Jurnalisme Cerdas di Era AI', $metaProposal['perihal']);
+        $this->assertEquals('RAB & Susunan Panitia', $metaProposal['lampiran']);
+    }
+
+    public function test_letters_index_has_responsive_mobile_and_desktop_views(): void
+    {
+        Letter::create([
+            'nomor_surat' => '095/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-10',
+            'jenis_surat' => 'SURAT BIASA',
+            'status' => 'published',
+            'perihal' => 'Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari',
+            'keperluan' => 'Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari',
+            'tujuan' => 'Pemimpin Wilayah PT Pegadaian',
+            'isi_surat' => 'Isi surat pengujian.',
+        ]);
+
+        $response = $this->actingAs($this->admin)->get(route('admin.letters.index'));
+        $response->assertStatus(200);
+
+        // Check dropdown button
+        $response->assertSee('+ Buat Surat Baru');
+        $response->assertSee('Surat Biasa');
+        $response->assertSee('Proposal Kegiatan');
+        $response->assertSee('Surat Tugas');
+        $response->assertSee('Surat Audiensi');
+
+        // Check that the letter shows up
+        $response->assertSee('095/PWI-BA/IX/2026');
+        $response->assertSee('Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari');
+    }
 }

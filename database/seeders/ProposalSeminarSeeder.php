@@ -14,41 +14,44 @@ class ProposalSeminarSeeder extends Seeder
     {
         $converter = app(DocumentConverterService::class);
 
+        // Delete any incorrectly seeded 095/PWI-PROP record if it exists
+        Letter::where('nomor_surat', '095/PWI-PROP/IX/2026')->delete();
+
         // 1. SURAT KELUAR: Permohonan Sponsorship PT Pegadaian (Persero) Kanwil Sumbagsel
-        $nomorSuratPegadaian = '095/PWI-PROP/IX/2026';
-        $isiSuratPegadaian = 'Seiring berkembangnya pemanfaatan kecerdasan buatan (Artificial Intelligence) dalam berbagai sektor, insan pers dituntut untuk terus beradaptasi dan meningkatkan kapasitas diri. Sehubungan dengan hal tersebut, Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin bermaksud menyelenggarakan kegiatan Seminar Sehari dengan tema:
+        $nomorSuratPegadaian = '095/PWI-BA/IX/2026';
+        $isiSuratPegadaian = 'Seiring berkembangnya pemanfaatan kecerdasan buatan (Artificial Intelligence) dalam berbagai sektor, insan pers dituntut untuk terus beradaptasi dan meningkatkan kapasitas diri. Menjawab tantangan tersebut, Pengurus Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin bermaksud menyelenggarakan kegiatan Seminar Sehari dengan tema:
 
 "Jurnalisme Cerdas di Era AI: Optimalisasi Teknologi Digital untuk Produktivitas Wartawan PWI Banyuasin"
 
-Kegiatan ini bertujuan untuk memberikan pemahaman teknis serta optimalisasi pemanfaatan teknologi digital dalam proses produksi jurnalistik yang profesional, etis, dan produktif bagi wartawan di Kabupaten Banyuasin.
+Kegiatan ini bertujuan untuk memberikan pemahaman teknis serta optimalisasi pemanfaatan teknologi digital dalam proses produksi jurnalistik yang profesional, menjunjung etika profesi, dan produktif bagi wartawan di Kabupaten Banyuasin.
 
 Adapun kegiatan ini rencananya akan dilaksanakan pada:
-• Hari / Tanggal : (Disesuaikan/tentatif)
-• Waktu : 08.00 WIB s.d. 14.00 Selesai
+• Hari / Tanggal : (Disesuaikan/Tentatif)
+• Waktu : 08.00 WIB s.d. selesai
 • Tempat : Gedung Serbaguna Pangkalan Balai, Banyuasin
 • Peserta : 50 Orang (Wartawan & Anggota PWI Banyuasin)
 
-Mengingat pentingnya acara ini, kami bermaksud mengajukan permohonan dukungan kerjasama / sponsorship kepada PT Pegadaian (Persero) Kanwil Sumbagsel guna terselenggaranya kegiatan tersebut. Sebagai bentuk kemitraan, kami siap menyediakan ruang publikasi, pencantuman logo perusahaan pada media promosi acara (spanduk, backdrop, sertifikat), serta sesi pengenalan produk/layanan PT Pegadaian kepada seluruh peserta.
+Mengingat pentingnya acara ini, kami bermaksud mengajukan permohonan dukungan kerja sama (sponsorship) kepada PT Pegadaian (Persero) Kanwil Sumbagsel guna menunjang kelancaran kegiatan tersebut. Sebagai bentuk kemitraan yang saling menguntungkan, kami menyediakan ruang publikasi, pencantuman logo perusahaan pada seluruh media promosi acara (spanduk, backdrop, sertifikat), serta sesi khusus untuk pengenalan produk dan layanan PT Pegadaian kepada seluruh peserta.
 
 Sebagai bahan pertimbangan Bapak/Ibu, bersama surat ini kami lampirkan 1 (satu) berkas proposal yang memuat rincian acara dan rencana anggaran biaya.
 
-Demikian surat pengajuan ini kami sampaikan. Atas perhatian, dukungan, dan kerjasama yang baik dari PT Pegadaian (Persero) Kanwil Sumbagsel, kami ucapkan terima kasih.';
+Demikian surat permohonan ini kami sampaikan. Atas perhatian, dukungan, dan kerja sama yang baik dari PT Pegadaian (Persero) Kanwil Sumbagsel, kami ucapkan terima kasih.';
 
         $suratPegadaian = Letter::updateOrCreate(
             ['nomor_surat' => $nomorSuratPegadaian],
             [
                 'uuid' => (string) Str::uuid(),
                 'tanggal' => '2026-09-10',
-                'jenis_surat' => 'PROPOSAL',
+                'jenis_surat' => 'SURAT BIASA',
                 'status' => 'published',
-                'tujuan' => 'Pimpinan Wilayah Kanwil Sumbagsel PT Pegadaian (Persero)',
-                'nama_pejabat' => 'Pimpinan Wilayah Kanwil Sumbagsel',
-                'jabatan_pejabat' => 'Pimpinan Wilayah',
+                'tujuan' => 'Pemimpin Wilayah PT Pegadaian (Persero) Kanwil Sumbagsel',
+                'nama_pejabat' => 'Pemimpin Wilayah',
+                'jabatan_pejabat' => 'Pemimpin Wilayah PT Pegadaian',
                 'alamat_tujuan' => 'Jl. Merdeka No. 11, Kota Palembang, Sumatera Selatan',
                 'tempat_tujuan' => 'Palembang',
-                'perihal' => 'Permohonan Dukungan Kerjasama / Sponsorship Seminar Sehari "Jurnalisme Cerdas di Era AI"',
-                'keperluan' => 'Permohonan Sponsorship Seminar Sehari Jurnalisme Cerdas di Era AI',
-                'lampiran' => '1 (Satu) Berkas Proposal',
+                'perihal' => 'Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari',
+                'keperluan' => 'Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari',
+                'lampiran' => '1 (satu) Berkas Proposal',
                 'isi_surat' => $isiSuratPegadaian,
                 'penandatangan_nama' => 'Wardoyo, S.I.Kom',
                 'penandatangan_sekretaris' => 'Deni Arianto',
@@ -59,7 +62,7 @@ Demikian surat pengajuan ini kami sampaikan. Atas perhatian, dukungan, dan kerja
         // Generate and attach .docx for Surat Pengantar
         try {
             $docxBinary1 = $converter->generateDocx($suratPegadaian);
-            $fileName1 = 'letters/095_PWI-PROP_IX_2026_Surat_Sponsorship_Pegadaian.docx';
+            $fileName1 = 'letters/095_PWI-BA_IX_2026_Surat_Sponsorship_Pegadaian.docx';
             Storage::disk('public')->put($fileName1, $docxBinary1);
             $suratPegadaian->file_dokumen = $fileName1;
             $suratPegadaian->save();
@@ -69,67 +72,63 @@ Demikian surat pengajuan ini kami sampaikan. Atas perhatian, dukungan, dan kerja
 
         // 2. PROPOSAL RESMI: Proposal Seminar Sehari "Jurnalisme Cerdas di Era AI"
         $nomorProposal = '096/PWI-PROP/IX/2026';
-        $isiProposal = 'SEMINAR SEHARI
-"Jurnalisme Cerdas di Era AI : Optimalisasi Teknologi Digital untuk Produktivitas Wartawan PWI Banyuasin"
+        $isiProposal = 'PROPOSAL KEGIATAN SEMINAR SEHARI
+"Jurnalisme Cerdas di Era AI: Optimalisasi Teknologi Digital untuk Produktivitas Wartawan PWI Banyuasin"
 
 A. Latar Belakang
-Pesatnya perkembangan kecerdasan buatan (Artificial Intelligence) dan teknologi digital telah mengubah lanskap industri media secara fundamental. Wartawan dituntut untuk bekerja lebih cepat, akurat, dan adaptif tanpa mengesampingkan etika serta kaidah jurnalistik.
+Pesatnya perkembangan kecerdasan buatan (Artificial Intelligence) dan teknologi digital telah mengubah lanskap industri media dan ilmu komunikasi secara fundamental. Wartawan dituntut untuk bekerja lebih cepat, akurat, dan adaptif tanpa mengesampingkan etika profesi serta kaidah jurnalistik yang berlaku.
 
-Melalui seminar sehari ini, Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin berinisiatif membekali para anggotanya dengan pemahaman dan keterampilan praktis penggunaan perangkat AI untuk meriset data, pemrosesan berita, hingga verifikasi fakta untuk meningkatkan produktivitas dan kualitas karya jurnalistik di daerah.
+Melalui seminar sehari ini, Persatuan Wartawan Indonesia (PWI) Kabupaten Banyuasin berinisiatif membekali para anggotanya dengan pemahaman dan keterampilan praktis. Pembekalan ini mencakup penggunaan perangkat AI dan aplikasi web terapan untuk meriset data, pemrosesan berita, hingga verifikasi fakta guna meningkatkan produktivitas dan kualitas karya jurnalistik di daerah.
 
 B. Tujuan Kegiatan
 • Memberikan pemahaman komprehensif mengenai pemanfaatan teknologi AI dalam ruang redaksi (newsroom).
-• Meningkatkan produktivitas kerja wartawan PWI Banyuasin melalui efisiensi riset dan pengolahan data digital.
-• Menjaga integritas dan etika jurnalistik di tengah maraknya konten buatan mesin dan disinformasi.
+• Meningkatkan produktivitas kerja wartawan PWI Banyuasin melalui efisiensi riset dan pengolahan sains data secara digital.
+• Menjaga integritas dan etika profesi jurnalistik di tengah maraknya konten buatan mesin serta ancaman disinformasi.
 
 C. Pelaksanaan Kegiatan
-• Bentuk Kegiatan: Seminar Sehari (Diskusi Panel, Pemaparan Materi, dan Tanya Jawab)
-• Tanggal / Waktu: [Tentatif] | 08.00 – 16.00 WIB
-• Tempat: Auditorium / Gedung Serbaguna Pemkab Banyuasin - Pangkalan Balai
-• Target Peserta: 50 Orang (Anggota PWI Banyuasin dan Perwakilan Media Lokal)
+• Bentuk Kegiatan : Seminar Sehari (Diskusi Panel, Pemaparan Materi, dan Tanya Jawab)
+• Tanggal / Waktu : [Tentatif] | 08.00 – 16.00 WIB
+• Tempat : Auditorium / Gedung Serbaguna Pemkab Banyuasin, Pangkalan Balai
+• Target Peserta : 50 Orang (Anggota PWI Banyuasin dan Perwakilan Media Lokal)
 
 D. Rencana Anggaran Biaya (RAB)
 1. Kesekretariatan & Perlengkapan:
    • Spanduk / Backdrop (1 unit) = Rp 300.000
    • Sertifikat Peserta & Panitia (60 lembar @ Rp 10.000) = Rp 600.000
    • Seminar Kit (Blocknote, Pena, Map @ Rp 25.000 x 50) = Rp 1.250.000
-   • Subtotal: Rp 2.150.000
+   Subtotal 1: Rp 2.150.000
 
 2. Sewa Tempat & Fasilitas:
    • Sewa Gedung & Sound System (1 hari) = Rp 3.000.000
-   • Subtotal: Rp 3.000.000
+   Subtotal 2: Rp 3.000.000
 
 3. Honorarium:
    • Narasumber Ahli AI / Jurnalistik Digital (2 Orang @ Rp 2.500.000) = Rp 5.000.000
    • Transport & Akomodasi Narasumber = Rp 1.500.000
    • Honor Panitia Pelaksana (10 Orang @ Rp 300.000) = Rp 3.000.000
-   • Subtotal: Rp 9.500.000
+   Subtotal 3: Rp 9.500.000
 
 4. Konsumsi:
    • Snack Pagi & Sore (60 Orang x 2 @ Rp 15.000) = Rp 1.800.000
-   • Makan Siang PR/Buffet (60 Orang @ Rp 40.000) = Rp 2.400.000
+   • Makan Siang / Buffet (60 Orang @ Rp 40.000) = Rp 2.400.000
    • Air Mineral & Coffee Break = Rp 500.000
-   • Subtotal: Rp 4.700.000
+   Subtotal 4: Rp 4.700.000
 
-5. Biaya Tak Terduga / Lain-lain:
+5. Biaya Tak Terduga:
    • Alokasi Biaya Tak Terduga (5%) = Rp 1.000.000
+   Subtotal 5: Rp 1.000.000
 
-REKAPITULASI ANGGARAN:
-1. Sekretariat & Perlengkapan: Rp 2.150.000
-2. Sewa Gedung & Fasilitas: Rp 3.000.000
-3. Honorarium & Akomodasi: Rp 9.500.000
-4. Konsumsi: Rp 4.700.000
-5. Biaya Tak Terduga: Rp 1.000.000
 TOTAL ESTIMASI ANGGARAN: Rp 20.350.000
 
 E. Susunan Panitia Pelaksana
-• Penanggung Jawab : Wardoyo, S.I.Kom - Ketua PWI Banyuasin
-• Ketua Pelaksana: Quata Akda
-• Sekretaris: Deni Arianto
-• Bendahara: Ridho Andi Sucipto, M.Pd
-• Seksi Acara & Narasumber: Wardoyo - Septa Ryan Hidayat – Pakar AI
-• Seksi Perlengkapan & Tempat: Herwanto
-• Seksi Konsumsi & Humas: Frans Iskandar
+• Penanggung Jawab : Wardoyo, S.I.Kom (Ketua PWI Banyuasin)
+• Ketua Pelaksana : Quata Akda
+• Sekretaris : Deni Arianto
+• Bendahara : Ridho Andi Sucipto, M.Pd
+• Seksi Acara : Wardoyo
+• Narasumber / Pakar AI : Septa Ryan Hidayat
+• Seksi Perlengkapan & Tempat : Herwanto
+• Seksi Konsumsi & Humas : Frans Iskandar
 
 F. Penutup
 Demikian proposal kegiatan Seminar Sehari ini disusun sebagai acuan pelaksanaan kegiatan. Dukungan dan partisipasi dari berbagai pihak sangat kami harapkan demi suksesnya acara ini.';
@@ -146,9 +145,9 @@ Demikian proposal kegiatan Seminar Sehari ini disusun sebagai acuan pelaksanaan 
                 'jabatan_pejabat' => 'Pimpinan Mitra',
                 'alamat_tujuan' => 'Pangkalan Balai / Palembang',
                 'tempat_tujuan' => 'Pangkalan Balai',
-                'perihal' => 'Proposal Seminar Sehari: Jurnalisme Cerdas di Era AI (RAB Rp 20.350.000)',
-                'keperluan' => 'Proposal Kegiatan Seminar Sehari Jurnalisme Cerdas di Era AI',
-                'lampiran' => 'RAB & Susunan Panitia Lengkap',
+                'perihal' => 'Proposal Kegiatan Seminar Sehari: Jurnalisme Cerdas di Era AI',
+                'keperluan' => 'Seminar Sehari: Jurnalisme Cerdas di Era AI',
+                'lampiran' => 'RAB & Susunan Panitia',
                 'isi_surat' => $isiProposal,
                 'penandatangan_nama' => 'Wardoyo, S.I.Kom',
                 'penandatangan_sekretaris' => 'Deni Arianto',

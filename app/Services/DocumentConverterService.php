@@ -134,18 +134,34 @@ class DocumentConverterService
             'isi_surat' => $text,
         ];
 
-        // 1. Detect Jenis Surat
-        $upperText = strtoupper($text.' '.$filename);
-        if (str_contains($upperText, 'PROPOSAL') || str_contains($upperText, 'SPONSORSHIP') || str_contains($upperText, 'ANGGARAN BIAYA') || str_contains($upperText, 'RAB')) {
-            $meta['jenis_surat'] = 'PROPOSAL';
-            $meta['lampiran'] = '1 (Satu) Berkas Proposal';
-        } elseif (str_contains($upperText, 'SURAT PERINTAH TUGAS') || str_contains($upperText, 'SURAT TUGAS') || str_contains($upperText, 'MENUGASKAN')) {
+        // 1. Detect Document Structure (Surat vs Proposal)
+        $lowerText = strtolower($text.' '.$filename);
+        $hasLetterGreeting = str_contains($lowerText, 'kepada yth') || str_contains($lowerText, 'dengan hormat');
+        $hasLetterClosing = str_contains($lowerText, 'demikian surat') || str_contains($lowerText, 'hormat kami');
+        $isLetterDocument = $hasLetterGreeting || $hasLetterClosing;
+
+        $hasProposalStructure = (str_contains($lowerText, 'latar belakang') && str_contains($lowerText, 'tujuan kegiatan'))
+            || str_contains($lowerText, 'rencana anggaran biaya')
+            || str_contains($lowerText, 'susunan panitia');
+
+        // Detect Jenis Surat
+        if (str_contains($lowerText, 'surat perintah tugas') || str_contains($lowerText, 'surat tugas') || str_contains($lowerText, 'menugaskan kepada')) {
             $meta['jenis_surat'] = 'SURAT TUGAS';
-        } elseif (str_contains($upperText, 'AUDIENSI') || str_contains($upperText, 'AUDENSI')) {
+            $meta['lampiran'] = '-';
+        } elseif (str_contains($lowerText, 'audiensi') || str_contains($lowerText, 'audensi')) {
             $meta['jenis_surat'] = 'SURAT AUDENSI';
+            $meta['lampiran'] = '1 (Satu) Berkas';
+        } elseif (! $isLetterDocument && ($hasProposalStructure || str_starts_with(trim($lowerText), 'proposal') || str_contains($lowerText, 'proposal kegiatan'))) {
+            // Strictly a PROPOSAL document
+            $meta['jenis_surat'] = 'PROPOSAL';
+            $meta['lampiran'] = 'RAB & Susunan Panitia';
+        } else {
+            // It is an OUTGOING LETTER (Surat Keluar / Surat Biasa)
+            $meta['jenis_surat'] = 'SURAT BIASA';
+            $meta['lampiran'] = str_contains($lowerText, 'proposal') ? '1 (satu) Berkas Proposal' : '1 (Satu) Berkas';
         }
 
-        // 2. Extract Nomor Surat (e.g. 094/PWI-BA/IX/2026, Nomor: 095/PWI-PROP/IX/2026)
+        // 2. Extract Nomor Surat
         if (preg_match('/(?:Nomor|No)[\s.:]*([0-9]{1,4}\/[A-Za-z0-9\-]+\/[IVXLCDMivxlcdm]+\/[0-9]{4})/i', $text, $matches)) {
             $meta['nomor_surat'] = trim($matches[1]);
         } elseif (preg_match('/([0-9]{3,4}\/[A-Za-z0-9\-]+\/[IVXLCDMivxlcdm]+\/[0-9]{4})/i', $text, $matches)) {
@@ -154,14 +170,56 @@ class DocumentConverterService
 
         // 3. Extract Perihal / Prihal / Hal
         if (preg_match('/(?:Perihal|Prihal|Hal)[\s.:]+([^\r\n]+)/i', $text, $matches)) {
-            $meta['perihal'] = trim($matches[1]);
-        } elseif ($meta['jenis_surat'] === 'PROPOSAL' && preg_match('/(?:Tema|Judul|Kegiatan)[\s.:"]+([^\r\n"]+)/i', $text, $matches)) {
-            $meta['perihal'] = 'Proposal: '.trim($matches[1]);
+            $rawPerihal = trim($matches[1]);
+            // Strip markdown asterisks or underscores if present
+            $rawPerihal = trim(str_replace(['**', '*', '__', '_'], '', $rawPerihal));
+            $meta['perihal'] = $rawPerihal;
+        } else {
+            // Extract from intent in letter body
+            if (preg_match('/(?:bermaksud|maksud kami)\s+mengajukan\s+(?:permohonan\s+)?([^\r\n.]+?)(?:\s+kepada|\s+guna|\s+dalam|\.)/i', $text, $matches)) {
+                $rawIntent = trim($matches[1]);
+                if (str_contains(strtolower($rawIntent), 'sponsorship') || str_contains(strtolower($rawIntent), 'kerjasama')) {
+                    $meta['perihal'] = 'Permohonan Kerjasama / Sponsorship';
+                } elseif (str_contains(strtolower($rawIntent), 'bantuan dana') || str_contains(strtolower($rawIntent), 'dana')) {
+                    $meta['perihal'] = 'Permohonan Bantuan Dana';
+                } elseif (str_contains(strtolower($rawIntent), 'audiensi')) {
+                    $meta['perihal'] = 'Permohonan Audiensi';
+                } else {
+                    $meta['perihal'] = 'Permohonan '.ucwords($rawIntent);
+                }
+            } elseif (preg_match('/permohonan\s+(?:dukungan\s+)?kerjasama\s*\/\s*sponsorship/i', $text)) {
+                $meta['perihal'] = 'Permohonan Kerjasama / Sponsorship';
+            } elseif (preg_match('/permohonan\s+kerjasama/i', $text)) {
+                $meta['perihal'] = 'Permohonan Kerjasama';
+            } elseif (preg_match('/permohonan\s+sponsorship/i', $text)) {
+                $meta['perihal'] = 'Permohonan Sponsorship';
+            } elseif (preg_match('/permohonan\s+bantuan\s+dana/i', $text)) {
+                $meta['perihal'] = 'Permohonan Bantuan Dana';
+            } elseif (preg_match('/permohonan\s+audiensi/i', $text)) {
+                $meta['perihal'] = 'Permohonan Audiensi';
+            } elseif ($meta['jenis_surat'] === 'PROPOSAL') {
+                if (preg_match('/(?:SEMINAR\s+SEHARI|KEGIATAN|PELATIHAN|TURNAMEN|WORKSHOP)[\s\S]*?["“]([^"”]+)["”]/i', $text, $matches)) {
+                    $theme = trim($matches[1]);
+                    if (str_contains($theme, ':')) {
+                        $parts = explode(':', $theme);
+                        $theme = trim($parts[0]);
+                    }
+                    $meta['perihal'] = 'Proposal Kegiatan Seminar Sehari: '.$theme;
+                } elseif (str_contains(strtolower($text), 'jurnalisme cerdas')) {
+                    $meta['perihal'] = 'Proposal Kegiatan Seminar Sehari: Jurnalisme Cerdas di Era AI';
+                } elseif (preg_match('/^([^\r\n]{5,80})/m', trim($text), $matches)) {
+                    $meta['perihal'] = 'Proposal: '.trim($matches[1]);
+                } else {
+                    $meta['perihal'] = 'Proposal Kegiatan';
+                }
+            }
         }
 
-        // 4. Extract Lampiran
+        // 4. Extract Lampiran (if explicitly stated)
         if (preg_match('/(?:Lampiran|Lamp)[\s.:]+([^\r\n]+)/i', $text, $matches)) {
             $meta['lampiran'] = trim($matches[1]);
+        } elseif (preg_match('/(?:lampirkan|melampirkan)\s+([0-9]+\s*\([a-z0-9\s]+\)\s*berkas[^\r\n,.]*)/i', $text, $matches)) {
+            $meta['lampiran'] = ucwords(trim($matches[1]));
         }
 
         // 5. Extract Kepada Yth / Tujuan
@@ -201,15 +259,9 @@ class DocumentConverterService
             $meta['tanggal'] = "{$year}-{$month}-{$day}";
         }
 
-        // If perihal is still empty, derive from first meaningful heading or line
+        // Fallback for perihal if still empty
         if (empty($meta['perihal'])) {
-            $lines = array_filter(array_map('trim', explode("\n", $text)));
-            foreach ($lines as $line) {
-                if (strlen($line) > 10 && strlen($line) < 120 && ! str_contains(strtolower($line), 'kepada') && ! str_contains(strtolower($line), 'pwi')) {
-                    $meta['perihal'] = $line;
-                    break;
-                }
-            }
+            $meta['perihal'] = $meta['jenis_surat'] === 'PROPOSAL' ? 'Proposal Kegiatan' : 'Surat Keluar Administrasi';
         }
 
         return $meta;

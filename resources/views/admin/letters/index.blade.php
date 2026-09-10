@@ -52,52 +52,100 @@
     }
 }">
     
-    <!-- Top Action Bar with 5 Generator / Conversion Buttons -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <!-- Top Action Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-            <h2 class="text-xl font-extrabold text-[#0B132B] dark:text-white">Buku Register Surat Keluar</h2>
-            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium">Pengarsipan digital, konversi Word/PDF otomatis, serta pembuatan surat tugas, audiensi, surat biasa, dan proposal</p>
+            <h2 class="text-lg sm:text-xl font-extrabold text-[#0B132B] dark:text-white tracking-tight">Buku Register Surat Keluar</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Pengarsipan digital, konversi Word/PDF otomatis, serta register persuratan & proposal resmi PWI Banyuasin</p>
         </div>
         
-        <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
-            <button @click="modalKonversi = true" class="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs font-black text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-indigo-700 shadow-sm hover:shadow-md transition-all cursor-pointer whitespace-nowrap ring-1 ring-purple-400/30">
+        <div class="grid grid-cols-2 sm:flex sm:items-center gap-2 shrink-0">
+            <!-- 1. Konversi Word / PDF Action -->
+            <button @click="modalKonversi = true" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-indigo-700 shadow-sm transition-all cursor-pointer whitespace-nowrap ring-1 ring-purple-400/30">
                 <i class="fa-solid fa-file-arrow-up text-xs animate-pulse"></i>
-                <span>+ Konversi Word / PDF</span>
+                <span>Konversi Word / PDF</span>
             </button>
-            <button @click="modalTugas = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-cyan-600 hover:bg-cyan-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
-                <i class="fa-solid fa-user-tag text-xs"></i>
-                <span>+ Surat Tugas</span>
-            </button>
-            <button @click="modalAudiensi = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all cursor-pointer whitespace-nowrap">
-                <i class="fa-solid fa-comments text-xs"></i>
-                <span>+ Audiensi</span>
-            </button>
-            <button @click="modalBiasa = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
-                <i class="fa-solid fa-envelope text-xs"></i>
-                <span>+ Surat Biasa</span>
-            </button>
-            <button @click="modalProposal = true" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
-                <i class="fa-solid fa-file-contract text-xs"></i>
-                <span>+ Proposal</span>
-            </button>
+
+            <!-- 2. Unified Create Letter Dropdown Menu -->
+            <div class="relative w-full sm:w-auto" x-data="{ openCreate: false }" @click.away="openCreate = false">
+                <button @click="openCreate = !openCreate" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all cursor-pointer whitespace-nowrap">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>+ Buat Surat Baru</span>
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" :class="{ 'rotate-180': openCreate }"></i>
+                </button>
+
+                <!-- Dropdown Menu Items -->
+                <div x-show="openCreate" 
+                     x-transition:enter="transition ease-out duration-100"
+                     x-transition:enter-start="transform opacity-0 scale-95"
+                     x-transition:enter-end="transform opacity-100 scale-100"
+                     x-transition:leave="transition ease-in duration-75"
+                     x-transition:leave-start="transform opacity-100 scale-100"
+                     x-transition:leave-end="transform opacity-0 scale-95"
+                     x-cloak 
+                     class="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl py-2 z-40">
+                    
+                    <button @click="modalBiasa = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-envelope text-xs"></i>
+                        </span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">Surat Biasa</div>
+                            <div class="text-[10.5px] text-slate-500 font-normal">Permohonan sponsorship, kerjasama, dinas</div>
+                        </div>
+                    </button>
+
+                    <button @click="modalProposal = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-file-contract text-xs"></i>
+                        </span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">Proposal Kegiatan</div>
+                            <div class="text-[10.5px] text-slate-500 font-normal">Proposal seminar, RAB & susunan panitia</div>
+                        </div>
+                    </button>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 my-1"></div>
+
+                    <button @click="modalTugas = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-tag text-xs"></i>
+                        </span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">Surat Tugas</div>
+                            <div class="text-[10.5px] text-slate-500 font-normal">Surat perintah penugasan anggota wartawan</div>
+                        </div>
+                    </button>
+
+                    <button @click="modalAudiensi = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
+                        <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-comments text-xs"></i>
+                        </span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">Surat Audiensi</div>
+                            <div class="text-[10.5px] text-slate-500 font-normal">Permohonan audiensi instansi pemerintah</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Table Container (Clean White Background Card) -->
-    <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+    <!-- Table & List Container -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
         
         <!-- Table Filter Bar -->
-        <div class="p-4 sm:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col gap-4 bg-slate-50/50 dark:bg-slate-900/50">
+        <div class="p-3.5 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col gap-3 bg-slate-50/50 dark:bg-slate-900/50">
             <!-- Top Row: Status Tabs & Search -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
-                    <a href="{{ route('admin.letters.index', array_merge(request()->except('status', 'page'))) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ !request('status') ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                    <a href="{{ route('admin.letters.index', array_merge(request()->except('status', 'page'))) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ !request('status') ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700' }}">
                         Semua Status ({{ $totalCount ?? 0 }})
                     </a>
-                    <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['status' => 'published'])) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('status') === 'published' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-emerald-700 dark:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['status' => 'published'])) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('status') === 'published' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white dark:bg-slate-950 text-emerald-700 dark:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700' }}">
                         <i class="fa-solid fa-circle-check me-1"></i> Terbit ({{ $publishedCount ?? 0 }})
                     </a>
-                    <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('status') === 'draft' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'bg-white dark:bg-slate-950 text-amber-700 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700' }}">
+                    <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['status' => 'draft'])) }}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 whitespace-nowrap {{ request('status') === 'draft' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'bg-white dark:bg-slate-950 text-amber-700 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700' }}">
                         <i class="fa-solid fa-file-pen me-1"></i> Draft ({{ $draftCount ?? 0 }})
                     </a>
                 </div>
@@ -106,35 +154,128 @@
                     @if(request('jenis')) <input type="hidden" name="jenis" value="{{ request('jenis') }}"> @endif
                     @if(request('status')) <input type="hidden" name="status" value="{{ request('status') }}"> @endif
                     <div class="relative">
-                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nomor / tujuan / penerima..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-slate-200 focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nomor / perihal / tujuan..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-slate-200 focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
                     </div>
                 </form>
             </div>
 
             <!-- Bottom Row: Filter by Jenis Surat -->
-            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-slate-200 dark:border-slate-800/80">
-                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider me-1 shrink-0">Kategori:</span>
-                <a href="{{ route('admin.letters.index', array_merge(request()->except('jenis', 'page'))) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ !request('jenis') ? 'bg-slate-800 text-white' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2 border-t border-slate-200/80 dark:border-slate-800/80">
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('jenis', 'page'))) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ !request('jenis') ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900 font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
                     Semua Jenis
                 </a>
-                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT TUGAS'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT TUGAS' ? 'bg-cyan-600 text-white' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Tugas
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT BIASA'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT BIASA' ? 'bg-emerald-600 text-white font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
+                    Surat Biasa
                 </a>
-                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT AUDENSI'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT AUDENSI' ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Audiensi
-                </a>
-                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT BIASA'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT BIASA' ? 'bg-emerald-600 text-white' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
-                    Biasa
-                </a>
-                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'PROPOSAL'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'PROPOSAL' ? 'bg-slate-800 text-white' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-300 dark:border-slate-700' }}">
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'PROPOSAL'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'PROPOSAL' ? 'bg-indigo-600 text-white font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
                     Proposal
+                </a>
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT TUGAS'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT TUGAS' ? 'bg-cyan-600 text-white font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
+                    Surat Tugas
+                </a>
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT AUDENSI'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT AUDENSI' ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
+                    Audiensi
                 </a>
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200 min-w-[760px]">
+        <!-- 1. MOBILE CARDS VIEW (Clean & Responsive on Mobile Phones) -->
+        <div class="block md:hidden divide-y divide-slate-200 dark:divide-slate-800">
+            @forelse($letters as $item)
+                <div class="p-4 space-y-2.5 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors {{ $item->status === 'draft' ? 'bg-amber-50/25 dark:bg-amber-950/10' : '' }}">
+                    <!-- Card Top: Nomor & Status Badge -->
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="font-mono font-bold text-xs text-slate-900 dark:text-white">
+                            {{ $item->nomor_surat }}
+                        </div>
+                        <div>
+                            @if($item->status === 'draft')
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
+                                    <i class="fa-solid fa-file-pen text-[8px]"></i> DRAFT
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
+                                    <i class="fa-solid fa-circle-check text-[8px]"></i> TERBIT
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Card Sub: Jenis Surat, Tanggal, & File Attachment Pill -->
+                    <div class="flex items-center justify-between text-[11px] gap-2 flex-wrap">
+                        <div class="flex items-center gap-1.5">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wide {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400')) }}">
+                                {{ $item->jenis_surat }}
+                            </span>
+                            @if($item->file_dokumen)
+                                <span class="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                                    <i class="fa-solid fa-paperclip text-[8px]"></i> Word
+                                </span>
+                            @endif
+                        </div>
+                        <span class="text-slate-500 dark:text-slate-400 font-medium text-[11px]">
+                            <i class="fa-regular fa-calendar text-[10px] me-1"></i>
+                            {{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}
+                        </span>
+                    </div>
+
+                    <!-- Card Content: Tujuan & Perihal -->
+                    <div class="space-y-1 text-xs">
+                        <div class="text-slate-900 dark:text-white font-bold leading-snug">
+                            {{ $item->tujuan }}
+                        </div>
+                        @if($item->nama_pejabat && $item->nama_pejabat !== $item->tujuan)
+                            <div class="text-[11px] text-blue-600 dark:text-blue-400 font-medium">
+                                u.p. {{ $item->nama_pejabat }}
+                            </div>
+                        @endif
+                        <div class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11.5px]">
+                            {{ $item->perihal ?? $item->keperluan }}
+                        </div>
+                    </div>
+
+                    <!-- Card Actions Toolbar -->
+                    <div class="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-1.5">
+                        <div class="flex items-center gap-1.5">
+                            <a href="{{ route('admin.letters.print', $item->id) }}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-bold shadow-sm transition-all" title="Cetak Surat (PDF)">
+                                <i class="fa-solid fa-print text-[10px]"></i> Cetak
+                            </a>
+                            <a href="{{ route('admin.letters.export_docx', $item->id) }}" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold shadow-sm transition-all" title="Unduh Word (.docx)">
+                                <i class="fa-solid fa-file-word text-[10px]"></i> Word
+                            </a>
+                            <a href="{{ route('admin.letters.edit', $item->id) }}" class="p-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-sm transition-all" title="Edit Surat">
+                                <i class="fa-solid fa-pen text-xs"></i>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                            <form action="{{ route('admin.letters.toggle', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('{{ $item->status === 'draft' ? 'Publish surat ini sekarang?' : 'Kembalikan surat ini ke status Draft?' }}')">
+                                @csrf
+                                <button type="submit" class="p-1.5 rounded-lg {{ $item->status === 'draft' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-slate-600 hover:bg-slate-700' }} text-white shadow-sm transition-all" title="{{ $item->status === 'draft' ? 'Publish' : 'Kembalikan ke Draft' }}">
+                                    <i class="fa-solid {{ $item->status === 'draft' ? 'fa-paper-plane' : 'fa-file-pen' }} text-xs"></i>
+                                </button>
+                            </form>
+                            <form action="{{ route('admin.letters.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Hapus surat keluar ini?')" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-all" title="Hapus">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="py-12 text-center text-slate-500 dark:text-slate-400 text-xs font-medium">
+                    Belum ada data surat keluar yang sesuai kriteria.
+                </div>
+            @endforelse
+        </div>
+
+        <!-- 2. DESKTOP TABULAR VIEW (Clean & Spacious for Tablets / Laptops) -->
+        <div class="hidden md:block overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-800 dark:text-slate-200">
                 <thead class="bg-[#0B132B] dark:bg-[#070D1E] text-white uppercase tracking-wider text-[11px] border-b border-blue-950">
                     <tr>
                         <th class="py-3.5 px-4 text-center w-12 font-bold whitespace-nowrap">NO</th>
@@ -163,7 +304,7 @@
                             </td>
                             <td class="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-semibold whitespace-nowrap">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
                             <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10.5px] font-bold tracking-wide whitespace-nowrap {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-slate-100 text-slate-700 border border-slate-300 dark:bg-slate-800 dark:text-slate-300' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800')) }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10.5px] font-bold tracking-wide whitespace-nowrap {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800')) }}">
                                     {{ $item->jenis_surat }}
                                 </span>
                             </td>
