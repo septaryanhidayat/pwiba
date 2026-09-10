@@ -109,6 +109,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/surat-keluar/{id}/edit', [LetterController::class, 'edit'])->name('letters.edit');
     Route::put('/surat-keluar/{id}', [LetterController::class, 'update'])->name('letters.update');
     Route::delete('/surat-keluar/{id}', [LetterController::class, 'destroy'])->name('letters.destroy');
+    Route::post('/surat-keluar/{id}/toggle-status', [LetterController::class, 'toggleStatus'])->name('letters.toggle');
     Route::get('/surat-keluar/{id}/cetak', [LetterController::class, 'print'])->name('letters.print');
 
     // Modul Surat Masuk (Administrasi)

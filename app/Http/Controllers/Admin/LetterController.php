@@ -30,11 +30,19 @@ class LetterController extends Controller
             $query->where('jenis_surat', $request->jenis);
         }
 
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $totalCount = Letter::count();
+        $publishedCount = Letter::where('status', '!=', 'draft')->count();
+        $draftCount = Letter::where('status', 'draft')->count();
+
         $entries = (int) $request->get('entries', 10);
-        $letters = $query->latest('tanggal')->paginate($entries);
+        $letters = $query->latest('tanggal')->latest('id')->paginate($entries);
         $members = Member::where('status', 'aktif')->orderBy('nama')->get();
 
-        return view('admin.letters.index', compact('letters', 'members'));
+        return view('admin.letters.index', compact('letters', 'members', 'totalCount', 'publishedCount', 'draftCount'));
     }
 
     public function create(Request $request)
@@ -67,9 +75,12 @@ class LetterController extends Controller
             'member_id' => 'nullable|exists:members,id',
             'isi_surat' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'status' => 'nullable|string|in:draft,published',
         ]);
 
         $data = $request->all();
+        $data['status'] = $request->input('status', 'published');
+        $data['tempat_tujuan'] = $request->filled('tempat_tujuan') ? $request->tempat_tujuan : 'Di Tempat';
 
         // Standardize tujuan and keperluan based on letter type
         if ($request->jenis_surat === 'SURAT TUGAS') {
@@ -78,7 +89,8 @@ class LetterController extends Controller
             $data['tujuan'] = $request->tujuan ?? ($request->lokasi ?? 'Lokasi Tugas');
         } elseif (in_array($request->jenis_surat, ['SURAT AUDENSI', 'PROPOSAL', 'SURAT BIASA'])) {
             $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? $request->jenis_surat);
-            $data['tujuan'] = $request->nama_pejabat ? ($request->nama_pejabat.($request->jabatan_pejabat ? ' ('.$request->jabatan_pejabat.')' : '')) : ($request->tujuan ?? 'Penerima');
+            $data['tujuan'] = $request->tujuan ?? ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
+            $data['nama_pejabat'] = $request->nama_pejabat ?? null;
         }
 
         if ($request->hasFile('file_dokumen')) {
@@ -87,7 +99,11 @@ class LetterController extends Controller
 
         $letter = Letter::create($data);
 
-        return redirect()->route('admin.letters.index')->with('success', "Surat {$letter->nomor_surat} berhasil dibuat.");
+        $msg = $letter->status === 'draft'
+            ? "Draft surat {$letter->nomor_surat} berhasil disimpan."
+            : "Surat {$letter->nomor_surat} berhasil dibuat dan dipublish.";
+
+        return redirect()->route('admin.letters.index')->with('success', $msg);
     }
 
     public function edit($id)
@@ -109,6 +125,7 @@ class LetterController extends Controller
             'tujuan' => 'nullable|string|max:255',
             'keperluan' => 'nullable|string|max:255',
             'perihal' => 'nullable|string|max:255',
+            'tempat_tujuan' => 'nullable|string|max:255',
             'nama_pejabat' => 'nullable|string|max:255',
             'jabatan_pejabat' => 'nullable|string|max:255',
             'alamat_tujuan' => 'nullable|string|max:255',
@@ -118,9 +135,18 @@ class LetterController extends Controller
             'member_id' => 'nullable|exists:members,id',
             'isi_surat' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'status' => 'nullable|string|in:draft,published',
         ]);
 
         $data = $request->all();
+
+        if ($request->filled('status')) {
+            $data['status'] = $request->status;
+        }
+
+        if ($request->has('tempat_tujuan') && empty($data['tempat_tujuan'])) {
+            $data['tempat_tujuan'] = 'Di Tempat';
+        }
 
         if ($request->hasFile('file_dokumen')) {
             if ($letter->file_dokumen && Storage::disk('public')->exists($letter->file_dokumen)) {
@@ -131,7 +157,24 @@ class LetterController extends Controller
 
         $letter->update($data);
 
-        return redirect()->route('admin.letters.index')->with('success', 'Data surat keluar berhasil diperbarui.');
+        $msg = $letter->status === 'draft'
+            ? 'Draft surat keluar berhasil diperbarui.'
+            : 'Data surat keluar berhasil diperbarui dan dipublish.';
+
+        return redirect()->route('admin.letters.index')->with('success', $msg);
+    }
+
+    public function toggleStatus($id)
+    {
+        $letter = Letter::findOrFail($id);
+        $letter->status = $letter->status === 'draft' ? 'published' : 'draft';
+        $letter->save();
+
+        $msg = $letter->status === 'published'
+            ? "Surat {$letter->nomor_surat} berhasil dipublish (resmi diterbitkan)."
+            : "Surat {$letter->nomor_surat} berhasil dikembalikan ke status Draft.";
+
+        return redirect()->back()->with('success', $msg);
     }
 
     public function destroy($id)

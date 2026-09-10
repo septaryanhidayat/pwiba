@@ -130,6 +130,7 @@ CREATE TABLE `letters` (
   `nomor_surat` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `jenis_surat` varchar(255) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'published',
   `member_id` bigint(20) UNSIGNED DEFAULT NULL,
   `tujuan` varchar(255) NOT NULL,
   `keperluan` varchar(255) NOT NULL,

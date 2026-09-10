@@ -54,8 +54,21 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Penerima *</label>
-                    <input type="text" name="tujuan" value="{{ old('tujuan', $letter->tujuan) }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan / Instansi *</label>
+                    <input type="text" name="tujuan" value="{{ old('tujuan', $letter->tujuan) }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm" placeholder="Contoh: Bupati Banyuasin / Kapolres Banyuasin">
+                    <span class="text-[11px] text-slate-500 mt-1 block">Nama lembaga, instansi, atau jabatan tujuan.</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat (Opsional)</label>
+                    <input type="text" name="nama_pejabat" value="{{ old('nama_pejabat', $letter->nama_pejabat) }}" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm" placeholder="Contoh: H. Lamosin / Drs. H. Erwin Ibrahim, S.T., M.M., M.B.A.">
+                    <span class="text-[11px] text-slate-500 mt-1 block">Nama orang/pejabat penerima (u.p.).</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                    <input type="text" name="tempat_tujuan" value="{{ old('tempat_tujuan', $letter->tempat_tujuan ?? 'Di Tempat') }}" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm" placeholder="Contoh: Di Tempat / Pangkalan Balai / Palembang">
+                    <span class="text-[11px] text-slate-500 mt-1 block">Akan tercetak pada format 'di - [Tempat Tujuan]'.</span>
                 </div>
 
                 <div>
@@ -75,18 +88,37 @@
 
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Ganti File Lampiran (Opsional)</label>
-                    <input type="file" name="file_surat" class="w-full px-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
+                    <input type="file" name="file_dokumen" class="w-full px-4 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
                 </div>
             </div>
 
-            <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-200 dark:border-slate-800">
-                <a href="{{ route('admin.letters.index') }}" class="px-6 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    Batal
-                </a>
-                <button type="submit" class="px-8 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-save"></i>
-                    <span>Simpan Perubahan Surat</span>
-                </button>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Status Dokumen:</span>
+                    @if($letter->status === 'draft')
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-pen"></i> DRAFT (Belum Terbit)
+                        </span>
+                    @else
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> TERBIT (Published)
+                        </span>
+                    @endif
+                </div>
+
+                <div class="flex items-center gap-2.5">
+                    <a href="{{ route('admin.letters.index') }}" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        Batal
+                    </a>
+                    <button type="submit" name="status" value="draft" class="px-5 py-2.5 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-pen"></i>
+                        <span>Simpan sebagai Draft</span>
+                    </button>
+                    <button type="submit" name="status" value="published" class="px-7 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Publish / Perbarui Surat</span>
+                    </button>
+                </div>
             </div>
 
         </div>

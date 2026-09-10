@@ -30,22 +30,41 @@
                 </div>
 
                 <!-- Status Keabsahan Badge -->
-                <div class="bg-emerald-50 dark:bg-emerald-950/50 border-y border-emerald-200 dark:border-emerald-800/60 p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-                    <div class="w-16 h-16 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/30 flex-shrink-0">
-                        <i class="fa-solid fa-shield-check"></i>
-                    </div>
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                            <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i> DOKUMEN SAH & TERVERIFIKASI
+                @if($letter->status === 'draft')
+                    <div class="bg-amber-50 dark:bg-amber-950/50 border-y border-amber-200 dark:border-amber-800/60 p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30 flex-shrink-0">
+                            <i class="fa-solid fa-file-pen"></i>
                         </div>
-                        <h3 class="text-lg font-black text-slate-900 dark:text-white mt-1">
-                            Surat Resmi Terdaftar di Buku Registrasi PWI Banyuasin
-                        </h3>
-                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                            Data di bawah ini dicocokkan langsung secara real-time dengan basis data arsip surat resmi untuk mencegah pemalsuan dan penyalahgunaan dokumen.
-                        </p>
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 dark:text-amber-400"></i> STATUS: DRAFT KONSEP SURAT (BELUM TERBIT)
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 dark:text-white mt-1">
+                                Dokumen Ini Masih Berupa Konsep Draft
+                            </h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                                Surat ini telah terdaftar dalam sistem namun belum dipublikasikan atau diterbitkan secara resmi oleh PWI Kabupaten Banyuasin. Dokumen ini belum berlaku sebagai surat dinas resmi.
+                            </p>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="bg-emerald-50 dark:bg-emerald-950/50 border-y border-emerald-200 dark:border-emerald-800/60 p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/30 flex-shrink-0">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
+                                <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i> DOKUMEN SAH & TERVERIFIKASI
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 dark:text-white mt-1">
+                                Surat Resmi Terdaftar di Buku Registrasi PWI Banyuasin
+                            </h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                                Data di bawah ini dicocokkan langsung secara real-time dengan basis data arsip surat resmi untuk mencegah pemalsuan dan penyalahgunaan dokumen.
+                            </p>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Rincian Dokumen Surat -->
                 <div class="p-6 sm:p-8 space-y-6">
@@ -83,13 +102,16 @@
                         <div class="mb-3">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Ditujukan Kepada</span>
                             <span class="text-base font-extrabold text-slate-900 dark:text-white">
-                                {{ $letter->jabatan_pejabat ?? ($letter->tujuan ?? 'Pihak Terkait') }}
+                                {{ $letter->tujuan }}
                             </span>
                             @if($letter->nama_pejabat && $letter->nama_pejabat !== $letter->tujuan)
-                                <div class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $letter->nama_pejabat }}</div>
+                                <div class="text-sm font-semibold text-blue-700 dark:text-blue-400 mt-0.5">u.p. {{ $letter->nama_pejabat }}</div>
                             @endif
+                            @php
+                                $verifyLoc = ltrim(preg_replace('/^di\s*[-–:]*\s*/i', '', $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Tempat')));
+                            @endphp
                             <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                {{ $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Di Tempat') }}
+                                di {{ $verifyLoc ?: 'Tempat' }}
                             </div>
                         </div>
 

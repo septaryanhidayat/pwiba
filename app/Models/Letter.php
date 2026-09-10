@@ -34,6 +34,7 @@ class Letter extends Model
         'penandatangan_sekretaris',
         'status_verifikasi',
         'hash_keabsahan',
+        'status',
     ];
 
     protected static function boot()
@@ -93,5 +94,25 @@ class Letter extends Model
         }
 
         return null;
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published');
+    }
+
+    public function scopeDraft($query)
+    {
+        return $query->where('status', 'draft');
+    }
+
+    public function isDraft(): bool
+    {
+        return $this->status === 'draft';
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->status !== 'draft';
     }
 }

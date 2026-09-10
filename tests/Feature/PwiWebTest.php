@@ -1131,4 +1131,89 @@ class PwiWebTest extends TestCase
         $this->assertNotEmpty($url);
         $this->assertTrue(str_contains($url, 'placeholder-leader.webp') || str_contains($url, 'admin.webp') || str_contains($url, 'ui-avatars.com'));
     }
+
+    public function test_outgoing_letter_draft_and_recipient_and_location_features(): void
+    {
+        $admin = User::first();
+
+        // 1. Create a letter with separate destination, recipient name, custom location, and saved as DRAFT
+        $response = $this->actingAs($admin)->post('/admin/surat-keluar', [
+            'nomor_surat' => '099/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-10',
+            'jenis_surat' => 'SURAT BIASA',
+            'tujuan' => 'Bupati Banyuasin',
+            'nama_pejabat' => 'H. Lamosin',
+            'tempat_tujuan' => 'Pangkalan Balai',
+            'perihal' => 'Undangan Silaturahmi Pengurus',
+            'keperluan' => 'Silaturahmi dan koordinasi program kerja pers',
+            'status' => 'draft',
+        ]);
+
+        $response->assertRedirect(route('admin.letters.index'));
+
+        $this->assertDatabaseHas('letters', [
+            'nomor_surat' => '099/PWI-BA/IX/2026',
+            'tujuan' => 'Bupati Banyuasin',
+            'nama_pejabat' => 'H. Lamosin',
+            'tempat_tujuan' => 'Pangkalan Balai',
+            'status' => 'draft',
+        ]);
+
+        $letter = Letter::where('nomor_surat', '099/PWI-BA/IX/2026')->first();
+        $this->assertTrue($letter->isDraft());
+        $this->assertFalse($letter->isPublished());
+
+        // 2. Check draft filter in register
+        $this->actingAs($admin)->get('/admin/surat-keluar?status=draft')
+            ->assertStatus(200)
+            ->assertSee('099/PWI-BA/IX/2026')
+            ->assertSee('Bupati Banyuasin')
+            ->assertSee('u.p. H. Lamosin')
+            ->assertSee('DRAFT');
+
+        // 3. Check public verification for draft
+        $this->get('/verifikasi-surat/'.$letter->uuid)
+            ->assertStatus(200)
+            ->assertSee('STATUS: DRAFT KONSEP SURAT')
+            ->assertSee('Bupati Banyuasin')
+            ->assertSee('H. Lamosin');
+
+        // 4. Toggle status from draft to published
+        $this->actingAs($admin)->post("/admin/surat-keluar/{$letter->id}/toggle-status")
+            ->assertRedirect();
+
+        $letter->refresh();
+        $this->assertTrue($letter->isPublished());
+        $this->assertEquals('published', $letter->status);
+
+        // 5. Check public verification when published
+        $this->get('/verifikasi-surat/'.$letter->uuid)
+            ->assertStatus(200)
+            ->assertSee('DOKUMEN SAH & TERVERIFIKASI', false);
+
+        // 6. Test updating recipient location and name
+        $this->actingAs($admin)->put("/admin/surat-keluar/{$letter->id}", [
+            'nomor_surat' => '099/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-10',
+            'jenis_surat' => 'SURAT BIASA',
+            'tujuan' => 'Bupati Banyuasin',
+            'nama_pejabat' => 'H. Lamosin, S.H.',
+            'tempat_tujuan' => 'Palembang',
+            'perihal' => 'Undangan Silaturahmi Pengurus Diperbarui',
+            'status' => 'published',
+        ])->assertRedirect(route('admin.letters.index'));
+
+        $this->assertDatabaseHas('letters', [
+            'id' => $letter->id,
+            'nama_pejabat' => 'H. Lamosin, S.H.',
+            'tempat_tujuan' => 'Palembang',
+        ]);
+
+        // 7. Check print view
+        $this->actingAs($admin)->get("/admin/surat-keluar/{$letter->id}/cetak")
+            ->assertStatus(200)
+            ->assertSee('Bupati Banyuasin')
+            ->assertSee('H. Lamosin, S.H.')
+            ->assertSee('Palembang');
+    }
 }

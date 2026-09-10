@@ -168,8 +168,17 @@
 <!-- Control Bar (Hidden when printed) -->
 <div class="no-print" style="max-width: 210mm; margin: 0 auto 15px auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 18px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-family: system-ui, -apple-system, sans-serif;">
     <div style="font-size: 13px; color: #1e293b; display: flex; align-items: center; gap: 8px;">
-        <span style="font-weight: 700;">Dokumen Resmi:</span> 
+        <span style="font-weight: 700;">Dokumen:</span> 
         <span style="color: #2563eb; font-weight: 600;">{{ $letter->nomor_surat }}</span>
+        @if($letter->status === 'draft')
+            <span class="badge bg-warning text-dark px-2.5 py-1" style="font-size: 10px; font-weight: 800;">
+                <i class="fa-solid fa-file-pen me-1"></i> DRAFT (Belum Dipublish)
+            </span>
+        @else
+            <span class="badge bg-success text-white px-2.5 py-1" style="font-size: 10px; font-weight: 800;">
+                <i class="fa-solid fa-circle-check me-1"></i> RESMI / PUBLISHED
+            </span>
+        @endif
     </div>
     
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -196,6 +205,12 @@
 
 <!-- Lembar Kertas Resmi -->
 <div class="page-sheet" id="printSheet">
+
+    @if($letter->status === 'draft')
+        <div class="no-print alert alert-warning text-center py-2 px-3 mb-3 border border-warning" style="font-size: 11px; font-weight: 700; border-radius: 8px;">
+            <i class="fa-solid fa-triangle-exclamation me-1"></i> PERHATIAN: Surat ini masih berstatus DRAFT dan belum diterbitkan secara resmi.
+        </div>
+    @endif
 
     <!-- Kop Surat Resmi PWI Banyuasin -->
     <div class="kop-header">
@@ -304,7 +319,10 @@
                     <div style="font-weight: bold;">{{ $letter->nama_pejabat }}</div>
                 @endif
                 <div>di -</div>
-                <div style="margin-left: 20px;">{{ $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Di Tempat') }}</div>
+                @php
+                    $cleanLocation = ltrim(preg_replace('/^di\s*[-–:]*\s*/i', '', $letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Tempat')));
+                @endphp
+                <div style="margin-left: 20px;">{{ $cleanLocation ?: 'Tempat' }}</div>
             </div>
 
         </div>
