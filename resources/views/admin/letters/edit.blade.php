@@ -37,24 +37,6 @@
             </div>
         @endif
 
-        <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 shadow-sm space-y-6">
-            
-            <!-- 1. Kategori, Nomor, Tanggal -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
-                        Kategori / Jenis Surat *
-                    </label>
-                    <select name="jenis_surat" x-model="jenis" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
-                        <option value="SURAT BIASA" {{ $letter->jenis_surat === 'SURAT BIASA' ? 'selected' : '' }}>SURAT BIASA (Kerjasama, Dinas, Undangan)</option>
-                        <option value="PROPOSAL" {{ $letter->jenis_surat === 'PROPOSAL' ? 'selected' : '' }}>PROPOSAL (Permohonan Dana, RAB, Sinergi)</option>
-                        <option value="SURAT KHUSUS" {{ $letter->jenis_surat === 'SURAT KHUSUS' ? 'selected' : '' }}>SURAT KHUSUS (Tanda Tangan Ketua Saja)</option>
-                        <option value="SURAT TUGAS" {{ $letter->jenis_surat === 'SURAT TUGAS' ? 'selected' : '' }}>SURAT TUGAS (Surat Perintah Anggota Wartawan)</option>
-                        <option value="SURAT AUDENSI" {{ $letter->jenis_surat === 'SURAT AUDENSI' ? 'selected' : '' }}>SURAT AUDENSI (Permohonan Audiensi Pemkab)</option>
-                    </select>
-                </div>
-
-                <div>
         <div class="space-y-6">
             
             <!-- CARD 1: IDENTITAS & KEPALA SURAT -->
