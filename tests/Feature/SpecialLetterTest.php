@@ -67,13 +67,18 @@ class SpecialLetterTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
         $response->assertStatus(200);
 
-        // Verify Kop Surat Color & Structure
+        // Verify Kop Surat Color, Structure & Exact Typography Rules
         $response->assertSee('background-color: #0B4DA2', false);
         $response->assertSee('PERSATUAN WARTAWAN INDONESIA');
         $response->assertSee('PENGURUS KABUPATEN BANYUASIN');
         $response->assertSee('Central Executive Board');
         $response->assertSee('INDONESIAN JOURNALIST', false);
-        $response->assertSee('Jalan Merdeka', false);
+        $response->assertSee('Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', false);
+        $response->assertSee("font-family: 'Times New Roman'", false);
+        $response->assertSee('font-size: 22pt', false);
+        $response->assertSee('font-size: 14pt', false);
+        $response->assertSee('font-size: 13pt', false);
+        $response->assertSee('font-size: 9pt', false);
 
         // Verify Center Signature Section
         $response->assertSee('signature-section');

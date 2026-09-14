@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         // 2. Settings (Identitas Organisasi Asli pwiba.or.id)
         $settings = [
             'nama_pwi' => 'PWI Kabupaten Banyuasin',
-            'alamat_kantor' => 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)',
+            'alamat_kantor' => 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)',
             'kota' => 'Pangkalan Balai',
             'no_telp' => '0853-7799-1976',
             'email' => 'sekretariat@pwiba.or.id',

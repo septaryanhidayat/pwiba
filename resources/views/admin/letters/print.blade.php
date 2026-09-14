@@ -60,50 +60,54 @@
             margin-left: 20px;
         }
         .kop-title-1 {
-            font-size: 17.5pt;
-            font-weight: 900;
-            letter-spacing: 0.5px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 22pt;
+            font-weight: 700;
+            letter-spacing: 0.2px;
             margin: 0;
-            line-height: 1.15;
+            line-height: 1.1;
             text-transform: uppercase;
             color: #ffffff !important;
         }
         .kop-title-2 {
-            font-size: 13.5pt;
-            font-weight: 800;
-            letter-spacing: 0.5px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14pt;
+            font-weight: 700;
+            letter-spacing: 0.4px;
             margin: 3px 0 0 0;
             line-height: 1.15;
             text-transform: uppercase;
             color: #ffffff !important;
         }
         .kop-title-3 {
-            font-size: 9.5pt;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13pt;
             font-weight: 400;
             margin: 3px 0 0 0;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
+            letter-spacing: 0.2px;
+            line-height: 1.15;
             color: #ffffff !important;
         }
         .kop-title-4 {
-            font-size: 9.5pt;
-            font-weight: 800;
-            letter-spacing: 0.8px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13pt;
+            font-weight: 700;
+            letter-spacing: 0.3px;
             margin: 1px 0 0 0;
             text-transform: uppercase;
-            line-height: 1.2;
+            line-height: 1.15;
             color: #ffffff !important;
         }
         .kop-address {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 7.5pt;
+            font-size: 9pt;
             text-align: center;
             font-weight: 700;
             line-height: 1.2;
-            margin-top: 4px;
+            margin-top: 5px;
             padding: 1px 0 0 0;
             color: #000;
-            letter-spacing: -0.12px;
+            letter-spacing: -0.15px;
             white-space: nowrap;
         }
         .kop-divider {
@@ -367,7 +371,7 @@
             </div>
         </div>
         <div class="kop-address">
-            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka No 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
+            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
         </div>
         <div class="kop-divider"></div>
     </div>

@@ -402,8 +402,10 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>
                     <w:b/>
-                    <w:sz w:val="32"/>
+                    <w:sz w:val="44"/>
+                    <w:szCs w:val="44"/>
                     <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>PERSATUAN WARTAWAN INDONESIA</w:t>
@@ -416,8 +418,10 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
+                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
                     <w:b/>
-                    <w:sz w:val="26"/>
+                    <w:sz w:val="28"/>
+                    <w:szCs w:val="28"/>
                     <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>PENGURUS KABUPATEN BANYUASIN</w:t>
@@ -430,7 +434,9 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
-                    <w:sz w:val="19"/>
+                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+                    <w:sz w:val="26"/>
+                    <w:szCs w:val="26"/>
                     <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>Central Executive Board</w:t>
@@ -443,8 +449,10 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
+                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
                     <w:b/>
-                    <w:sz w:val="19"/>
+                    <w:sz w:val="26"/>
+                    <w:szCs w:val="26"/>
                     <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>INDONESIAN JOURNALIST\'S ASSOCIATION</w:t>
@@ -460,11 +468,13 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
+                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
                     <w:b/>
-                    <w:sz w:val="15"/>
+                    <w:sz w:val="18"/>
+                    <w:szCs w:val="18"/>
                     <w:color w:val="000000"/>
                 </w:rPr>
-                <w:t>Jalan Merdeka No 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)</w:t>
+                <w:t>Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)</w:t>
             </w:r>
         </w:p>';
     }

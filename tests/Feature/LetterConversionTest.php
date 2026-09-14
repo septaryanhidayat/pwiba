@@ -98,6 +98,11 @@ class LetterConversionTest extends TestCase
         $docXml = $zip->getFromName('word/document.xml');
         $this->assertNotEmpty($docXml);
         $this->assertStringContainsString('PERSATUAN WARTAWAN INDONESIA', $docXml);
+        $this->assertStringContainsString('w:sz w:val="44"', $docXml); // 22pt Times New Roman
+        $this->assertStringContainsString('w:sz w:val="28"', $docXml); // 14pt Arial
+        $this->assertStringContainsString('w:sz w:val="26"', $docXml); // 13pt Arial
+        $this->assertStringContainsString('w:sz w:val="18"', $docXml); // 9pt Arial
+        $this->assertStringContainsString('Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', $docXml);
         $this->assertStringContainsString('102/PWI-BA/IX/2026', $docXml);
         $zip->close();
         @unlink($tempPath);
