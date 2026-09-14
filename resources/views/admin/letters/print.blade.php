@@ -542,11 +542,18 @@
             @endif
         </div>
 
-        <!-- Tembusan Surat Sesuai Dokumen Resmi -->
-        <div class="tembusan-section">
-            <div style="font-weight: bold;">Tembusan :</div>
-            <div>1. Arsip.</div>
-        </div>
+        <!-- Tembusan Surat Sesuai Dokumen Resmi (Dapat Disesuaikan / Diedit) -->
+        @php
+            $tembusanContent = $letter->tembusan !== null ? trim($letter->tembusan) : '1. Arsip.';
+        @endphp
+        @if(!empty($tembusanContent) && $tembusanContent !== '-')
+            <div class="tembusan-section">
+                <div style="font-weight: bold;">Tembusan :</div>
+                <div style="line-height: 1.45;">
+                    {!! nl2br(e($tembusanContent)) !!}
+                </div>
+            </div>
+        @endif
     </div>
 
 </div>

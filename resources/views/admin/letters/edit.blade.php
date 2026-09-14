@@ -244,7 +244,21 @@
                 </div>
             </div>
 
-            <!-- 8. Tombol Aksi Dokumen -->
+            <!-- 8. Tembusan Surat Resmi (Kiri Bawah) -->
+            <div class="pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                        Tembusan Surat (Kiri Bawah)
+                    </label>
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                        Tercetak di sudut kiri bawah lembar surat (satu baris per tembusan)
+                    </span>
+                </div>
+                <textarea name="tembusan" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm leading-relaxed" placeholder="Contoh:&#10;1. Bupati Banyuasin (sebagai laporan)&#10;2. Ketua DPRD Kabupaten Banyuasin&#10;3. Arsip.">{{ old('tembusan', $letter->tembusan ?? "1. Arsip.") }}</textarea>
+                <span class="text-[11px] text-slate-500 mt-0.5 block">Kosongkan atau isikan '-' jika surat tidak memerlukan tembusan.</span>
+            </div>
+
+            <!-- 9. Tombol Aksi Dokumen -->
             <div class="flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-2">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Status Dokumen:</span>

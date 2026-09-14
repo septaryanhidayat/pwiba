@@ -93,12 +93,14 @@ class LetterController extends Controller
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'penandatangan_nama' => 'nullable|string|max:255',
             'penandatangan_sekretaris' => 'nullable|string|max:255',
+            'tembusan' => 'nullable|string',
             'status' => 'nullable|string|in:draft,published',
         ]);
 
         $data = $request->all();
         $data['status'] = $request->input('status', 'published');
         $data['tempat_tujuan'] = $request->filled('tempat_tujuan') ? $request->tempat_tujuan : 'Di Tempat';
+        $data['tembusan'] = $request->filled('tembusan') ? $request->tembusan : '1. Arsip.';
 
         // Standardize tujuan and keperluan based on letter type
         if ($request->jenis_surat === 'SURAT TUGAS') {
@@ -160,6 +162,7 @@ class LetterController extends Controller
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'penandatangan_nama' => 'nullable|string|max:255',
             'penandatangan_sekretaris' => 'nullable|string|max:255',
+            'tembusan' => 'nullable|string',
             'status' => 'nullable|string|in:draft,published',
         ]);
 
@@ -167,6 +170,10 @@ class LetterController extends Controller
 
         if ($request->filled('status')) {
             $data['status'] = $request->status;
+        }
+
+        if ($request->has('tembusan')) {
+            $data['tembusan'] = $request->input('tembusan');
         }
 
         if ($request->has('tempat_tujuan') && empty($data['tempat_tujuan'])) {
@@ -269,6 +276,7 @@ class LetterController extends Controller
             'alamat_tujuan' => 'nullable|string|max:255',
             'lampiran' => 'nullable|string|max:255',
             'isi_surat' => 'nullable|string',
+            'tembusan' => 'nullable|string',
             'status' => 'nullable|string|in:draft,published',
         ]);
 
@@ -319,6 +327,7 @@ class LetterController extends Controller
             'file_dokumen' => $storedPath,
             'penandatangan_nama' => 'Wardoyo, S.I.Kom',
             'penandatangan_sekretaris' => ($jenis === 'SURAT KHUSUS' ? null : 'Deni Arianto'),
+            'tembusan' => $request->input('tembusan', '1. Arsip.'),
         ]);
 
         return redirect()->route('admin.letters.index')->with('success', "Berkas '{$file->getClientOriginalName()}' berhasil dikonversi dan tercatat sebagai Surat Keluar [{$letter->nomor_surat}]!");

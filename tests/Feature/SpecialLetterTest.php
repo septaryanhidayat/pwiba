@@ -291,4 +291,53 @@ class SpecialLetterTest extends TestCase
         $this->assertEquals('Instansi Terupdate', $letter->tujuan);
         $this->assertEquals('Kota Palembang', $letter->tempat_tujuan);
     }
+
+    public function test_custom_tembusan_can_be_stored_updated_and_printed(): void
+    {
+        $admin = User::first();
+
+        // 1. Create with custom tembusan
+        $customTembusan = "1. Bupati Banyuasin (sebagai laporan)\n2. Kepala Dinas Kominfo Banyuasin\n3. Arsip.";
+        $resStore = $this->actingAs($admin)->post(route('admin.letters.store'), [
+            'nomor_surat' => '104/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-14',
+            'jenis_surat' => 'SURAT BIASA',
+            'perihal' => 'Surat dengan Tembusan Kustom',
+            'tujuan' => 'Dinas Terkait',
+            'isi_surat' => '<p>Surat dengan beberapa tembusan resmi.</p>',
+            'tembusan' => $customTembusan,
+            'status' => 'published',
+        ]);
+        $resStore->assertRedirect(route('admin.letters.index'));
+
+        $letter = Letter::where('nomor_surat', '104/PWI-BA/IX/2026')->first();
+        $this->assertNotNull($letter);
+        $this->assertEquals($customTembusan, $letter->tembusan);
+
+        // 2. Verify printed output contains custom tembusan
+        $resPrint = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
+        $resPrint->assertStatus(200);
+        $resPrint->assertSee('Tembusan :');
+        $resPrint->assertSee('1. Bupati Banyuasin (sebagai laporan)');
+        $resPrint->assertSee('2. Kepala Dinas Kominfo Banyuasin');
+        $resPrint->assertSee('3. Arsip.');
+
+        // 3. Update tembusan to '-' (suppressed/empty)
+        $resUpdate = $this->actingAs($admin)->put(route('admin.letters.update', $letter->id), [
+            'nomor_surat' => $letter->nomor_surat,
+            'tanggal' => '2026-09-14',
+            'jenis_surat' => $letter->jenis_surat,
+            'tujuan' => $letter->tujuan,
+            'tembusan' => '-',
+            'status' => 'published',
+        ]);
+        $resUpdate->assertRedirect(route('admin.letters.index'));
+
+        $letter->refresh();
+        $this->assertEquals('-', $letter->tembusan);
+
+        $resPrint2 = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
+        $resPrint2->assertStatus(200);
+        $resPrint2->assertDontSee('Tembusan :');
+    }
 }

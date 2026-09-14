@@ -32,6 +32,7 @@ class Letter extends Model
         'file_dokumen',
         'penandatangan_nama',
         'penandatangan_sekretaris',
+        'tembusan',
         'status_verifikasi',
         'hash_keabsahan',
         'status',

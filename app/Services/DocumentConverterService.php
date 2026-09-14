@@ -370,6 +370,9 @@ class DocumentConverterService
         // TANDA TANGAN RESMI
         $bodyContent .= $this->buildTandaTanganXml($letter);
 
+        // TEMBUSAN RESMI
+        $bodyContent .= $this->buildTembusanXml($letter);
+
         // FOOTER KEABSAHAN QR
         $bodyContent .= $this->buildKeabsahanFooterXml($letter);
 
@@ -768,6 +771,47 @@ class DocumentConverterService
                 </w:tc>
             </w:tr>
         </w:tbl>';
+    }
+
+    /**
+     * Tembusan Surat Resmi
+     */
+    protected function buildTembusanXml(Letter $letter): string
+    {
+        $tembusan = $letter->tembusan !== null ? trim($letter->tembusan) : '1. Arsip.';
+        if (empty($tembusan) || $tembusan === '-') {
+            return '';
+        }
+
+        $lines = preg_split('/\r\n|\r|\n/', $tembusan);
+        $xml = '
+        <w:p>
+            <w:pPr>
+                <w:spacing w:before="240" w:after="40"/>
+            </w:pPr>
+            <w:r>
+                <w:rPr><w:b/><w:sz w:val="20"/></w:rPr>
+                <w:t>Tembusan :</w:t>
+            </w:r>
+        </w:p>';
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line !== '') {
+                $xml .= '
+                <w:p>
+                    <w:pPr>
+                        <w:spacing w:before="20" w:after="20"/>
+                    </w:pPr>
+                    <w:r>
+                        <w:rPr><w:sz w:val="20"/></w:rPr>
+                        <w:t>'.htmlspecialchars($line, ENT_XML1).'</w:t>
+                    </w:r>
+                </w:p>';
+            }
+        }
+
+        return $xml;
     }
 
     /**
