@@ -21,8 +21,8 @@
             }
         }
         @page :first {
-            margin: 0.5cm 0 12mm 0;
-            margin-top: 0.5cm !important;
+            margin: 0 0 12mm 0;
+            margin-top: 0;
             margin-bottom: 12mm;
             margin-left: 0;
             margin-right: 0;
@@ -870,13 +870,13 @@
         if (size === 'legal') {
             sheet.style.width = '216mm';
             sheet.style.minHeight = '356mm';
-            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 0 12mm 0; margin-top: 0.5cm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin: 0.5cm 0 12mm 0; margin-top: 0.5cm !important; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 0 12mm 0; margin-top: 0.5cm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin: 0 0 12mm 0; margin-top: 0; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
             btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         } else {
             sheet.style.width = '210mm';
             sheet.style.minHeight = '297mm';
-            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 0 12mm 0; margin-top: 0.5cm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin: 0.5cm 0 12mm 0; margin-top: 0.5cm !important; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 0 12mm 0; margin-top: 0.5cm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin: 0 0 12mm 0; margin-top: 0; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
             btnA4.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         }
