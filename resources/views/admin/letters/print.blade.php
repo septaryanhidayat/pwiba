@@ -254,6 +254,7 @@
                 background: #fff !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                font-size: 11pt !important;
             }
             .page-sheet {
                 width: 100% !important;
@@ -266,12 +267,107 @@
             .kop-header {
                 margin: 0 0 18px 0 !important;
                 width: 100% !important;
+                display: block !important;
+            }
+            .kop-box {
+                background-color: #0B4DA2 !important;
+                color: #ffffff !important;
+                padding: 12px 20px 10px 20px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .kop-logo {
+                width: 3.18cm !important;
+                height: 2.86cm !important;
+                min-width: 3.18cm !important;
+                min-height: 2.86cm !important;
+                max-width: 3.18cm !important;
+                max-height: 2.86cm !important;
+                object-fit: contain !important;
+                flex-shrink: 0 !important;
+                display: block !important;
+            }
+            .kop-titles {
+                text-align: right !important;
+                width: 100% !important;
+                margin-left: 20px !important;
+                min-width: 0 !important;
+                display: block !important;
+            }
+            .kop-title-1 {
+                font-family: 'Times New Roman', Times, serif !important;
+                font-size: 22pt !important;
+                font-weight: 700 !important;
+                letter-spacing: -0.2px !important;
+                margin: 0 !important;
+                line-height: 1.1 !important;
+                text-transform: uppercase !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-2 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 14pt !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.2px !important;
+                margin: 3px 0 0 0 !important;
+                line-height: 1.15 !important;
+                text-transform: uppercase !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-3 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 13pt !important;
+                font-weight: 400 !important;
+                margin: 3px 0 0 0 !important;
+                letter-spacing: 0.1px !important;
+                line-height: 1.15 !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-4 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 13pt !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.2px !important;
+                margin: 1px 0 0 0 !important;
+                text-transform: uppercase !important;
+                line-height: 1.15 !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-address {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 9pt !important;
+                text-align: center !important;
+                font-weight: 700 !important;
+                line-height: 1.25 !important;
+                margin-top: 4px !important;
+                padding: 0 15px !important;
+                color: #000000 !important;
+                letter-spacing: -0.15px !important;
+                white-space: nowrap !important;
+                display: block !important;
+            }
+            .kop-divider {
+                border-top: 2.5px solid #000 !important;
+                border-bottom: 1px solid #000 !important;
+                height: 3.5px !important;
+                margin-top: 4px !important;
+                margin-bottom: 18px !important;
+                display: block !important;
             }
             .letter-body {
                 padding: 0 18mm !important;
             }
         }
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             body {
                 padding: 8px 6px 30px 6px;
             }
@@ -300,27 +396,27 @@
                 margin: -12px -10px 14px -10px !important;
             }
             .kop-title-1 {
-                font-size: 11pt !important;
+                font-size: 14pt !important;
                 white-space: normal !important;
             }
             .kop-title-2 {
-                font-size: 8.5pt !important;
+                font-size: 11pt !important;
                 white-space: normal !important;
             }
             .kop-title-3, .kop-title-4 {
-                font-size: 6.5pt !important;
+                font-size: 9pt !important;
                 white-space: normal !important;
             }
             .kop-logo {
-                width: 2.2cm !important;
-                height: 2.0cm !important;
+                width: 2.4cm !important;
+                height: 2.1cm !important;
             }
             .kop-titles {
                 margin-left: 10px !important;
             }
             .kop-address {
                 white-space: normal !important;
-                font-size: 6.5pt !important;
+                font-size: 7.5pt !important;
                 line-height: 1.15;
             }
             .signature-section {
