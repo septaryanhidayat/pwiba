@@ -38,74 +38,79 @@
             transition: width 0.2s, min-height 0.2s;
         }
         .kop-box {
-            background-color: #0B2B68 !important;
+            background-color: #0B4DA2 !important;
             color: #ffffff !important;
-            border-radius: 4px;
-            padding: 10px 18px 8px 18px;
+            border-radius: 0;
+            padding: 12px 18px 10px 18px;
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
+            justify-content: space-between;
+            font-family: Arial, Helvetica, sans-serif;
         }
         .kop-logo {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 66px;
-            height: 66px;
+            width: 72px;
+            height: 72px;
             object-fit: contain;
+            flex-shrink: 0;
         }
         .kop-titles {
-            margin: 0 76px;
-            text-align: center;
+            text-align: right;
             width: 100%;
+            margin-left: 20px;
         }
         .kop-title-1 {
-            font-size: 17pt;
+            font-size: 17.5pt;
             font-weight: 900;
             letter-spacing: 0.5px;
             margin: 0;
-            line-height: 1.1;
+            line-height: 1.15;
             text-transform: uppercase;
+            color: #ffffff !important;
         }
         .kop-title-2 {
-            font-size: 13pt;
+            font-size: 13.5pt;
             font-weight: 800;
             letter-spacing: 0.5px;
             margin: 3px 0 0 0;
             line-height: 1.15;
             text-transform: uppercase;
+            color: #ffffff !important;
         }
         .kop-title-3 {
-            font-size: 9pt;
-            font-style: italic;
-            margin: 2px 0 0 0;
+            font-size: 9.5pt;
+            font-weight: 400;
+            margin: 3px 0 0 0;
             letter-spacing: 0.5px;
-            opacity: 0.95;
+            line-height: 1.2;
+            color: #ffffff !important;
         }
         .kop-title-4 {
-            font-size: 9pt;
+            font-size: 9.5pt;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             margin: 1px 0 0 0;
             text-transform: uppercase;
+            line-height: 1.2;
+            color: #ffffff !important;
         }
         .kop-address {
-            font-size: 8pt;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 7.5pt;
             text-align: center;
-            font-weight: 600;
-            line-height: 1.25;
-            margin-top: 5px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-top: 4px;
+            padding: 1px 0 0 0;
             color: #000;
-            letter-spacing: -0.1px;
+            letter-spacing: -0.12px;
+            white-space: nowrap;
         }
         .kop-divider {
             border-top: 2.5px solid #000;
             border-bottom: 1px solid #000;
-            height: 4px;
-            margin-top: 5px;
+            height: 3.5px;
+            margin-top: 4px;
             margin-bottom: 18px;
         }
         .letter-table td {
@@ -125,9 +130,9 @@
             text-indent: 0;
         }
         .signature-section {
-            margin-top: 22px;
-            float: right;
-            width: 340px;
+            margin: 24px auto 0 auto;
+            max-width: 420px;
+            width: 100%;
             text-align: center;
             page-break-inside: avoid;
         }
@@ -139,19 +144,27 @@
             text-align: center;
             vertical-align: top;
             width: 50%;
-            font-size: 10.5pt;
+            padding: 0 8px;
+            font-size: 11pt;
+        }
+        .signature-single {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 11pt;
         }
         .official-name {
             font-weight: bold;
             text-decoration: underline;
         }
         .official-role {
-            font-size: 10.5pt;
+            font-size: 11pt;
         }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
+        .tembusan-section {
+            margin-top: 24px;
+            font-size: 10pt;
+            line-height: 1.4;
+            text-align: left;
+            page-break-inside: avoid;
         }
 
         /* Toolbar Top Style */
@@ -271,12 +284,11 @@
                 font-size: 6.5pt !important;
             }
             .kop-logo {
-                width: 42px !important;
-                height: 42px !important;
-                left: 8px !important;
+                width: 44px !important;
+                height: 44px !important;
             }
             .kop-titles {
-                margin: 0 46px !important;
+                margin-left: 10px !important;
             }
             .kop-address {
                 white-space: normal !important;
@@ -284,7 +296,6 @@
                 line-height: 1.15;
             }
             .signature-section {
-                float: none !important;
                 width: 100% !important;
                 margin-top: 20px !important;
             }
@@ -356,7 +367,7 @@
             </div>
         </div>
         <div class="kop-address">
-            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
+            {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka No 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)' }}
         </div>
         <div class="kop-divider"></div>
     </div>
@@ -417,10 +428,10 @@
 
     @elseif($letter->jenis_surat === 'PROPOSAL')
         <!-- Format Khusus Berkas Proposal Resmi -->
-        <div style="text-align: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #0B2B68;">
-            <div style="font-size: 15pt; font-weight: bold; text-decoration: underline; text-transform: uppercase; color: #0B2B68;">PROPOSAL KEGIATAN</div>
+        <div style="text-align: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #0B4DA2;">
+            <div style="font-size: 15pt; font-weight: bold; text-decoration: underline; text-transform: uppercase; color: #0B4DA2;">PROPOSAL KEGIATAN</div>
             <div style="font-size: 12pt; font-weight: bold; margin-top: 6px; color: #1e293b;">{{ $letter->perihal }}</div>
-            <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B2B68;">{{ $letter->nomor_surat }}</span></div>
+            <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B4DA2;">{{ $letter->nomor_surat }}</span></div>
         </div>
 
         <div class="letter-content" style="text-align: justify; line-height: 1.6; font-size: 11pt;">
@@ -462,7 +473,7 @@
         <!-- Kolom Penerima / Tujuan Surat -->
         <div style="margin-bottom: 18px; line-height: 1.45;">
             <div>Kepada Yth.</div>
-            <div style="font-weight: bold;">{{ $letter->tujuan }}</div>
+            <div style="font-weight: bold;">{!! nl2br(e($letter->tujuan)) !!}</div>
             @if($letter->nama_pejabat && !str_contains(strtolower($letter->tujuan), strtolower($letter->nama_pejabat)))
                 <div style="font-weight: bold;">{{ $letter->nama_pejabat }}</div>
             @endif
@@ -493,14 +504,14 @@
         </div>
     @endif
 
-    <!-- Blok Tanda Tangan Resmi & QR Code Digital (Rata Kanan Sesuai Dokumen Resmi) -->
-    <div class="clearfix" style="margin-top: 22px; page-break-inside: avoid;">
+    <!-- Blok Tanda Tangan Resmi & QR Code Digital (Rata Tengah Sesuai Dokumen Resmi) -->
+    <div style="margin-top: 24px; page-break-inside: avoid;">
         <div class="signature-section">
             <div>Hormat kami,</div>
             <div style="font-weight: bold; margin-bottom: 4px;">Pengurus PWI Banyuasin</div>
 
             <!-- QR Code Digital Verification -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 4px 0;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 6px 0;">
                 {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 84, 'QR Code Verifikasi Keabsahan Surat') !!}
                 <div style="font-size: 7pt; color: #475569; margin-top: 2px; font-style: italic;">
                     Pindai untuk validasi keabsahan dokumen digital
@@ -508,18 +519,33 @@
             </div>
 
             <!-- Nama & Jabatan Penandatangan -->
-            <table class="signature-table">
-                <tr>
-                    <td style="width: 50%; text-align: center; vertical-align: top; padding: 0 4px;">
-                        <div class="official-name">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
-                        <div class="official-role">Ketua</div>
-                    </td>
-                    <td style="width: 50%; text-align: center; vertical-align: top; padding: 0 4px;">
-                        <div class="official-name">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
-                        <div class="official-role">Sekretaris</div>
-                    </td>
-                </tr>
-            </table>
+            @if($letter->jenis_surat === 'SURAT KHUSUS' || empty($letter->penandatangan_sekretaris))
+                {{-- Surat Khusus: Hanya ditandatangani oleh Ketua --}}
+                <div class="signature-single">
+                    <div class="official-name">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
+                    <div class="official-role">Ketua</div>
+                </div>
+            @else
+                {{-- Surat Biasa / Audiensi / Surat Tugas / Proposal: Ditandatangani Ketua & Sekretaris --}}
+                <table class="signature-table">
+                    <tr>
+                        <td>
+                            <div class="official-name">{{ $letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom' }}</div>
+                            <div class="official-role">Ketua</div>
+                        </td>
+                        <td>
+                            <div class="official-name">{{ $letter->penandatangan_sekretaris ?? 'Deni Arianto' }}</div>
+                            <div class="official-role">Sekretaris</div>
+                        </td>
+                    </tr>
+                </table>
+            @endif
+        </div>
+
+        <!-- Tembusan Surat Sesuai Dokumen Resmi -->
+        <div class="tembusan-section">
+            <div style="font-weight: bold;">Tembusan :</div>
+            <div>1. Arsip.</div>
         </div>
     </div>
 

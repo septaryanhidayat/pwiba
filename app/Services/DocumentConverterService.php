@@ -401,7 +401,7 @@ class DocumentConverterService
                 <w:rPr>
                     <w:b/>
                     <w:sz w:val="32"/>
-                    <w:color w:val="0B2B68"/>
+                    <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>PERSATUAN WARTAWAN INDONESIA</w:t>
             </w:r>
@@ -415,9 +415,22 @@ class DocumentConverterService
                 <w:rPr>
                     <w:b/>
                     <w:sz w:val="26"/>
-                    <w:color w:val="0B2B68"/>
+                    <w:color w:val="0B4DA2"/>
                 </w:rPr>
                 <w:t>PENGURUS KABUPATEN BANYUASIN</w:t>
+            </w:r>
+        </w:p>
+        <w:p>
+            <w:pPr>
+                <w:jc w:val="center"/>
+                <w:spacing w:before="0" w:after="20" w:line="220" w:lineRule="auto"/>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:sz w:val="19"/>
+                    <w:color w:val="0B4DA2"/>
+                </w:rPr>
+                <w:t>Central Executive Board</w:t>
             </w:r>
         </w:p>
         <w:p>
@@ -427,11 +440,11 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
-                    <w:i/>
-                    <w:sz w:val="18"/>
-                    <w:color w:val="475569"/>
+                    <w:b/>
+                    <w:sz w:val="19"/>
+                    <w:color w:val="0B4DA2"/>
                 </w:rPr>
-                <w:t>Central Executive Board - INDONESIAN JOURNALIST\'S ASSOCIATION</w:t>
+                <w:t>INDONESIAN JOURNALIST\'S ASSOCIATION</w:t>
             </w:r>
         </w:p>
         <w:p>
@@ -444,10 +457,11 @@ class DocumentConverterService
             </w:pPr>
             <w:r>
                 <w:rPr>
-                    <w:sz w:val="16"/>
-                    <w:color w:val="334155"/>
+                    <w:b/>
+                    <w:sz w:val="15"/>
+                    <w:color w:val="000000"/>
                 </w:rPr>
-                <w:t>Alamat: Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III Kab. Banyuasin - Sumsel (30914)</w:t>
+                <w:t>Jalan Merdeka No 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)</w:t>
             </w:r>
         </w:p>';
     }
@@ -461,36 +475,38 @@ class DocumentConverterService
         $lampiran = htmlspecialchars($letter->lampiran ?? '1 (Satu) Berkas', ENT_XML1);
         $perihal = htmlspecialchars($letter->perihal ?? ($letter->keperluan ?? 'Surat Permohonan'), ENT_XML1);
         $tanggalFormatted = $letter->tanggal ? $letter->tanggal->translatedFormat('d F Y') : date('d F Y');
-        $tujuan = htmlspecialchars($letter->tujuan ?? 'Penerima', ENT_XML1);
         $namaPejabat = htmlspecialchars($letter->nama_pejabat ?? '', ENT_XML1);
         $alamat = htmlspecialchars($letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Di Tempat'), ENT_XML1);
+
+        $tujuanXml = '';
+        foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $letter->tujuan ?? '')) as $tujLine) {
+            $tujLine = trim($tujLine);
+            if ($tujLine !== '') {
+                $tujuanXml .= '<w:p><w:r><w:b/><w:t>'.htmlspecialchars($tujLine, ENT_XML1).'</w:t></w:r></w:p>';
+            }
+        }
 
         $xml = '
         <w:tbl>
             <w:tblPr>
-                <w:tblW w:w="0" w:type="auto"/>
+                <w:tblW w:w="8500" w:type="dxa"/>
                 <w:tblBorders>
-                    <w:top w:val="none"/>
-                    <w:left w:val="none"/>
-                    <w:bottom w:val="none"/>
-                    <w:right w:val="none"/>
-                    <w:insideH w:val="none"/>
-                    <w:insideV w:val="none"/>
+                    <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
                 </w:tblBorders>
             </w:tblPr>
             <w:tr>
                 <w:tc>
-                    <w:tcPr><w:tcW w:w="5000" w:type="dxa"/></w:tcPr>
-                    <w:p><w:r><w:t>Nomor      : '.$nomor.'</w:t></w:r></w:p>
+                    <w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr>
+                    <w:p><w:r><w:t>Nomor    : '.$nomor.'</w:t></w:r></w:p>
                     <w:p><w:r><w:t>Lampiran : '.$lampiran.'</w:t></w:r></w:p>
-                    <w:p><w:r><w:b/><w:t>Perihal     : '.$perihal.'</w:t></w:r></w:p>
+                    <w:p><w:r><w:b/><w:t>Perihal    : '.$perihal.'</w:t></w:r></w:p>
                 </w:tc>
                 <w:tc>
                     <w:tcPr><w:tcW w:w="4500" w:type="dxa"/></w:tcPr>
                     <w:p><w:r><w:t>Pangkalan Balai, '.$tanggalFormatted.'</w:t></w:r></w:p>
                     <w:p><w:r><w:t>Kepada Yth.</w:t></w:r></w:p>
-                    <w:p><w:r><w:b/><w:t>'.$tujuan.'</w:t></w:r></w:p>
-                    '.($namaPejabat && $namaPejabat !== $tujuan ? '<w:p><w:r><w:b/><w:t>'.$namaPejabat.'</w:t></w:r></w:p>' : '').'
+                    '.$tujuanXml.'
+                    '.($namaPejabat && ! str_contains(strtolower($letter->tujuan ?? ''), strtolower($namaPejabat)) ? '<w:p><w:r><w:b/><w:t>'.$namaPejabat.'</w:t></w:r></w:p>' : '').'
                     <w:p><w:r><w:t>di -</w:t></w:r></w:p>
                     <w:p><w:r><w:t>   '.$alamat.'</w:t></w:r></w:p>
                 </w:tc>
@@ -589,15 +605,39 @@ class DocumentConverterService
             <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="475569"/></w:rPr><w:t>Nomor: '.$nomor.'</w:t></w:r>
         </w:p>';
 
-        $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $letter->isi_surat ?? ''));
+        $content = $letter->isi_surat ?? '';
+        if (preg_match('/<table[\s\S]*?<\/table>/i', $content, $tblMatch)) {
+            $tableHtml = $tblMatch[0];
+            $parts = explode($tableHtml, $content, 2);
+            $xml .= $this->parseHtmlTextBlocks($parts[0]);
+            $xml .= $this->convertHtmlTableToWordXml($tableHtml);
+            $xml .= $this->parseHtmlTextBlocks($parts[1] ?? '');
+        } else {
+            $xml .= $this->parseHtmlTextBlocks($content);
+        }
+
+        return $xml;
+    }
+
+    /**
+     * Parse text blocks with headings and bullets to Word XML.
+     */
+    protected function parseHtmlTextBlocks(string $html): string
+    {
+        $xml = '';
+        $clean = preg_replace('/<\/(?:p|div|tr|li|h[1-6])>/i', "\n", $html);
+        $clean = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $clean));
+        $clean = html_entity_decode($clean, ENT_QUOTES | ENT_XML1, 'UTF-8');
+
+        $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $clean));
         foreach ($lines as $line) {
             $trimmed = trim($line);
             if (empty($trimmed)) {
                 continue;
             }
 
-            // Headings A., B., C., etc.
-            if (preg_match('/^[A-Z]\.\s+/', $trimmed)) {
+            // Headings I., II., III. or A., B., C., etc.
+            if (preg_match('/^(?:[IVXLCDMivxlcdm]+\.|[A-Z]\.)\s+/', $trimmed)) {
                 $xml .= '
                 <w:p>
                     <w:pPr><w:spacing w:before="240" w:after="80"/></w:pPr>
@@ -622,44 +662,109 @@ class DocumentConverterService
     }
 
     /**
+     * Convert HTML table into native Word XML table.
+     */
+    protected function convertHtmlTableToWordXml(string $tableHtml): string
+    {
+        $xml = '
+        <w:tbl>
+            <w:tblPr>
+                <w:tblW w:w="8500" w:type="dxa"/>
+                <w:tblBorders>
+                    <w:top w:val="single" w:sz="8" w:space="0" w:color="334155"/>
+                    <w:left w:val="single" w:sz="8" w:space="0" w:color="334155"/>
+                    <w:bottom w:val="single" w:sz="8" w:space="0" w:color="334155"/>
+                    <w:right w:val="single" w:sz="8" w:space="0" w:color="334155"/>
+                    <w:insideH w:val="single" w:sz="6" w:space="0" w:color="94A3B8"/>
+                    <w:insideV w:val="single" w:sz="6" w:space="0" w:color="94A3B8"/>
+                </w:tblBorders>
+            </w:tblPr>';
+
+        if (preg_match_all('/<tr[^>]*>([\s\S]*?)<\/tr>/i', $tableHtml, $rowMatches)) {
+            foreach ($rowMatches[1] as $rowContent) {
+                $xml .= '<w:tr>';
+                if (preg_match_all('/<(?:td|th)[^>]*>([\s\S]*?)<\/(?:td|th)>/i', $rowContent, $cellMatches)) {
+                    $cellCount = count($cellMatches[1]);
+                    $cellWidth = $cellCount > 0 ? (int) (8500 / $cellCount) : 1700;
+
+                    foreach ($cellMatches[1] as $cellHtml) {
+                        $isHeader = str_contains($rowContent, '<th') || str_contains($cellHtml, '<strong>') || str_contains($cellHtml, '<b>');
+                        $plainText = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $cellHtml));
+                        $plainText = html_entity_decode($plainText, ENT_QUOTES | ENT_XML1, 'UTF-8');
+
+                        $xml .= '<w:tc><w:tcPr><w:tcW w:w="'.$cellWidth.'" w:type="dxa"/></w:tcPr>';
+                        $hasText = false;
+                        foreach (explode("\n", $plainText) as $cellLine) {
+                            $cellLine = trim($cellLine);
+                            if ($cellLine !== '') {
+                                $hasText = true;
+                                $xml .= '<w:p><w:r>'.($isHeader ? '<w:rPr><w:b/></w:rPr>' : '').'<w:t>'.htmlspecialchars($cellLine, ENT_XML1).'</w:t></w:r></w:p>';
+                            }
+                        }
+                        if (! $hasText) {
+                            $xml .= '<w:p><w:r><w:t></w:t></w:r></w:p>';
+                        }
+                        $xml .= '</w:tc>';
+                    }
+                }
+                $xml .= '</w:tr>';
+            }
+        }
+
+        $xml .= '</w:tbl>';
+
+        return $xml;
+    }
+
+    /**
      * Tanda Tangan Resmi Pengurus PWI Banyuasin
      */
     protected function buildTandaTanganXml(Letter $letter): string
     {
         $ketua = htmlspecialchars($letter->penandatangan_nama ?? 'Wardoyo, S.I.Kom', ENT_XML1);
         $sekretaris = htmlspecialchars($letter->penandatangan_sekretaris ?? 'Deni Arianto', ENT_XML1);
+        $isKhusus = ($letter->jenis_surat === 'SURAT KHUSUS' || empty($letter->penandatangan_sekretaris));
+
+        if ($isKhusus) {
+            $ttdBlock = '
+            <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r></w:p>
+            <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Ketua</w:t></w:r></w:p>';
+        } else {
+            $ttdBlock = '
+            <w:tbl>
+                <w:tblPr><w:tblW w:w="5200" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders></w:tblPr>
+                <w:tr>
+                    <w:tc>
+                        <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
+                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r></w:p>
+                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Ketua</w:t></w:r></w:p>
+                    </w:tc>
+                    <w:tc>
+                        <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
+                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$sekretaris.'</w:t></w:r></w:p>
+                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Sekretaris</w:t></w:r></w:p>
+                    </w:tc>
+                </w:tr>
+            </w:tbl>';
+        }
 
         return '
         <w:p><w:pPr><w:spacing w:before="360" w:after="60"/></w:pPr></w:p>
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="9200" w:type="dxa"/>
+                <w:jc w:val="center"/>
                 <w:tblBorders>
                     <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
                 </w:tblBorders>
             </w:tblPr>
             <w:tr>
-                <w:tc><w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr><w:p><w:r><w:t></w:t></w:r></w:p></w:tc>
                 <w:tc>
-                    <w:tcPr><w:tcW w:w="5200" w:type="dxa"/></w:tcPr>
+                    <w:tcPr><w:tcW w:w="9200" w:type="dxa"/></w:tcPr>
                     <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Hormat kami,</w:t></w:r></w:p>
-                    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:t>Pengurus PWI Kabupaten Banyuasin</w:t></w:r></w:p>
+                    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:t>Pengurus PWI Banyuasin</w:t></w:r></w:p>
                     <w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="0"/></w:pPr></w:p>
-                    <w:tbl>
-                        <w:tblPr><w:tblW w:w="5200" w:type="dxa"/><w:tblBorders><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders></w:tblPr>
-                        <w:tr>
-                            <w:tc>
-                                <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
-                                <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r></w:p>
-                                <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Ketua</w:t></w:r></w:p>
-                            </w:tc>
-                            <w:tc>
-                                <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
-                                <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$sekretaris.'</w:t></w:r></w:p>
-                                <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Sekretaris</w:t></w:r></w:p>
-                            </w:tc>
-                        </w:tr>
-                    </w:tbl>
+                    '.$ttdBlock.'
                 </w:tc>
             </w:tr>
         </w:tbl>';

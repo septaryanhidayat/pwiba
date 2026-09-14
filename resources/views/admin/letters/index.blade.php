@@ -9,6 +9,7 @@
     modalAudiensi: false, 
     modalBiasa: false, 
     modalProposal: false,
+    modalKhusus: false,
     modalKonversi: false,
     isExtracting: false,
     konversiPreview: false,
@@ -105,6 +106,16 @@
                         </div>
                     </button>
 
+                    <button @click="modalKhusus = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
+                        <span class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-stamp text-xs"></i>
+                        </span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">Surat Khusus</div>
+                            <div class="text-[10.5px] text-slate-500 font-normal">Tanda tangan Ketua saja (mandat, SK, disposisi)</div>
+                        </div>
+                    </button>
+
                     <div class="border-t border-slate-100 dark:border-slate-800 my-1"></div>
 
                     <button @click="modalTugas = true; openCreate = false" type="button" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center gap-3 transition-colors">
@@ -174,6 +185,9 @@
                 <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT TUGAS'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT TUGAS' ? 'bg-cyan-600 text-white font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
                     Surat Tugas
                 </a>
+                <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT KHUSUS'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT KHUSUS' ? 'bg-purple-600 text-white font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
+                    Surat Khusus
+                </a>
                 <a href="{{ route('admin.letters.index', array_merge(request()->except('page'), ['jenis' => 'SURAT AUDENSI'])) }}" class="px-3 py-1 rounded-lg text-xs font-semibold transition-all shrink-0 whitespace-nowrap {{ request('jenis') == 'SURAT AUDENSI' ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700' }}">
                     Audiensi
                 </a>
@@ -205,7 +219,7 @@
                     <!-- Card Sub: Jenis Surat, Tanggal, & File Attachment Pill -->
                     <div class="flex items-center justify-between text-[11px] gap-2 flex-wrap">
                         <div class="flex items-center gap-1.5">
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wide {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400')) }}">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wide {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : ($item->jenis_surat === 'SURAT KHUSUS' ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-950/60 dark:text-purple-400' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400'))) }}">
                                 {{ $item->jenis_surat }}
                             </span>
                             @if($item->file_dokumen)
@@ -304,7 +318,7 @@
                             </td>
                             <td class="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-semibold whitespace-nowrap">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
                             <td class="py-3.5 px-4 text-center whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10.5px] font-bold tracking-wide whitespace-nowrap {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800')) }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10.5px] font-bold tracking-wide whitespace-nowrap {{ $item->jenis_surat === 'SURAT TUGAS' ? 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/60 dark:text-cyan-400 dark:border-cyan-800' : ($item->jenis_surat === 'SURAT AUDENSI' ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-700' : ($item->jenis_surat === 'PROPOSAL' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-400' : ($item->jenis_surat === 'SURAT KHUSUS' ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-950/60 dark:text-purple-400 dark:border-purple-800' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-400 dark:border-emerald-800'))) }}">
                                     {{ $item->jenis_surat }}
                                 </span>
                             </td>
@@ -400,73 +414,75 @@
     </div>
 
     <!-- 1. MODAL GENERATOR: SURAT TUGAS -->
-    <div x-show="modalTugas" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="modalTugas = false">
-            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div x-show="modalTugas" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-lg my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[90vh] overflow-hidden" @click.away="modalTugas = false">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-user-tag text-cyan-600"></i> Buat Surat Tugas
                 </h3>
-                <button @click="modalTugas = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button type="button" @click="modalTugas = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form action="{{ route('admin.letters.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.letters.store') }}" method="POST" class="flex flex-col flex-1 min-h-0 overflow-hidden">
                 @csrf
                 <input type="hidden" name="jenis_surat" value="SURAT TUGAS">
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT TUGAS') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-cyan-700 dark:text-cyan-400 focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
-                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Pilih Anggota yang Ditugaskan *</label>
-                    <select name="member_id" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
-                        <option value="">-- Pilih Anggota Wartawan --</option>
-                        @foreach($members as $m)
-                            <option value="{{ $m->id }}">{{ $m->nama }} ({{ $m->jabatan }})</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan Penugasan *</label>
-                    <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Serang - Provinsi Banten">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Keperluan Tugas *</label>
-                    <input type="text" name="keperluan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Kegiatan Hari Pers Nasional (HPN) 2026">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Lokasi Pelaksanaan</label>
-                    <input type="text" name="lokasi" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Banten Convention Center">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tgl Pelaksanaan</label>
-                        <input type="date" name="tanggal_mulai" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                        <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT TUGAS') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-cyan-700 dark:text-cyan-400 focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Sampai Dengan</label>
-                        <input type="date" name="tanggal_selesai" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                        <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Pilih Anggota yang Ditugaskan *</label>
+                        <select name="member_id" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                            <option value="">-- Pilih Anggota Wartawan --</option>
+                            @foreach($members as $m)
+                                <option value="{{ $m->id }}">{{ $m->nama }} ({{ $m->jabatan }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan Penugasan *</label>
+                        <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Serang - Provinsi Banten">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Keperluan Tugas *</label>
+                        <input type="text" name="keperluan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Kegiatan Hari Pers Nasional (HPN) 2026">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Lokasi Pelaksanaan</label>
+                        <input type="text" name="lokasi" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Banten Convention Center">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tgl Pelaksanaan</label>
+                            <input type="date" name="tanggal_mulai" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Sampai Dengan</label>
+                            <input type="date" name="tanggal_selesai" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                        <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Di Tempat / Serang - Banten">
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
-                    <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none shadow-sm" placeholder="Contoh: Di Tempat / Serang - Banten">
-                </div>
-
-                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                     <button type="button" @click="modalTugas = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-pen"></i>
@@ -482,63 +498,65 @@
     </div>
 
     <!-- 2. MODAL GENERATOR: SURAT AUDIENSI -->
-    <div x-show="modalAudiensi" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="modalAudiensi = false">
-            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div x-show="modalAudiensi" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-lg my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[90vh] overflow-hidden" @click.away="modalAudiensi = false">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-comments text-amber-500"></i> Surat Permohonan Audensi
                 </h3>
-                <button @click="modalAudiensi = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button type="button" @click="modalAudiensi = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form action="{{ route('admin.letters.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.letters.store') }}" method="POST" class="flex flex-col flex-1 min-h-0 overflow-hidden">
                 @csrf
                 <input type="hidden" name="jenis_surat" value="SURAT AUDENSI">
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT AUDENSI') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-amber-600 dark:text-amber-400 focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
-                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
-                    <input type="text" name="perihal" value="Permohonan Audiensi Pengurus PWI Banyuasin" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan Penerima *</label>
-                        <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Bupati Banyuasin">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                        <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT AUDENSI') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-amber-600 dark:text-amber-400 focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
-                        <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Dr. H. Askolani, SH., MH">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                        <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
+                        <input type="text" name="perihal" value="Permohonan Audiensi Pengurus PWI Banyuasin" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan Penerima *</label>
+                            <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Bupati Banyuasin">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
+                            <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Dr. H. Askolani, SH., MH">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                        <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Di Tempat / Pangkalan Balai">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
+                        <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Komplek Perkantoran Pemkab Banyuasin">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Surat Permohonan</label>
+                        <textarea name="isi_surat" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Tuliskan uraian maksud dan agenda audiensi..."></textarea>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
-                    <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Di Tempat / Pangkalan Balai">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
-                    <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Contoh: Komplek Perkantoran Pemkab Banyuasin">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Surat Permohonan</label>
-                    <textarea name="isi_surat" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none shadow-sm" placeholder="Tuliskan uraian maksud dan agenda audiensi..."></textarea>
-                </div>
-
-                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                     <button type="button" @click="modalAudiensi = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-pen"></i>
@@ -554,63 +572,65 @@
     </div>
 
     <!-- 3. MODAL GENERATOR: SURAT BIASA -->
-    <div x-show="modalBiasa" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="modalBiasa = false">
-            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div x-show="modalBiasa" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-lg my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[90vh] overflow-hidden" @click.away="modalBiasa = false">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-envelope text-emerald-600"></i> Buat Surat Biasa
                 </h3>
-                <button @click="modalBiasa = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button type="button" @click="modalBiasa = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form action="{{ route('admin.letters.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.letters.store') }}" method="POST" class="flex flex-col flex-1 min-h-0 overflow-hidden">
                 @csrf
                 <input type="hidden" name="jenis_surat" value="SURAT BIASA">
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT BIASA') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
-                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
-                    <input type="text" name="perihal" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: Pemberitahuan Kegiatan / Permohonan">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan *</label>
-                        <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: Kapolres Banyuasin">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                        <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT BIASA') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
-                        <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: AKBP Ferly Rosa Putra, S.I.K.">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                        <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
+                        <input type="text" name="perihal" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: Pemberitahuan Kegiatan / Permohonan">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan *</label>
+                            <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: Kapolres Banyuasin">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
+                            <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Contoh: AKBP Ferly Rosa Putra, S.I.K.">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                        <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Di Tempat / Pangkalan Balai">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
+                        <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Di Tempat">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Surat</label>
+                        <textarea name="isi_surat" rows="4" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Tuliskan isi surat selengkapnya..."></textarea>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
-                    <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Di Tempat / Pangkalan Balai">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
-                    <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Di Tempat">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Surat</label>
-                    <textarea name="isi_surat" rows="4" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm" placeholder="Tuliskan isi surat selengkapnya..."></textarea>
-                </div>
-
-                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                     <button type="button" @click="modalBiasa = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-pen"></i>
@@ -626,63 +646,65 @@
     </div>
 
     <!-- 4. MODAL GENERATOR: SURAT PROPOSAL -->
-    <div x-show="modalProposal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="modalProposal = false">
-            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div x-show="modalProposal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-lg my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[90vh] overflow-hidden" @click.away="modalProposal = false">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
                 <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
                     <i class="fa-solid fa-file-contract text-slate-700 dark:text-slate-300"></i> Surat Permohonan / Proposal
                 </h3>
-                <button @click="modalProposal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <button type="button" @click="modalProposal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form action="{{ route('admin.letters.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.letters.store') }}" method="POST" class="flex flex-col flex-1 min-h-0 overflow-hidden">
                 @csrf
                 <input type="hidden" name="jenis_surat" value="PROPOSAL">
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('PROPOSAL') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
-                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
-                    <input type="text" name="perihal" value="Permohonan Bantuan Dana Kegiatan Turnamen PWI" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Instansi / Mitra *</label>
-                        <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Contoh: Direktur / Pimpinan PT. Petro Muba">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                        <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('PROPOSAL') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
-                        <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Nama pimpinan / mitra...">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                        <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
+                        <input type="text" name="perihal" value="Permohonan Bantuan Dana Kegiatan Turnamen PWI" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Instansi / Mitra *</label>
+                            <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Contoh: Direktur / Pimpinan PT. Petro Muba">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima / Pejabat</label>
+                            <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Nama pimpinan / mitra...">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                        <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Di Tempat / Pangkalan Balai">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
+                        <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Di Tempat">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Permohonan / Pengantar Proposal</label>
+                        <textarea name="isi_surat" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Tuliskan uraian maksud pengajuan proposal..."></textarea>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
-                    <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Di Tempat / Pangkalan Balai">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Tujuan (Opsional)</label>
-                    <input type="text" name="alamat_tujuan" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Di Tempat">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Permohonan / Pengantar Proposal</label>
-                    <textarea name="isi_surat" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 outline-none shadow-sm" placeholder="Tuliskan uraian maksud pengajuan proposal..."></textarea>
-                </div>
-
-                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                     <button type="button" @click="modalProposal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-pen"></i>
@@ -697,13 +719,87 @@
         </div>
     </div>
 
-    <!-- 5. MODAL KONVERSI & IMPORT DOKUMEN: WORD (.DOCX) & PDF -->
-    <div x-show="modalKonversi" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-        <div class="relative w-full max-w-2xl my-8 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 dark:text-white" @click.away="modalKonversi = false">
+    <!-- 5. MODAL GENERATOR: SURAT KHUSUS (Hanya Ditandatangani Ketua) -->
+    <div x-show="modalKhusus" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-lg my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[90vh] overflow-hidden" @click.away="modalKhusus = false">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
+                <h3 class="text-base font-extrabold text-[#0B132B] dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-stamp text-purple-600"></i> Buat Surat Khusus
+                </h3>
+                <button type="button" @click="modalKhusus = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('admin.letters.store') }}" method="POST" class="flex flex-col flex-1 min-h-0 overflow-hidden">
+                @csrf
+                <input type="hidden" name="jenis_surat" value="SURAT KHUSUS">
+
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
+                    <div class="p-3 bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 rounded-xl text-xs text-purple-900 dark:text-purple-300 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-purple-600 text-sm shrink-0"></i>
+                        <span><strong>Surat Khusus:</strong> Surat ini hanya ditandatangani oleh Ketua PWI Kabupaten Banyuasin (tanpa Sekretaris).</span>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                        <input type="text" name="nomor_surat" value="{{ \App\Models\Letter::generateNomorSurat('SURAT KHUSUS') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-purple-700 dark:text-purple-400 focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                        <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Prihal / Perihal *</label>
+                        <input type="text" name="perihal" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm" placeholder="Contoh: Surat Mandat / Surat Keputusan Khusus">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Jabatan *</label>
+                            <input type="text" name="tujuan" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm" placeholder="Contoh: Yang Bersangkutan / Instansi">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Penerima</label>
+                            <input type="text" name="nama_pejabat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm" placeholder="Nama penerima...">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat / Kota Tujuan</label>
+                        <input type="text" name="tempat_tujuan" value="Di Tempat" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm" placeholder="Di Tempat / Pangkalan Balai">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Singkat Surat Khusus</label>
+                        <textarea name="isi_surat" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm" placeholder="Tuliskan pokok keputusan atau instruksi surat khusus..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
+                    <button type="button" @click="modalKhusus = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
+                    <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-pen"></i>
+                        <span>Simpan Draft</span>
+                    </button>
+                    <button type="submit" name="status" value="published" class="px-5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Publish Surat Khusus</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 6. MODAL KONVERSI & IMPORT DOKUMEN: WORD (.DOCX) & PDF -->
+    <div x-show="modalKonversi" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="relative w-full max-w-2xl my-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-900 dark:text-white flex flex-col max-h-[92vh] overflow-hidden" @click.away="modalKonversi = false">
             
-            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-purple-100 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                    <div class="w-10 h-10 rounded-2xl bg-purple-100 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
                         <i class="fa-solid fa-file-arrow-up text-lg"></i>
                     </div>
                     <div>
@@ -713,101 +809,104 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Unggah berkas Word (.docx) atau PDF untuk otomatis diekstrak dan didaftarkan ke buku surat</p>
                     </div>
                 </div>
-                <button @click="modalKonversi = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2">
+                <button type="button" @click="modalKonversi = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
-            <form action="{{ route('admin.letters.convert') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form action="{{ route('admin.letters.convert') }}" method="POST" enctype="multipart/form-data" class="flex flex-col flex-1 min-h-0 overflow-hidden">
                 @csrf
 
-                <!-- File Drop Zone -->
-                <div class="relative border-2 border-dashed border-purple-300 dark:border-purple-700/60 rounded-2xl p-5 bg-purple-50/40 dark:bg-purple-950/20 text-center hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-all">
-                    <input type="file" name="file_dokumen" accept=".docx,.doc,.pdf" @change="handleDocUpload($event)" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                    <div class="flex flex-col items-center justify-center pointer-events-none">
-                        <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center text-purple-600 dark:text-purple-400 mb-2">
-                            <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                <div class="overflow-y-auto px-6 py-4 space-y-4 flex-1 overscroll-contain">
+                    <!-- File Drop Zone -->
+                    <div class="relative border-2 border-dashed border-purple-300 dark:border-purple-700/60 rounded-2xl p-5 bg-purple-50/40 dark:bg-purple-950/20 text-center hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-all">
+                        <input type="file" name="file_dokumen" accept=".docx,.doc,.pdf" @change="handleDocUpload($event)" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <div class="flex flex-col items-center justify-center pointer-events-none">
+                            <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center text-purple-600 dark:text-purple-400 mb-2">
+                                <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                            </div>
+                            <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
+                                Pilih atau Tarik Berkas Dokumen ke Sini
+                            </p>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                Mendukung berkas Microsoft Word (.docx, .doc) dan PDF (Maks. 20 MB)
+                            </p>
                         </div>
-                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">
-                            Pilih atau Tarik Berkas Dokumen ke Sini
-                        </p>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                            Mendukung berkas Microsoft Word (.docx, .doc) dan PDF (Maks. 20 MB)
-                        </p>
+                    </div>
+
+                    <!-- Extraction Status Feedback -->
+                    <div x-show="isExtracting" class="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 flex items-center gap-3 text-blue-700 dark:text-blue-300">
+                        <i class="fa-solid fa-circle-notch fa-spin text-sm"></i>
+                        <span class="text-xs font-bold">Sedang membaca dan mengekstrak struktur dokumen...</span>
+                    </div>
+
+                    <div x-show="konversiPreview" class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center gap-2.5 text-emerald-800 dark:text-emerald-300">
+                        <i class="fa-solid fa-circle-check text-sm"></i>
+                        <span class="text-xs font-bold">Data berhasil diekstrak otomatis! Silakan tinjau data di bawah sebelum disimpan.</span>
+                    </div>
+
+                    <!-- Extracted / Editable Form Fields -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Kategori Surat *</label>
+                            <select name="jenis_surat" x-model="extracted.jenis_surat" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                                <option value="SURAT BIASA">SURAT BIASA</option>
+                                <option value="SURAT KHUSUS">SURAT KHUSUS</option>
+                                <option value="PROPOSAL">PROPOSAL</option>
+                                <option value="SURAT TUGAS">SURAT TUGAS</option>
+                                <option value="SURAT AUDENSI">SURAT AUDENSI</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
+                            <input type="text" name="nomor_surat" x-model="extracted.nomor_surat" placeholder="Otomatis digenerate" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-purple-700 dark:text-purple-400 focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
+                            <input type="date" name="tanggal" x-model="extracted.tanggal" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Perihal / Hal *</label>
+                            <input type="text" name="perihal" x-model="extracted.perihal" required placeholder="Contoh: Permohonan Kerjasama / Dukungan" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Lampiran</label>
+                            <input type="text" name="lampiran" x-model="extracted.lampiran" placeholder="1 (Satu) Berkas" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Instansi / Penerima *</label>
+                            <input type="text" name="tujuan" x-model="extracted.tujuan" required placeholder="Contoh: Pimpinan PT Pegadaian (Persero)" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Pejabat / Pimpinan</label>
+                            <input type="text" name="nama_pejabat" x-model="extracted.nama_pejabat" placeholder="Contoh: Pimpinan Wilayah Kanwil Sumbagsel" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat Tujuan</label>
+                            <input type="text" name="tempat_tujuan" x-model="extracted.tempat_tujuan" placeholder="Di Tempat / Kota Palembang" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Surat</label>
+                            <input type="text" name="alamat_tujuan" x-model="extracted.alamat_tujuan" placeholder="Contoh: Jl. Merdeka No. 11, Kota Palembang" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Dokumen / Surat</label>
+                        <textarea name="isi_surat" x-model="extracted.isi_surat" rows="5" placeholder="Isi surat atau proposal hasil konversi..." class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm font-sans leading-relaxed"></textarea>
                     </div>
                 </div>
 
-                <!-- Extraction Status Feedback -->
-                <div x-show="isExtracting" class="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 flex items-center gap-3 text-blue-700 dark:text-blue-300">
-                    <i class="fa-solid fa-circle-notch fa-spin text-sm"></i>
-                    <span class="text-xs font-bold">Sedang membaca dan mengekstrak struktur dokumen...</span>
-                </div>
-
-                <div x-show="konversiPreview" class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center gap-2.5 text-emerald-800 dark:text-emerald-300">
-                    <i class="fa-solid fa-circle-check text-sm"></i>
-                    <span class="text-xs font-bold">Data berhasil diekstrak otomatis! Silakan tinjau data di bawah sebelum disimpan.</span>
-                </div>
-
-                <!-- Extracted / Editable Form Fields -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Kategori Surat *</label>
-                        <select name="jenis_surat" x-model="extracted.jenis_surat" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                            <option value="SURAT BIASA">SURAT BIASA</option>
-                            <option value="PROPOSAL">PROPOSAL</option>
-                            <option value="SURAT TUGAS">SURAT TUGAS</option>
-                            <option value="SURAT AUDENSI">SURAT AUDENSI</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Surat</label>
-                        <input type="text" name="nomor_surat" x-model="extracted.nomor_surat" placeholder="Otomatis digenerate" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-purple-700 dark:text-purple-400 focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tanggal Surat *</label>
-                        <input type="date" name="tanggal" x-model="extracted.tanggal" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Perihal / Hal *</label>
-                        <input type="text" name="perihal" x-model="extracted.perihal" required placeholder="Contoh: Permohonan Kerjasama / Dukungan" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Lampiran</label>
-                        <input type="text" name="lampiran" x-model="extracted.lampiran" placeholder="1 (Satu) Berkas" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Instansi / Penerima *</label>
-                        <input type="text" name="tujuan" x-model="extracted.tujuan" required placeholder="Contoh: Pimpinan PT Pegadaian (Persero)" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Pejabat / Pimpinan</label>
-                        <input type="text" name="nama_pejabat" x-model="extracted.nama_pejabat" placeholder="Contoh: Pimpinan Wilayah Kanwil Sumbagsel" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tempat Tujuan</label>
-                        <input type="text" name="tempat_tujuan" x-model="extracted.tempat_tujuan" placeholder="Di Tempat / Kota Palembang" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Alamat Surat</label>
-                        <input type="text" name="alamat_tujuan" x-model="extracted.alamat_tujuan" placeholder="Contoh: Jl. Merdeka No. 11, Kota Palembang" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Isi Dokumen / Surat</label>
-                    <textarea name="isi_surat" x-model="extracted.isi_surat" rows="5" placeholder="Isi surat atau proposal hasil konversi..." class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm font-sans leading-relaxed"></textarea>
-                </div>
-
-                <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-end gap-2.5 px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                     <button type="button" @click="modalKonversi = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Batal</button>
                     <button type="submit" name="status" value="draft" class="px-4 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 shadow-sm transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-pen"></i>

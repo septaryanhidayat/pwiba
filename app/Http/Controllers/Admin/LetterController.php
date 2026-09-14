@@ -89,6 +89,11 @@ class LetterController extends Controller
             $member = Member::find($request->member_id);
             $data['keperluan'] = $request->keperluan ?? 'Surat Tugas Peliputan / Kegiatan';
             $data['tujuan'] = $request->tujuan ?? ($request->lokasi ?? 'Lokasi Tugas');
+        } elseif ($request->jenis_surat === 'SURAT KHUSUS') {
+            $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? 'Surat Khusus');
+            $data['tujuan'] = $request->tujuan ?? ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
+            $data['nama_pejabat'] = $request->nama_pejabat ?? null;
+            $data['penandatangan_sekretaris'] = null;
         } elseif (in_array($request->jenis_surat, ['SURAT AUDENSI', 'PROPOSAL', 'SURAT BIASA'])) {
             $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? $request->jenis_surat);
             $data['tujuan'] = $request->tujuan ?? ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
@@ -148,6 +153,10 @@ class LetterController extends Controller
 
         if ($request->has('tempat_tujuan') && empty($data['tempat_tujuan'])) {
             $data['tempat_tujuan'] = 'Di Tempat';
+        }
+
+        if ($request->jenis_surat === 'SURAT KHUSUS') {
+            $data['penandatangan_sekretaris'] = null;
         }
 
         if ($request->hasFile('file_dokumen')) {
@@ -291,7 +300,7 @@ class LetterController extends Controller
             'isi_surat' => $isiSurat,
             'file_dokumen' => $storedPath,
             'penandatangan_nama' => 'Wardoyo, S.I.Kom',
-            'penandatangan_sekretaris' => 'Deni Arianto',
+            'penandatangan_sekretaris' => ($jenis === 'SURAT KHUSUS' ? null : 'Deni Arianto'),
         ]);
 
         return redirect()->route('admin.letters.index')->with('success', "Berkas '{$file->getClientOriginalName()}' berhasil dikonversi dan tercatat sebagai Surat Keluar [{$letter->nomor_surat}]!");

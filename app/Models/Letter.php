@@ -47,6 +47,9 @@ class Letter extends Model
             if (empty($letter->hash_keabsahan)) {
                 $letter->hash_keabsahan = hash('sha256', ($letter->nomor_surat ?? '').'|'.($letter->tanggal ?? '').'|'.($letter->tujuan ?? '').'|PWI-BANYUASIN-OFFICIAL');
             }
+            if (empty($letter->keperluan)) {
+                $letter->keperluan = $letter->perihal ?? ($letter->jenis_surat ?? 'Surat Resmi');
+            }
         });
     }
 
@@ -68,19 +71,31 @@ class Letter extends Model
 
     public static function generateNomorSurat(string $jenis = 'SURAT BIASA'): string
     {
-        $count = self::count() + 1;
-        $padded = str_pad($count, 3, '0', STR_PAD_LEFT);
+        $year = date('Y');
         $romanMonths = [
             1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
             7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII',
         ];
         $month = $romanMonths[date('n')];
-        $year = date('Y');
+
+        $latestNumbers = self::where('nomor_surat', 'like', "%/{$year}")
+            ->pluck('nomor_surat');
+
+        $maxNumber = 0;
+        foreach ($latestNumbers as $num) {
+            if (preg_match('/^(\d+)\//', $num, $m)) {
+                $maxNumber = max($maxNumber, (int) $m[1]);
+            }
+        }
+
+        $nextNum = max($maxNumber + 1, self::count() + 1);
+        $padded = str_pad($nextNum, 3, '0', STR_PAD_LEFT);
 
         $kode = match (strtoupper($jenis)) {
             'SURAT TUGAS' => 'PWI-ST',
-            'SURAT AUDENSI' => 'PWI-AUD',
+            'SURAT AUDENSI', 'SURAT AUDIENSI' => 'PWI-AUD',
             'PROPOSAL' => 'PWI-PROP',
+            'SURAT KHUSUS' => 'PWI-SK',
             default => 'PWI-BA',
         };
 

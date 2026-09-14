@@ -39,6 +39,7 @@
                         <option value="SURAT TUGAS" {{ $letter->jenis_surat === 'SURAT TUGAS' ? 'selected' : '' }}>SURAT TUGAS</option>
                         <option value="SURAT AUDENSI" {{ $letter->jenis_surat === 'SURAT AUDENSI' ? 'selected' : '' }}>SURAT AUDENSI</option>
                         <option value="SURAT BIASA" {{ $letter->jenis_surat === 'SURAT BIASA' ? 'selected' : '' }}>SURAT BIASA</option>
+                        <option value="SURAT KHUSUS" {{ $letter->jenis_surat === 'SURAT KHUSUS' ? 'selected' : '' }}>SURAT KHUSUS</option>
                         <option value="PROPOSAL" {{ $letter->jenis_surat === 'PROPOSAL' ? 'selected' : '' }}>PROPOSAL</option>
                     </select>
                 </div>
