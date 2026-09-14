@@ -252,4 +252,77 @@ class LetterConversionTest extends TestCase
         $response->assertSee('095/PWI-BA/IX/2026');
         $response->assertSee('Permohonan Sponsorship / Dukungan Kerja Sama Seminar Sehari');
     }
+
+    public function test_letter_with_cq_and_tembusan_can_be_created_updated_and_rendered(): void
+    {
+        // 1. Create via store
+        $storeResponse = $this->actingAs($this->admin)->post(route('admin.letters.store'), [
+            'jenis_surat' => 'SURAT BIASA',
+            'nomor_surat' => '106/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-14',
+            'perihal' => 'Undangan Silaturahmi',
+            'tujuan' => 'Pj Bupati Banyuasin',
+            'cq' => 'Kepala Bagian Protokol',
+            'tempat_tujuan' => 'Pangkalan Balai',
+            'isi_surat' => '<p>Dengan hormat, kami bermaksud mengundang Bapak...</p>',
+            'penandatangan_nama' => 'Wardoyo, S.I.Kom',
+            'penandatangan_sekretaris' => 'Deni Arianto',
+            'tembusan' => "1. Ketua DPRD Banyuasin\n2. Arsip.",
+            'status' => 'published',
+        ]);
+
+        $storeResponse->assertRedirect(route('admin.letters.index'));
+        $this->assertDatabaseHas('letters', [
+            'nomor_surat' => '106/PWI-BA/IX/2026',
+            'cq' => 'Kepala Bagian Protokol',
+            'tembusan' => "1. Ketua DPRD Banyuasin\n2. Arsip.",
+        ]);
+
+        $letter = Letter::where('nomor_surat', '106/PWI-BA/IX/2026')->firstOrFail();
+
+        // 2. Update via PUT
+        $updateResponse = $this->actingAs($this->admin)->put(route('admin.letters.update', $letter->id), [
+            'jenis_surat' => 'SURAT BIASA',
+            'nomor_surat' => '106/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-14',
+            'perihal' => 'Undangan Silaturahmi - Revisi',
+            'tujuan' => 'Pj Bupati Banyuasin',
+            'cq' => 'Sekretaris Daerah',
+            'tempat_tujuan' => 'Pangkalan Balai',
+            'isi_surat' => '<p>Isi surat yang telah direvisi.</p>',
+            'penandatangan_nama' => 'Wardoyo, S.I.Kom',
+            'penandatangan_sekretaris' => 'Deni Arianto',
+            'tembusan' => "1. Ketua PWI Sumsel\n2. Arsip.",
+            'status' => 'published',
+        ]);
+
+        $updateResponse->assertRedirect(route('admin.letters.index'));
+        $this->assertDatabaseHas('letters', [
+            'id' => $letter->id,
+            'cq' => 'Sekretaris Daerah',
+            'tembusan' => "1. Ketua PWI Sumsel\n2. Arsip.",
+        ]);
+
+        // 3. Check index rendering
+        $indexResponse = $this->actingAs($this->admin)->get(route('admin.letters.index'));
+        $indexResponse->assertStatus(200);
+        $indexResponse->assertSee('c.q. Sekretaris Daerah');
+
+        // 4. Check Word generation
+        $converter = app(DocumentConverterService::class);
+        $docxBinary = $converter->generateDocx($letter->fresh());
+        $this->assertNotEmpty($docxBinary);
+
+        // Verify docx contains cq
+        $tempPath = tempnam(sys_get_temp_dir(), 'test_cq_').'.docx';
+        file_put_contents($tempPath, $docxBinary);
+        $zip = new ZipArchive;
+        $this->assertTrue($zip->open($tempPath));
+        $xml = $zip->getFromName('word/document.xml');
+        $zip->close();
+        @unlink($tempPath);
+
+        $this->assertStringContainsString('c.q. Sekretaris Daerah', $xml);
+        $this->assertStringContainsString('Ketua PWI Sumsel', $xml);
+    }
 }

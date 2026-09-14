@@ -126,6 +126,7 @@ class DocumentConverterService
             'jenis_surat' => 'SURAT BIASA',
             'perihal' => null,
             'tujuan' => null,
+            'cq' => null,
             'nama_pejabat' => null,
             'jabatan_pejabat' => null,
             'tempat_tujuan' => 'Di Tempat',
@@ -233,6 +234,11 @@ class DocumentConverterService
                     $meta['tujuan'] .= ' - '.$tujuan2;
                 }
             }
+        }
+
+        // 5b. Extract C.q. / cq
+        if (preg_match('/(?:c\.q\.|cq|casu quo)[\s.:]+([^\r\n]+)/i', $text, $matches)) {
+            $meta['cq'] = trim($matches[1]);
         }
 
         // 6. Extract Alamat / Tempat
@@ -628,6 +634,10 @@ class DocumentConverterService
             if ($tujLine !== '') {
                 $tujuanXml .= '<w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:b/><w:t>'.htmlspecialchars($tujLine, ENT_XML1).'</w:t></w:r></w:p>';
             }
+        }
+        if (! empty($letter->cq)) {
+            $cqPrefix = (! str_starts_with(strtolower(trim($letter->cq)), 'c.q.') && ! str_starts_with(strtolower(trim($letter->cq)), 'cq.')) ? 'c.q. ' : '';
+            $tujuanXml .= '<w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:t>'.htmlspecialchars($cqPrefix.trim($letter->cq), ENT_XML1).'</w:t></w:r></w:p>';
         }
 
         $xml = '

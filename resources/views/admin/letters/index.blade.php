@@ -14,6 +14,7 @@
         jenis_surat: 'SURAT BIASA',
         perihal: '',
         tujuan: '',
+        cq: '',
         nama_pejabat: '',
         tempat_tujuan: 'Di Tempat',
         alamat_tujuan: '',
@@ -238,6 +239,11 @@
                         <div class="text-slate-900 dark:text-white font-bold leading-snug">
                             {{ $item->tujuan }}
                         </div>
+                        @if($item->cq)
+                            <div class="text-[11px] text-purple-700 dark:text-purple-400 font-medium">
+                                c.q. {{ $item->cq }}
+                            </div>
+                        @endif
                         @if($item->nama_pejabat && $item->nama_pejabat !== $item->tujuan)
                             <div class="text-[11px] text-blue-600 dark:text-blue-400 font-medium">
                                 u.p. {{ $item->nama_pejabat }}
@@ -334,6 +340,12 @@
                             </td>
                             <td class="py-3.5 px-4 text-slate-900 dark:text-white">
                                 <div class="font-bold leading-snug">{{ $item->tujuan }}</div>
+                                @if($item->cq)
+                                    <div class="text-[11px] font-semibold text-purple-700 dark:text-purple-400 mt-0.5 flex items-center gap-1">
+                                        <i class="fa-solid fa-arrow-turn-down text-[9px]"></i>
+                                        <span>c.q. {{ $item->cq }}</span>
+                                    </div>
+                                @endif
                                 @if($item->nama_pejabat)
                                     <div class="text-[11px] font-semibold text-blue-700 dark:text-blue-400 mt-0.5 flex items-center gap-1">
                                         <i class="fa-solid fa-user text-[10px]"></i>
@@ -499,10 +511,14 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Tujuan / Instansi / Penerima *</label>
                             <input type="text" name="tujuan" x-model="extracted.tujuan" required placeholder="Contoh: Pimpinan PT Pegadaian (Persero)" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">C.q. / Penerima Khusus</label>
+                            <input type="text" name="cq" x-model="extracted.cq" placeholder="Contoh: Kepala Bagian Umum / SDM" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none shadow-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Pejabat / Pimpinan</label>

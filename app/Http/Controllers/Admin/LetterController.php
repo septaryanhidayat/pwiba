@@ -22,6 +22,7 @@ class LetterController extends Controller
             $query->where(function ($q) use ($s) {
                 $q->where('nomor_surat', 'like', "%{$s}%")
                     ->orWhere('tujuan', 'like', "%{$s}%")
+                    ->orWhere('cq', 'like', "%{$s}%")
                     ->orWhere('keperluan', 'like', "%{$s}%")
                     ->orWhere('jenis_surat', 'like', "%{$s}%")
                     ->orWhere('nama_pejabat', 'like', "%{$s}%");
@@ -78,6 +79,7 @@ class LetterController extends Controller
             'tanggal' => 'required|date',
             'jenis_surat' => 'required|string',
             'tujuan' => 'nullable|string',
+            'cq' => 'nullable|string|max:255',
             'keperluan' => 'nullable|string',
             'perihal' => 'nullable|string|max:500',
             'tempat_tujuan' => 'nullable|string|max:255',
@@ -101,6 +103,7 @@ class LetterController extends Controller
         $data['status'] = $request->input('status', 'published');
         $data['tempat_tujuan'] = $request->filled('tempat_tujuan') ? $request->tempat_tujuan : 'Di Tempat';
         $data['tembusan'] = $request->filled('tembusan') ? $request->tembusan : '1. Arsip.';
+        $data['cq'] = $request->filled('cq') ? $request->cq : null;
 
         // Standardize tujuan and keperluan based on letter type
         if ($request->jenis_surat === 'SURAT TUGAS') {
@@ -121,7 +124,11 @@ class LetterController extends Controller
             $data['file_dokumen'] = $request->file('file_dokumen')->store('letters', 'public');
         }
 
-        $letter = Letter::create($data);
+        try {
+            $letter = Letter::create($data);
+        } catch (\Throwable $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan surat: '.$e->getMessage());
+        }
 
         $msg = $letter->status === 'draft'
             ? "Draft surat {$letter->nomor_surat} berhasil disimpan."
@@ -147,6 +154,7 @@ class LetterController extends Controller
             'tanggal' => 'required|date',
             'jenis_surat' => 'required|string',
             'tujuan' => 'nullable|string',
+            'cq' => 'nullable|string|max:255',
             'keperluan' => 'nullable|string',
             'perihal' => 'nullable|string|max:500',
             'tempat_tujuan' => 'nullable|string|max:255',
@@ -172,6 +180,10 @@ class LetterController extends Controller
             $data['status'] = $request->status;
         }
 
+        if ($request->has('cq')) {
+            $data['cq'] = $request->input('cq');
+        }
+
         if ($request->has('tembusan')) {
             $data['tembusan'] = $request->input('tembusan');
         }
@@ -191,7 +203,11 @@ class LetterController extends Controller
             $data['file_dokumen'] = $request->file('file_dokumen')->store('letters', 'public');
         }
 
-        $letter->update($data);
+        try {
+            $letter->update($data);
+        } catch (\Throwable $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui surat: '.$e->getMessage());
+        }
 
         $msg = $letter->status === 'draft'
             ? 'Draft surat keluar berhasil diperbarui.'
@@ -269,8 +285,9 @@ class LetterController extends Controller
             'jenis_surat' => 'nullable|string',
             'nomor_surat' => 'nullable|string',
             'tanggal' => 'nullable|date',
-            'perihal' => 'nullable|string|max:255',
-            'tujuan' => 'nullable|string|max:255',
+            'perihal' => 'nullable|string|max:500',
+            'tujuan' => 'nullable|string',
+            'cq' => 'nullable|string|max:255',
             'nama_pejabat' => 'nullable|string|max:255',
             'tempat_tujuan' => 'nullable|string|max:255',
             'alamat_tujuan' => 'nullable|string|max:255',
@@ -301,6 +318,7 @@ class LetterController extends Controller
         $tanggal = $request->filled('tanggal') ? $request->tanggal : ($extracted['tanggal'] ?? date('Y-m-d'));
         $perihal = $request->filled('perihal') ? $request->perihal : ($extracted['perihal'] ?? 'Surat Administrasi / Proposal');
         $tujuan = $request->filled('tujuan') ? $request->tujuan : ($extracted['tujuan'] ?? 'Mitra / Instansi Terkait');
+        $cq = $request->filled('cq') ? $request->cq : ($extracted['cq'] ?? null);
         $tempatTujuan = $request->filled('tempat_tujuan') ? $request->tempat_tujuan : ($extracted['tempat_tujuan'] ?? 'Di Tempat');
         $namaPejabat = $request->filled('nama_pejabat') ? $request->nama_pejabat : ($extracted['nama_pejabat'] ?? null);
         $alamatTujuan = $request->filled('alamat_tujuan') ? $request->alamat_tujuan : ($extracted['alamat_tujuan'] ?? null);
@@ -319,6 +337,7 @@ class LetterController extends Controller
             'perihal' => $perihal,
             'keperluan' => $perihal,
             'tujuan' => $tujuan,
+            'cq' => $cq,
             'tempat_tujuan' => $tempatTujuan,
             'nama_pejabat' => $namaPejabat,
             'alamat_tujuan' => $alamatTujuan,

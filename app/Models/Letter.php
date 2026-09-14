@@ -18,6 +18,7 @@ class Letter extends Model
         'jenis_surat',
         'member_id',
         'tujuan',
+        'cq',
         'keperluan',
         'perihal',
         'tempat_tujuan',

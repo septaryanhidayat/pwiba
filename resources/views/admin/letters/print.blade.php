@@ -601,6 +601,9 @@
         <div style="margin-bottom: 18px; line-height: 1.45;">
             <div>Kepada Yth.</div>
             <div style="font-weight: bold;">{!! nl2br(e($letter->tujuan)) !!}</div>
+            @if($letter->cq)
+                <div>{!! \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'c.q.') || \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'cq.') ? e($letter->cq) : 'c.q. ' . e($letter->cq) !!}</div>
+            @endif
             @if($letter->nama_pejabat && !str_contains(strtolower($letter->tujuan), strtolower($letter->nama_pejabat)))
                 <div style="font-weight: bold;">{{ $letter->nama_pejabat }}</div>
             @endif
