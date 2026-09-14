@@ -932,18 +932,18 @@ class DocumentConverterService
 
         $headerXml = '
         <w:p>
-            <w:pPr><w:jc w:val="center"/><w:spacing w:before="360" w:after="40"/></w:pPr>
+            <w:pPr><w:jc w:val="center"/><w:keepNext/><w:spacing w:before="360" w:after="40"/></w:pPr>
             <w:r><w:t>Hormat kami,</w:t></w:r>
         </w:p>
         <w:p>
-            <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="160"/></w:pPr>
+            <w:pPr><w:jc w:val="center"/><w:keepNext/><w:spacing w:before="0" w:after="160"/></w:pPr>
             <w:r><w:b/><w:t>Pengurus PWI Banyuasin</w:t></w:r>
         </w:p>';
 
         if ($isKhusus) {
             return $headerXml.'
             <w:p>
-                <w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="40"/></w:pPr>
+                <w:pPr><w:jc w:val="center"/><w:keepNext/><w:spacing w:before="600" w:after="40"/></w:pPr>
                 <w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r>
             </w:p>
             <w:p>
@@ -966,6 +966,7 @@ class DocumentConverterService
                 <w:gridCol w:w="4000"/>
             </w:tblGrid>
             <w:tr>
+                <w:trPr><w:cantSplit/></w:trPr>
                 <w:tc>
                     <w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr>
                     <w:p>
@@ -1006,6 +1007,7 @@ class DocumentConverterService
         $xml = '
         <w:p>
             <w:pPr>
+                <w:keepNext/>
                 <w:spacing w:before="240" w:after="40"/>
             </w:pPr>
             <w:r>

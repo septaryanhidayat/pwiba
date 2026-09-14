@@ -9,8 +9,25 @@
     <style id="dynamic-paper-style">
         @page {
             size: A4 portrait;
-            margin: 0 !important;
+            margin-top: 25mm;
+            margin-bottom: 20mm;
+            margin-left: 0;
+            margin-right: 0;
+            @bottom-center {
+                content: "- " counter(page) " -";
+                font-family: "Times New Roman", Times, serif;
+                font-size: 10pt;
+            }
+        }
+        @page :first {
+            margin-top: 0 !important;
+            margin-bottom: 16mm;
+            margin-left: 0;
+            margin-right: 0;
             /* margin: 0.5cm */
+            @bottom-center {
+                content: none;
+            }
         }
     </style>
     <style>
@@ -37,6 +54,21 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             position: relative;
             transition: width 0.2s, min-height 0.2s;
+        }
+        .page-sheet.density-compact {
+            font-size: 10.5pt;
+        }
+        .page-sheet.density-compact .letter-content {
+            line-height: 1.42 !important;
+        }
+        .page-sheet.density-compact .letter-content p {
+            margin-bottom: 6px !important;
+        }
+        .page-sheet.density-compact .signature-section {
+            margin-top: 12px !important;
+        }
+        .page-sheet.density-compact .tembusan-section {
+            margin-top: 10px !important;
         }
         .kop-header {
             margin: -0.5cm -18mm 18px -18mm;
@@ -137,23 +169,33 @@
             text-align: justify;
             text-justify: inter-word;
             font-size: 11pt;
-            line-height: 1.55;
-            margin-top: 14px;
+            line-height: 1.5;
+            margin-top: 12px;
         }
         .letter-content p {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-indent: 0;
         }
+        .letter-content p:last-child {
+            margin-bottom: 0 !important;
+            page-break-after: avoid !important;
+            break-after: avoid !important;
+        }
+        .closing-and-signature-block {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
         .signature-section {
-            margin: 24px auto 0 auto;
+            margin: 18px auto 0 auto;
             max-width: 420px;
             width: 100%;
             text-align: center;
-            page-break-inside: avoid;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
         }
         .signature-table {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .signature-table td {
             text-align: center;
@@ -164,7 +206,7 @@
         }
         .signature-single {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 11pt;
         }
         .official-name {
@@ -175,11 +217,12 @@
             font-size: 11pt;
         }
         .tembusan-section {
-            margin-top: 24px;
+            margin-top: 16px;
             font-size: 10pt;
             line-height: 1.4;
             text-align: left;
-            page-break-inside: avoid;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
         }
 
         /* Toolbar Top Style */
@@ -254,25 +297,50 @@
                 background: #fff !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                font-size: 11pt !important;
+                font-size: 10.5pt !important;
             }
             .page-sheet {
                 width: 100% !important;
                 min-height: auto !important;
                 margin: 0 !important;
-                padding: 0 0 14mm 0 !important;
+                padding: 0 !important;
                 box-shadow: none !important;
                 border: none !important;
             }
+            .page-sheet.density-compact {
+                font-size: 10pt !important;
+            }
+            .page-sheet.density-compact .kop-header {
+                margin: 0 0 10px 0 !important;
+            }
+            .page-sheet.density-compact .kop-box {
+                padding: 8px 16px 6px 16px !important;
+            }
+            .page-sheet.density-compact .kop-logo {
+                width: 2.7cm !important;
+                height: 2.43cm !important;
+            }
+            .page-sheet.density-compact .letter-content {
+                line-height: 1.4 !important;
+            }
+            .page-sheet.density-compact .letter-content p {
+                margin-bottom: 6px !important;
+            }
+            .page-sheet.density-compact .signature-section {
+                margin-top: 12px !important;
+            }
+            .page-sheet.density-compact .tembusan-section {
+                margin-top: 10px !important;
+            }
             .kop-header {
-                margin: 0 0 18px 0 !important;
+                margin: 0 0 12px 0 !important;
                 width: 100% !important;
                 display: block !important;
             }
             .kop-box {
                 background-color: #0B4DA2 !important;
                 color: #ffffff !important;
-                padding: 12px 20px 10px 20px !important;
+                padding: 10px 18px 8px 18px !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: space-between !important;
@@ -282,12 +350,12 @@
                 print-color-adjust: exact !important;
             }
             .kop-logo {
-                width: 3.18cm !important;
-                height: 2.86cm !important;
-                min-width: 3.18cm !important;
-                min-height: 2.86cm !important;
-                max-width: 3.18cm !important;
-                max-height: 2.86cm !important;
+                width: 3.0cm !important;
+                height: 2.7cm !important;
+                min-width: 3.0cm !important;
+                min-height: 2.7cm !important;
+                max-width: 3.0cm !important;
+                max-height: 2.7cm !important;
                 object-fit: contain !important;
                 flex-shrink: 0 !important;
                 display: block !important;
@@ -295,13 +363,13 @@
             .kop-titles {
                 text-align: right !important;
                 width: 100% !important;
-                margin-left: 20px !important;
+                margin-left: 18px !important;
                 min-width: 0 !important;
                 display: block !important;
             }
             .kop-title-1 {
                 font-family: 'Times New Roman', Times, serif !important;
-                font-size: 22pt !important;
+                font-size: 21pt !important;
                 font-weight: 700 !important;
                 letter-spacing: -0.2px !important;
                 margin: 0 !important;
@@ -312,10 +380,10 @@
             }
             .kop-title-2 {
                 font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 14pt !important;
+                font-size: 13.5pt !important;
                 font-weight: 700 !important;
                 letter-spacing: 0.2px !important;
-                margin: 3px 0 0 0 !important;
+                margin: 2px 0 0 0 !important;
                 line-height: 1.15 !important;
                 text-transform: uppercase !important;
                 color: #ffffff !important;
@@ -323,9 +391,9 @@
             }
             .kop-title-3 {
                 font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 13pt !important;
+                font-size: 12pt !important;
                 font-weight: 400 !important;
-                margin: 3px 0 0 0 !important;
+                margin: 2px 0 0 0 !important;
                 letter-spacing: 0.1px !important;
                 line-height: 1.15 !important;
                 color: #ffffff !important;
@@ -333,7 +401,7 @@
             }
             .kop-title-4 {
                 font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 13pt !important;
+                font-size: 12pt !important;
                 font-weight: 700 !important;
                 letter-spacing: 0.2px !important;
                 margin: 1px 0 0 0 !important;
@@ -344,11 +412,11 @@
             }
             .kop-address {
                 font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 9pt !important;
+                font-size: 8.5pt !important;
                 text-align: center !important;
                 font-weight: 700 !important;
                 line-height: 1.25 !important;
-                margin-top: 4px !important;
+                margin-top: 3px !important;
                 padding: 0 15px !important;
                 color: #000000 !important;
                 letter-spacing: -0.15px !important;
@@ -359,12 +427,40 @@
                 border-top: 2.5px solid #000 !important;
                 border-bottom: 1px solid #000 !important;
                 height: 3.5px !important;
-                margin-top: 4px !important;
-                margin-bottom: 18px !important;
+                margin-top: 3px !important;
+                margin-bottom: 14px !important;
                 display: block !important;
             }
             .letter-body {
                 padding: 0 18mm !important;
+            }
+            .letter-content {
+                text-align: justify !important;
+                line-height: 1.48 !important;
+                font-size: 10.5pt !important;
+                margin-top: 10px !important;
+            }
+            .letter-content p {
+                margin-bottom: 8px !important;
+            }
+            .letter-content p:last-child {
+                margin-bottom: 0 !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+            .closing-and-signature-block {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .signature-section {
+                margin: 16px auto 0 auto !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .tembusan-section {
+                margin-top: 14px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
         }
         @media screen and (max-width: 768px) {
@@ -457,6 +553,18 @@
             </div>
         </div>
 
+        <div class="control-paper-group">
+            <span class="control-paper-label">Tata Letak:</span>
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" id="btn-density-compact" onclick="setDensity('compact')" class="btn btn-primary btn-sm px-2.5 py-1 fw-bold" style="font-size: 11px;" title="Optimasi jarak agar surat 1 lembar pas tanpa tumpah ke halaman 2">
+                    <i class="fa-solid fa-compress me-1"></i> Pas 1 Hal
+                </button>
+                <button type="button" id="btn-density-normal" onclick="setDensity('normal')" class="btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold" style="font-size: 11px;" title="Jarak spasi normal">
+                    <i class="fa-solid fa-expand me-1"></i> Standar
+                </button>
+            </div>
+        </div>
+
         <a href="{{ route('admin.letters.export_docx', $letter->id) }}" class="btn btn-outline-primary btn-sm px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-2" style="font-size: 12px; white-space: nowrap;">
             <i class="fa-solid fa-file-word text-primary"></i> Unduh Word (.docx)
         </a>
@@ -471,7 +579,7 @@
 </div>
 
 <!-- Lembar Kertas Resmi -->
-<div class="page-sheet" id="printSheet">
+<div class="page-sheet density-compact" id="printSheet">
 
     @if($letter->status === 'draft')
         <div class="no-print alert alert-warning text-center py-2 px-3 mb-3 border border-warning" style="font-size: 11px; font-weight: 700; border-radius: 8px;">
@@ -661,15 +769,15 @@
         </div>
     @endif
 
-    <!-- Blok Tanda Tangan Resmi & QR Code Digital (Rata Tengah Sesuai Dokumen Resmi) -->
-    <div style="margin-top: 24px; page-break-inside: avoid;">
+    <!-- Blok Tanda Tangan Resmi & QR Code Digital (Menyatu dengan Tembusan dan Penutup) -->
+    <div class="closing-and-signature-block">
         <div class="signature-section">
             <div>Hormat kami,</div>
             <div style="font-weight: bold; margin-bottom: 4px;">Pengurus PWI Banyuasin</div>
 
             <!-- QR Code Digital Verification -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 6px 0;">
-                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 84, 'QR Code Verifikasi Keabsahan Surat') !!}
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 4px 0;">
+                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 76, 'QR Code Verifikasi Keabsahan Surat') !!}
                 <div style="font-size: 7pt; color: #475569; margin-top: 2px; font-style: italic;">
                     Pindai untuk validasi keabsahan dokumen digital
                 </div>
@@ -727,15 +835,31 @@
         if (size === 'legal') {
             sheet.style.width = '216mm';
             sheet.style.minHeight = '356mm';
-            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0 !important; }';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin-top: 25mm; margin-bottom: 20mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 10pt; } } @page :first { margin-top: 0 !important; margin-bottom: 16mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
             btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         } else {
             sheet.style.width = '210mm';
             sheet.style.minHeight = '297mm';
-            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0 !important; }';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin-top: 25mm; margin-bottom: 20mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 10pt; } } @page :first { margin-top: 0 !important; margin-bottom: 16mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
             btnA4.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
+        }
+    }
+
+    function setDensity(mode) {
+        const sheet = document.getElementById('printSheet');
+        const btnCompact = document.getElementById('btn-density-compact');
+        const btnNormal = document.getElementById('btn-density-normal');
+
+        if (mode === 'normal') {
+            sheet.classList.remove('density-compact');
+            btnNormal.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
+            btnCompact.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
+        } else {
+            sheet.classList.add('density-compact');
+            btnCompact.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
+            btnNormal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         }
     }
 </script>
