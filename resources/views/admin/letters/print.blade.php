@@ -9,19 +9,19 @@
     <style id="dynamic-paper-style">
         @page {
             size: A4 portrait;
-            margin-top: 25mm;
-            margin-bottom: 20mm;
+            margin-top: 18mm;
+            margin-bottom: 12mm;
             margin-left: 0;
             margin-right: 0;
             @bottom-center {
                 content: "- " counter(page) " -";
                 font-family: "Times New Roman", Times, serif;
-                font-size: 10pt;
+                font-size: 9.5pt;
             }
         }
         @page :first {
             margin-top: 0 !important;
-            margin-bottom: 16mm;
+            margin-bottom: 12mm;
             margin-left: 0;
             margin-right: 0;
             /* margin: 0.5cm */
@@ -428,37 +428,62 @@
                 border-bottom: 1px solid #000 !important;
                 height: 3.5px !important;
                 margin-top: 3px !important;
-                margin-bottom: 14px !important;
+                margin-bottom: 12px !important;
                 display: block !important;
             }
             .letter-body {
-                padding: 0 18mm !important;
+                padding: 0 16mm !important;
             }
             .letter-content {
                 text-align: justify !important;
-                line-height: 1.48 !important;
+                line-height: 1.45 !important;
                 font-size: 10.5pt !important;
-                margin-top: 10px !important;
+                margin-top: 8px !important;
             }
             .letter-content p {
-                margin-bottom: 8px !important;
+                margin-bottom: 6px !important;
             }
             .letter-content p:last-child {
                 margin-bottom: 0 !important;
                 page-break-after: avoid !important;
                 break-after: avoid !important;
             }
+            .proposal-content {
+                font-size: 10pt !important;
+                line-height: 1.4 !important;
+            }
+            .proposal-content table,
+            .letter-content table {
+                font-size: 9pt !important;
+                margin-bottom: 6px !important;
+            }
+            .proposal-content table th,
+            .proposal-content table td,
+            .letter-content table th,
+            .letter-content table td {
+                padding: 3px 5px !important;
+                line-height: 1.25 !important;
+            }
+            .proposal-content ul,
+            .letter-content ul {
+                margin-bottom: 6px !important;
+                line-height: 1.3 !important;
+                padding-left: 18px !important;
+            }
+            .proposal-content p {
+                margin-bottom: 5px !important;
+            }
             .closing-and-signature-block {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
             .signature-section {
-                margin: 16px auto 0 auto !important;
+                margin: 8px auto 0 auto !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
             .tembusan-section {
-                margin-top: 14px !important;
+                margin-top: 8px !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
@@ -578,6 +603,15 @@
     </div>
 </div>
 
+<div class="no-print" style="max-width: 1060px; width: calc(100% - 32px); margin: 0 auto 12px auto;">
+    <div class="alert alert-primary py-2 px-3 mb-0 d-flex align-items-center gap-2 shadow-sm" style="font-size: 12.5px; border-radius: 10px; border-left: 4px solid #0B4DA2;">
+        <i class="fa-solid fa-circle-info fa-lg text-primary flex-shrink-0"></i>
+        <div>
+            <strong>Petunjuk Cetak / Simpan PDF Bersih:</strong> Pada jendela cetak browser (Ctrl+P), klik <strong>Setelan Lainnya (More Settings)</strong> &rarr; <strong>HILANGKAN CENTANG</strong> pada pilihan <strong>"Header dan footer"</strong> agar tanggal, URL, dan judul halaman tidak ikut tercetak di atas dan bawah kertas.
+        </div>
+    </div>
+</div>
+
 <!-- Lembar Kertas Resmi -->
 <div class="page-sheet density-compact" id="printSheet">
 
@@ -663,14 +697,14 @@
 
     @elseif($letter->jenis_surat === 'PROPOSAL')
         <!-- Format Khusus Berkas Proposal Resmi -->
-        <div style="text-align: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #0B4DA2;">
-            <div style="font-size: 15pt; font-weight: bold; text-decoration: underline; text-transform: uppercase; color: #0B4DA2;">PROPOSAL KEGIATAN</div>
-            <div style="font-size: 12pt; font-weight: bold; margin-top: 6px; color: #1e293b;">{{ $letter->perihal }}</div>
-            <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B4DA2;">{{ $letter->nomor_surat }}</span></div>
+        <div style="text-align: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #0B4DA2;">
+            <div style="font-size: 14pt; font-weight: bold; text-decoration: underline; text-transform: uppercase; color: #0B4DA2;">PROPOSAL KEGIATAN</div>
+            <div style="font-size: 11pt; font-weight: bold; margin-top: 4px; color: #1e293b;">{{ $letter->perihal }}</div>
+            <div style="font-size: 9pt; color: #64748b; margin-top: 2px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B4DA2;">{{ $letter->nomor_surat }}</span></div>
         </div>
 
         @if($letter->tujuan)
-        <div style="margin-bottom: 18px; line-height: 1.45; font-size: 11pt;">
+        <div style="margin-bottom: 8px; line-height: 1.35; font-size: 10.5pt;">
             <div>Kepada Yth.</div>
             @php
                 $tujuanFormattedProp = $letter->tujuan ?? '';
@@ -690,7 +724,7 @@
         </div>
         @endif
 
-        <div class="letter-content" style="text-align: justify; line-height: 1.6; font-size: 11pt;">
+        <div class="letter-content proposal-content" style="text-align: justify; line-height: 1.45; font-size: 10.5pt;">
             {!! \Illuminate\Support\Str::contains($letter->isi_surat, '<') ? $letter->isi_surat : nl2br(e($letter->isi_surat)) !!}
         </div>
 
@@ -776,8 +810,8 @@
             <div style="font-weight: bold; margin-bottom: 4px;">Pengurus PWI Banyuasin</div>
 
             <!-- QR Code Digital Verification -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 4px 0;">
-                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 76, 'QR Code Verifikasi Keabsahan Surat') !!}
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2px 0;">
+                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 62, 'QR Code Verifikasi Keabsahan Surat') !!}
                 <div style="font-size: 7pt; color: #475569; margin-top: 2px; font-style: italic;">
                     Pindai untuk validasi keabsahan dokumen digital
                 </div>
@@ -835,13 +869,13 @@
         if (size === 'legal') {
             sheet.style.width = '216mm';
             sheet.style.minHeight = '356mm';
-            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin-top: 25mm; margin-bottom: 20mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 10pt; } } @page :first { margin-top: 0 !important; margin-bottom: 16mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin-top: 18mm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin-top: 0 !important; margin-bottom: 12mm; margin-left: 0; margin-right: 0; /* margin: 0.5cm */ @bottom-center { content: none; } }';
             btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         } else {
             sheet.style.width = '210mm';
             sheet.style.minHeight = '297mm';
-            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin-top: 25mm; margin-bottom: 20mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 10pt; } } @page :first { margin-top: 0 !important; margin-bottom: 16mm; margin-left: 0; margin-right: 0; @bottom-center { content: none; } }';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin-top: 18mm; margin-bottom: 12mm; margin-left: 0; margin-right: 0; @bottom-center { content: "- " counter(page) " -"; font-family: "Times New Roman", Times, serif; font-size: 9.5pt; } } @page :first { margin-top: 0 !important; margin-bottom: 12mm; margin-left: 0; margin-right: 0; /* margin: 0.5cm */ @bottom-center { content: none; } }';
             btnA4.className = 'btn btn-primary btn-sm px-2.5 py-1 fw-bold';
             btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         }
@@ -862,6 +896,17 @@
             btnNormal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-1 fw-bold';
         }
     }
+
+    // Hilangkan watermark judul pada header cetak browser
+    window.addEventListener('beforeprint', function() {
+        window.__origDocTitle = document.title;
+        document.title = '';
+    });
+    window.addEventListener('afterprint', function() {
+        if (window.__origDocTitle) {
+            document.title = window.__origDocTitle;
+        }
+    });
 </script>
 </body>
 </html>
