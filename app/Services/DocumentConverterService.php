@@ -286,6 +286,7 @@ class DocumentConverterService
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
     <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
     <Default Extension="xml" ContentType="application/xml"/>
+    <Default Extension="png" ContentType="image/png"/>
     <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
     <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
 </Types>';
@@ -302,14 +303,21 @@ class DocumentConverterService
         $docRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
     <Relationship Id="rIdStyles" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    <Relationship Id="rIdLogo" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/image1.png"/>
 </Relationships>';
         $zip->addFromString('word/_rels/document.xml.rels', $docRels);
 
-        // 4. word/styles.xml
+        // 4. Logo image
+        $logoPath = public_path('assets/images/pwi-logo.png');
+        if (file_exists($logoPath)) {
+            $zip->addFile($logoPath, 'word/media/image1.png');
+        }
+
+        // 5. word/styles.xml
         $stylesXml = $this->buildStylesXml();
         $zip->addFromString('word/styles.xml', $stylesXml);
 
-        // 5. word/document.xml
+        // 6. word/document.xml
         $documentXml = $this->buildDocumentXml($letter);
         $zip->addFromString('word/document.xml', $documentXml);
 
@@ -378,12 +386,15 @@ class DocumentConverterService
 
         return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
-            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+            xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+            xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+            xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
     <w:body>
         '.$bodyContent.'
         <w:sectPr>
             <w:pgSz w:w="11906" w:h="16838"/>
-            <w:pgMar w:top="1134" w:right="1418" w:bottom="1418" w:left="1418"/>
+            <w:pgMar w:top="720" w:right="1020" w:bottom="1020" w:left="1020"/>
         </w:sectPr>
     </w:body>
 </w:document>';
@@ -395,76 +406,158 @@ class DocumentConverterService
     protected function buildKopSuratXml(): string
     {
         return '
+        <!-- Blue Box Table Kop Surat -->
+        <w:tbl>
+            <w:tblPr>
+                <w:tblW w:w="10666" w:type="dxa"/>
+                <w:tblInd w:w="-400" w:type="dxa"/>
+                <w:tblCellMar>
+                    <w:top w:w="100" w:type="dxa"/>
+                    <w:left w:w="60" w:type="dxa"/>
+                    <w:bottom w:w="100" w:type="dxa"/>
+                    <w:right w:w="60" w:type="dxa"/>
+                </w:tblCellMar>
+                <w:tblBorders>
+                    <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
+                </w:tblBorders>
+            </w:tblPr>
+            <w:tblGrid>
+                <w:gridCol w:w="1850"/>
+                <w:gridCol w:w="8816"/>
+            </w:tblGrid>
+            <w:tr>
+                <!-- Logo Cell: width 3.18cm, height 2.86cm -->
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="1850" w:type="dxa"/>
+                        <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p>
+                        <w:pPr>
+                            <w:jc w:val="center"/>
+                            <w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>
+                        </w:pPr>
+                        <w:r>
+                            <w:drawing>
+                                <wp:inline distT="0" distB="0" distL="0" distR="0">
+                                    <wp:extent cx="1144800" cy="1029600"/>
+                                    <wp:effectExtent l="0" t="0" r="0" b="0"/>
+                                    <wp:docPr id="1" name="Logo PWI"/>
+                                    <wp:cNvGraphicFramePr>
+                                        <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+                                    </wp:cNvGraphicFramePr>
+                                    <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+                                        <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                                            <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                                                <pic:nvPicPr>
+                                                    <pic:cNvPr id="0" name="pwi-logo.png"/>
+                                                    <pic:cNvPicPr/>
+                                                </pic:nvPicPr>
+                                                <pic:blipFill>
+                                                    <a:blip r:embed="rIdLogo"/>
+                                                    <a:stretch>
+                                                        <a:fillRect/>
+                                                    </a:stretch>
+                                                </pic:blipFill>
+                                                <pic:spPr>
+                                                    <a:xfrm>
+                                                        <a:off x="0" y="0"/>
+                                                        <a:ext cx="1144800" cy="1029600"/>
+                                                    </a:xfrm>
+                                                    <a:prstGeom prst="rect">
+                                                        <a:avLst/>
+                                                    </a:prstGeom>
+                                                </pic:spPr>
+                                            </pic:pic>
+                                        </a:graphicData>
+                                    </a:graphic>
+                                </wp:inline>
+                            </w:drawing>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+                <!-- Text Cell: TNR 22pt, Arial 14pt, Arial 13pt, Arial 13pt -->
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="8816" w:type="dxa"/>
+                        <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p>
+                        <w:pPr>
+                            <w:jc w:val="right"/>
+                            <w:spacing w:before="0" w:after="20" w:line="240" w:lineRule="auto"/>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>
+                                <w:b/>
+                                <w:sz w:val="44"/>
+                                <w:szCs w:val="44"/>
+                                <w:color w:val="FFFFFF"/>
+                                <w:spacing w:val="-2"/>
+                            </w:rPr>
+                            <w:t>PERSATUAN WARTAWAN INDONESIA</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p>
+                        <w:pPr>
+                            <w:jc w:val="right"/>
+                            <w:spacing w:before="0" w:after="20" w:line="240" w:lineRule="auto"/>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+                                <w:b/>
+                                <w:sz w:val="28"/>
+                                <w:szCs w:val="28"/>
+                                <w:color w:val="FFFFFF"/>
+                            </w:rPr>
+                            <w:t>PENGURUS KABUPATEN BANYUASIN</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p>
+                        <w:pPr>
+                            <w:jc w:val="right"/>
+                            <w:spacing w:before="0" w:after="10" w:line="220" w:lineRule="auto"/>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+                                <w:sz w:val="26"/>
+                                <w:szCs w:val="26"/>
+                                <w:color w:val="FFFFFF"/>
+                            </w:rPr>
+                            <w:t>Central Executive Board</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p>
+                        <w:pPr>
+                            <w:jc w:val="right"/>
+                            <w:spacing w:before="0" w:after="0" w:line="220" w:lineRule="auto"/>
+                        </w:pPr>
+                        <w:r>
+                            <w:rPr>
+                                <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+                                <w:b/>
+                                <w:sz w:val="26"/>
+                                <w:szCs w:val="26"/>
+                                <w:color w:val="FFFFFF"/>
+                            </w:rPr>
+                            <w:t>INDONESIAN JOURNALIST\'S ASSOCIATION</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+        </w:tbl>
+
+        <!-- Address Paragraph: Arial 9pt, bold, centered, single line -->
         <w:p>
             <w:pPr>
+                <w:ind w:left="-400" w:right="-400"/>
                 <w:jc w:val="center"/>
-                <w:spacing w:before="0" w:after="40" w:line="240" w:lineRule="auto"/>
-            </w:pPr>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>
-                    <w:b/>
-                    <w:sz w:val="44"/>
-                    <w:szCs w:val="44"/>
-                    <w:color w:val="0B4DA2"/>
-                </w:rPr>
-                <w:t>PERSATUAN WARTAWAN INDONESIA</w:t>
-            </w:r>
-        </w:p>
-        <w:p>
-            <w:pPr>
-                <w:jc w:val="center"/>
-                <w:spacing w:before="0" w:after="40" w:line="240" w:lineRule="auto"/>
-            </w:pPr>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-                    <w:b/>
-                    <w:sz w:val="28"/>
-                    <w:szCs w:val="28"/>
-                    <w:color w:val="0B4DA2"/>
-                </w:rPr>
-                <w:t>PENGURUS KABUPATEN BANYUASIN</w:t>
-            </w:r>
-        </w:p>
-        <w:p>
-            <w:pPr>
-                <w:jc w:val="center"/>
-                <w:spacing w:before="0" w:after="20" w:line="220" w:lineRule="auto"/>
-            </w:pPr>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-                    <w:sz w:val="26"/>
-                    <w:szCs w:val="26"/>
-                    <w:color w:val="0B4DA2"/>
-                </w:rPr>
-                <w:t>Central Executive Board</w:t>
-            </w:r>
-        </w:p>
-        <w:p>
-            <w:pPr>
-                <w:jc w:val="center"/>
-                <w:spacing w:before="0" w:after="40" w:line="220" w:lineRule="auto"/>
-            </w:pPr>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-                    <w:b/>
-                    <w:sz w:val="26"/>
-                    <w:szCs w:val="26"/>
-                    <w:color w:val="0B4DA2"/>
-                </w:rPr>
-                <w:t>INDONESIAN JOURNALIST\'S ASSOCIATION</w:t>
-            </w:r>
-        </w:p>
-        <w:p>
-            <w:pPr>
-                <w:jc w:val="center"/>
-                <w:spacing w:before="0" w:after="120" w:line="220" w:lineRule="auto"/>
-                <w:pBdr>
-                    <w:bottom w:val="double" w:sz="18" w:space="4" w:color="000000"/>
-                </w:pBdr>
+                <w:spacing w:before="60" w:after="40" w:line="220" w:lineRule="auto"/>
             </w:pPr>
             <w:r>
                 <w:rPr>
@@ -473,9 +566,23 @@ class DocumentConverterService
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                     <w:color w:val="000000"/>
+                    <w:spacing w:val="-3"/>
+                    <w:w w:val="93"/>
                 </w:rPr>
                 <w:t>Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)</w:t>
             </w:r>
+        </w:p>
+
+        <!-- Double Divider Line -->
+        <w:p>
+            <w:pPr>
+                <w:ind w:left="-400" w:right="-400"/>
+                <w:jc w:val="center"/>
+                <w:spacing w:before="0" w:after="240" w:line="220" w:lineRule="auto"/>
+                <w:pBdr>
+                    <w:bottom w:val="double" w:sz="18" w:space="4" w:color="000000"/>
+                </w:pBdr>
+            </w:pPr>
         </w:p>';
     }
 
@@ -495,38 +602,43 @@ class DocumentConverterService
         foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $letter->tujuan ?? '')) as $tujLine) {
             $tujLine = trim($tujLine);
             if ($tujLine !== '') {
-                $tujuanXml .= '<w:p><w:r><w:b/><w:t>'.htmlspecialchars($tujLine, ENT_XML1).'</w:t></w:r></w:p>';
+                $tujuanXml .= '<w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:b/><w:t>'.htmlspecialchars($tujLine, ENT_XML1).'</w:t></w:r></w:p>';
             }
         }
 
         $xml = '
         <w:tbl>
             <w:tblPr>
-                <w:tblW w:w="8500" w:type="dxa"/>
+                <w:tblW w:w="9866" w:type="dxa"/>
                 <w:tblBorders>
                     <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
                 </w:tblBorders>
             </w:tblPr>
+            <w:tblGrid>
+                <w:gridCol w:w="5600"/>
+                <w:gridCol w:w="4266"/>
+            </w:tblGrid>
             <w:tr>
                 <w:tc>
-                    <w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr>
-                    <w:p><w:r><w:t>Nomor    : '.$nomor.'</w:t></w:r></w:p>
-                    <w:p><w:r><w:t>Lampiran : '.$lampiran.'</w:t></w:r></w:p>
-                    <w:p><w:r><w:b/><w:t>Perihal    : '.$perihal.'</w:t></w:r></w:p>
+                    <w:tcPr><w:tcW w:w="5600" w:type="dxa"/></w:tcPr>
+                    <w:p><w:pPr><w:spacing w:before="0" w:after="30"/></w:pPr><w:r><w:t>Nomor    : '.$nomor.'</w:t></w:r></w:p>
+                    <w:p><w:pPr><w:spacing w:before="0" w:after="30"/></w:pPr><w:r><w:t>Lampiran : '.$lampiran.'</w:t></w:r></w:p>
+                    <w:p><w:pPr><w:spacing w:before="0" w:after="30"/></w:pPr><w:r><w:b/><w:t>Perihal    : '.$perihal.'</w:t></w:r></w:p>
                 </w:tc>
                 <w:tc>
-                    <w:tcPr><w:tcW w:w="4500" w:type="dxa"/></w:tcPr>
-                    <w:p><w:r><w:t>Pangkalan Balai, '.$tanggalFormatted.'</w:t></w:r></w:p>
-                    <w:p><w:r><w:t>Kepada Yth.</w:t></w:r></w:p>
-                    '.$tujuanXml.'
-                    '.($namaPejabat && ! str_contains(strtolower($letter->tujuan ?? ''), strtolower($namaPejabat)) ? '<w:p><w:r><w:b/><w:t>'.$namaPejabat.'</w:t></w:r></w:p>' : '').'
-                    <w:p><w:r><w:t>di -</w:t></w:r></w:p>
-                    <w:p><w:r><w:t>   '.$alamat.'</w:t></w:r></w:p>
+                    <w:tcPr><w:tcW w:w="4266" w:type="dxa"/></w:tcPr>
+                    <w:p><w:pPr><w:jc w:val="right"/><w:spacing w:before="0" w:after="30"/></w:pPr><w:r><w:t>Pangkalan Balai, '.$tanggalFormatted.'</w:t></w:r></w:p>
                 </w:tc>
             </w:tr>
         </w:tbl>
 
-        <w:p><w:pPr><w:spacing w:before="240" w:after="120"/></w:pPr><w:r><w:t>Dengan hormat,</w:t></w:r></w:p>
+        <w:p><w:pPr><w:spacing w:before="160" w:after="20"/></w:pPr><w:r><w:t>Kepada Yth.</w:t></w:r></w:p>
+        '.$tujuanXml.'
+        '.($namaPejabat && ! str_contains(strtolower($letter->tujuan ?? ''), strtolower($namaPejabat)) ? '<w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:b/><w:t>'.$namaPejabat.'</w:t></w:r></w:p>' : '').'
+        <w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:t>di -</w:t></w:r></w:p>
+        <w:p><w:pPr><w:ind w:left="360"/><w:spacing w:before="0" w:after="160"/></w:pPr><w:r><w:t>'.$alamat.'</w:t></w:r></w:p>
+
+        <w:p><w:pPr><w:spacing w:before="180" w:after="100"/></w:pPr><w:r><w:t>Dengan hormat,</w:t></w:r></w:p>
         ';
 
         $paragraphs = explode("\n", str_replace(["\r\n", "\r"], "\n", $letter->isi_surat ?? ''));
@@ -579,17 +691,19 @@ class DocumentConverterService
 
         <w:tbl>
             <w:tblPr><w:tblW w:w="8500" w:type="dxa"/><w:tblBorders><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders></w:tblPr>
+            <w:tblGrid><w:gridCol w:w="2500"/><w:gridCol w:w="300"/><w:gridCol w:w="5700"/></w:tblGrid>
             <w:tr><w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>Nama</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="300" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="5700" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>'.$namaMember.'</w:t></w:r></w:p></w:tc></w:tr>
-            <w:tr><w:tc><w:p><w:r><w:b/><w:t>Nomor KTA PWI</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>'.$kta.'</w:t></w:r></w:p></w:tc></w:tr>
-            <w:tr><w:tc><w:p><w:r><w:b/><w:t>Jabatan</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>'.$jabatan.'</w:t></w:r></w:p></w:tc></w:tr>
+            <w:tr><w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>Nomor KTA PWI</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="300" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="5700" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>'.$kta.'</w:t></w:r></w:p></w:tc></w:tr>
+            <w:tr><w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>Jabatan</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="300" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="5700" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>'.$jabatan.'</w:t></w:r></w:p></w:tc></w:tr>
         </w:tbl>
 
         <w:p><w:pPr><w:spacing w:before="180" w:after="100"/></w:pPr><w:r><w:t>Untuk melaksanakan tugas dan menghadiri:</w:t></w:r></w:p>
 
         <w:tbl>
             <w:tblPr><w:tblW w:w="8500" w:type="dxa"/><w:tblBorders><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders></w:tblPr>
+            <w:tblGrid><w:gridCol w:w="2500"/><w:gridCol w:w="300"/><w:gridCol w:w="5700"/></w:tblGrid>
             <w:tr><w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>Keperluan Tugas</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="300" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="5700" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>'.$keperluan.'</w:t></w:r></w:p></w:tc></w:tr>
-            <w:tr><w:tc><w:p><w:r><w:b/><w:t>Tujuan / Lokasi</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>'.$tujuan.'</w:t></w:r></w:p></w:tc></w:tr>
+            <w:tr><w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:b/><w:t>Tujuan / Lokasi</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="300" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>:</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW w:w="5700" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>'.$tujuan.'</w:t></w:r></w:p></w:tc></w:tr>
         </w:tbl>
 
         <w:p><w:pPr><w:spacing w:before="240" w:after="180"/><w:jc w:val="both"/></w:pPr><w:r><w:t>Demikian Surat Perintah Tugas ini dibuat dan diberikan untuk dapat dipergunakan sebagaimana mestinya dan dilaksanakan dengan penuh rasa tanggung jawab.</w:t></w:r></w:p>';
@@ -611,7 +725,7 @@ class DocumentConverterService
         </w:p>
         <w:p>
             <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="60"/></w:pPr>
-            <w:r><w:rPr><w:b/><w:sz w:val="24"/><w:color w:val="0B2B68"/></w:rPr><w:t>'.$judul.'</w:t></w:r>
+            <w:r><w:rPr><w:b/><w:sz w:val="24"/><w:color w:val="0B4DA2"/></w:rPr><w:t>'.$judul.'</w:t></w:r>
         </w:p>
         <w:p>
             <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="240"/></w:pPr>
@@ -679,10 +793,43 @@ class DocumentConverterService
      */
     protected function convertHtmlTableToWordXml(string $tableHtml): string
     {
+        $rows = [];
+        $maxCols = 1;
+        if (preg_match_all('/<tr[^>]*>([\s\S]*?)<\/tr>/i', $tableHtml, $rowMatches)) {
+            foreach ($rowMatches[1] as $rowContent) {
+                if (preg_match_all('/<(?:td|th)[^>]*>([\s\S]*?)<\/(?:td|th)>/i', $rowContent, $cellMatches)) {
+                    $cellCount = count($cellMatches[1]);
+                    if ($cellCount > $maxCols) {
+                        $maxCols = $cellCount;
+                    }
+                    $rows[] = [
+                        'isHeader' => str_contains($rowContent, '<th') || str_contains($rowContent, '<thead>'),
+                        'cells' => $cellMatches[1],
+                    ];
+                }
+            }
+        }
+
+        $totalWidth = 9866;
+        $colWidth = (int) ($totalWidth / max(1, $maxCols));
+
+        $gridXml = '<w:tblGrid>';
+        for ($i = 0; $i < $maxCols; $i++) {
+            $gridXml .= '<w:gridCol w:w="'.$colWidth.'"/>';
+        }
+        $gridXml .= '</w:tblGrid>';
+
         $xml = '
         <w:tbl>
             <w:tblPr>
-                <w:tblW w:w="8500" w:type="dxa"/>
+                <w:tblW w:w="'.$totalWidth.'" w:type="dxa"/>
+                <w:jc w:val="center"/>
+                <w:tblCellMar>
+                    <w:top w:w="80" w:type="dxa"/>
+                    <w:left w:w="120" w:type="dxa"/>
+                    <w:bottom w:w="80" w:type="dxa"/>
+                    <w:right w:w="120" w:type="dxa"/>
+                </w:tblCellMar>
                 <w:tblBorders>
                     <w:top w:val="single" w:sz="8" w:space="0" w:color="334155"/>
                     <w:left w:val="single" w:sz="8" w:space="0" w:color="334155"/>
@@ -691,37 +838,44 @@ class DocumentConverterService
                     <w:insideH w:val="single" w:sz="6" w:space="0" w:color="94A3B8"/>
                     <w:insideV w:val="single" w:sz="6" w:space="0" w:color="94A3B8"/>
                 </w:tblBorders>
-            </w:tblPr>';
+            </w:tblPr>
+            '.$gridXml;
 
-        if (preg_match_all('/<tr[^>]*>([\s\S]*?)<\/tr>/i', $tableHtml, $rowMatches)) {
-            foreach ($rowMatches[1] as $rowContent) {
-                $xml .= '<w:tr>';
-                if (preg_match_all('/<(?:td|th)[^>]*>([\s\S]*?)<\/(?:td|th)>/i', $rowContent, $cellMatches)) {
-                    $cellCount = count($cellMatches[1]);
-                    $cellWidth = $cellCount > 0 ? (int) (8500 / $cellCount) : 1700;
+        foreach ($rows as $row) {
+            $xml .= '<w:tr>';
+            foreach ($row['cells'] as $cellHtml) {
+                $isCellBold = $row['isHeader'] || str_contains($cellHtml, '<strong>') || str_contains($cellHtml, '<b>');
+                $isCellHeader = $row['isHeader'];
+                $plainText = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $cellHtml));
+                $plainText = html_entity_decode($plainText, ENT_QUOTES | ENT_XML1, 'UTF-8');
 
-                    foreach ($cellMatches[1] as $cellHtml) {
-                        $isHeader = str_contains($rowContent, '<th') || str_contains($cellHtml, '<strong>') || str_contains($cellHtml, '<b>');
-                        $plainText = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $cellHtml));
-                        $plainText = html_entity_decode($plainText, ENT_QUOTES | ENT_XML1, 'UTF-8');
+                $xml .= '<w:tc>';
+                $xml .= '<w:tcPr>';
+                $xml .= '<w:tcW w:w="'.$colWidth.'" w:type="dxa"/>';
+                if ($isCellHeader) {
+                    $xml .= '<w:shd w:val="clear" w:color="auto" w:fill="F1F5F9"/>';
+                }
+                $xml .= '</w:tcPr>';
 
-                        $xml .= '<w:tc><w:tcPr><w:tcW w:w="'.$cellWidth.'" w:type="dxa"/></w:tcPr>';
-                        $hasText = false;
-                        foreach (explode("\n", $plainText) as $cellLine) {
-                            $cellLine = trim($cellLine);
-                            if ($cellLine !== '') {
-                                $hasText = true;
-                                $xml .= '<w:p><w:r>'.($isHeader ? '<w:rPr><w:b/></w:rPr>' : '').'<w:t>'.htmlspecialchars($cellLine, ENT_XML1).'</w:t></w:r></w:p>';
-                            }
+                $lines = explode("\n", $plainText);
+                $hasText = false;
+                foreach ($lines as $line) {
+                    $line = trim($line);
+                    if ($line !== '') {
+                        $hasText = true;
+                        $xml .= '<w:p><w:pPr><w:spacing w:before="20" w:after="20"/></w:pPr><w:r>';
+                        if ($isCellBold) {
+                            $xml .= '<w:rPr><w:b/></w:rPr>';
                         }
-                        if (! $hasText) {
-                            $xml .= '<w:p><w:r><w:t></w:t></w:r></w:p>';
-                        }
-                        $xml .= '</w:tc>';
+                        $xml .= '<w:t>'.htmlspecialchars($line, ENT_XML1).'</w:t></w:r></w:p>';
                     }
                 }
-                $xml .= '</w:tr>';
+                if (! $hasText) {
+                    $xml .= '<w:p><w:r><w:t></w:t></w:r></w:p>';
+                }
+                $xml .= '</w:tc>';
             }
+            $xml .= '</w:tr>';
         }
 
         $xml .= '</w:tbl>';
@@ -738,46 +892,63 @@ class DocumentConverterService
         $sekretaris = htmlspecialchars($letter->penandatangan_sekretaris ?? 'Deni Arianto', ENT_XML1);
         $isKhusus = ($letter->jenis_surat === 'SURAT KHUSUS' || empty($letter->penandatangan_sekretaris));
 
+        $headerXml = '
+        <w:p>
+            <w:pPr><w:jc w:val="center"/><w:spacing w:before="360" w:after="40"/></w:pPr>
+            <w:r><w:t>Hormat kami,</w:t></w:r>
+        </w:p>
+        <w:p>
+            <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="160"/></w:pPr>
+            <w:r><w:b/><w:t>Pengurus PWI Banyuasin</w:t></w:r>
+        </w:p>';
+
         if ($isKhusus) {
-            $ttdBlock = '
-            <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r></w:p>
-            <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Ketua</w:t></w:r></w:p>';
-        } else {
-            $ttdBlock = '
-            <w:tbl>
-                <w:tblPr><w:tblW w:w="5200" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders></w:tblPr>
-                <w:tr>
-                    <w:tc>
-                        <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
-                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r></w:p>
-                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Ketua</w:t></w:r></w:p>
-                    </w:tc>
-                    <w:tc>
-                        <w:tcPr><w:tcW w:w="2600" w:type="dxa"/></w:tcPr>
-                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:u w:val="single"/><w:t>'.$sekretaris.'</w:t></w:r></w:p>
-                        <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Sekretaris</w:t></w:r></w:p>
-                    </w:tc>
-                </w:tr>
-            </w:tbl>';
+            return $headerXml.'
+            <w:p>
+                <w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="40"/></w:pPr>
+                <w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r>
+            </w:p>
+            <w:p>
+                <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="120"/></w:pPr>
+                <w:r><w:t>Ketua</w:t></w:r>
+            </w:p>';
         }
 
-        return '
-        <w:p><w:pPr><w:spacing w:before="360" w:after="60"/></w:pPr></w:p>
+        return $headerXml.'
         <w:tbl>
             <w:tblPr>
-                <w:tblW w:w="9200" w:type="dxa"/>
+                <w:tblW w:w="8000" w:type="dxa"/>
                 <w:jc w:val="center"/>
                 <w:tblBorders>
                     <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
                 </w:tblBorders>
             </w:tblPr>
+            <w:tblGrid>
+                <w:gridCol w:w="4000"/>
+                <w:gridCol w:w="4000"/>
+            </w:tblGrid>
             <w:tr>
                 <w:tc>
-                    <w:tcPr><w:tcW w:w="9200" w:type="dxa"/></w:tcPr>
-                    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>Hormat kami,</w:t></w:r></w:p>
-                    <w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:b/><w:t>Pengurus PWI Banyuasin</w:t></w:r></w:p>
-                    <w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="0"/></w:pPr></w:p>
-                    '.$ttdBlock.'
+                    <w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr>
+                    <w:p>
+                        <w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="40"/></w:pPr>
+                        <w:r><w:b/><w:u w:val="single"/><w:t>'.$ketua.'</w:t></w:r>
+                    </w:p>
+                    <w:p>
+                        <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="120"/></w:pPr>
+                        <w:r><w:t>Ketua</w:t></w:r>
+                    </w:p>
+                </w:tc>
+                <w:tc>
+                    <w:tcPr><w:tcW w:w="4000" w:type="dxa"/></w:tcPr>
+                    <w:p>
+                        <w:pPr><w:jc w:val="center"/><w:spacing w:before="600" w:after="40"/></w:pPr>
+                        <w:r><w:b/><w:u w:val="single"/><w:t>'.$sekretaris.'</w:t></w:r>
+                    </w:p>
+                    <w:p>
+                        <w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="120"/></w:pPr>
+                        <w:r><w:t>Sekretaris</w:t></w:r>
+                    </w:p>
                 </w:tc>
             </w:tr>
         </w:tbl>';

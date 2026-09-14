@@ -104,6 +104,17 @@ class LetterConversionTest extends TestCase
         $this->assertStringContainsString('w:sz w:val="18"', $docXml); // 9pt Arial
         $this->assertStringContainsString('Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)', $docXml);
         $this->assertStringContainsString('102/PWI-BA/IX/2026', $docXml);
+
+        // Verify logo and relationships
+        $relsXml = $zip->getFromName('word/_rels/document.xml.rels');
+        $this->assertNotEmpty($relsXml);
+        $this->assertStringContainsString('rIdLogo', $relsXml);
+        $this->assertNotNull($zip->getFromName('word/media/image1.png'));
+
+        // Verify tblGrid compliance
+        $this->assertStringContainsString('<w:tblGrid>', $docXml);
+        $this->assertStringContainsString('w:fill="0B4DA2"', $docXml);
+
         $zip->close();
         @unlink($tempPath);
     }
