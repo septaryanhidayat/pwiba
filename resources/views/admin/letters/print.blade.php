@@ -561,6 +561,27 @@
             <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Nomor Register Dokumen: <span style="font-family: monospace; font-weight: bold; color: #0B4DA2;">{{ $letter->nomor_surat }}</span></div>
         </div>
 
+        @if($letter->tujuan)
+        <div style="margin-bottom: 18px; line-height: 1.45; font-size: 11pt;">
+            <div>Kepada Yth.</div>
+            @php
+                $tujuanFormattedProp = $letter->tujuan ?? '';
+                if (!str_contains($tujuanFormattedProp, "\n") && preg_match('/[1-9]\.\s+/', $tujuanFormattedProp)) {
+                    $tujuanFormattedProp = preg_replace('/\s+([0-9]+\.\s+)/', "\n$1", $tujuanFormattedProp);
+                }
+            @endphp
+            <div style="font-weight: bold;">{!! nl2br(e($tujuanFormattedProp)) !!}</div>
+            @if($letter->cq)
+                <div>{!! \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'c.q.') || \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'cq.') ? e($letter->cq) : 'c.q. ' . e($letter->cq) !!}</div>
+            @endif
+            @if($letter->nama_pejabat && !str_contains(strtolower($letter->tujuan), strtolower($letter->nama_pejabat)))
+                <div style="font-weight: bold;">{{ $letter->nama_pejabat }}</div>
+            @endif
+            <div>di -</div>
+            <div style="margin-left: 24px;">{{ $letter->tempat_tujuan ?? 'Tempat' }}</div>
+        </div>
+        @endif
+
         <div class="letter-content" style="text-align: justify; line-height: 1.6; font-size: 11pt;">
             {!! \Illuminate\Support\Str::contains($letter->isi_surat, '<') ? $letter->isi_surat : nl2br(e($letter->isi_surat)) !!}
         </div>
@@ -600,7 +621,13 @@
         <!-- Kolom Penerima / Tujuan Surat -->
         <div style="margin-bottom: 18px; line-height: 1.45;">
             <div>Kepada Yth.</div>
-            <div style="font-weight: bold;">{!! nl2br(e($letter->tujuan)) !!}</div>
+            @php
+                $tujuanFormatted = $letter->tujuan ?? '';
+                if (!str_contains($tujuanFormatted, "\n") && preg_match('/[1-9]\.\s+/', $tujuanFormatted)) {
+                    $tujuanFormatted = preg_replace('/\s+([0-9]+\.\s+)/', "\n$1", $tujuanFormatted);
+                }
+            @endphp
+            <div style="font-weight: bold;">{!! nl2br(e($tujuanFormatted)) !!}</div>
             @if($letter->cq)
                 <div>{!! \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'c.q.') || \Illuminate\Support\Str::startsWith(strtolower(trim($letter->cq)), 'cq.') ? e($letter->cq) : 'c.q. ' . e($letter->cq) !!}</div>
             @endif

@@ -629,7 +629,11 @@ class DocumentConverterService
         $alamat = htmlspecialchars($letter->tempat_tujuan ?? ($letter->alamat_tujuan ?? 'Di Tempat'), ENT_XML1);
 
         $tujuanXml = '';
-        foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $letter->tujuan ?? '')) as $tujLine) {
+        $tujuanRaw = $letter->tujuan ?? '';
+        if (! str_contains($tujuanRaw, "\n") && preg_match('/[1-9]\.\s+/', $tujuanRaw)) {
+            $tujuanRaw = preg_replace('/\s+([0-9]+\.\s+)/', "\n$1", $tujuanRaw);
+        }
+        foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $tujuanRaw)) as $tujLine) {
             $tujLine = trim($tujLine);
             if ($tujLine !== '') {
                 $tujuanXml .= '<w:p><w:pPr><w:spacing w:before="0" w:after="20"/></w:pPr><w:r><w:b/><w:t>'.htmlspecialchars($tujLine, ENT_XML1).'</w:t></w:r></w:p>';
