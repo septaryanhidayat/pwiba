@@ -181,19 +181,114 @@ class SpecialLetterTest extends TestCase
         $docxProposal->assertStatus(200);
     }
 
-    public function test_modals_have_responsive_pinned_buttons(): void
+    public function test_index_page_links_directly_to_full_page_create_for_all_letter_types(): void
     {
         $admin = User::first();
         $response = $this->actingAs($admin)->get(route('admin.letters.index'));
         $response->assertStatus(200);
 
-        // Check modal overlay and card styling
-        $response->assertSee('overflow-y-auto');
-        $response->assertSee('max-h-[90vh]');
-        $response->assertSee('Publish Surat');
-        $response->assertSee('Publish Surat Tugas');
-        $response->assertSee('Publish Surat Audensi');
-        $response->assertSee('Publish Surat Khusus');
-        $response->assertSee('Publish Proposal');
+        // Verify direct links to full-page create with letter types
+        $response->assertSee(route('admin.letters.create'));
+        $response->assertSee(route('admin.letters.create', ['jenis' => 'SURAT BIASA']));
+        $response->assertSee(route('admin.letters.create', ['jenis' => 'PROPOSAL']));
+        $response->assertSee(route('admin.letters.create', ['jenis' => 'SURAT KHUSUS']));
+        $response->assertSee(route('admin.letters.create', ['jenis' => 'SURAT TUGAS']));
+        $response->assertSee(route('admin.letters.create', ['jenis' => 'SURAT AUDENSI']));
+    }
+
+    public function test_create_letter_full_page_renders_complete_form_and_toolbar(): void
+    {
+        $admin = User::first();
+        $response = $this->actingAs($admin)->get(route('admin.letters.create', ['jenis' => 'SURAT KHUSUS']));
+        $response->assertStatus(200);
+
+        // Verify full-page components
+        $response->assertSee('Buat Surat Keluar Baru');
+        $response->assertSee('rich-editor');
+        $response->assertSee('tinymce');
+        $response->assertSee('SURAT BIASA');
+        $response->assertSee('PROPOSAL');
+        $response->assertSee('SURAT KHUSUS');
+        $response->assertSee('SURAT TUGAS');
+        $response->assertSee('SURAT AUDENSI');
+        $response->assertSee('Simpan sebagai Draft');
+        $response->assertSee('Publish / Terbitkan Surat');
+    }
+
+    public function test_edit_letter_full_page_renders_complete_form_and_toolbar(): void
+    {
+        $admin = User::first();
+        $letter = Letter::first();
+
+        $response = $this->actingAs($admin)->get(route('admin.letters.edit', $letter->id));
+        $response->assertStatus(200);
+
+        $response->assertSee('Edit Surat Keluar');
+        $response->assertSee('rich-editor');
+        $response->assertSee('tinymce');
+        $response->assertSee($letter->nomor_surat);
+    }
+
+    public function test_can_store_draft_and_published_from_full_page_form(): void
+    {
+        $admin = User::first();
+
+        // 1. Store as Draft
+        $resDraft = $this->actingAs($admin)->post(route('admin.letters.store'), [
+            'nomor_surat' => '102/PWI-BA/IX/2026',
+            'tanggal' => '2026-09-14',
+            'jenis_surat' => 'SURAT BIASA',
+            'perihal' => 'Draft Surat Kerjasama',
+            'tujuan' => 'Dinas Pendidikan Banyuasin',
+            'tempat_tujuan' => 'Pangkalan Balai',
+            'isi_surat' => '<p>Isi draft surat penting...</p>',
+            'status' => 'draft',
+        ]);
+        $resDraft->assertRedirect(route('admin.letters.index'));
+
+        $draft = Letter::where('nomor_surat', '102/PWI-BA/IX/2026')->first();
+        $this->assertNotNull($draft);
+        $this->assertEquals('draft', $draft->status);
+
+        // 2. Store as Published
+        $resPub = $this->actingAs($admin)->post(route('admin.letters.store'), [
+            'nomor_surat' => '103/PWI-PROP/IX/2026',
+            'tanggal' => '2026-09-14',
+            'jenis_surat' => 'PROPOSAL',
+            'perihal' => 'Proposal Kemitraan Publikasi',
+            'tujuan' => 'PT Semen Baturaja',
+            'tempat_tujuan' => 'Palembang',
+            'isi_surat' => '<p>Isi proposal kemitraan lengkap...</p>',
+            'status' => 'published',
+        ]);
+        $resPub->assertRedirect(route('admin.letters.index'));
+
+        $pub = Letter::where('nomor_surat', '103/PWI-PROP/IX/2026')->first();
+        $this->assertNotNull($pub);
+        $this->assertEquals('published', $pub->status);
+    }
+
+    public function test_can_update_letter_with_full_fields(): void
+    {
+        $admin = User::first();
+        $letter = Letter::where('nomor_surat', '099/PWI-SK/IX/2026')->first() ?? Letter::first();
+
+        $resUpdate = $this->actingAs($admin)->put(route('admin.letters.update', $letter->id), [
+            'nomor_surat' => $letter->nomor_surat,
+            'tanggal' => '2026-09-15',
+            'jenis_surat' => $letter->jenis_surat,
+            'perihal' => 'Perihal Terupdate',
+            'tujuan' => 'Instansi Terupdate',
+            'tempat_tujuan' => 'Kota Palembang',
+            'isi_surat' => '<p>Konten surat yang telah diedit secara visual.</p>',
+            'penandatangan_nama' => 'Wardoyo, S.I.Kom',
+            'status' => 'published',
+        ]);
+        $resUpdate->assertRedirect(route('admin.letters.index'));
+
+        $letter->refresh();
+        $this->assertEquals('Perihal Terupdate', $letter->perihal);
+        $this->assertEquals('Instansi Terupdate', $letter->tujuan);
+        $this->assertEquals('Kota Palembang', $letter->tempat_tujuan);
     }
 }

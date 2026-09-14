@@ -262,7 +262,7 @@
                         <i class="fa-solid fa-chevron-right text-[10px] transition-transform text-slate-400" :class="open ? 'rotate-90 text-amber-400' : ''"></i>
                     </button>
                     <div x-show="open" x-cloak class="pl-7 pr-2 py-1 space-y-1">
-                        <a href="{{ route('admin.letters.index') }}" class="block px-3 py-2 rounded-lg transition-colors {{ request()->routeIs('admin.letters.index') ? 'text-white bg-blue-700/60 font-bold border-l-2 border-amber-400 shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/10' }}">
+                        <a href="{{ route('admin.letters.index') }}" class="block px-3 py-2 rounded-lg transition-colors {{ request()->routeIs('admin.letters.*') ? 'text-white bg-blue-700/60 font-bold border-l-2 border-amber-400 shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/10' }}">
                             • Surat Keluar (Generator)
                         </a>
                         <a href="{{ route('admin.incoming-letters.index') }}" class="block px-3 py-2 rounded-lg transition-colors {{ request()->routeIs('admin.incoming-letters.index') ? 'text-white bg-blue-700/60 font-bold border-l-2 border-amber-400 shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/10' }}">

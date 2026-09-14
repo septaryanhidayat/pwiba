@@ -49,13 +49,26 @@ class LetterController extends Controller
 
     public function create(Request $request)
     {
-        $jenis = $request->get('jenis', 'SURAT BIASA');
+        $jenis = strtoupper($request->get('jenis', 'SURAT BIASA'));
+        if (! in_array($jenis, ['SURAT BIASA', 'PROPOSAL', 'SURAT KHUSUS', 'SURAT TUGAS', 'SURAT AUDENSI', 'SURAT AUDIENSI'])) {
+            $jenis = 'SURAT BIASA';
+        }
+
         $nomorSurat = Letter::generateNomorSurat($jenis);
         $generatedNumber = $nomorSurat;
         $defaultKetua = 'Wardoyo, S.I.Kom';
+        $defaultSekretaris = 'Deni Arianto';
         $members = Member::where('status', 'aktif')->orderBy('nama')->get();
 
-        return view('admin.letters.create', compact('jenis', 'nomorSurat', 'generatedNumber', 'defaultKetua', 'members'));
+        $nomorPerJenis = [
+            'SURAT BIASA' => Letter::generateNomorSurat('SURAT BIASA'),
+            'PROPOSAL' => Letter::generateNomorSurat('PROPOSAL'),
+            'SURAT KHUSUS' => Letter::generateNomorSurat('SURAT KHUSUS'),
+            'SURAT TUGAS' => Letter::generateNomorSurat('SURAT TUGAS'),
+            'SURAT AUDENSI' => Letter::generateNomorSurat('SURAT AUDENSI'),
+        ];
+
+        return view('admin.letters.create', compact('jenis', 'nomorSurat', 'generatedNumber', 'defaultKetua', 'defaultSekretaris', 'members', 'nomorPerJenis'));
     }
 
     public function store(Request $request)
@@ -64,19 +77,22 @@ class LetterController extends Controller
             'nomor_surat' => 'required|string|unique:letters,nomor_surat',
             'tanggal' => 'required|date',
             'jenis_surat' => 'required|string',
-            'tujuan' => 'nullable|string|max:255',
-            'keperluan' => 'nullable|string|max:255',
-            'perihal' => 'nullable|string|max:255',
+            'tujuan' => 'nullable|string',
+            'keperluan' => 'nullable|string',
+            'perihal' => 'nullable|string|max:500',
             'tempat_tujuan' => 'nullable|string|max:255',
             'nama_pejabat' => 'nullable|string|max:255',
             'jabatan_pejabat' => 'nullable|string|max:255',
             'alamat_tujuan' => 'nullable|string|max:255',
+            'lampiran' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date',
             'member_id' => 'nullable|exists:members,id',
             'isi_surat' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'penandatangan_nama' => 'nullable|string|max:255',
+            'penandatangan_sekretaris' => 'nullable|string|max:255',
             'status' => 'nullable|string|in:draft,published',
         ]);
 
@@ -86,17 +102,16 @@ class LetterController extends Controller
 
         // Standardize tujuan and keperluan based on letter type
         if ($request->jenis_surat === 'SURAT TUGAS') {
-            $member = Member::find($request->member_id);
-            $data['keperluan'] = $request->keperluan ?? 'Surat Tugas Peliputan / Kegiatan';
-            $data['tujuan'] = $request->tujuan ?? ($request->lokasi ?? 'Lokasi Tugas');
+            $data['keperluan'] = $request->filled('keperluan') ? $request->keperluan : 'Surat Tugas Peliputan / Kegiatan';
+            $data['tujuan'] = $request->filled('tujuan') ? $request->tujuan : ($request->lokasi ?? 'Lokasi Tugas');
         } elseif ($request->jenis_surat === 'SURAT KHUSUS') {
-            $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? 'Surat Khusus');
-            $data['tujuan'] = $request->tujuan ?? ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
+            $data['keperluan'] = $request->filled('keperluan') ? $request->keperluan : ($request->perihal ?? 'Surat Khusus');
+            $data['tujuan'] = $request->filled('tujuan') ? $request->tujuan : ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
             $data['nama_pejabat'] = $request->nama_pejabat ?? null;
             $data['penandatangan_sekretaris'] = null;
         } elseif (in_array($request->jenis_surat, ['SURAT AUDENSI', 'PROPOSAL', 'SURAT BIASA'])) {
-            $data['keperluan'] = $request->perihal ?? ($request->keperluan ?? $request->jenis_surat);
-            $data['tujuan'] = $request->tujuan ?? ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
+            $data['keperluan'] = $request->filled('keperluan') ? $request->keperluan : ($request->perihal ?? $request->jenis_surat);
+            $data['tujuan'] = $request->filled('tujuan') ? $request->tujuan : ($request->jabatan_pejabat ?? ($request->nama_pejabat ?? 'Penerima'));
             $data['nama_pejabat'] = $request->nama_pejabat ?? null;
         }
 
@@ -129,19 +144,22 @@ class LetterController extends Controller
             'nomor_surat' => 'required|string|unique:letters,nomor_surat,'.$id,
             'tanggal' => 'required|date',
             'jenis_surat' => 'required|string',
-            'tujuan' => 'nullable|string|max:255',
-            'keperluan' => 'nullable|string|max:255',
-            'perihal' => 'nullable|string|max:255',
+            'tujuan' => 'nullable|string',
+            'keperluan' => 'nullable|string',
+            'perihal' => 'nullable|string|max:500',
             'tempat_tujuan' => 'nullable|string|max:255',
             'nama_pejabat' => 'nullable|string|max:255',
             'jabatan_pejabat' => 'nullable|string|max:255',
             'alamat_tujuan' => 'nullable|string|max:255',
+            'lampiran' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string|max:255',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date',
             'member_id' => 'nullable|exists:members,id',
             'isi_surat' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'penandatangan_nama' => 'nullable|string|max:255',
+            'penandatangan_sekretaris' => 'nullable|string|max:255',
             'status' => 'nullable|string|in:draft,published',
         ]);
 
