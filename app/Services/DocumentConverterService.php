@@ -412,14 +412,15 @@ class DocumentConverterService
                 <w:tblW w:w="10666" w:type="dxa"/>
                 <w:tblInd w:w="-400" w:type="dxa"/>
                 <w:tblCellMar>
-                    <w:top w:w="100" w:type="dxa"/>
+                    <w:top w:w="0" w:type="dxa"/>
                     <w:left w:w="60" w:type="dxa"/>
-                    <w:bottom w:w="100" w:type="dxa"/>
+                    <w:bottom w:w="0" w:type="dxa"/>
                     <w:right w:w="60" w:type="dxa"/>
                 </w:tblCellMar>
                 <w:tblBorders>
                     <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/><w:insideH w:val="none"/><w:insideV w:val="none"/>
                 </w:tblBorders>
+                <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
             </w:tblPr>
             <w:tblGrid>
                 <w:gridCol w:w="1850"/>
@@ -430,13 +431,23 @@ class DocumentConverterService
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="1850" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/>
+                        </w:tcBorders>
                         <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
+                        <w:tcMar>
+                            <w:top w:w="0" w:type="dxa"/>
+                            <w:left w:w="60" w:type="dxa"/>
+                            <w:bottom w:w="0" w:type="dxa"/>
+                            <w:right w:w="60" w:type="dxa"/>
+                        </w:tcMar>
                         <w:vAlign w:val="center"/>
                     </w:tcPr>
                     <w:p>
                         <w:pPr>
                             <w:jc w:val="center"/>
-                            <w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>
+                            <w:spacing w:before="60" w:after="60" w:line="240" w:lineRule="auto"/>
+                            <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
                         </w:pPr>
                         <w:r>
                             <w:drawing>
@@ -481,13 +492,23 @@ class DocumentConverterService
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="8816" w:type="dxa"/>
+                        <w:tcBorders>
+                            <w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/>
+                        </w:tcBorders>
                         <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
+                        <w:tcMar>
+                            <w:top w:w="0" w:type="dxa"/>
+                            <w:left w:w="60" w:type="dxa"/>
+                            <w:bottom w:w="0" w:type="dxa"/>
+                            <w:right w:w="60" w:type="dxa"/>
+                        </w:tcMar>
                         <w:vAlign w:val="center"/>
                     </w:tcPr>
                     <w:p>
                         <w:pPr>
                             <w:jc w:val="right"/>
-                            <w:spacing w:before="0" w:after="20" w:line="240" w:lineRule="auto"/>
+                            <w:spacing w:before="60" w:after="20" w:line="240" w:lineRule="auto"/>
+                            <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
@@ -505,6 +526,7 @@ class DocumentConverterService
                         <w:pPr>
                             <w:jc w:val="right"/>
                             <w:spacing w:before="0" w:after="20" w:line="240" w:lineRule="auto"/>
+                            <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
@@ -521,6 +543,7 @@ class DocumentConverterService
                         <w:pPr>
                             <w:jc w:val="right"/>
                             <w:spacing w:before="0" w:after="10" w:line="220" w:lineRule="auto"/>
+                            <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
@@ -535,7 +558,8 @@ class DocumentConverterService
                     <w:p>
                         <w:pPr>
                             <w:jc w:val="right"/>
-                            <w:spacing w:before="0" w:after="0" w:line="220" w:lineRule="auto"/>
+                            <w:spacing w:before="0" w:after="60" w:line="220" w:lineRule="auto"/>
+                            <w:shd w:val="clear" w:color="auto" w:fill="0B4DA2"/>
                         </w:pPr>
                         <w:r>
                             <w:rPr>
