@@ -225,6 +225,17 @@
             page-break-inside: avoid !important;
             break-inside: avoid !important;
         }
+        .letter-qr-image {
+            width: 1.5cm !important;
+            height: 2cm !important;
+            object-fit: fill !important;
+            border: 1px solid #e2e8f0;
+            padding: 2px;
+            background: #fff;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
+        }
 
         /* Toolbar Top Style */
         .control-toolbar {
@@ -812,7 +823,7 @@
 
             <!-- QR Code Digital Verification -->
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2px 0;">
-                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 62, 'QR Code Verifikasi Keabsahan Surat') !!}
+                {!! \App\Helpers\QrCodeHelper::image(route('letter.verify', $letter->uuid ?? $letter->id), 150, 'QR Code Verifikasi Keabsahan Surat', '1.5cm', '2cm', null, 'letter-qr-image') !!}
                 <div style="font-size: 7pt; color: #475569; margin-top: 2px; font-style: italic;">
                     Pindai untuk validasi keabsahan dokumen digital
                 </div>

@@ -80,10 +80,13 @@ class SpecialLetterTest extends TestCase
         $response->assertSee('font-size: 13pt', false);
         $response->assertSee('font-size: 9pt', false);
 
-        // Verify Center Signature Section
+        // Verify Center Signature Section & QR Code
         $response->assertSee('signature-section');
         $response->assertSee('Hormat kami,');
         $response->assertSee('Pengurus PWI Banyuasin');
+        $response->assertSee('letter-qr-image');
+        $response->assertSee('width: 1.5cm', false);
+        $response->assertSee('height: 2cm', false);
         $response->assertSee('signature-single');
         $response->assertSee('Wardoyo, S.I.Kom');
         $response->assertSee('Ketua');
@@ -344,5 +347,34 @@ class SpecialLetterTest extends TestCase
         $resPrint2 = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
         $resPrint2->assertStatus(200);
         $resPrint2->assertDontSee('Tembusan :');
+    }
+
+    public function test_letter_print_renders_qr_code_with_height_2cm_and_width_1_5cm(): void
+    {
+        $admin = User::first();
+
+        $letter = Letter::first();
+        if (! $letter) {
+            $letter = Letter::create([
+                'nomor_surat' => '050/PWI-BA/IV/2026',
+                'tanggal' => '2026-04-27',
+                'jenis_surat' => 'SURAT BIASA',
+                'perihal' => 'Pengujian Ukuran QR Code',
+                'tujuan' => 'Dinas Kominfo',
+                'isi_surat' => 'Isi surat uji coba QR code.',
+                'penandatangan_nama' => 'Wardoyo, S.I.Kom',
+                'penandatangan_sekretaris' => 'Deni Arianto',
+                'status' => 'published',
+            ]);
+        }
+
+        $response = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
+        $response->assertStatus(200);
+
+        // Verify QR Code dimensions: Width 1.5cm and Height 2cm
+        $response->assertSee('width: 1.5cm', false);
+        $response->assertSee('height: 2cm', false);
+        $response->assertSee('letter-qr-image', false);
+        $response->assertSee('Pindai untuk validasi keabsahan dokumen digital');
     }
 }
