@@ -80,12 +80,12 @@ class SpecialLetterTest extends TestCase
         $response->assertSee('font-size: 13pt', false);
         $response->assertSee('font-size: 9pt', false);
 
-        // Verify Center Signature Section & QR Code
+        // Verify Center Signature Section & QR Code (1:1 square ratio)
         $response->assertSee('signature-section');
         $response->assertSee('Hormat kami,');
         $response->assertSee('Pengurus PWI Banyuasin');
         $response->assertSee('letter-qr-image');
-        $response->assertSee('width: 1.5cm', false);
+        $response->assertSee('width: 2cm', false);
         $response->assertSee('height: 2cm', false);
         $response->assertSee('signature-single');
         $response->assertSee('Wardoyo, S.I.Kom');
@@ -349,7 +349,7 @@ class SpecialLetterTest extends TestCase
         $resPrint2->assertDontSee('Tembusan :');
     }
 
-    public function test_letter_print_renders_qr_code_with_height_2cm_and_width_1_5cm(): void
+    public function test_letter_print_renders_qr_code_with_square_ratio_1_to_1(): void
     {
         $admin = User::first();
 
@@ -371,8 +371,8 @@ class SpecialLetterTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.letters.print', $letter->id));
         $response->assertStatus(200);
 
-        // Verify QR Code dimensions: Width 1.5cm and Height 2cm
-        $response->assertSee('width: 1.5cm', false);
+        // Verify QR Code dimensions: 1:1 square ratio (Width 2cm and Height 2cm)
+        $response->assertSee('width: 2cm', false);
         $response->assertSee('height: 2cm', false);
         $response->assertSee('letter-qr-image', false);
         $response->assertSee('Pindai untuk validasi keabsahan dokumen digital');

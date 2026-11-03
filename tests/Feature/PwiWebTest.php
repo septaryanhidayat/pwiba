@@ -159,7 +159,16 @@ class PwiWebTest extends TestCase
         // Print
         $this->actingAs($admin)->get(route('admin.meetings.print', $meeting->id))
             ->assertStatus(200)
-            ->assertSee('BERITA ACARA', false);
+            ->assertSee('BERITA ACARA', false)
+            ->assertSee('kop-surat', false)
+            ->assertSee('PERSATUAN WARTAWAN INDONESIA', false)
+            ->assertSee('KABUPATEN BANYUASIN', false)
+            ->assertSee('Pemimpin Rapat,', false)
+            ->assertSee('Notulis Rapat,', false)
+            ->assertSee('Wardoyo, S.I.Kom', false)
+            ->assertSee('Deni Arianto', false)
+            ->assertSee('Ketua PWI Banyuasin', false)
+            ->assertSee('Sekretaris PWI Banyuasin', false);
     }
 
     public function test_admin_incoming_and_outgoing_letters(): void
@@ -649,6 +658,14 @@ class PwiWebTest extends TestCase
             $meetingPrint->assertSee('btn-paper-a4', false);
             $meetingPrint->assertSee('btn-paper-legal', false);
             $meetingPrint->assertSee('setPaperSize', false);
+            $meetingPrint->assertSee('kop-surat', false);
+            $meetingPrint->assertSee('kop-divider', false);
+            $meetingPrint->assertSee('Wardoyo, S.I.Kom', false);
+            $meetingPrint->assertSee('Deni Arianto', false);
+            $meetingPrint->assertSee('Ketua PWI Banyuasin', false);
+            $meetingPrint->assertSee('Sekretaris PWI Banyuasin', false);
+            // Verify that the signature name line does not contain duplicate raw parenthesized role
+            $meetingPrint->assertDontSee('Wardoyo, S.I.Kom (Ketua PWI)</div>', false);
         }
 
         // Check Members Print Report View

@@ -51,30 +51,73 @@
             position: relative;
             transition: width 0.2s, min-height 0.2s;
         }
+        .kop-wrapper {
+            margin-bottom: 16px;
+        }
         .kop-surat {
-            border-bottom: 3px double #000;
-            padding-bottom: 8px;
-            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 4px;
+        }
+        .kop-logo-box {
+            width: 85px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .kop-logo {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            display: block;
+        }
+        .kop-text-box {
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 10px;
+            min-width: 0;
         }
         .kop-title-main {
-            font-size: 16pt;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16.5pt;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             margin: 0;
-            line-height: 1.1;
+            line-height: 1.15;
+            text-transform: uppercase;
         }
         .kop-title-sub {
+            font-family: 'Times New Roman', Times, serif;
             font-size: 14pt;
             font-weight: bold;
-            margin: 0;
-            line-height: 1.2;
+            letter-spacing: 0.5px;
+            margin: 2px 0 0 0;
+            line-height: 1.15;
+            text-transform: uppercase;
         }
         .kop-address {
-            font-size: 8pt;
-            margin: 3px 0 0 0;
-            line-height: 1.2;
-            white-space: nowrap;
-            letter-spacing: -0.15px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 8.5pt;
+            margin: 4px 0 0 0;
+            line-height: 1.3;
+            color: #111;
+        }
+        .kop-contact {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 8.5pt;
+            margin: 1px 0 0 0;
+            line-height: 1.3;
+            color: #111;
+        }
+        .kop-divider {
+            border-top: 2.5px solid #000;
+            border-bottom: 1px solid #000;
+            height: 3.5px;
+            margin-top: 5px;
+            margin-bottom: 16px;
         }
         .section-title {
             font-size: 11pt;
@@ -149,19 +192,53 @@
 
 <div class="page-sheet" id="printSheet">
     
-    <!-- Kop Surat PWI -->
-    <div class="kop-surat d-flex align-items-center">
-        <div style="width: 80px; text-align: center;">
-            <img src="{{ asset('assets/images/pwi-logo.png') }}" alt="Logo PWI" width="75" height="75">
-        </div>
-        <div class="text-center flex-grow-1 px-2">
-            <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
-            <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
-            <div class="kop-address">
-                Sekretariat: {{ $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kel. Mulya Agung Kec. Banyuasin III' }} - Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}
+    @php
+        $pemimpinRaw = $meeting->pemimpin_rapat ?? 'Wardoyo, S.I.Kom';
+        $notulisRaw = $meeting->notulis ?? 'Deni Arianto';
+
+        // Bersihkan nama dari jabatan dalam kurung untuk tampilan nama yang rapi
+        preg_match('/^(.*?)(?:\s*\((.*?)\))?$/', $pemimpinRaw, $mPemimpin);
+        $pemimpinNama = !empty($mPemimpin[1]) ? trim($mPemimpin[1]) : $pemimpinRaw;
+        $pemimpinJabatan = !empty($mPemimpin[2]) ? trim($mPemimpin[2]) : 'Ketua PWI Banyuasin';
+        if (str_contains(strtolower($pemimpinJabatan), 'ketua') && !str_contains(strtolower($pemimpinJabatan), 'banyuasin')) {
+            $pemimpinJabatan .= ' Banyuasin';
+        }
+
+        preg_match('/^(.*?)(?:\s*\((.*?)\))?$/', $notulisRaw, $mNotulis);
+        $notulisNama = !empty($mNotulis[1]) ? trim($mNotulis[1]) : $notulisRaw;
+        $notulisJabatan = !empty($mNotulis[2]) ? trim($mNotulis[2]) : 'Sekretaris PWI Banyuasin';
+        if (str_contains(strtolower($notulisJabatan), 'sekretaris') && !str_contains(strtolower($notulisJabatan), 'banyuasin')) {
+            $notulisJabatan .= ' Banyuasin';
+        }
+
+        $alamatKantor = $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)';
+        if (!\Illuminate\Support\Str::startsWith($alamatKantor, 'Sekretariat:')) {
+            $alamatKantor = 'Sekretariat: ' . $alamatKantor;
+        }
+    @endphp
+
+    <!-- Kop Surat PWI Banyuasin -->
+    <div class="kop-wrapper">
+        <div class="kop-surat">
+            <div class="kop-logo-box">
+                <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.webp') }}" 
+                     alt="Logo PWI" 
+                     class="kop-logo" 
+                     onerror="this.onerror=null; this.src='{{ asset('assets/images/pwi-logo.png') }}';">
             </div>
+            <div class="kop-text-box">
+                <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
+                <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
+                <div class="kop-address">
+                    {{ $alamatKantor }}
+                </div>
+                <div class="kop-contact">
+                    Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}
+                </div>
+            </div>
+            <div class="kop-logo-box" aria-hidden="true"></div>
         </div>
-        <div style="width: 80px;"></div>
+        <div class="kop-divider"></div>
     </div>
 
     <!-- Title -->
@@ -190,12 +267,12 @@
         <tr>
             <td class="fw-bold">Pemimpin Rapat</td>
             <td>:</td>
-            <td>{{ $meeting->pemimpin_rapat }}</td>
+            <td>{{ $pemimpinNama }} ({{ $pemimpinJabatan }})</td>
         </tr>
         <tr>
             <td class="fw-bold">Notulis</td>
             <td>:</td>
-            <td>{{ $meeting->notulis }}</td>
+            <td>{{ $notulisNama }} ({{ $notulisJabatan }})</td>
         </tr>
     </table>
 
@@ -257,23 +334,23 @@
     </table>
 
     <!-- Tanda Tangan Resmi -->
-    <div class="row mt-4">
-        <div class="col-12 text-center mb-2">
+    <div class="row mt-4" style="page-break-inside: avoid; break-inside: avoid;">
+        <div class="col-12 text-center mb-2" style="font-size: 10.5pt;">
             Pangkalan Balai, {{ $meeting->tanggal ? $meeting->tanggal->translatedFormat('d F Y') : date('d F Y') }}
         </div>
         
         <div class="col-6 text-center mt-2">
-            <div>Pemimpin Rapat,</div>
-            <div style="height: 65px;"></div>
-            <div class="fw-bold text-decoration-underline">{{ $meeting->pemimpin_rapat }}</div>
-            <div>Ketua PWI Banyuasin</div>
+            <div style="font-size: 10.5pt;">Pemimpin Rapat,</div>
+            <div style="height: 60px;"></div>
+            <div class="fw-bold text-decoration-underline" style="font-size: 11pt;">{{ $pemimpinNama }}</div>
+            <div style="font-size: 10pt; margin-top: 3px;">{{ $pemimpinJabatan }}</div>
         </div>
 
         <div class="col-6 text-center mt-2">
-            <div>Notulis Rapat,</div>
-            <div style="height: 65px;"></div>
-            <div class="fw-bold text-decoration-underline">{{ $meeting->notulis }}</div>
-            <div>Sekretaris PWI Banyuasin</div>
+            <div style="font-size: 10.5pt;">Notulis Rapat,</div>
+            <div style="height: 60px;"></div>
+            <div class="fw-bold text-decoration-underline" style="font-size: 11pt;">{{ $notulisNama }}</div>
+            <div style="font-size: 10pt; margin-top: 3px;">{{ $notulisJabatan }}</div>
         </div>
     </div>
 

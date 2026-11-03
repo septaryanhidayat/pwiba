@@ -54,12 +54,12 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Pemimpin Rapat *</label>
-                    <input type="text" name="pemimpin_rapat" value="{{ old('pemimpin_rapat', 'Wardoyo, S.I.Kom (Ketua PWI)') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="pemimpin_rapat" value="{{ old('pemimpin_rapat', 'Wardoyo, S.I.Kom') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Notulis Rapat *</label>
-                    <input type="text" name="notulis" value="{{ old('notulis', 'Deni Arianto (Sekretaris PWI)') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
+                    <input type="text" name="notulis" value="{{ old('notulis', 'Deni Arianto') }}" required class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-600 outline-none shadow-sm">
                 </div>
 
                 <div class="md:col-span-2">
