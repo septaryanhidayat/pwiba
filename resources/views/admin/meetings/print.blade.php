@@ -8,7 +8,11 @@
     <style id="dynamic-paper-style">
         @page {
             size: A4 portrait;
-            margin: 0.5cm 15mm 15mm 15mm;
+            margin: 0.5cm 0 15mm 0;
+            margin-top: 0.5cm;
+            margin-bottom: 15mm;
+            margin-left: 0;
+            margin-right: 0;
         }
     </style>
     <style>
@@ -51,73 +55,95 @@
             position: relative;
             transition: width 0.2s, min-height 0.2s;
         }
-        .kop-wrapper {
-            margin-bottom: 16px;
+        .kop-header {
+            margin: -0.5cm -18mm 18px -18mm;
         }
-        .kop-surat {
+        .kop-box {
+            background-color: #0B4DA2 !important;
+            color: #ffffff !important;
+            border-radius: 0;
+            padding: 12px 20px 10px 20px;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            font-family: Arial, Helvetica, sans-serif;
             width: 100%;
-            padding-bottom: 4px;
-        }
-        .kop-logo-box {
-            width: 85px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-sizing: border-box;
         }
         .kop-logo {
-            width: 78px;
-            height: 78px;
+            width: 3.18cm;
+            height: 2.86cm;
             object-fit: contain;
-            display: block;
+            flex-shrink: 0;
         }
-        .kop-text-box {
-            flex-grow: 1;
-            text-align: center;
-            padding: 0 10px;
+        .kop-titles {
+            text-align: right;
+            width: 100%;
+            margin-left: 20px;
             min-width: 0;
         }
-        .kop-title-main {
+        .kop-title-1 {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 16.5pt;
-            font-weight: bold;
-            letter-spacing: 0.5px;
+            font-size: 22pt;
+            font-weight: 700;
+            letter-spacing: -0.2px;
             margin: 0;
-            line-height: 1.15;
+            line-height: 1.1;
             text-transform: uppercase;
+            color: #ffffff !important;
+            white-space: nowrap;
         }
-        .kop-title-sub {
-            font-family: 'Times New Roman', Times, serif;
+        .kop-title-2 {
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 14pt;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin: 2px 0 0 0;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            margin: 3px 0 0 0;
             line-height: 1.15;
             text-transform: uppercase;
+            color: #ffffff !important;
+            white-space: nowrap;
+        }
+        .kop-title-3 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13pt;
+            font-weight: 400;
+            margin: 3px 0 0 0;
+            letter-spacing: 0.1px;
+            line-height: 1.15;
+            color: #ffffff !important;
+            white-space: nowrap;
+        }
+        .kop-title-4 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13pt;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            margin: 1px 0 0 0;
+            text-transform: uppercase;
+            line-height: 1.15;
+            color: #ffffff !important;
+            white-space: nowrap;
         }
         .kop-address {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 8.5pt;
-            margin: 4px 0 0 0;
-            line-height: 1.3;
-            color: #111;
-        }
-        .kop-contact {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 8.5pt;
-            margin: 1px 0 0 0;
-            line-height: 1.3;
-            color: #111;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9pt;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 4px;
+            padding: 0 15px;
+            color: #000;
+            letter-spacing: -0.15px;
+            white-space: nowrap;
         }
         .kop-divider {
             border-top: 2.5px solid #000;
             border-bottom: 1px solid #000;
             height: 3.5px;
-            margin-top: 5px;
-            margin-bottom: 16px;
+            margin-top: 4px;
+            margin-bottom: 18px;
         }
         .section-title {
             font-size: 11pt;
@@ -157,6 +183,137 @@
             }
             .no-print {
                 display: none !important;
+            }
+            .kop-header {
+                margin: 0 0 12px 0 !important;
+                width: 100% !important;
+                display: block !important;
+            }
+            .kop-box {
+                background-color: #0B4DA2 !important;
+                color: #ffffff !important;
+                padding: 10px 18px 8px 18px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .kop-logo {
+                width: 3.0cm !important;
+                height: 2.7cm !important;
+                min-width: 3.0cm !important;
+                min-height: 2.7cm !important;
+                max-width: 3.0cm !important;
+                max-height: 2.7cm !important;
+                object-fit: contain !important;
+                flex-shrink: 0 !important;
+                display: block !important;
+            }
+            .kop-titles {
+                text-align: right !important;
+                width: 100% !important;
+                margin-left: 18px !important;
+                min-width: 0 !important;
+                display: block !important;
+            }
+            .kop-title-1 {
+                font-family: 'Times New Roman', Times, serif !important;
+                font-size: 21pt !important;
+                font-weight: 700 !important;
+                letter-spacing: -0.2px !important;
+                margin: 0 !important;
+                line-height: 1.1 !important;
+                text-transform: uppercase !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-2 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 13.5pt !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.2px !important;
+                margin: 2px 0 0 0 !important;
+                line-height: 1.15 !important;
+                text-transform: uppercase !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-3 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 12pt !important;
+                font-weight: 400 !important;
+                margin: 2px 0 0 0 !important;
+                letter-spacing: 0.1px !important;
+                line-height: 1.15 !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-title-4 {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 12pt !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.2px !important;
+                margin: 1px 0 0 0 !important;
+                text-transform: uppercase !important;
+                line-height: 1.15 !important;
+                color: #ffffff !important;
+                white-space: nowrap !important;
+            }
+            .kop-address {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 8.5pt !important;
+                text-align: center !important;
+                font-weight: 700 !important;
+                line-height: 1.25 !important;
+                margin-top: 3px !important;
+                padding: 0 15px !important;
+                color: #000000 !important;
+                letter-spacing: -0.15px !important;
+                white-space: nowrap !important;
+                display: block !important;
+            }
+            .kop-divider {
+                border-top: 2.5px solid #000 !important;
+                border-bottom: 1px solid #000 !important;
+                height: 3.5px !important;
+                margin-top: 3px !important;
+                margin-bottom: 12px !important;
+                display: block !important;
+            }
+            .meeting-body {
+                padding: 0 16mm !important;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .kop-header {
+                margin: -0.5cm -18mm 14px -18mm !important;
+            }
+            .kop-title-1 {
+                font-size: 14pt !important;
+                white-space: normal !important;
+            }
+            .kop-title-2 {
+                font-size: 11pt !important;
+                white-space: normal !important;
+            }
+            .kop-title-3, .kop-title-4 {
+                font-size: 9pt !important;
+                white-space: normal !important;
+            }
+            .kop-logo {
+                width: 2.4cm !important;
+                height: 2.1cm !important;
+            }
+            .kop-titles {
+                margin-left: 10px !important;
+            }
+            .kop-address {
+                white-space: normal !important;
+                font-size: 7.5pt !important;
+                line-height: 1.15;
             }
         }
     </style>
@@ -210,36 +367,27 @@
         if (str_contains(strtolower($notulisJabatan), 'sekretaris') && !str_contains(strtolower($notulisJabatan), 'banyuasin')) {
             $notulisJabatan .= ' Banyuasin';
         }
-
-        $alamatKantor = $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung, Kecamatan Banyuasin III, Kabupaten Banyuasin - Sumatera Selatan (30914)';
-        if (!\Illuminate\Support\Str::startsWith($alamatKantor, 'Sekretariat:')) {
-            $alamatKantor = 'Sekretariat: ' . $alamatKantor;
-        }
     @endphp
 
-    <!-- Kop Surat PWI Banyuasin -->
-    <div class="kop-wrapper">
-        <div class="kop-surat">
-            <div class="kop-logo-box">
-                <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.webp') }}" 
-                     alt="Logo PWI" 
-                     class="kop-logo" 
-                     onerror="this.onerror=null; this.src='{{ asset('assets/images/pwi-logo.png') }}';">
+    <!-- Kop Surat Resmi PWI Banyuasin (Sama Persis seperti Template Surat) -->
+    <div class="kop-header kop-surat">
+        <div class="kop-box">
+            <img src="{{ $settings['logo_url'] ?? asset('assets/images/pwi-logo.webp') }}" alt="Logo PWI" class="kop-logo" onerror="this.onerror=null; this.src='{{ asset('assets/images/pwi-logo.png') }}';">
+            <div class="kop-titles">
+                <div class="kop-title-1">PERSATUAN WARTAWAN INDONESIA</div>
+                <div class="kop-title-2">PENGURUS KABUPATEN BANYUASIN</div>
+                <div class="kop-title-3">Central Executive Board</div>
+                <div class="kop-title-4">INDONESIAN JOURNALIST'S ASSOCIATION</div>
             </div>
-            <div class="kop-text-box">
-                <div class="kop-title-main">PERSATUAN WARTAWAN INDONESIA</div>
-                <div class="kop-title-sub">KABUPATEN BANYUASIN</div>
-                <div class="kop-address">
-                    {{ $alamatKantor }}
-                </div>
-                <div class="kop-contact">
-                    Telp: {{ $settings['no_telp'] ?? '0853-7799-1976' }} | Email: {{ $settings['email'] ?? 'sekretariat@pwiba.or.id' }}
-                </div>
-            </div>
-            <div class="kop-logo-box" aria-hidden="true"></div>
+        </div>
+        <div class="kop-address">
+            {{ str_replace([', Kecamatan', ', Kabupaten'], [' Kecamatan', ' Kabupaten'], $settings['alamat_kantor'] ?? 'Jalan Merdeka NO 3 RT 02 RW 02 Kelurahan Mulya Agung Kecamatan Banyuasin III Kabupaten Banyuasin - Sumatera Selatan (30914)') }}
         </div>
         <div class="kop-divider"></div>
     </div>
+
+    <!-- Meeting Body with standard margins -->
+    <div class="meeting-body">
 
     <!-- Title -->
     <div class="text-center mb-3">
@@ -354,6 +502,8 @@
         </div>
     </div>
 
+    </div> <!-- end meeting-body -->
+
 </div>
 
 <script>
@@ -366,13 +516,13 @@
         if (size === 'legal') {
             sheet.style.width = '216mm';
             sheet.style.minHeight = '356mm';
-            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            dynamicStyle.innerHTML = '@page { size: 216mm 356mm portrait; margin: 0.5cm 0 15mm 0; margin-top: 0.5cm; margin-bottom: 15mm; margin-left: 0; margin-right: 0; }';
             btnLegal.className = 'btn btn-primary btn-sm px-2.5 py-0 fw-bold';
             btnA4.className = 'btn btn-outline-secondary btn-sm px-2.5 py-0 fw-bold';
         } else {
             sheet.style.width = '210mm';
             sheet.style.minHeight = '297mm';
-            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 15mm 15mm 15mm; }';
+            dynamicStyle.innerHTML = '@page { size: A4 portrait; margin: 0.5cm 0 15mm 0; margin-top: 0.5cm; margin-bottom: 15mm; margin-left: 0; margin-right: 0; }';
             btnA4.className = 'btn btn-primary btn-sm px-2.5 py-0 fw-bold';
             btnLegal.className = 'btn btn-outline-secondary btn-sm px-2.5 py-0 fw-bold';
         }
