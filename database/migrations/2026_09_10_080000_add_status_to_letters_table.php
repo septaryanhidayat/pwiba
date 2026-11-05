@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('letters', function (Blueprint $table) {
-            $table->string('status', 20)->default('published')->after('jenis_surat');
-        });
+        if (! Schema::hasColumn('letters', 'status')) {
+            Schema::table('letters', function (Blueprint $table) {
+                $table->string('status', 20)->default('published')->after('jenis_surat');
+            });
+        }
     }
 
     /**
