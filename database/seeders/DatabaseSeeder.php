@@ -1448,6 +1448,9 @@ bersama jajaran pengurus pusat dan diikuti secara langsung maupun daring oleh ja
             ]);
         }
 
+        // 10.1. Laporan Keuangan Kegiatan (Fitur Baru Pembukuan Kas Masuk & Keluar)
+        $this->call(FinancialReportSeeder::class);
+
         // 11. Inboxes (Buku Tamu Publik)
         $inboxes = [
             [

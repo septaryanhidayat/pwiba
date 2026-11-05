@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\ChairmanPostController;
 use App\Http\Controllers\Admin\ChairmanProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FinancialReportController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\IncomingLetterController;
@@ -131,6 +132,17 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::put('/notulen-rapat/{id}', [MeetingMinuteController::class, 'update'])->name('meetings.update');
     Route::delete('/notulen-rapat/{id}', [MeetingMinuteController::class, 'destroy'])->name('meetings.destroy');
     Route::get('/notulen-rapat/{id}/cetak', [MeetingMinuteController::class, 'print'])->name('meetings.print');
+
+    // Modul Laporan Keuangan Kegiatan PWI
+    Route::get('/laporan-keuangan', [FinancialReportController::class, 'index'])->name('financial-reports.index');
+    Route::get('/laporan-keuangan/tambah', [FinancialReportController::class, 'create'])->name('financial-reports.create');
+    Route::get('/laporan-keuangan/create', [FinancialReportController::class, 'create']);
+    Route::post('/laporan-keuangan', [FinancialReportController::class, 'store'])->name('financial-reports.store');
+    Route::get('/laporan-keuangan/{id}', [FinancialReportController::class, 'show'])->name('financial-reports.show');
+    Route::get('/laporan-keuangan/{id}/edit', [FinancialReportController::class, 'edit'])->name('financial-reports.edit');
+    Route::put('/laporan-keuangan/{id}', [FinancialReportController::class, 'update'])->name('financial-reports.update');
+    Route::delete('/laporan-keuangan/{id}', [FinancialReportController::class, 'destroy'])->name('financial-reports.destroy');
+    Route::get('/laporan-keuangan/{id}/cetak', [FinancialReportController::class, 'print'])->name('financial-reports.print');
 
     // Modul Buku Tamu / Inbox
     Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');

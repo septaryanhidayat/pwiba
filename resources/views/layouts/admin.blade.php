@@ -249,7 +249,15 @@
                         <i class="fa-solid fa-clipboard-check text-sm w-4 text-emerald-400"></i>
                         <span>Notulen & Absensi</span>
                     </div>
-                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold {{ request()->is('admin/notulen-rapat*') ? 'bg-amber-400 text-slate-950' : 'bg-emerald-500/20 text-emerald-300' }}">BARU</span>
+                </a>
+
+                <!-- 3.1. Modul Laporan Keuangan Kegiatan PWI -->
+                <a href="{{ route('admin.financial-reports.index') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all {{ request()->is('admin/laporan-keuangan*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/40 border-l-4 border-amber-400' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-file-invoice-dollar text-sm w-4 text-amber-400"></i>
+                        <span>Laporan Keuangan</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold {{ request()->is('admin/laporan-keuangan*') ? 'bg-amber-400 text-slate-950' : 'bg-emerald-500/20 text-emerald-300' }}">BARU</span>
                 </a>
 
                 <!-- 4. Modul Persuratan (Group) -->
